@@ -202,7 +202,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                             }elseif ($data->filter->searched) {
                                 ?>
                                 <div class="rmnotice" style="max-width: 80%;">
-                            <?php echo wp_kses_post((string)RM_UI_Strings::get('MSG_NO_SUBMISSION_MATCHED')); ?>
+                            <?php esc_html_e('No payments matched your search', 'custom-registration-form-builder-with-submission-manager'); ?>
                             </div>
                         <?php
                         } else {

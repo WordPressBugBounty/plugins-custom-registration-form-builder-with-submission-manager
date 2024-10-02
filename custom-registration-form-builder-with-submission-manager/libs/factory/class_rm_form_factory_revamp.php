@@ -42,6 +42,7 @@ final class RM_Form_Factory_Revamp {
         $form->rows = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_rows WHERE form_id = %d ORDER BY page_no, row_order ASC", $form_id));
         $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d", $form_id), OBJECT_K);
         $db_data = array();
+        $service = new RM_Front_Form_Service();
         $user_email = null;
         $username = null;
         $password = null;
@@ -179,9 +180,10 @@ final class RM_Form_Factory_Revamp {
                     // Checking username field
                     else if($form->fields[$field_id]->field_type == 'Username') {
                         if(isset($sub_data['username'])) {
-                            $username = sanitize_user($sub_data['username']);
-                            if($username != $sub_data['username']) {
-                                array_push($errors, esc_html__('Username contains invalid characters','custom-registration-form-builder-with-submission-manager'));
+                            $username = sanitize_user($sub_data['username'], true);
+                            $username_character_error = RM_Utilities::validate_username_characters($username,$form_id);
+                            if(!empty($username_character_error)) {
+                                array_push($errors, $username_character_error);
                             }
                             $data_block->label = $form->fields[$field_id]->field_label;
                             $data_block->value = $username;
@@ -567,6 +569,11 @@ final class RM_Form_Factory_Revamp {
                                 $user_meta_fields[$form->fields[$field_id]->field_options->field_meta_add] = $data_block->value;
                             }
 
+                            // Adding WC user meta
+                            if(class_exists('WooCommerce')) {
+                                $service->save_wc_meta($form_id, $db_data, $user_email);
+                            }
+
                             if(absint($form->fields[$field_id]->field_options->field_is_required) == 1 && (!isset($sub_data[$field_name]) || empty($sub_data[$field_name]))) {
                                 array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
                             }
@@ -669,7 +676,6 @@ final class RM_Form_Factory_Revamp {
                 $rm_email = new RM_Email();
                 $submission = new RM_Submissions();
                 $submission->load_from_db($sub_id);
-                $service = new RM_Services();
 
                 // Registering user if this is registration form
                 if(absint($form->form_type) == RM_REG_FORM && !is_user_logged_in()) {
@@ -737,7 +743,9 @@ final class RM_Form_Factory_Revamp {
                             $params->email = $user_email;
                             $params->sub_id = $sub_id;
                             $params->form_id = $form_id;
-                            RM_Email_Service::notify_user_on_activation($params);
+                            $send_act_email = get_option('rm_option_send_act_email');
+                            if($send_act_email == 'yes' || $send_act_email == false)
+                                RM_Email_Service::notify_user_on_activation($params);
                         } elseif($user_setting == '') {
                             $params = new stdClass();
                             $user_service = new RM_User_Services();
@@ -746,7 +754,9 @@ final class RM_Form_Factory_Revamp {
                             $params->username = $username;
                             $params->link = $link;
                             $params->form_id = $form_id;
-                            RM_Email_Service::notify_admin_to_activate_user($params);
+                            $send_act_email = get_option('rm_option_send_act_email');
+                            if($send_act_email == 'yes' || $send_act_email == false)
+                                RM_Email_Service::notify_admin_to_activate_user($params);
                         }
                     } elseif($form->form_options->user_auto_approval == 'yes' && $pricing_details->total_price <= 0) {
                         do_action('rm_user_activated',$user_id);
@@ -2154,8 +2164,8 @@ final class RM_Form_Factory_Revamp {
                 'passupper' => esc_html__("Password must contain an uppercase letter", 'custom-registration-form-builder-with-submission-manager'),
                 'passnumber' => esc_html__("Password must contain a number", 'custom-registration-form-builder-with-submission-manager'),
                 'passspecial' => esc_html__("Password must contain a special character", 'custom-registration-form-builder-with-submission-manager'),
-                'passsmin' => esc_html__("Password must be at least %s characters long", 'custom-registration-form-builder-with-submission-manager'),
-                'passsmax' => esc_html__("Password must not be longer than %s characters", 'custom-registration-form-builder-with-submission-manager'),
+                'passmin' => esc_html__("Password must be at least %s characters long", 'custom-registration-form-builder-with-submission-manager'),
+                'passmax' => esc_html__("Password must not be longer than %s characters", 'custom-registration-form-builder-with-submission-manager'),
                 'emailexists' => esc_html__("A user with this email already exists", 'custom-registration-form-builder-with-submission-manager'),
                 'emailformat' => esc_html__("Incorrect email format", 'custom-registration-form-builder-with-submission-manager'),
                 'urlformat' => esc_html__("Incorrect website/URL format", 'custom-registration-form-builder-with-submission-manager'),

@@ -281,8 +281,8 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                     </div>
                     <div class="rm-grid-card-content difl">
                         <?php $user = get_user_by( 'email', $login_detail->email ); ?>
-                        <div class="dbfl"><?php echo ($user)?esc_html($user->display_name):esc_html($login_detail->email); ?></div>
-                        <div class="rm-grid-card-content-subtext dbfl"><?php echo esc_html(date('F d Y @ g:i a',strtotime($login_detail->time))) ?></div></div>
+                        <div class="dbfl"><?php echo $user ? esc_html((string)$user->display_name) : esc_html((string)$login_detail->email); ?></div>
+                        <div class="rm-grid-card-content-subtext dbfl"><?php echo esc_html(date('F d Y @ g:i a',strtotime((string)$login_detail->time))); ?></div></div>
                     </a>
                 </div>
                 <?php

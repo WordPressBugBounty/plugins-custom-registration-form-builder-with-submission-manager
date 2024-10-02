@@ -224,7 +224,7 @@ $form->addElement(new Element_HTML('<div id="rm_advance_field_settings_container
     $rm_date_format = !$data->model->field_options->date_format ? "mm/dd/yy" : $data->model->field_options->date_format;
     $rm_date_format_label = RM_UI_Strings::get('LABEL_DATE_FORMAT');
     //Preprocess this special help text
-    $rm_date_format_helptext = sprintf(RM_UI_Strings::get('HELP_ADD_FIELD_DATEFORMAT'),"href='javascript:void(0)' onclick='jQuery(\"#id_rm_dateformat_help\").slideToggle()'");
+    $rm_date_format_helptext = sprintf(RM_UI_Strings::get('HELP_ADD_FIELD_DATEFORMAT'),"onclick='jQuery(\"#id_rm_dateformat_help\").slideToggle()'");
 
 $rm_date_format_fieldhtml = '<div class="rmrow" id="rm_field_dateformat_container"><div class="rmfield" for="rm_field_dateformat"><label><b>'.$rm_date_format_label .'</b></label></div><div class="rminput"><input type="text" name="date_format" id="rm_field_dateformat" class="rm_static_field rm_text_type_field rm_input_type" value="'.$rm_date_format.'" onkeyup="rm_test_date_format()" onchange="rm_test_date_format()" data-rmvaliddateformat="true">'.
                             '<div id="id_rm_dateformat_test"></div><div id="id_rm_dateformat_help" style="display: none; padding: 20px 0px;">'.
@@ -269,9 +269,9 @@ $form->addElement(new Element_Checkbox("<b>" . RM_UI_Strings::get('LABEL_IS_UNIQ
 $form->addElement(new Element_HTML('</div>'));
 
 $meta_options = array(
-    'do_not_add' => __('Do not add','custom-registration-form-builder-with-submission-manager'),
-    'existing_user_meta' => __('Associate with Existing User Meta Keys','custom-registration-form-builder-with-submission-manager'),
-    'define_new_user_meta' => __('Define New User Meta Key','custom-registration-form-builder-with-submission-manager')
+    'do_not_add' => esc_html__('Do Not Add','custom-registration-form-builder-with-submission-manager'),
+    'existing_user_meta' => esc_html__('Associate with Existing User Meta Key','custom-registration-form-builder-with-submission-manager'),
+    'define_new_user_meta' => esc_html__('Define New User Meta Key','custom-registration-form-builder-with-submission-manager')
 );
 if(empty($data->model->field_options->field_user_profile)){
     if(!empty($data->model->field_options->field_meta_add)){

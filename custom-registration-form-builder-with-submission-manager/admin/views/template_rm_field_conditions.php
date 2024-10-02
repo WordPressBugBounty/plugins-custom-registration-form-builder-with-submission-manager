@@ -280,7 +280,7 @@ div#ui-datepicker-div {
                                                             ?>
                                                             <input type="<?php echo esc_attr($field_type);?>" class="<?php echo esc_attr($calender_class);?><?php echo ($condition['op']=='_blank' || $condition['op']=='_not_blank')?'rm-block-input':''; ?>" value="<?php echo htmlspecialchars($values); ?>" name="values[]" placeholder="Value"  maxlength="50" />
                                                             <?php if($sel_field_type == 'date'):?>
-                                                            <script>initialiseCalender('<?php echo esc_attr($cl_active_class);?>', '<?php echo esc_html($date_format);?>', '<?php $values;?>');</script>
+                                                            <script>jQuery(document).ready(function() { initialiseCalender('<?php echo esc_attr($cl_active_class);?>', '<?php echo esc_html($date_format);?>', '<?php $values;?>'); });</script>
                                                             <?php endif;?>
                                                         </div>
                                                     </div></div></div>

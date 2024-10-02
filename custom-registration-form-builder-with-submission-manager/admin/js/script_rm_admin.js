@@ -461,7 +461,7 @@
                 var object = RM_jQ(".rm_field_value, .rm_options_type_fields, #rm_field_is_read_only-0").not("#rm_field_default_value_textarea");
                 break;
             case 'Checkbox' :
-                var object = RM_jQ(".rm_text_type_field, .rm_field_value, .rm_textarea_type, #rm_field_default_value").not("#rm_field_value_options_sortable, #rm_field_helptext_container");
+                var object = RM_jQ(".rm_text_type_field, .rm_field_value, .rm_textarea_type, #rm_field_default_value, #rm_field_default_value_textarea").not("#rm_field_value_options_sortable, #rm_field_helptext_container");
                 var val_field = RM_jQ("#rm_field_value_options_sortable");
                 RM_jQ('#rm_basic_field_layout').show();
                 RM_jQ(".rm_check").show();

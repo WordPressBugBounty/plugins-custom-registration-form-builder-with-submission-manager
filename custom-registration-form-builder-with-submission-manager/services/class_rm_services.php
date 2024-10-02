@@ -1149,6 +1149,13 @@ class RM_Services {
         else
             return false;
     }
+
+    public function get_all_form_fields_for_task($form_id) {
+        if ((int)$form_id)
+            return RM_DBManager::get_fields_by_form_id_for_task($form_id);
+        else
+            return false;
+    }
     
     public function get_all_form_fields_by_rows($form_id) {
         if ((int) $form_id)

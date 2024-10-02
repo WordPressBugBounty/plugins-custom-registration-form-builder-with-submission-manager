@@ -80,7 +80,7 @@ class RM_Chronos_Task_Controller
         }
         
         $data->init_field_config = $this->service->get_field_initial_config($data->task);
-        $data->fields = $this->service->get_all_form_fields($data->form_id);//$editor_service->add_email($data->form_id);        
+        $data->fields = $this->service->get_all_form_fields_for_task($data->form_id);//$editor_service->add_email($data->form_id);        
         //$data->task_data = null;
         $data->page_url_base = admin_url("admin.php?page=rm_ex_chronos_task_manager");
         

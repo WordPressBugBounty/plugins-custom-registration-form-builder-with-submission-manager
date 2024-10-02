@@ -439,8 +439,34 @@ function rmHelpTextOut2(a) {
     jQuery(a).siblings(".rmform-note").fadeOut('fast');
 }
 
-//Radio and checkbox field Field JS
+function rmInitGoogleApi() {
+    var rm_init_map_containers = setInterval(function(){
+        if (typeof rmInitMap === 'function') {
+            var rm_all_maps = jQuery(".rm-map-controls-uninitialized");
+            var i;
+            var curr_id = '';
+            if(rm_all_maps.length>0) clearInterval(rm_init_map_containers);
+            for (i = 0; i < rm_all_maps.length; i++) { 
+            if(jQuery(rm_all_maps[i]).is(':visible')){
+            curr_id = rm_all_maps[i].getAttribute("id");
+            jQuery(rm_all_maps[i]).removeClass("rm-map-controls-uninitialized");
+            rmInitMap(curr_id);
+            }
+        }
+    }
+    }, 100);
+}
 
+function rm_append_field(tag, element_id) {
+    jQuery('#' + element_id).append("<" + tag + " class='appendable_options'>" + jQuery('#' + element_id).children(tag + ".appendable_options").html() + "</" + tag + ">");
+}
+
+function rm_delete_appended_field(element, element_id) {
+    if (jQuery(element).parents("#".element_id).children(".appendable_options").length > 1)
+        jQuery(element).parent(".appendable_options").remove();
+}
+
+//Radio and checkbox field Field JS
 document.addEventListener("DOMContentLoaded", function() {
   const rmFormFieldSelector = document.querySelectorAll('.rmform-field-vertical-row');
   

@@ -248,11 +248,7 @@ class RM_Email
             $phpmailer->Username = $options->get_value_of('smtp_user_name');
             $phpmailer->Password = $options->get_value_of('smtp_password');
             $phpmailer->SMTPSecure = ($options->get_value_of('smtp_encryption_type') == 'enc_tls') ? 'tls' : (($options->get_value_of('smtp_encryption_type') == 'enc_ssl') ? 'ssl' : '' );
-            if(defined('REGMAGIC_ADDON')){
-                $phpmailer->From = $options->get_value_of('smtp_senders_email');
-            } else {
-                $phpmailer->From = $options->get_value_of('smtp_user_name');
-            }
+            $phpmailer->From = $options->get_value_of('smtp_senders_email');
             if(!empty($this->from_name))	
                 $phpmailer->FromName = $this->from_name;
             else
@@ -270,10 +266,7 @@ class RM_Email
         }
 
         $phpmailer->addReplyTo($phpmailer->From, $phpmailer->FromName);
-        
-        
-        
-        
+
         //if(empty($phpmailer->AltBody))
             //$phpmailer->AltBody = RM_Utilities::html_to_text_email($phpmailer->Body);
 

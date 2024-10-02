@@ -93,6 +93,7 @@ class RM_Options
         $this->default['enable_twitter'] = 'no';
         $this->default['enable_mailchimp'] = 'no';
         $this->default['send_password'] = 'yes';
+        $this->default['send_act_email'] = 'yes';
         $this->default['allowed_file_types'] = 'jpg|jpeg|png|gif|doc|pdf|docx|txt';
         $this->default['file_prefix'] = '';
         $this->default['file_size'] = 0;
@@ -249,6 +250,7 @@ class RM_Options
             'mailchimp_double_optin' => 'sanitize_checkbox',
             'google_map_key' => null,
             'send_password' => 'sanitize_checkbox',
+            'send_act_email' => 'sanitize_checkbox',
             'allowed_file_types' => 'sanitize_allowed_file_types',
             'file_prefix' => null,
             'file_size' => null,

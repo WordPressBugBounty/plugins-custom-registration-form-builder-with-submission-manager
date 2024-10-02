@@ -334,10 +334,10 @@ class RM_Sanitizer
         switch($key)
         {
             case 'subheading':
-                $value = wp_kses_post((string)$value);
+                $value = htmlspecialchars(sanitize_textarea_field((string)$value));
                 break;
             default:
-                $value = sanitize_text_field($value);
+                $value = htmlspecialchars(sanitize_text_field($value));
                 break;
         }
         return $value;

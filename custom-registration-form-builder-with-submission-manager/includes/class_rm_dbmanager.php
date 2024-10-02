@@ -230,6 +230,22 @@ class RM_DBManager
 
         return $results;
     }
+
+    public static function get_fields_by_form_id_for_task($form_id) {
+        global $wpdb;
+
+        $table_name = RM_Table_Tech::get_table_name_for('FIELDS');
+
+        $foreign_key = RM_Table_Tech::get_unique_id_name('FORMS');
+
+        $results = $wpdb->get_results($wpdb->prepare("SELECT * from `$table_name` where `$foreign_key`=%d and `field_type` != %s ORDER BY `page_no` ASC, `field_order` ASC", $form_id, 'Price'));
+
+        if ($results === NULL || count($results) === 0) {
+            return false;
+        }
+
+        return $results;
+    }
     
     public static function get_rows_fields_by_form_id($form_id) {
         global $wpdb;

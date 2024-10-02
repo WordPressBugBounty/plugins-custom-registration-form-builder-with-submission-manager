@@ -923,6 +923,9 @@ class RM_UI_Strings {
             case 'LABEL_SEND_PASS_EMAIL':
                 return __('Send Username and Password to the User through Email', 'custom-registration-form-builder-with-submission-manager');
 
+            case 'LABEL_ACTIVATION_EMAIL':
+                return __('Send Account Activation Email to the User', 'custom-registration-form-builder-with-submission-manager');
+
             case 'LABEL_REGISTER_APPROVAL':
                 return __('WordPress Registration Auto Approval', 'custom-registration-form-builder-with-submission-manager');
 
@@ -1871,6 +1874,9 @@ class RM_UI_Strings {
 
             case 'HELP_OPTIONS_USER_SEND_PASS':
                 return sprintf(__("Send users an email with their selected username and password after successful registration. <a target='_blank' class='rm-more' href='%s'>More</a>", 'custom-registration-form-builder-with-submission-manager'),'https://registrationmagic.com/knowledgebase/user-accounts-2/#htuserpassemail');
+
+            case 'HELP_OPTIONS_USER_ACT_EMAIL':
+                return sprintf(__("Send users email on activation of their account. <a target='_blank' class='rm-more' href='%s'>More</a>", 'custom-registration-form-builder-with-submission-manager'),'https://registrationmagic.com/knowledgebase/user-accounts-2/#htuserpassemail');
 
             case 'MSG_CREATE_PRICE_FIELD':
                 return __("First Create a product from Products > Add New", 'custom-registration-form-builder-with-submission-manager');

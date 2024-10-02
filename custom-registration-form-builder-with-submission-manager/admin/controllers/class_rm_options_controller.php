@@ -41,6 +41,7 @@ class RM_Options_Controller
 
             $options['auto_generated_password'] = isset($request->req['auto_generated_password']) ? "yes" : null;
             $options['send_password'] = isset($request->req['send_password']) ? "yes" : null;
+            $options['send_act_email'] = isset($request->req['send_act_email']) ? "yes" : null;
             if(defined('REGMAGIC_ADDON')) {
                 $options['user_auto_approval'] = isset($request->req['user_auto_approval']) ? $request->req['user_auto_approval'] : null;
                 $options['acc_act_link_expiry'] = $request->req['acc_act_link_expiry'];

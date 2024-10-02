@@ -241,7 +241,7 @@ function rm_toggle_visiblity_layouts(element) {
 }
 
 function rm_delete_appended_field(element, element_id) {
-    if (jQuery(element).parents("#".element_id).children(".appendable_options").length > 1)
+    if(jQuery(element).parents("#".element_id).children(".appendable_options").length > 1)
         jQuery(element).parent(".appendable_options").remove();
 }
 

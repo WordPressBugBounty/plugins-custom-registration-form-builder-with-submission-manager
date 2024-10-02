@@ -217,11 +217,12 @@ class Reg_Magic_Block {
         if (defined('REGMAGIC_ADDON')) {
             wp_register_style('rm_magic_front_style_addon', RM_ADDON_BASE_URL . 'public/css/style_rm_front_end.css');
         }
+        wp_register_style('rm-form-revamp-style', RM_BASE_URL . 'public/css/rm-form-common-utility.css');
         wp_register_script('rm-block-editor', plugins_url('rm-editor.js', __FILE__), array('jquery'), false, true);
         if (defined('REGMAGIC_ADDON')) {
-            wp_register_style('reg-magic-gutenberg', RM_BASE_URL . 'blocks/reg-magic-gutenberg-style.css', array('rm_blocks_custom_tabs', 'rm_magic_front_style', 'rm_magic_front_style_addon'), $this->version, 'all');
+            wp_register_style('reg-magic-gutenberg', RM_BASE_URL . 'blocks/reg-magic-gutenberg-style.css', array('rm_blocks_custom_tabs', 'rm_magic_front_style', 'rm_magic_front_style_addon', 'rm-form-revamp-style'), $this->version, 'all');
         } else {
-            wp_register_style('reg-magic-gutenberg', RM_BASE_URL . 'blocks/reg-magic-gutenberg-style.css', array('rm_blocks_custom_tabs', 'rm_magic_front_style'), $this->version, 'all');
+            wp_register_style('reg-magic-gutenberg', RM_BASE_URL . 'blocks/reg-magic-gutenberg-style.css', array('rm_blocks_custom_tabs', 'rm_magic_front_style', 'rm-form-revamp-style'), $this->version, 'all');
         }
         wp_register_script(
                 'rm_ctabs_script',
@@ -291,7 +292,7 @@ class Reg_Magic_Block {
         $fid = isset($atts['fid']) ? absint($atts['fid']) : 0;
         ob_start();
         if (!empty($fid)) {
-            echo do_shortcode('[RM_Form id="' . $fid . '"]');
+            echo do_shortcode('[RM_Forms id="' . $fid . '"]');
         } else {
             echo '<div class="rm-gutenberg-empty-content">' . esc_html__('Please Select Form', 'custom-registration-form-builder-with-submission-manager') . '</div>';
         }

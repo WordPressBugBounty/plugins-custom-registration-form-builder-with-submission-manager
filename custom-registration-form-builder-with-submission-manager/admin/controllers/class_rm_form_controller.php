@@ -355,7 +355,6 @@ class RM_Form_Controller {
          //echo "<pre>",var_dump($forms_data);die;
           $front_user_data=$service->get_all('FRONT_USERS',0,0);
             $paypa_fields_data=$service->get_all('PAYPAL_FIELDS',0,0);
-
            $xmlDoc = new DOMDocument('1.0');
 
     //create the root element
@@ -383,6 +382,7 @@ class RM_Form_Controller {
                     "form_id"=>(int)$forms->form_id
                 );
 
+            $paypal_fields = array();
              $fields_data  = RM_DBManager::  get("FIELDS",$where, array("%d"), 'results', $offset = 0, $limit = 9999999, $column = '*', $sort_by = '', $descending = false);
              $rows_data  = RM_DBManager::  get("ROWS",$where, array("%d"), 'results', $offset = 0, $limit = 9999999, $column = '*', $sort_by = '', $descending = false);
              $submissions_data  = RM_DBManager::  get("SUBMISSIONS",$where, array("%d"), 'results', $offset = 0, $limit = 9999999, $column = '*', $sort_by = '', $descending = false);
@@ -402,6 +402,9 @@ class RM_Form_Controller {
                   $xmlDoc->createElement('FIELDS'));
                 foreach($forms as $form_attr_name=>$value)
                 {
+                    if($form_attr_name == 'field_type' && $value == 'Price') {
+                        $paypal_fields[] = $forms->field_value;
+                    }
                     $form_attr_name=  htmlspecialchars($form_attr_name);
                   $value=  htmlspecialchars($value);
                    $temp->appendChild(
@@ -528,11 +531,14 @@ class RM_Form_Controller {
 
             }
             }
-
+            
             if(isset($paypa_fields_data))
             {
             foreach($paypa_fields_data as $forms)
-            {   
+            {
+                 if(!in_array($forms->field_id, $paypal_fields)) {
+                    continue;
+                 }
                 //echo "<pre>", var_dump($xml->startElement("form"));
               $tutTag = $root->appendChild(
                   $xmlDoc->createElement('PAYPAL_FIELDS'));

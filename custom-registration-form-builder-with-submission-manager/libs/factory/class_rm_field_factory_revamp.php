@@ -1186,6 +1186,9 @@ final class RM_Field_Factory_Revamp {
                 'id' => $field->field_type . '_' . $field->field_id."_other",
                 'onchange' => 'rmToggleOtherText(this)'
             );
+            if(isset($field->field_options->field_css_class)) {
+                $other_radio_attributes['class'] .= " ".$field->field_options->field_css_class;
+            }
             echo "<label class='rmform-check' for='".esc_attr($other_radio_attributes['id'])."'>";
             echo "<input ".wp_kses_post($this->print_attributes($other_radio_attributes)).">";
             $secondary_label_attributes['id'] = 'label_id_'.$field->field_id.'_'.$count;
@@ -1367,6 +1370,7 @@ final class RM_Field_Factory_Revamp {
             'readonly'=>'readonly',
             //'date_format'=> isset($field->field_options->date_format) ? $field->field_options->date_format : 'mm/dd/yy',
             'data-dateformat' => isset($field->field_options->date_format) ? $field->field_options->date_format : 'mm/dd/yy',
+            'data-fieldtype' => $field->field_type,
             'aria-labelledby' => $label_id,
             'id' => $input_id
         );
@@ -1571,7 +1575,7 @@ final class RM_Field_Factory_Revamp {
         echo $label;
         echo "<select " . $this->print_attributes($attributes) . " >";
         foreach(RM_Utilities_Revamp::get_countries() as $name => $country) {
-            if ( $meta_value == $country){
+            if($meta_value == $country) {
                 echo "<option value='$name' selected> $country </option>";
             } else {
                 echo "<option value='$name'> $country </option>";
@@ -2139,7 +2143,7 @@ final class RM_Field_Factory_Revamp {
                         $attributes['aria-required'] = 'true';
                     }
                     echo "<select " . $this->print_attributes($attributes) . " >";
-                    foreach(RM_Utilities_Revamp::get_countries() as $country) {
+                    foreach(RM_Utilities_Revamp::get_countries() as $ccode => $country) {
                         if (isset($meta_value['country']) && $meta_value['country'] == $country) {
                             $attributes['checked'] = 'checked';
                         }
@@ -2165,8 +2169,8 @@ final class RM_Field_Factory_Revamp {
                     //     $attributes['checked'] = 'checked';
                     // }
                     echo "<select " . $this->print_attributes($attributes) . " >";
-                    echo "<option value='United States'> United States </option>";
-                    echo "<option value='Canada'> Canada </option>";
+                    echo "<option value='US'>".esc_html__('United States','custom-registration-form-builder-with-submission-manager')."</option>";
+                    echo "<option value='Canada'>".esc_html__('Canada','custom-registration-form-builder-with-submission-manager')."</option>";
                     echo "</select>";
                 } else {
                     $countries = explode(",", $field->field_options->field_ca_country_limited);
@@ -2176,7 +2180,7 @@ final class RM_Field_Factory_Revamp {
                     }
                     echo "<select " . $this->print_attributes($attributes) . " >";
                     foreach($countries as $country) {
-                        echo "<option value=\"$country\"> $country </option>";
+                        echo "<option value=\"$country\">$country</option>";
                     }
                     echo "</select>";
                 }
@@ -2207,7 +2211,10 @@ final class RM_Field_Factory_Revamp {
                     $attributes['placeholder'] = $field_ca_zip_label;
                 }
                 $attributes['value'] = isset($meta_value['zip']) ? $meta_value['zip'] : "";
-
+                if(isset($attributes['onchange'])) {
+                    unset($attributes['onchange']);
+                }
+                
                 if (isset($field->field_options->field_ca_zip_req) && $field->field_options->field_ca_zip_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
@@ -2258,7 +2265,7 @@ final class RM_Field_Factory_Revamp {
                         }
                         echo "<select " . $this->print_attributes($attributes) . " >";
                         foreach(RM_Utilities_Revamp::get_countries() as $country) {
-                            echo "<option value=\"$country\"> $country </option>";
+                            echo "<option value=\"$country\">$country</option>";
                         }
                         echo "</select>";
                     } elseif ( isset($field->field_options->ca_state_type) && $field->field_options->ca_state_type === "america" ) {
@@ -2276,8 +2283,8 @@ final class RM_Field_Factory_Revamp {
                             $attributes['aria-required'] = 'true';
                         }   
                         echo "<select " . $this->print_attributes($attributes) . " >";
-                        echo "<option value='US'> United States </option>";
-                        echo "<option value='Canada'> Canada </option>";
+                        echo "<option value='US'>".esc_html__('United States','custom-registration-form-builder-with-submission-manager')."</option>";
+                        echo "<option value='Canada'>".esc_html__('Canada','custom-registration-form-builder-with-submission-manager')."</option>";
                         echo "</select>";
                     } else {
                         $countries = explode(",", $field->field_options->field_ca_country_limited);
@@ -2319,7 +2326,9 @@ final class RM_Field_Factory_Revamp {
                     $attributes['name'] = "Address_".$field->field_id."[zip]";
                     $attributes['aria-labelledby'] = $label_id;
                     $attributes['value'] = isset($meta_value['zip']) ? $meta_value['zip'] : '';
-
+                    if(isset($attributes['onchange'])) {
+                        unset($attributes['onchange']);
+                    }
                     $error_span_id = str_replace(array("[","]"),"",strtolower($attributes['name']))."-error";
 
                     if (isset($field->field_options->field_ca_label_as_placeholder) && $field->field_options->field_ca_label_as_placeholder == '1'){

@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
                 jQuery(this).siblings('span.rmform-error-message').text('');
                 jQuery(this).attr("aria-invalid","false");
             }
-        } 
+        }
     });
 
     if(typeof bday_min_max != 'undefined') {

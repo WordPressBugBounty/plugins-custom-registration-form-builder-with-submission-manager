@@ -2738,7 +2738,7 @@ class RM_Utilities {
                 $max_len = $pw_rests->max_len;
         }
         
-        $regex = '[A-Za-z\d\W+]{' . $min_len . ',' . $max_len . '}';
+        $regex = '(?=.*[a-zA-Z\d\W+]).{' . $min_len . ',' . $max_len . '}';
         
         if(is_array($pw_rests->selected_rules)){
             if (in_array('PWR_UC', $pw_rests->selected_rules))
@@ -2749,6 +2749,7 @@ class RM_Utilities {
                 $regex = '(?=.*\W+)' . $regex;
         }   
 
+        $regex = '^' . $regex . '$';
         return $regex;
     }
     
