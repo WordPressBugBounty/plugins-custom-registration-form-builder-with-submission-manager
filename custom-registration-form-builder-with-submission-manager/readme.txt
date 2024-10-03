@@ -380,25 +380,15 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 
 == Screenshots ==
 
-1. WooCommerce Cart Integration with RegistrationMagic's Magic Popup.
-2. A simple user registration form with payment option.
-3. Login page using RegistrationMagic.
-4. RegistrationMagic's User Account area with WooCommerce integrated.
-5. A multi-page user registration form styled using RegistrationMagic's visual form editor.
-6. Forms Manager with options to sort, delete and edit forms.
-7. Individual Form Configuration.
-8. One of the form configuration panels.
-9. Form custom fields manager.
-10. Custom field settings. Here's an example of radio box.
-11. Submissions Manager. Data hidden to preserve privacy.
-12. Form Analytics. IPs hidden for privacy.
-13. Field Analytics.
-14. Pricing Manager.
-15. Attachments Manager.
-16. Email Broadcaster.
-17. Users Manager.
-18. User Roles Manager.
-19. Global Settings.
+1. All Forms - Card View
+2. All Forms - List View
+3. Fields Manager / Form Layout Editor
+4. Form Row Properties
+5. Form Dashboard
+6. User Manager
+7. Overview
+8. Sample Login Form
+9. Sample Registration Form
 
 == Changelog ==
 
