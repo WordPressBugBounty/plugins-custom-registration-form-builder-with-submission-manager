@@ -111,7 +111,7 @@ final class RM_Form_Factory_Revamp {
                             $data_block->meta = null;
                             $db_data[$field_id] = $data_block;
                             if(!is_user_logged_in()) {
-                                if(email_exists($user_email)) {
+                                if(email_exists($user_email) && absint($form->form_type) == RM_REG_FORM) {
                                     array_push($errors, esc_html__('A user with this email address already exists','custom-registration-form-builder-with-submission-manager'));
                                 }
                                 if(isset($form->fields[$field_id]->field_options->en_confirm_email) && $form->fields[$field_id]->field_options->en_confirm_email == 1) {

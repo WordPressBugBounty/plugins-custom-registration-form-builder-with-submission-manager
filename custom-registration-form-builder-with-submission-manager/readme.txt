@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 6.6
-Stable tag: 6.0.2.1
+Stable tag: 6.0.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -391,6 +391,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 9. Sample Registration Form
 
 == Changelog ==
+
+= 6.0.2.2: October 10, 2024 =
+* Fixed: Existing user error on contact form validation.
 
 = 6.0.2.1: October 2, 2024 =
 * Minor bug fixes.
@@ -1398,6 +1401,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * New: Aweber Integration.
 
 == Upgrade Notice ==
+
+= 6.0.2.2: October 10, 2024 =
+* Fixed: Existing user error on contact form validation.
 
 = 6.0.2.1: October 2, 2024 =
 * Minor bug fixes.
