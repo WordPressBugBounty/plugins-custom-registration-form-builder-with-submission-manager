@@ -592,7 +592,7 @@ class RM_Reports_Service extends RM_Services
         $form_data->form_name = $submissions[0]->form_name;
         $form_data->created_on = $submissions[0]->created_on;
         $pages = (array)maybe_unserialize($submissions[0]->form_options);
-        $pages = (array)$pages['form_pages'];
+        $pages = isset($pages['form_pages']) ? (array)$pages['form_pages'] : array();
         $form_data->total_pages = count($pages) ? count($pages) : 1;
         $form_data->registration_form = $submissions[0]->form_type ? 'Yes' : 'No';
         $form_data->payment_completed_count = $payment_completed[0]->payment_completed_count ? $payment_completed[0]->payment_completed_count : 0;
@@ -632,7 +632,7 @@ class RM_Reports_Service extends RM_Services
         if($submissions[0]->total_view > 0){
             $success_rate = round ( (($success[0]->success_submission / $submissions[0]->total_view) *100) , 2).'%';
         }
-        $data->avg_filling_time = round($submissions[0]->avg_filling_time, 2).'S';
+        $data->avg_filling_time = round(floatval($submissions[0]->avg_filling_time), 2).'S';
         $data->total_view = $submissions[0]->total_view;
         $data->success_rate = $success_rate;
         $data->total_fields = $fields_counts[0]->total_fields;

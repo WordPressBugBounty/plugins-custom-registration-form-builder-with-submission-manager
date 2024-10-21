@@ -3,7 +3,7 @@
 final class RM_Form_Factory_Revamp {
     public function __construct() {}
 
-    private function render_submit_button($form = null, $has_pages = false, $has_v3 = false, $v3_key = '') {
+    private function render_submit_button($form = null, $has_pages = false) {
         $form->form_options->form_submit_btn_label = empty($form->form_options->form_submit_btn_label) ? esc_html__('Submit', 'custom-registration-form-builder-with-submission-manager') : $form->form_options->form_submit_btn_label;
         $form->form_options->form_next_btn_label = empty($form->form_options->form_next_btn_label) ? esc_html__('Next', 'custom-registration-form-builder-with-submission-manager') : $form->form_options->form_next_btn_label;
         $form->form_options->form_prev_btn_label = empty($form->form_options->form_prev_btn_label) ? esc_html__('Prev', 'custom-registration-form-builder-with-submission-manager') : $form->form_options->form_prev_btn_label;
@@ -14,15 +14,9 @@ final class RM_Form_Factory_Revamp {
                 echo "<input type='button' id='rm-form-prev-btn' value='".wp_kses_post((string)$form->form_options->form_prev_btn_label)."' style='display:none'>";
             }
             echo "<input type='button' id='rm-form-next-btn' value='".wp_kses_post((string)$form->form_options->form_next_btn_label)."'>";
-            if($has_v3)
-                echo "<input type='submit' id='rm-form-submit-btn' value='".wp_kses_post((string)$form->form_options->form_submit_btn_label)."' class='g-recaptcha' data-sitekey='".wp_kses_post((string)$v3_key)."' data-callback='onSubmit' data-action='submit' style='display:none'>";
-            else
-                echo "<input type='submit' id='rm-form-submit-btn' value='".wp_kses_post((string)$form->form_options->form_submit_btn_label)."' style='display:none'>";
+            echo "<input type='submit' id='rm-form-submit-btn' value='".wp_kses_post((string)$form->form_options->form_submit_btn_label)."' style='display:none'>";
         } else {
-            if($has_v3)
-                echo "<input type='submit' id='rm-form-submit-btn' value='".wp_kses_post((string)$form->form_options->form_submit_btn_label)."' class='g-recaptcha' data-sitekey='{$v3_key}' data-callback='onSubmit' data-action='submit'>";
-            else
-                echo "<input type='submit' id='rm-form-submit-btn' value='".wp_kses_post((string)$form->form_options->form_submit_btn_label)."'>";
+            echo "<input type='submit' id='rm-form-submit-btn' value='".wp_kses_post((string)$form->form_options->form_submit_btn_label)."'>";
         }
         echo "</div>";
     }
@@ -597,6 +591,28 @@ final class RM_Form_Factory_Revamp {
             }
         }
 
+        //reCAPTCHA check
+        if(get_option('rm_option_enable_captcha') == 'yes') {
+            if(defined('REGMAGIC_ADDON') && $form->form_options->enable_captcha == 'no') {
+            } else {
+                if(!isset($sub_data["g-recaptcha-response"])) {
+                    array_push($errors, esc_html__('reCAPTCHA check failed','custom-registration-form-builder-with-submission-manager'));
+                } else {
+                    require_once(RM_BASE_DIR . "external/PFBC/Resources/recaptchalib.php");
+                    $captcha_ver = get_option('rm_option_recaptcha_v');
+                    if($captcha_ver == 'v2') {
+                        $pvt_key = get_option('rm_option_private_key');
+                    } elseif($captcha_ver == 'v3') {
+                        $pvt_key = get_option('rm_option_private_key3');
+                    }
+                    $re_resp = rm_recaptcha_check_answer($pvt_key, $_SERVER["REMOTE_ADDR"], sanitize_text_field($sub_data["g-recaptcha-response"]));
+                    if(!$re_resp->is_valid) {
+                        array_push($errors, esc_html__('reCAPTCHA check failed','custom-registration-form-builder-with-submission-manager'));
+                    }
+                }
+            }
+        }
+
         // Checking if there are any validation errors
         if(!empty($errors)) {
             return $errors;
@@ -1044,17 +1060,18 @@ final class RM_Form_Factory_Revamp {
             $theme = get_option('rm_option_theme','default');
         }
         if(in_array($theme,array('default','classic','matchmytheme'))) {
-            wp_enqueue_style('rm-form-revamp-theme', RM_BASE_URL . "public/css/rm-form-theme-{$theme}.css");
+            wp_enqueue_style('rm-form-revamp-theme', RM_BASE_URL . "public/css/rm-form-theme-{$theme}.css", array(), RM_PLUGIN_VERSION);
         } else {
-            wp_enqueue_style('rm-form-revamp-theme', RM_BASE_URL . "public/css/rm-form-theme-custom.css");
+            wp_enqueue_style('rm-form-revamp-theme', RM_BASE_URL . "public/css/rm-form-theme-custom.css", array(), RM_PLUGIN_VERSION);
         }
-        wp_enqueue_style('rm-form-revamp-style', RM_BASE_URL . 'public/css/rm-form-common-utility.css');
-        wp_enqueue_script('rm-form-revamp-script', RM_BASE_URL . 'public/js/rm-form-common-utility.js', array('jquery'));
+        wp_enqueue_style('rm-form-revamp-style', RM_BASE_URL . 'public/css/rm-form-common-utility.css', array(), RM_PLUGIN_VERSION);
+        wp_enqueue_script('rm-form-revamp-script', RM_BASE_URL . 'public/js/rm-form-common-utility.js', array('jquery'), RM_PLUGIN_VERSION);
         wp_dequeue_script('rm_jquery_conditionalize');
-        wp_enqueue_script('rm-form-revamp-conditionize', RM_BASE_URL . 'public/js/conditionize_revamp.jquery.js', array('jquery'));
+        wp_enqueue_script('rm-form-revamp-conditionize', RM_BASE_URL . 'public/js/conditionize_revamp.jquery.js', array('jquery'), RM_PLUGIN_VERSION);
         if(is_rtl()) {
-            wp_enqueue_style('rm-form-revamp-rtl', RM_BASE_URL . 'public/css/rm-form-rtl-style.css');
+            wp_enqueue_style('rm-form-revamp-rtl', RM_BASE_URL . 'public/css/rm-form-rtl-style.css', array(), RM_PLUGIN_VERSION);
         }
+        wp_enqueue_script('rm_jquery_paypal_checkout', RM_BASE_URL."public/js/paypal_checkout_utility.js", array('jquery'), RM_PLUGIN_VERSION);
 
         // Localizing data
         $rm_ajax_data = array(
@@ -1549,14 +1566,15 @@ final class RM_Form_Factory_Revamp {
                         } else {
                             echo '<div class="rmform-row"> <div class="rmform-row-field-wrap"><div class="rmform-col rmform-col-12"><div class="rmform-field">';
                             $captcha_ver = get_option('rm_option_recaptcha_v');
-                            wp_enqueue_script('rm-grecaptcha', 'https://www.google.com/recaptcha/api.js');
                             if($captcha_ver == 'v2') {
                                 $key = get_option('rm_option_public_key');
+                                wp_enqueue_script('rm-grecaptcha', 'https://www.google.com/recaptcha/api.js');
                                 echo "<div class='g-recaptcha' data-sitekey='".esc_attr((string)$key)."'></div>";
                             } elseif($captcha_ver == 'v3') {
                                 $v3_key = get_option('rm_option_public_key3');
-                                echo "<script>function onSubmit(token) {document.getElementById('rmform-module-".esc_html((string)$form->form_id)."').submit();}</script>";
-                                $has_v3 = true;
+                                wp_enqueue_script('rm-grecaptcha', 'https://www.google.com/recaptcha/api.js?render='.$v3_key);
+                                echo '<input type="hidden" class="g-recaptcha-response" id="g-recaptcha-response" name="g-recaptcha-response">';
+                                echo "<script>grecaptcha.ready(function() { grecaptcha.execute('".esc_attr((string)$v3_key)."', {action: 'submit'}).then(function(token) { document.getElementById('g-recaptcha-response').value = token; }); });</script>";
                             }
                             echo "<div id='rm-recaptcha-error' class='rmform-error-message'></div>";
                             echo '</div></div></div></div>';
@@ -1564,7 +1582,7 @@ final class RM_Form_Factory_Revamp {
                     }
                     echo "</div>";
                     // Rendering submit button
-                    $this->render_submit_button($form, $has_pages, $has_v3, $v3_key);
+                    $this->render_submit_button($form, $has_pages);
                 }
                 echo "</form></div></div>";
                 $this->output_validation_js($form->form_id);

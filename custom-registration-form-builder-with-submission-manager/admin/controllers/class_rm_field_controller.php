@@ -170,7 +170,13 @@ class RM_Field_Controller {
     
     public function manage($model, $service, $request, $params) {
         $data = new stdClass;
-        $request->req['rm_form_id']= absint($request->req['rm_form_id']);
+        if(isset($request->req['rm_form_id'])) {
+            $request->req['rm_form_id'] = absint($request->req['rm_form_id']);
+        } else {
+            // Ninja Forms conflict fix
+            echo '<div class="rm-builder-notice"><div class="rmnotice">'.esc_html__('No form selected. Redirecting you back to the all forms page.','custom-registration-form-builder-with-submission-manager').'</div></div>';
+            echo "<script>window.setTimeout(function(){ window.location.href = '" . admin_url('admin.php?page=rm_form_manage') . "';}, 3000);</script>";
+        }
         $data->active_step = isset($request->req['astep']) ? $request->req['astep'] : "build";
         $data->def_form_id = $service->get_setting('default_form_id');
         $fields_data= $service->get_all_form_fields($request->req['rm_form_id']);
@@ -250,7 +256,7 @@ class RM_Field_Controller {
                 }
             }
         } else {
-            die(RM_UI_Strings::get('MSG_NO_FORM_SELECTED'));
+            die;
         }
        
         $data->theme = $options->get_value_of('theme');

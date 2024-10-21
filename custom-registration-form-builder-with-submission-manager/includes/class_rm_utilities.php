@@ -800,7 +800,7 @@ class RM_Utilities {
             $result = get_date_from_gmt($date_string, $dateformatstring);
         } else {
             //$result = date_i18n($dateformatstring, strtotime($date_string));
-            $result = wp_date($dateformatstring, strtotime($date_string));
+            $result = wp_date($dateformatstring, strtotime((string)$date_string));
         }
         //$result = get_date_from_gmt($date_string, $dateformatstring);
         return $result;

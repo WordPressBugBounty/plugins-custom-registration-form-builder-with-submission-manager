@@ -67,7 +67,7 @@ else{
                                 <div class="rm-box-col-3">
                                     <div class="rm-box-btn-wrap rm-box-text-right">  
                                         <button type="submit" id="rm_submit_btn" class="rm-btn rm-btn-primary"><?php _e('Search', 'custom-registration-form-builder-with-submission-manager'); ?></button>
-                                        <button type="button" id="rm_reset_btn" class="rm-btn-secondary rm-btn" onclick="window.location.href='<?php echo admin_url('?page=rm_reports_submissions'); ?>'"><?php _e('Reset', 'custom-registration-form-builder-with-submission-manager'); ?></button>
+                                        <button type="button" id="rm_reset_btn" class="rm-btn-secondary rm-btn" onclick="window.location.href='<?php echo admin_url('admin.php?page=rm_reports_submissions'); ?>'"><?php _e('Reset', 'custom-registration-form-builder-with-submission-manager'); ?></button>
                                     </div>
                                 </div>
                             </div>

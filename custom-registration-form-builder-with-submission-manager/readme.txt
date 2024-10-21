@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 6.6
-Stable tag: 6.0.2.2
+Stable tag: 6.0.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -391,6 +391,11 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 9. Sample Registration Form
 
 == Changelog ==
+
+= 6.0.2.3: October 21, 2024 =
+* Fixed: Reset button not working in Reports filtering.
+* Fixed: PayPal payment popup not working after form submission.
+* Multiple minor bug fixes.
 
 = 6.0.2.2: October 10, 2024 =
 * Fixed: Existing user error on contact form validation.
@@ -1401,6 +1406,11 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * New: Aweber Integration.
 
 == Upgrade Notice ==
+
+= 6.0.2.3: October 21, 2024 =
+* Fixed: Reset button not working in Reports filtering.
+* Fixed: PayPal payment popup not working after form submission.
+* Multiple minor bug fixes.
 
 = 6.0.2.2: October 10, 2024 =
 * Fixed: Existing user error on contact form validation.
