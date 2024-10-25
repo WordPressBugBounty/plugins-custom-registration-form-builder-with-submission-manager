@@ -29,7 +29,7 @@ class RM_User_Repository {
         //check if form_id given
         if(isset($options['form_id']) && !empty($options['form_id'])):
             //$form_query= " form_id=". (int) $options['form_id'];
-            $form_query= " form_id IN (".$options['form_id'].")";
+            $form_query= defined('RM_SAVE_SUBMISSION_BASENAME') ? " is_pending = 0 AND form_id IN (".$options['form_id'].")" : " form_id IN (".$options['form_id'].")";
         endif;
 
         // Limit result set
@@ -43,7 +43,7 @@ class RM_User_Repository {
         // Order by clause
         $order_by = " ORDER BY `submitted_on` desc ";
         
-        $qry = "SELECT distinct `user_email` from $table_name";
+        $qry = "SELECT DISTINCT `user_email` FROM $table_name";
         if(!empty($form_query)){
             $qry .= ' WHERE ';
         }
@@ -59,7 +59,7 @@ class RM_User_Repository {
             }
             
             if(empty($form_query) && !empty($time_query)){
-                $time_query = ' WHERE '.$time_query;
+                $time_query = defined('RM_SAVE_SUBMISSION_BASENAME') ? ' WHERE is_pending = 0 AND '.$time_query : ' WHERE '.$time_query;
             }
             else if(!empty($time_query))
             {

@@ -58,7 +58,7 @@ class RM_Analytics_Service extends RM_Services
                     case 'Checkbox':
                         if(defined('REGMAGIC_ADDON'))
                             $vals = RM_Utilities::process_field_options($vals);
-                        $temp = RM_DBManager::run_query("SELECT value FROM `$subf_table` sf, `$subs_table` ss WHERE  `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 ORDER BY `sub_field_id`", 'col');
+                        $temp = defined('RM_SAVE_SUBMISSION_BASENAME') ? RM_DBManager::run_query("SELECT value FROM `$subf_table` sf, `$subs_table` ss WHERE  `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 AND ss.is_pending = 0 ORDER BY `sub_field_id`", 'col') : RM_DBManager::run_query("SELECT value FROM `$subf_table` sf, `$subs_table` ss WHERE  `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 ORDER BY `sub_field_id`", 'col');
 
                         if (!$temp)
                             break;
@@ -94,12 +94,12 @@ class RM_Analytics_Service extends RM_Services
 
                         //IMPORTANT: Checkbox is a multiple value type submission,
                         //hence we can't just add up the submissions of individual option to get the total submissions.              
-                        $tmp_obj->total_sub = (int) RM_DBManager::run_query("SELECT COUNT(sub_field_id) FROM `$subf_table` sf, `$subs_table` ss WHERE `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0", 'var');
+                        $tmp_obj->total_sub = defined('RM_SAVE_SUBMISSION_BASENAME') ? (int) RM_DBManager::run_query("SELECT COUNT(sub_field_id) FROM `$subf_table` sf, `$subs_table` ss WHERE `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 AND ss.is_pending = 0", 'var') : (int) RM_DBManager::run_query("SELECT COUNT(sub_field_id) FROM `$subf_table` sf, `$subs_table` ss WHERE `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0", 'var');
 
                         break;
 
                     case 'Country':
-                        $temp = RM_DBManager::run_query("SELECT `value`, COUNT(*) AS `count` FROM `$subf_table` sf, `$subs_table` ss WHERE `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 GROUP BY `value`");
+                        $temp = defined('RM_SAVE_SUBMISSION_BASENAME') ? RM_DBManager::run_query("SELECT `value`, COUNT(*) AS `count` FROM `$subf_table` sf, `$subs_table` ss WHERE `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 AND ss.is_pending = 0 GROUP BY `value`") : RM_DBManager::run_query("SELECT `value`, COUNT(*) AS `count` FROM `$subf_table` sf, `$subs_table` ss WHERE `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 GROUP BY `value`");
 
                         if (!$temp)
                             break;
@@ -144,7 +144,7 @@ class RM_Analytics_Service extends RM_Services
                             if ($field->field_type == 'Select')
                                 $vals = explode(',', (string)$field->field_value);
 
-                        $temp = RM_DBManager::run_query("SELECT `value`, COUNT(*) AS `count` FROM `$subf_table` sf, `$subs_table` ss WHERE `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 GROUP BY `value`");
+                        $temp = defined('RM_SAVE_SUBMISSION_BASENAME') ? RM_DBManager::run_query("SELECT `value`, COUNT(*) AS `count` FROM `$subf_table` sf, `$subs_table` ss WHERE `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 AND ss.is_pending = 0 GROUP BY `value`") : RM_DBManager::run_query("SELECT `value`, COUNT(*) AS `count` FROM `$subf_table` sf, `$subs_table` ss WHERE `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 GROUP BY `value`");
 
                         if (!$temp)
                             break;
@@ -172,7 +172,7 @@ class RM_Analytics_Service extends RM_Services
                         break;
                         
                         case 'Multi-Dropdown':
-                            $temp = RM_DBManager::run_query("SELECT `value`, COUNT(*) AS `count` FROM `$subf_table` sf, `$subs_table` ss WHERE `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 GROUP BY `value`");
+                            $temp = defined('RM_SAVE_SUBMISSION_BASENAME') ? RM_DBManager::run_query("SELECT `value`, COUNT(*) AS `count` FROM `$subf_table` sf, `$subs_table` ss WHERE `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 AND ss.is_pending = 0 GROUP BY `value`") : RM_DBManager::run_query("SELECT `value`, COUNT(*) AS `count` FROM `$subf_table` sf, `$subs_table` ss WHERE `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 GROUP BY `value`");
 
                             if(!$temp)
                               break;
@@ -200,7 +200,7 @@ class RM_Analytics_Service extends RM_Services
                            break;
                         
                     default:
-                        $temp = RM_DBManager::run_query("SELECT value FROM `$subf_table` sf, `$subs_table` ss WHERE  `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 ORDER BY `sub_field_id`", 'col');
+                        $temp = defined('RM_SAVE_SUBMISSION_BASENAME') ? RM_DBManager::run_query("SELECT value FROM `$subf_table` sf, `$subs_table` ss WHERE  `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 AND ss.is_pending = 0 ORDER BY `sub_field_id`", 'col') : RM_DBManager::run_query("SELECT value FROM `$subf_table` sf, `$subs_table` ss WHERE  `field_id` = $field->field_id AND sf.submission_id = ss.submission_id AND ss.child_id = 0 ORDER BY `sub_field_id`", 'col');
                         
                         if(empty($temp))
                             break;

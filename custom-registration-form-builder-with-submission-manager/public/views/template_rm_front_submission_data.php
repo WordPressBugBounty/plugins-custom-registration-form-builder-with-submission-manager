@@ -124,6 +124,17 @@ if ($data->form_is_unique_token) {
             <div class="rm-submission-label"><?php echo RM_UI_Strings::get('LABEL_ENTRY_TYPE'); ?></div>
             <div class="rm-submission-value"><?php echo esc_html($data->form_type); ?></div>
         </div>
+        
+        <?php if(defined('RM_SAVE_SUBMISSION_BASENAME')) { ?>
+        <div class="rm-submission-field-row">
+            <div class="rm-submission-label"><?php esc_html_e('Submission Status','custom-registration-form-builder-with-submission-manager'); ?></div>
+            <?php if(isset($data->submission->is_pending) && $data->submission->is_pending == 1) { ?>
+            <div class="rm-submission-value"><span class="rm-submission-status rm-submission-pending"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_PENDING')); ?></span></div>
+            <?php } else { ?>
+            <div class="rm-submission-value"><span class="rm-submission-status rm-submission-approved"><?php esc_html_e('Completed','custom-registration-form-builder-with-submission-manager'); ?></span></div>
+            <?php } ?>
+        </div>
+        <?php } ?>
 <?php
 if ($data->form_type_status == "1" && !empty($data->user)) {
     $user_roles_dd = RM_Utilities::user_role_dropdown();

@@ -12,19 +12,18 @@ class RM_Dashboard_Widget_Service extends RM_Services
         $Q = 'COUNT(#UID#) AS count';
         $WQ_today = "`submitted_on` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day)";
         $WQ_yesterday = "`submitted_on` BETWEEN (CURDATE() - 1) AND DATE_ADD(CURDATE() - 1, INTERVAL 1 day)";
-
         //$WQ_week  = "`submitted_on` BETWEEN DATE_ADD(CURDATE(), INTERVAL 1-DAYOFWEEK(CURDATE()) DAY) AND DATE_ADD(CURDATE(), INTERVAL 7-DAYOFWEEK(CURDATE()) DAY)";
         $WQ_week  = "WEEKOFYEAR(submitted_on)=WEEKOFYEAR(CURDATE())";
-        
         $WQ_month = "`submitted_on` BETWEEN DATE_SUB(CURDATE(),INTERVAL (DAY(CURDATE())-1) DAY) AND LAST_DAY(NOW())";
         $WQ_last_week = "WEEKOFYEAR(submitted_on)=WEEKOFYEAR(CURDATE())-1";
-        $WQ_last_month = "`submitted_on` BETWEEN DATE_ADD(LAST_DAY(DATE_SUB(NOW(), INTERVAL 2 MONTH)), INTERVAL 1 DAY) AND LAST_DAY(DATE_SUB(NOW(), INTERVAL 1 MONTH));";
-        $cs1 = RM_DBManager::get_generic('SUBMISSIONS', $Q, $WQ_today);
-        $cs2 = RM_DBManager::get_generic('SUBMISSIONS', $Q, $WQ_week);
-        $cs3 = RM_DBManager::get_generic('SUBMISSIONS', $Q, $WQ_month);
-        $cs4 = RM_DBManager::get_generic('SUBMISSIONS', $Q, $WQ_yesterday);
-        $cs5 = RM_DBManager::get_generic('SUBMISSIONS', $Q, $WQ_last_week);
-        $cs6 = RM_DBManager::get_generic('SUBMISSIONS', $Q, $WQ_last_month);
+        $WQ_last_month = "`submitted_on` BETWEEN DATE_ADD(LAST_DAY(DATE_SUB(NOW(), INTERVAL 2 MONTH)), INTERVAL 1 DAY) AND LAST_DAY(DATE_SUB(NOW(), INTERVAL 1 MONTH))";
+        $is_pending = defined('RM_SAVE_SUBMISSION_BASENAME') ? " AND `is_pending` = 0" : "";
+        $cs1 = RM_DBManager::get_generic('SUBMISSIONS', $Q, $WQ_today.$is_pending);
+        $cs2 = RM_DBManager::get_generic('SUBMISSIONS', $Q, $WQ_week.$is_pending);
+        $cs3 = RM_DBManager::get_generic('SUBMISSIONS', $Q, $WQ_month.$is_pending);
+        $cs4 = RM_DBManager::get_generic('SUBMISSIONS', $Q, $WQ_yesterday.$is_pending);
+        $cs5 = RM_DBManager::get_generic('SUBMISSIONS', $Q, $WQ_last_week.$is_pending);
+        $cs6 = RM_DBManager::get_generic('SUBMISSIONS', $Q, $WQ_last_month.$is_pending);
         
         $c1 = !$cs1[0]->count ? 0 : $cs1[0]->count;
         $c2 = !$cs2[0]->count ? 0 : $cs2[0]->count;

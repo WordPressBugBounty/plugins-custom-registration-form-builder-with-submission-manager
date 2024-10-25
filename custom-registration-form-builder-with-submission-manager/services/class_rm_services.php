@@ -1464,14 +1464,60 @@ class RM_Services {
         if (is_array($form_id)) {
             foreach ($form_id as $formId) {
                 $fields = RM_DBManager::get_fields_by_form_id($formId);
+                $field_map = array();
                 foreach ($fields as $field) {
-                    $this->duplicate_field($field->field_id, $ids[$formId]);
+                    $new_field_id = $this->duplicate_field($field->field_id, $ids[$formId]);
+                    $field_map[$field->field_id] = $new_field_id;
+                }
+
+                // Updating conditions
+                foreach($field_map as $old => $new) {
+                    $field_model = new RM_Fields;
+                    $field_model->load_from_db($new);
+
+                    if(isset($field_model->field_options->conditions)) {
+                        foreach($field_model->field_options->conditions['rules'] as $rule_k => $rule_v) {
+                            $rule_key_arr = explode("_", $rule_k);
+                            if(isset($field_map[absint($rule_key_arr[1])])) {
+                                $rule_key_arr[1] = $field_map[absint($rule_key_arr[1])];
+                                $rule_v['controlling_field'] = (string)$rule_key_arr[1];
+                                
+                                $field_model->field_options->conditions['rules'][implode("_",$rule_key_arr)] = $rule_v;
+                                unset($field_model->field_options->conditions['rules'][$rule_k]);
+                            }
+                        }
+
+                        $field_model->update_into_db();
+                    }
                 }
             }
         } elseif ((int) $form_id) {
             $fields = RM_DBManager::get_fields_by_form_id($form_id);
+            $field_map = array();
             foreach ($fields as $field) {
-                $this->duplicate_field($field->field_id, $ids[$form_id]);
+                $new_field_id = $this->duplicate_field($field->field_id, $ids[$form_id]);
+                $field_map[$field->field_id] = $new_field_id;
+            }
+
+            // Updating conditions
+            foreach($field_map as $old => $new) {
+                $field_model = new RM_Fields;
+                $field_model->load_from_db($new);
+
+                if(isset($field_model->field_options->conditions)) {
+                    foreach($field_model->field_options->conditions['rules'] as $rule_k => $rule_v) {
+                        $rule_key_arr = explode("_", $rule_k);
+                        if(isset($field_map[absint($rule_key_arr[1])])) {
+                            $rule_key_arr[1] = $field_map[absint($rule_key_arr[1])];
+                            $rule_v['controlling_field'] = (string)$rule_key_arr[1];
+                            
+                            $field_model->field_options->conditions['rules'][implode("_",$rule_key_arr)] = $rule_v;
+                            unset($field_model->field_options->conditions['rules'][$rule_k]);
+                        }
+                    }
+
+                    $field_model->update_into_db();
+                }
             }
         } else
             throw new InvalidArgumentException("Invalid Form ID '$form_id'.");
@@ -1481,17 +1527,42 @@ class RM_Services {
         if (is_array($form_id)) {
             foreach ($form_id as $formId) {
                 $rows = RM_DBManager::get_rows_by_form_id($formId);
+                $field_map = array();
                 if(!empty($rows)) {
                     foreach ($rows as $row) {
                         $field_id_array = array();
                         $row->field_ids = maybe_unserialize($row->field_ids);
                         foreach ($row->field_ids as $field_id) {
-                            if(empty($field_id))
+                            if(empty($field_id)) {
                                 array_push($field_id_array,'');
-                            else
-                                array_push($field_id_array, $this->duplicate_field($field_id, $ids[$formId]));
+                            } else {
+                                $new_field_id = $this->duplicate_field($field_id, $ids[$formId]); 
+                                array_push($field_id_array, $new_field_id);
+                                $field_map[$field_id] = $new_field_id;
+                            }
                         }
                         $this->duplicate_row($row->row_id, $ids[$formId], $field_id_array);
+                    }
+                    
+                    // Updating conditions
+                    foreach($field_map as $old => $new) {
+                        $field_model = new RM_Fields;
+                        $field_model->load_from_db($new);
+
+                        if(isset($field_model->field_options->conditions)) {
+                            foreach($field_model->field_options->conditions['rules'] as $rule_k => $rule_v) {
+                                $rule_key_arr = explode("_", $rule_k);
+                                if(isset($field_map[absint($rule_key_arr[1])])) {
+                                    $rule_key_arr[1] = $field_map[absint($rule_key_arr[1])];
+                                    $rule_v['controlling_field'] = (string)$rule_key_arr[1];
+                                    
+                                    $field_model->field_options->conditions['rules'][implode("_",$rule_key_arr)] = $rule_v;
+                                    unset($field_model->field_options->conditions['rules'][$rule_k]);
+                                }
+                            }
+
+                            $field_model->update_into_db();
+                        }
                     }
                 } else {
                     $this->duplicate_form_fields($formId, $ids);
@@ -1499,17 +1570,42 @@ class RM_Services {
             }
         } elseif ((int) $form_id) {
             $rows = RM_DBManager::get_rows_by_form_id($form_id);
+            $field_map = array();
             if(!empty($rows)) {
                 foreach ($rows as $row) {
                     $field_id_array = array();
                     $row->field_ids = maybe_unserialize($row->field_ids);
                     foreach ($row->field_ids as $field_id) {
-                        if(empty($field_id))
+                        if(empty($field_id)) {
                             array_push($field_id_array,'');
-                        else
-                            array_push($field_id_array, $this->duplicate_field($field_id, $ids[$form_id]));
+                        } else {
+                            $new_field_id = $this->duplicate_field($field_id, $ids[$formId]); 
+                            array_push($field_id_array, $new_field_id);
+                            $field_map[$field_id] = $new_field_id;
+                        }
                     }
                     $this->duplicate_row($row->row_id, $ids[$form_id], $field_id_array);
+                }
+                
+                // Updating conditions
+                foreach($field_map as $old => $new) {
+                    $field_model = new RM_Fields;
+                    $field_model->load_from_db($new);
+
+                    if(isset($field_model->field_options->conditions)) {
+                        foreach($field_model->field_options->conditions['rules'] as $rule_k => $rule_v) {
+                            $rule_key_arr = explode("_", $rule_k);
+                            if(isset($field_map[absint($rule_key_arr[1])])) {
+                                $rule_key_arr[1] = $field_map[absint($rule_key_arr[1])];
+                                $rule_v['controlling_field'] = (string)$rule_key_arr[1];
+                                
+                                $field_model->field_options->conditions['rules'][implode("_",$rule_key_arr)] = $rule_v;
+                                unset($field_model->field_options->conditions['rules'][$rule_k]);
+                            }
+                        }
+
+                        $field_model->update_into_db();
+                    }
                 }
             } else {
                 $this->duplicate_form_fields($form_id, $ids);
@@ -1525,7 +1621,7 @@ class RM_Services {
         if($skip_primaries && $model->is_field_primary == 1)
             return '';
         $model->set_form_id($form_id);
-        $model->remove_conditions(); 
+        //$model->remove_conditions(); 
         return $model->insert_into_db();
     }
     

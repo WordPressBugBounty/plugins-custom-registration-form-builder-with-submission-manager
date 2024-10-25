@@ -328,7 +328,7 @@ class RM_Utilities {
     public static function site_has_submissions() {
         global $wpdb;
         $table_name = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
-        $result = $wpdb->get_var("SELECT COUNT(*) as num_rows FROM $table_name");
+        $result = defined('RM_SAVE_SUBMISSION_BASENAME') ? $wpdb->get_var("SELECT COUNT(*) as num_rows FROM $table_name WHERE `is_pending` = 0") : $wpdb->get_var("SELECT COUNT(*) as num_rows FROM $table_name");
         if(intval($result) > 0)
             return true;
         else
@@ -338,7 +338,7 @@ class RM_Utilities {
     public static function get_latest_active_form() {
         global $wpdb;
         $table_name = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
-        $result = $wpdb->get_var("SELECT form_id FROM $table_name ORDER BY submission_id DESC LIMIT 1");
+        $result = defined('RM_SAVE_SUBMISSION_BASENAME') ? $wpdb->get_var("SELECT form_id FROM $table_name WHERE `is_pending` = 0 ORDER BY submission_id DESC LIMIT 1") : $wpdb->get_var("SELECT form_id FROM $table_name ORDER BY submission_id DESC LIMIT 1");
         return intval($result);
     }
     

@@ -14,6 +14,9 @@
                         <th class="rm-bg-lt"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_FORM')); ?></th>
                         <th class="rm-bg-lt"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_DATE')); ?></th>
                         <?php if(defined('REGMAGIC_ADDON')) { ?>
+                        <?php if(defined('RM_SAVE_SUBMISSION_BASENAME')) { ?>
+                        <th class="rm-bg-lt"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_STATUS')); ?></th>
+                        <?php } ?>
                         <th class="rm-bg-lt"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_DOWNLOAD')); ?></th>
                         <?php } ?>
                     </tr>
@@ -30,6 +33,13 @@
                                 <td class="<?php echo defined('REGMAGIC_ADDON') ? 'rm-sr-number' : ''; ?>" width="<?php echo defined('REGMAGIC_ADDON') ? '52' : ''; ?>" id="<?php echo esc_attr($data_single->submission_id); ?>"><?php echo esc_html(++$i); ?></td>
                                 <td><a href="<?php echo esc_url($url);  ?>"><?php echo esc_html($data_single->form_name); ?></a></td>
                                 <td><?php echo esc_html(RM_Utilities::localize_time($data_single->submitted_on, $data->date_format)); ?></td>
+                                <?php if(defined('RM_SAVE_SUBMISSION_BASENAME')) { ?>
+                                <?php if(isset($submission->is_pending) && $submission->is_pending == 1) { ?>
+                                <td><span class="rm-submission-status rm-submission-pending"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_PENDING')); ?>
+                                <?php } else { ?>
+                                <td><span class="rm-submission-status rm-submission-approved"><?php esc_html_e('Completed','custom-registration-form-builder-with-submission-manager'); ?>
+                                <?php } ?>
+                                <?php } ?>
                                 <?php if(defined('REGMAGIC_ADDON')) { ?>
                                 <td class="rm-submission-download-col"><a target="_blank" href="<?php echo admin_url('admin-ajax.php?rm_submission_id='.$data_single->submission_id.'&action=rm_print_pdf&rm_sec_nonce='.wp_create_nonce('rm_ajax_secure')); ?>"><i class="material-icons">cloud_download</i></a></td>
                                 <?php } else { ?>

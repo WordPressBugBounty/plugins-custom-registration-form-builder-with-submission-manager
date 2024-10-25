@@ -91,7 +91,10 @@ class RM_Form_Settings_Controller {
             $options['show_total_price'] = isset($request->req['show_total_price']) ? $request->req['show_total_price'] : null;
             if(defined('REGMAGIC_ADDON')) {
                 $options['no_prev_button'] = isset( $request->req['no_prev_button']) ? 1 : null;
-                $options['sub_limit_ind_user']= empty($request->req['sub_limit_ind_user'])?0:$request->req['sub_limit_ind_user']; 
+                $options['sub_limit_ind_user']= empty($request->req['sub_limit_ind_user'])?0:$request->req['sub_limit_ind_user'];
+                if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                    $options['save_submission_enabled'] = isset($request->req['save_submission_enabled']) ? $request->req['save_submission_enabled'] : null;
+                }
             }
 
             if (isset($request->req['rm_form_id']) && (int)$request->req['rm_form_id']) {

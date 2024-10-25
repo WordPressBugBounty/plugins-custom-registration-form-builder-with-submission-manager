@@ -3,8 +3,12 @@
 final class RM_Form_Factory_Revamp {
     public function __construct() {}
 
-    private function render_submit_button($form = null, $has_pages = false) {
-        $form->form_options->form_submit_btn_label = empty($form->form_options->form_submit_btn_label) ? esc_html__('Submit', 'custom-registration-form-builder-with-submission-manager') : $form->form_options->form_submit_btn_label;
+    private function render_submit_button($form = null, $has_pages = false, $price_fields = 0, $prefilled = false) {
+        if($prefilled) {
+            $form->form_options->form_submit_btn_label = esc_html__('Update', 'custom-registration-form-builder-with-submission-manager');
+        } else {
+            $form->form_options->form_submit_btn_label = empty($form->form_options->form_submit_btn_label) ? esc_html__('Submit', 'custom-registration-form-builder-with-submission-manager') : $form->form_options->form_submit_btn_label;
+        }
         $form->form_options->form_next_btn_label = empty($form->form_options->form_next_btn_label) ? esc_html__('Next', 'custom-registration-form-builder-with-submission-manager') : $form->form_options->form_next_btn_label;
         $form->form_options->form_prev_btn_label = empty($form->form_options->form_prev_btn_label) ? esc_html__('Prev', 'custom-registration-form-builder-with-submission-manager') : $form->form_options->form_prev_btn_label;
         $form->form_options->form_btn_align = empty($form->form_options->form_btn_align) ? 'center' : $form->form_options->form_btn_align;
@@ -14,14 +18,25 @@ final class RM_Form_Factory_Revamp {
                 echo "<input type='button' id='rm-form-prev-btn' value='".wp_kses_post((string)$form->form_options->form_prev_btn_label)."' style='display:none'>";
             }
             echo "<input type='button' id='rm-form-next-btn' value='".wp_kses_post((string)$form->form_options->form_next_btn_label)."'>";
+
+            if(!empty($form->form_options->save_submission_enabled) && defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                if($price_fields > 0) {
+                    echo "<input type='submit' id='rm-form-save-btn' value='".esc_html__('Save & Exit', 'custom-registration-form-builder-with-submission-manager')."' style='display:none'>";
+                } else {
+                    echo "<input type='submit' id='rm-form-save-btn' value='".esc_html__('Save & Exit', 'custom-registration-form-builder-with-submission-manager')."'>";   
+                }
+            }
             echo "<input type='submit' id='rm-form-submit-btn' value='".wp_kses_post((string)$form->form_options->form_submit_btn_label)."' style='display:none'>";
         } else {
+            if(!empty($form->form_options->save_submission_enabled) && defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                echo "<input type='submit' id='rm-form-save-btn' value='".esc_html__('Save & Exit', 'custom-registration-form-builder-with-submission-manager')."'>";
+            }
             echo "<input type='submit' id='rm-form-submit-btn' value='".wp_kses_post((string)$form->form_options->form_submit_btn_label)."'>";
         }
         echo "</div>";
     }
 
-    private function save_submission($sub_data = array(), $form = null) {
+    private function save_submission($sub_data = array(), $form = null, $prefilled = false, $submission_id = null) {
         // Getting form ID
         $form_id = absint($form->form_id);
         
@@ -34,7 +49,19 @@ final class RM_Form_Factory_Revamp {
         // Defining important variables
         global $wpdb;
         $form->rows = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_rows WHERE form_id = %d ORDER BY page_no, row_order ASC", $form_id));
-        $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d", $form_id), OBJECT_K);
+        if($prefilled) {
+            if(current_user_can('manage_options')) {
+                $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type != 'Price' AND is_field_primary = 0", $form_id), OBJECT_K);
+            } else {
+                if(isset($form->form_options->save_submission_enabled) && !empty($form->form_options->save_submission_enabled) && defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                    $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type != 'Price' AND is_field_primary = 0", $form_id), OBJECT_K);
+                } else {
+                    $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type != 'Price' AND is_field_primary = 0 AND field_is_editable = 1", $form_id), OBJECT_K);
+                }
+            }
+        } else {
+            $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d", $form_id), OBJECT_K);
+        }
         $db_data = array();
         $service = new RM_Front_Form_Service();
         $user_email = null;
@@ -66,7 +93,8 @@ final class RM_Form_Factory_Revamp {
             'Skype' => "/[a-zA-Z][a-zA-Z0-9_\-\,\.]{5,31}/",
             'SoundCloud' => "/(ftp|http|https):\/\/?((www|\w\w)\.)?soundcloud.com(\w+:{0,1}\w*@)?(\S+)(:([0-9])+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/",
         );
-
+        $save_submission = isset($form->form_options->save_submission_enabled) && !empty($form->form_options->save_submission_enabled) && isset($sub_data['rm_save_submission']) && defined('RM_SAVE_SUBMISSION_BASENAME');
+        
         // Collecting submission data in proper page sequence
         $has_pages = isset($form->form_options->form_pages) && is_array($form->form_options->form_pages) && count($form->form_options->form_pages) > 1 && defined('REGMAGIC_ADDON');
         if($has_pages) {
@@ -119,49 +147,51 @@ final class RM_Form_Factory_Revamp {
                                 }
                             }
 
-                            // Checking if submission is more than the limit
-                            if(is_user_logged_in() && current_user_can('manage_option')) {
-                                
-                            } else {
-                                $sub_count = absint($wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}rm_submissions WHERE user_email = %s AND form_id = %d", $user_email, $form_id)));
-                                
-                                if(absint($form->form_options->sub_limit_ind_user) > 0 && $sub_count >= absint($form->form_options->sub_limit_ind_user)) {
-                                    esc_html_e('You have reached your form submission limit','custom-registration-form-builder-with-submission-manager');
+                            if(!$prefilled) {
+                                // Checking if submission is more than the limit
+                                if(is_user_logged_in() && current_user_can('manage_option')) {
+                                    
+                                } else {
+                                    $sub_count = absint($wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}rm_submissions WHERE user_email = %s AND form_id = %d", $user_email, $form_id)));
+                                    
+                                    if(absint($form->form_options->sub_limit_ind_user) > 0 && $sub_count >= absint($form->form_options->sub_limit_ind_user)) {
+                                        esc_html_e('You have reached your form submission limit','custom-registration-form-builder-with-submission-manager');
+                                        return false;
+                                    }
+                                }
+
+                                // Check limit by custom status
+                                if(!$this->check_limit_by_cs($form,$user_email)) {
+                                    if(!empty($form->form_options->form_message_after_expiry)) {
+                                        echo wp_kses_post((string)$form->form_options->form_message_after_expiry);
+                                    } else {
+                                        esc_html_e('Submission can not be done as it is restricted by admin.', 'custom-registration-form-builder-with-submission-manager');
+                                    }
                                     return false;
                                 }
-                            }
 
-                            // Check limit by custom status
-                            if(!$this->check_limit_by_cs($form,$user_email)) {
-                                if(!empty($form->form_options->form_message_after_expiry)) {
-                                    echo wp_kses_post((string)$form->form_options->form_message_after_expiry);
-                                } else {
-                                    esc_html_e('Submission can not be done as it is restricted by admin.', 'custom-registration-form-builder-with-submission-manager');
+                                // Checking email ban
+                                if($this->is_email_banned($user_email)) {
+                                    $this->update_stat_entry(absint($sub_data['stat_id'], null, true));
+                                    esc_html_e("You are banned from submitting the form.", 'custom-registration-form-builder-with-submission-manager');
+                                    return false;
                                 }
-                                return false;
-                            }
 
-                            // Checking email ban
-                            if($this->is_email_banned($user_email)) {
-                                $this->update_stat_entry(absint($sub_data['stat_id'], null, true));
-                                esc_html_e("You are banned from submitting the form.", 'custom-registration-form-builder-with-submission-manager');
-                                return false;
-                            }
-
-                            // Checking domain access control
-                            if(defined('REGMAGIC_ADDON')) {
-                                $factrl = $form->form_options->access_control;
-                                if(!empty($factrl->domain)) {
-                                    $domains = explode(',', (string)$factrl->domain);
-                                    if(!empty($user_email)) {
-                                        $parts = explode('@',(string)$user_email); // Separate string by @ characters (there should be only one)
-                                        $domain = array_pop($parts); // Remove and return the last part, which should be the domain
-                                        // Check if the domain is in our list
-                                        if(!in_array($domain, $domains)) {
-                                            $rep = apply_filters('rm_domain_access_submission', $status = 1);
-                                            if(!empty($rep)) {
-                                                echo wp_kses_post((string)$factrl->fail_msg);
-                                                return;
+                                // Checking domain access control
+                                if(defined('REGMAGIC_ADDON')) {
+                                    $factrl = $form->form_options->access_control;
+                                    if(!empty($factrl->domain)) {
+                                        $domains = explode(',', (string)$factrl->domain);
+                                        if(!empty($user_email)) {
+                                            $parts = explode('@',(string)$user_email); // Separate string by @ characters (there should be only one)
+                                            $domain = array_pop($parts); // Remove and return the last part, which should be the domain
+                                            // Check if the domain is in our list
+                                            if(!in_array($domain, $domains)) {
+                                                $rep = apply_filters('rm_domain_access_submission', $status = 1);
+                                                if(!empty($rep)) {
+                                                    echo wp_kses_post((string)$factrl->fail_msg);
+                                                    return;
+                                                }
                                             }
                                         }
                                     }
@@ -191,8 +221,10 @@ final class RM_Form_Factory_Revamp {
                                 }
                             }
 
-                            if($this->is_username_reserved($username)) {
-                                array_push($errors, esc_html__('This username is reserved/blacklisted by the admin','custom-registration-form-builder-with-submission-manager'));
+                            if(!$prefilled) {
+                                if($this->is_username_reserved($username)) {
+                                    array_push($errors, esc_html__('This username is reserved/blacklisted by the admin','custom-registration-form-builder-with-submission-manager'));
+                                }
                             }
                         }
                     }
@@ -259,7 +291,8 @@ final class RM_Form_Factory_Revamp {
                     }
                     // Handling file fields
                     else if($form->fields[$field_id]->field_type == 'File' || $form->fields[$field_id]->field_type == 'Image' || $form->fields[$field_id]->field_type == 'ESign') {
-                        if(absint($form->fields[$field_id]->field_options->field_is_required) == 1 && (!isset($_FILES[$field_name]) || empty($_FILES[$field_name]))) {
+
+                        if(absint($form->fields[$field_id]->field_options->field_is_required) == 1 && (!isset($_FILES[$field_name]) || empty($_FILES[$field_name])) && !$save_submission) {
                             array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
                             continue;
                         } else if(!isset($_FILES[$field_name]) || empty($_FILES[$field_name]['name'])) {
@@ -280,7 +313,7 @@ final class RM_Form_Factory_Revamp {
                             foreach($files['name'] as $key => $val) {
                                 $file_name = sanitize_file_name($val);
                                 if(empty($file_name)) {
-                                    if(absint($form->fields[$field_id]->field_options->field_is_required) == 1) {
+                                    if(absint($form->fields[$field_id]->field_options->field_is_required) == 1 && !$save_submission) {
                                         array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
                                     }
                                 } else {
@@ -323,7 +356,7 @@ final class RM_Form_Factory_Revamp {
                         } else {
                             $file_name = sanitize_file_name($_FILES[$field_name]['name']);
                             if(empty($file_name)) {
-                                if(absint($form->fields[$field_id]->field_options->field_is_required) == 1) {
+                                if(absint($form->fields[$field_id]->field_options->field_is_required) == 1 && !$save_submission) {
                                     array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
                                 }
                             } else {
@@ -439,6 +472,9 @@ final class RM_Form_Factory_Revamp {
                             }
                         }
                     } else {
+                        if(in_array($form->fields[$field_id]->field_type, array('WCBilling','WCShipping'))) {
+                            $field_name = strtolower($field_name);
+                        }
                         if(isset($sub_data[$field_name])) {
                             // Validating social fields
                             if(!empty($sub_data[$field_name])) {
@@ -565,11 +601,13 @@ final class RM_Form_Factory_Revamp {
 
                             // Adding WC user meta
                             if(class_exists('WooCommerce')) {
-                                $service->save_wc_meta($form_id, $db_data, $user_email);
+                                $service->save_wc_meta($form_id, $db_data, (string)$user_email);
                             }
 
-                            if(absint($form->fields[$field_id]->field_options->field_is_required) == 1 && (!isset($sub_data[$field_name]) || empty($sub_data[$field_name]))) {
-                                array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
+                            if(!$save_submission) {
+                                if(absint($form->fields[$field_id]->field_options->field_is_required) == 1 && (!isset($sub_data[$field_name]) || empty($sub_data[$field_name]))) {
+                                    array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
+                                }
                             }
                         }
                     }
@@ -658,11 +696,10 @@ final class RM_Form_Factory_Revamp {
         }
 
         // Inserting submission data in the database
-        if(!empty($user_email)) {
-            $token = $form_id.time().rand(100,10000);
-            $wpdb->insert(
-                "{$wpdb->prefix}rm_submissions",
-                array(
+        if(!$prefilled) {
+            if(!empty($user_email)) {
+                $token = $form_id.time().rand(100,10000);
+                $insert_data = array(
                     'form_id' => $form_id,
                     'data' => maybe_serialize($db_data),
                     'user_email' => $user_email,
@@ -671,8 +708,8 @@ final class RM_Form_Factory_Revamp {
                     'is_read' => 0,
                     'submitted_on' => gmdate('Y-m-d H:i:s'),
                     'unique_token'=> $token
-                ),
-                array(
+                );
+                $insert_format = array(
                     '%d',
                     '%s',
                     '%s',
@@ -681,77 +718,107 @@ final class RM_Form_Factory_Revamp {
                     '%d',
                     '%s',
                     '%s'
-                )
-            );
+                );
+                if($save_submission) {
+                    $insert_data['is_pending'] = 1;
+                    $insert_format[] = '%d';
+                }
+                $wpdb->insert(
+                    "{$wpdb->prefix}rm_submissions",
+                    $insert_data,
+                    $insert_format
+                );
 
-            if(empty($wpdb->insert_id)) {
-                esc_html_e("Could not save submission in database. Please try again.", 'custom-registration-form-builder-with-submission-manager');
-                return false;
-            } else {
-                $sub_id = $wpdb->insert_id;
-                $rm_email = new RM_Email();
-                $submission = new RM_Submissions();
-                $submission->load_from_db($sub_id);
-
-                // Registering user if this is registration form
-                if(absint($form->form_type) == RM_REG_FORM && !is_user_logged_in()) {
-                    if(empty($password)) {
-                        $password = wp_generate_password();
-                    }
-
-                    $user_id = wp_create_user($username, $password, $user_email);
-                    $wp_user = new WP_User($user_id);
-                    // Assigning role
-                    if(!empty($form->form_options->form_should_user_pick)) {
-                        $form->form_user_role = maybe_unserialize($form->form_user_role);
-                        $sub_data['rm_user_role'] = sanitize_text_field($sub_data['rm_user_role']);
-                        if(in_array($sub_data['rm_user_role'], $form->form_user_role)) {
-                            $wp_user->set_role(strtolower($sub_data['rm_user_role']));
+                if(empty($wpdb->insert_id)) {
+                    esc_html_e("Could not save submission in database. Please try again.", 'custom-registration-form-builder-with-submission-manager');
+                    return false;
+                } else {
+                    $sub_id = $wpdb->insert_id;
+                    $submission = new RM_Submissions();
+                    $submission->load_from_db($sub_id);
+    
+                    // Registering user if this is registration form
+                    if(absint($form->form_type) == RM_REG_FORM && !is_user_logged_in()) {
+                        if(empty($password)) {
+                            $password = wp_generate_password();
                         }
-                    } else {
-                        $form->default_user_role = empty($form->default_user_role) ? 'subscriber' : strtolower($form->default_user_role);
-                        $wp_user->set_role($form->default_user_role);
-                    }
-
-                    // Updating user meta
-                    if(!empty($user_meta_fields)) {
-                        foreach($user_meta_fields as $meta_key => $meta_value) {
-                            update_user_meta($user_id,$meta_key,$meta_value);
+    
+                        $user_id = wp_create_user($username, $password, $user_email);
+                        $wp_user = new WP_User($user_id);
+                        // Assigning role
+                        if(!empty($form->form_options->form_should_user_pick)) {
+                            $form->form_user_role = maybe_unserialize($form->form_user_role);
+                            $sub_data['rm_user_role'] = sanitize_text_field($sub_data['rm_user_role']);
+                            if(in_array($sub_data['rm_user_role'], $form->form_user_role)) {
+                                $wp_user->set_role(strtolower($sub_data['rm_user_role']));
+                            }
+                        } else {
+                            $form->default_user_role = empty($form->default_user_role) ? 'subscriber' : strtolower($form->default_user_role);
+                            $wp_user->set_role($form->default_user_role);
                         }
-                    }
-
-                    if(get_option('rm_option_send_password') == 'yes') {
-                        $params = new stdClass();
-                        $params->email = $user_email;
-                        $params->username = $username;
-                        $params->password = $password;
-                        $params->form_id = $form_id;
-                        RM_Email_Service::notify_new_user($params, $user_id);
-                    }
-                    update_user_meta($user_id, 'rm_user_status', 1);
-                    update_user_meta($user_id, 'RM_UMETA_FORM_ID', $form_id);
-                    update_user_meta($user_id, 'RM_UMETA_SUB_ID', $sub_id);
-                    do_action('rm_new_user_registered', $user_id);
-                    $user_setting = defined('REGMAGIC_ADDON') ? get_option('rm_option_user_auto_approval') : 'yes';
-                    if($user_setting === false) {
-                        $user_setting = 'yes';
-                    }
-                    if($form->form_options->user_auto_approval == 'default' || is_null($form->form_options->user_auto_approval)) {
-                        do_action('rm_user_registered', $user_id);
-                        /* if($user_setting == 'verify' && $pricing_details->total_price <= 0) {
-                            //Send verification email
-                            $prov_act_acc = get_option('rm_option_prov_act_acc');
-                            if($prov_act_acc == 'yes' && $form_auto_approval != 'yes') {
-                                $prov_acc_act_criteria = get_option('rm_option_prov_acc_act_criteria');
-                                if(!empty($prov_acc_act_criteria)) {
-                                    if ($prov_acc_act_criteria == 'until_user_logsout') {
-                                        update_user_meta($user_id, 'rm_prov_activation', $prov_acc_act_criteria);
+    
+                        // Updating user meta
+                        if(!empty($user_meta_fields)) {
+                            foreach($user_meta_fields as $meta_key => $meta_value) {
+                                update_user_meta($user_id,$meta_key,$meta_value);
+                            }
+                        }
+    
+                        if(get_option('rm_option_send_password') == 'yes') {
+                            $params = new stdClass();
+                            $params->email = $user_email;
+                            $params->username = $username;
+                            $params->password = $password;
+                            $params->form_id = $form_id;
+                            RM_Email_Service::notify_new_user($params, $user_id);
+                        }
+                        update_user_meta($user_id, 'rm_user_status', 1);
+                        update_user_meta($user_id, 'RM_UMETA_FORM_ID', $form_id);
+                        update_user_meta($user_id, 'RM_UMETA_SUB_ID', $sub_id);
+                        do_action('rm_new_user_registered', $user_id);
+                        $user_setting = defined('REGMAGIC_ADDON') ? get_option('rm_option_user_auto_approval') : 'yes';
+                        if($user_setting === false) {
+                            $user_setting = 'yes';
+                        }
+                        if($form->form_options->user_auto_approval == 'default' || is_null($form->form_options->user_auto_approval)) {
+                            do_action('rm_user_registered', $user_id);
+                            /* if($user_setting == 'verify' && $pricing_details->total_price <= 0) {
+                                //Send verification email
+                                $prov_act_acc = get_option('rm_option_prov_act_acc');
+                                if($prov_act_acc == 'yes' && $form_auto_approval != 'yes') {
+                                    $prov_acc_act_criteria = get_option('rm_option_prov_acc_act_criteria');
+                                    if(!empty($prov_acc_act_criteria)) {
+                                        if ($prov_acc_act_criteria == 'until_user_logsout') {
+                                            update_user_meta($user_id, 'rm_prov_activation', $prov_acc_act_criteria);
+                                        }
                                     }
                                 }
+                                RM_Email_Service::send_activation_link($user_id);
+                            } */
+                           if($user_setting == 'yes' && $pricing_details->total_price <= 0) {
+                                do_action('rm_user_activated',$user_id);
+                                update_user_meta($user_id, 'rm_user_status', 0);
+                                update_user_meta($user_id, 'rm_activation_time', current_time('mysql'));
+                                $params = new stdClass();
+                                $params->email = $user_email;
+                                $params->sub_id = $sub_id;
+                                $params->form_id = $form_id;
+                                $send_act_email = get_option('rm_option_send_act_email');
+                                if($send_act_email == 'yes' || $send_act_email == false)
+                                    RM_Email_Service::notify_user_on_activation($params);
+                            } elseif($user_setting == '') {
+                                $params = new stdClass();
+                                $user_service = new RM_User_Services();
+                                $link = $user_service->create_user_activation_link($user_id);
+                                $params->email = $user_email;
+                                $params->username = $username;
+                                $params->link = $link;
+                                $params->form_id = $form_id;
+                                $send_act_email = get_option('rm_option_send_act_email');
+                                if($send_act_email == 'yes' || $send_act_email == false)
+                                    RM_Email_Service::notify_admin_to_activate_user($params);
                             }
-                            RM_Email_Service::send_activation_link($user_id);
-                        } */
-                       if($user_setting == 'yes' && $pricing_details->total_price <= 0) {
+                        } elseif($form->form_options->user_auto_approval == 'yes' && $pricing_details->total_price <= 0) {
                             do_action('rm_user_activated',$user_id);
                             update_user_meta($user_id, 'rm_user_status', 0);
                             update_user_meta($user_id, 'rm_activation_time', current_time('mysql'));
@@ -759,10 +826,8 @@ final class RM_Form_Factory_Revamp {
                             $params->email = $user_email;
                             $params->sub_id = $sub_id;
                             $params->form_id = $form_id;
-                            $send_act_email = get_option('rm_option_send_act_email');
-                            if($send_act_email == 'yes' || $send_act_email == false)
-                                RM_Email_Service::notify_user_on_activation($params);
-                        } elseif($user_setting == '') {
+                            RM_Email_Service::notify_user_on_activation($params);
+                        } elseif($form->form_options->user_auto_approval == 'no') {
                             $params = new stdClass();
                             $user_service = new RM_User_Services();
                             $link = $user_service->create_user_activation_link($user_id);
@@ -770,286 +835,368 @@ final class RM_Form_Factory_Revamp {
                             $params->username = $username;
                             $params->link = $link;
                             $params->form_id = $form_id;
-                            $send_act_email = get_option('rm_option_send_act_email');
-                            if($send_act_email == 'yes' || $send_act_email == false)
-                                RM_Email_Service::notify_admin_to_activate_user($params);
+                            RM_Email_Service::notify_admin_to_activate_user($params);
                         }
-                    } elseif($form->form_options->user_auto_approval == 'yes' && $pricing_details->total_price <= 0) {
-                        do_action('rm_user_activated',$user_id);
-                        update_user_meta($user_id, 'rm_user_status', 0);
-                        update_user_meta($user_id, 'rm_activation_time', current_time('mysql'));
-                        $params = new stdClass();
-                        $params->email = $user_email;
-                        $params->sub_id = $sub_id;
-                        $params->form_id = $form_id;
-                        RM_Email_Service::notify_user_on_activation($params);
-                    } elseif($form->form_options->user_auto_approval == 'no') {
-                        $params = new stdClass();
-                        $user_service = new RM_User_Services();
-                        $link = $user_service->create_user_activation_link($user_id);
-                        $params->email = $user_email;
-                        $params->username = $username;
-                        $params->link = $link;
-                        $params->form_id = $form_id;
-                        RM_Email_Service::notify_admin_to_activate_user($params);
-                    }
-                } else {
-                    $current_user = get_user_by('email', $user_email);
-                    if(!empty($current_user)) {
-                       $user_id = $current_user->ID;  
                     } else {
-                        $user_id = null;
-                    }
-                }
-
-                if(is_user_logged_in()) {
-                    $current_user = wp_get_current_user();
-                    $user_id = $current_user->ID;
-                    
-                    // Updating user meta for logged in user
-                    if(!empty($user_meta_fields)) {
-                        foreach($user_meta_fields as $meta_key => $meta_value) {
-                            update_user_meta($current_user->ID,$meta_key,$meta_value);
+                        $current_user = get_user_by('email', $user_email);
+                        if(!empty($current_user)) {
+                           $user_id = $current_user->ID;  
+                        } else {
+                            $user_id = null;
                         }
                     }
-                }
-
-                // Token check
-                if(!isset($form->form_options->form_is_unique_token) || absint($form->form_options->form_is_unique_token) != 1 || !defined('REGMAGIC_ADDON'))
-                    $token = null;
-
-                $sub_detail = new stdClass();
-                $sub_detail->submission_id = $sub_id;
-                $sub_detail->token = $token;
-
-                // Subscribing to external services
-                do_action('rm_subscribe_newsletter', $form_id, $sub_data);
-                $front_service = new RM_Front_Form_Service();
-                if(get_option('rm_option_enable_mailchimp') == 'yes' && (!empty($form->form_options->enable_mailchimp) && absint($form->form_options->enable_mailchimp[0]) == 1)) {
-                    if($form->form_options->form_is_opt_in_checkbox == 1 || (isset($form->form_options->form_is_opt_in_checkbox[0]) && $form->form_options->form_is_opt_in_checkbox[0] == 1))
-                        $should_subscribe = isset($sub_data['rm_subscribe_mc']) && absint($sub_data['rm_subscribe_mc'][0]) == 1 ? 'yes' : 'no';
-                    else
-                        $should_subscribe = 'yes';
-                    if($should_subscribe == 'yes') {
-                        try {
-                            $front_service->subscribe_to_mailchimp($sub_data, $form->form_options);
-                        } catch (Exception $e) {}
+    
+                    if(is_user_logged_in()) {
+                        $current_user = wp_get_current_user();
+                        $user_id = $current_user->ID;
+                        
+                        // Updating user meta for logged in user
+                        if(!empty($user_meta_fields)) {
+                            foreach($user_meta_fields as $meta_key => $meta_value) {
+                                update_user_meta($current_user->ID,$meta_key,$meta_value);
+                            }
+                        }
                     }
-                }
-
-                if(get_option('rm_option_enable_aweber') == 'yes' && (!empty($form->form_options->enable_aweber) && $form->form_options->enable_aweber[0] == 1)) {
-                    if ($form->form_options->form_is_opt_in_checkbox_aw[0] == 1)
-                        $should_subscribe = isset($sub_data['rm_subscribe_aw']) && $sub_data['rm_subscribe_aw'][0] == 1 ? 'yes' : 'no';
-                    else
-                        $should_subscribe = 'yes';
-
-                    if ($should_subscribe == 'yes') {
-                        try {
-                            $front_service->subscribe_to_aweber($sub_data, $form->form_options);
-                        } catch (Exception $e) {}
+    
+                    // Token check
+                    if(!isset($form->form_options->form_is_unique_token) || absint($form->form_options->form_is_unique_token) != 1 || !defined('REGMAGIC_ADDON'))
+                        $token = null;
+    
+                    $sub_detail = new stdClass();
+                    $sub_detail->submission_id = $sub_id;
+                    $sub_detail->token = $token;
+    
+                    // Subscribing to external services
+                    do_action('rm_subscribe_newsletter', $form_id, $sub_data);
+                    $front_service = new RM_Front_Form_Service();
+                    if(get_option('rm_option_enable_mailchimp') == 'yes' && (!empty($form->form_options->enable_mailchimp) && absint($form->form_options->enable_mailchimp[0]) == 1)) {
+                        if($form->form_options->form_is_opt_in_checkbox == 1 || (isset($form->form_options->form_is_opt_in_checkbox[0]) && $form->form_options->form_is_opt_in_checkbox[0] == 1))
+                            $should_subscribe = isset($sub_data['rm_subscribe_mc']) && absint($sub_data['rm_subscribe_mc'][0]) == 1 ? 'yes' : 'no';
+                        else
+                            $should_subscribe = 'yes';
+                        if($should_subscribe == 'yes') {
+                            try {
+                                $front_service->subscribe_to_mailchimp($sub_data, $form->form_options);
+                            } catch (Exception $e) {}
+                        }
                     }
-                }
-
-                // Send autoresponder email
-                if(absint($form->form_should_send_email) == 1) {
-                    $parameters = new stdClass;
-                    $parameters->req = $sub_data;
-                    $parameters->db_data = $db_data;
-                    $parameters->email = $user_email;
-                    $parameters->email_content = $form->form_options->form_email_content;
-                    $parameters->email_subject = $form->form_options->form_email_subject;
-                    $parameters->total_price = empty($total_price) ? 0 : $total_price;
-                    $parameters->sub_id = $sub_id;
-                    $parameters->form_id = $form_id;
-                    $parameters->sub_data = $submission->get_data();
-                    RM_Email_Service::auto_responder($parameters, $token);
-                }
-
-                // Creating submission PDF attachment
-                if(defined('REGMAGIC_ADDON')) {
-                    $should_attach_sub_pdf = get_option('rm_option_admin_notification_includes_pdf');
-                    $sub_pdf_loc = null;
-                
-                    if($should_attach_sub_pdf == 'yes' || $form->form_options->enable_dpx == "1") {
-                        //Address for submission pdf to create temporarily
-                        $sub_pdf_loc = get_temp_dir().'rm_submission_'.$sub_id.'.pdf';
-                        //Ouput the pdf to desired location
-                        $service->output_pdf_for_submission($submission, array('name' => $sub_pdf_loc, 'type' => 'F'));
+    
+                    if(get_option('rm_option_enable_aweber') == 'yes' && (!empty($form->form_options->enable_aweber) && $form->form_options->enable_aweber[0] == 1)) {
+                        if ($form->form_options->form_is_opt_in_checkbox_aw[0] == 1)
+                            $should_subscribe = isset($sub_data['rm_subscribe_aw']) && $sub_data['rm_subscribe_aw'][0] == 1 ? 'yes' : 'no';
+                        else
+                            $should_subscribe = 'yes';
+    
+                        if ($should_subscribe == 'yes') {
+                            try {
+                                $front_service->subscribe_to_aweber($sub_data, $form->form_options);
+                            } catch (Exception $e) {}
+                        }
                     }
-                
-                    $parameters = new stdClass;
-                    $parameters->sub_data = $submission->get_data();
-                    $parameters->form_name = $form->form_name;
-                    //Attachments for the mail
-                    $parameters->attachment = $should_attach_sub_pdf == 'yes'? $sub_pdf_loc : null;
-                    //Changing attachment URL for PDF merging
-                    if(!empty($parameters->attachment))
-                        $parameters->attachment = apply_filters('rm_admin_notification_attachment_merger', $parameters->attachment, $sub_id, $form_id);
-                    else
-                        $parameters->attachment = (string)$parameters->attachment;
-                    $parameters->sub_id = $sub_id;
-                    $parameters->form_id = $form_id;
+    
+                    // Send autoresponder email
+                    if(absint($form->form_should_send_email) == 1) {
+                        $parameters = new stdClass;
+                        $parameters->req = $sub_data;
+                        $parameters->db_data = $db_data;
+                        $parameters->email = $user_email;
+                        $parameters->email_content = $form->form_options->form_email_content;
+                        $parameters->email_subject = $form->form_options->form_email_subject;
+                        $parameters->total_price = empty($total_price) ? 0 : $total_price;
+                        $parameters->sub_id = $sub_id;
+                        $parameters->form_id = $form_id;
+                        $parameters->sub_data = $submission->get_data();
+                        RM_Email_Service::auto_responder($parameters, $token);
+                    }
+    
+                    // Creating submission PDF attachment
+                    if(defined('REGMAGIC_ADDON')) {
+                        $should_attach_sub_pdf = get_option('rm_option_admin_notification_includes_pdf');
+                        $sub_pdf_loc = null;
                     
-                    //do_action('rm_after_submission',$sub_detail,$sub_data,$sub_pdf_loc);
-                } else {
-                    $parameters = new stdClass;
-                    $parameters->sub_data = $submission->get_data();
-                    $parameters->form_name = $form->form_name;
-                    $parameters->sub_id = $sub_id;
-                    $parameters->form_id = $form_id;
+                        if($should_attach_sub_pdf == 'yes' || $form->form_options->enable_dpx == "1") {
+                            //Address for submission pdf to create temporarily
+                            $sub_pdf_loc = get_temp_dir().'rm_submission_'.$sub_id.'.pdf';
+                            //Ouput the pdf to desired location
+                            $service->output_pdf_for_submission($submission, array('name' => $sub_pdf_loc, 'type' => 'F'));
+                        }
+                    
+                        $parameters = new stdClass;
+                        $parameters->sub_data = $submission->get_data();
+                        $parameters->form_name = $form->form_name;
+                        //Attachments for the mail
+                        $parameters->attachment = $should_attach_sub_pdf == 'yes'? $sub_pdf_loc : null;
+                        //Changing attachment URL for PDF merging
+                        if(!empty($parameters->attachment))
+                            $parameters->attachment = apply_filters('rm_admin_notification_attachment_merger', $parameters->attachment, $sub_id, $form_id);
+                        else
+                            $parameters->attachment = (string)$parameters->attachment;
+                        $parameters->sub_id = $sub_id;
+                        $parameters->form_id = $form_id;
+                        
+                        //do_action('rm_after_submission',$sub_detail,$sub_data,$sub_pdf_loc);
+                    } else {
+                        $parameters = new stdClass;
+                        $parameters->sub_data = $submission->get_data();
+                        $parameters->form_name = $form->form_name;
+                        $parameters->sub_id = $sub_id;
+                        $parameters->form_id = $form_id;
+                    }
+                    // Sending submission notice to admin
+                    RM_Email_Service::notify_submission_to_admin($parameters, $token);
+    
+                    // Updating last child column in submission
+                    $wpdb->update(
+                        "{$wpdb->prefix}rm_submissions",
+                        array(
+                            'last_child' => $sub_id
+                        ),
+                        array(
+                            'submission_id' => $sub_id
+                        ),
+                    );
+    
+                    foreach($db_data as $index => $data) {
+                        $wpdb->insert(
+                            "{$wpdb->prefix}rm_submission_fields",
+                            array(
+                                'submission_id' => $sub_id,
+                                'field_id' => $index,
+                                'form_id' => $form_id,
+                                'value' => maybe_serialize($data->value),
+                            ),
+                            array(
+                                '%d',
+                                '%d',
+                                '%d',
+                                '%s'
+                            )
+                        );
+                    }
+    
+                    if(isset($sub_data['stat_id'])) {
+                        $this->update_stat_entry(absint($sub_data['stat_id']), $sub_id);
+                    }
+    
+                    // Sending data to external URL
+                    if(absint($form->form_options->should_export_submissions) == 1) {
+                        $exporter = new RM_Export_POST($form->form_options->export_submissions_to_url);
+                        $exporter->prepare_data($db_data);
+                        $exporter->send_data();
+                    }
+    
+                    do_action('rm_submission_completed', $form_id, $user_id, $submission->get_data());
+    
+                    // Charge payment if form has payment
+                    if($pricing_details->total_price > 0) {
+                        $payment_processor = $sub_data['rm_payment_method'];
+                        if($payment_processor == 'paypal') {
+                            $paypal_service = new RM_Paypal_Service();
+                            $data = new stdClass();
+                            $data->form_id = $form_id;
+                            $data->submission_id = $sub_id;
+                            if(absint($form->form_type) == RM_REG_FORM)
+                                $data->user_id = $user_id;
+    
+                            $payment_html = $paypal_service->charge($data, $pricing_details);
+                            if(!empty($payment_html)) {
+                                echo $payment_html['html'];
+                                return;
+                            }
+                        } elseif($payment_processor === "stripe") {
+                            $stripe_service = RM_Stripe_Service::get_instance();
+                            $data = new stdClass();
+                            $data->form_id = $form_id;
+                            $data->form_name = $form->form_name;
+                            $data->submission_id = $sub_id;
+                            $data->user_email = $user_email;
+                            if(absint($form->form_type) == RM_REG_FORM)
+                                $data->user_id = $user_id;
+                            $payment_html = $stripe_service->show_card_elements($data, $pricing_details);
+                            if(!empty($payment_html)) {
+                                echo $payment_html['html'];
+                                return;
+                            }
+                        } else {
+                            $form_factory = defined('REGMAGIC_ADDON') ? new RM_Form_Factory_Addon() : new RM_Form_Factory();
+                            $form_obj = $form_factory->create_form($form_id);
+                            $req_obj = new stdClass();
+                            $req_obj->req = $sub_data;
+                            $params = array();
+                            $params['sub_detail'] = $sub_detail;
+                            $params['paystate'] = 'pre_payment';
+                            $params['user_email'] = $user_email;
+                            $params['form_id'] = $form_id;
+                            $payment_done = false;
+                            $payment_done = apply_filters('rm_process_payment', $payment_done, $form_obj, $req_obj, $params);
+                            $payment_html = $payment_done;
+                            if(isset($payment_html['html'])) {
+                                echo $payment_html['html'];
+                                return;
+                            } elseif($payment_processor == 'offline') {
+                                // Displaying post submission message
+                                $after_sub_msg = $form->form_options->form_success_message != "" ? $form->form_options->form_success_message : sprintf(esc_html__('%s Submitted','custom-registration-form-builder-with-submission-manager'), $form->form_name);
+                                echo "<div class='rm_form_submit_msg rm-form-submit-wrap'><div class='rm-form-submit-message-icon'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='#000000'><path d='M0 0h24v24H0z' fill='none'></path><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'></path></svg></div><div class='rm-post-sub-msg'>".wp_kses_post((string)$after_sub_msg)."</div></div>";
+                                if(!empty($form->form_options->form_is_unique_token)) {
+                                    echo "<br>";
+                                    echo "<div class='rmform-submisstion-token'>"
+                                    . wp_kses_post(sprintf(esc_html__('Submission Token: %s','custom-registration-form-builder-with-submission-manager'), $token));
+                                    echo "</div>";
+                                }
+                            }
+                        }
+                    } else {
+                        // Displaying post submission message
+                        $after_sub_msg = $form->form_options->form_success_message != "" ? $form->form_options->form_success_message : sprintf(esc_html__('%s Submitted','custom-registration-form-builder-with-submission-manager'), $form->form_name);
+                        echo "<div class='rm_form_submit_msg rm-form-submit-wrap'><div class='rm-form-submit-message-icon'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='#000000'><path d='M0 0h24v24H0z' fill='none'></path><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'></path></svg></div><div class='rm-post-sub-msg'>".wp_kses_post((string)$after_sub_msg)."</div></div>";
+                        if(!empty($form->form_options->form_is_unique_token)) {
+                            echo "<br>";
+                            echo "<div class='rmform-submisstion-token'>"
+                            . wp_kses_post(sprintf(esc_html__('Submission Token: %s','custom-registration-form-builder-with-submission-manager'), $token));
+                            echo "</div>";
+                        }
+                    }
+    
+                    // Auto login
+                    if(!empty($form->form_options->auto_login) && !is_user_logged_in() && absint($form->form_type) == RM_REG_FORM && $pricing_details->total_price <= 0) {
+                        $user_activated = get_user_meta($user_id, 'rm_user_status', true);
+                        if($user_activated == 0 || ($user_activated == 1 && !empty(get_option('rm_option_prov_acc_act_criteria')))) {
+                            $_SESSION['RM_SLI_UID'] = $user_id;
+                            $login_service = new RM_Login_Service();
+                            $login_service->insert_login_log(array('email' => $user_email, 'username_used' => $user_email, 'ip' => $_SERVER['REMOTE_ADDR'] === '::1' ? 'localhost' : $_SERVER['REMOTE_ADDR'], 'time' => current_time('timestamp'), 'status' => 1, 'type' => 'normal', 'result' => 'success', 'social_type' => ''));
+                            if(!isset($form->form_redirect) || $form->form_redirect == 'none') {
+                                echo "<script>setTimeout(function() { document.location.href = '".esc_url(add_query_arg(array('login' => 1), get_permalink()))."'; }, 3000);</script>";
+                            }
+                        }
+                    }
+    
+                    // Redirecting after form submission
+                    if(isset($form->form_redirect) && $form->form_redirect != 'none') {
+                        if($form->form_redirect == 'page') {
+                            $page_url = get_permalink($form->form_redirect_to_page);
+                            echo "<p>".sprintf(esc_html__("Redirecting you to %s", 'custom-registration-form-builder-with-submission-manager'), $page_url)."</p>";
+                            echo "<script>setTimeout(function() { document.location.href = '".esc_url($page_url)."'; }, 3000);</script>";
+                            //wp_redirect($page_url); exit;
+                        } elseif($form->form_redirect == 'url') {
+                            echo "<p>".sprintf(esc_html__("Redirecting you to %s", 'custom-registration-form-builder-with-submission-manager'), $form->form_redirect_to_url)."</p>";
+                            echo "<script>setTimeout(function() { document.location.href = '".esc_url($form->form_redirect_to_url)."'; }, 3000);</script>";
+                            //wp_redirect($form->form_redirect_to_url); exit;
+                        }
+                    }
+    
+                    return false;
                 }
-                // Sending submission notice to admin
-                RM_Email_Service::notify_submission_to_admin($parameters, $token);
-
-                // Updating last child column in submission
-                $wpdb->update(
-                    "{$wpdb->prefix}rm_submissions",
-                    array(
-                        'last_child' => $sub_id
-                    ),
-                    array(
-                        'submission_id' => $sub_id
-                    ),
-                );
-
-                foreach($db_data as $index => $data) {
-                    $wpdb->insert(
+            } else {
+                esc_html_e("User email not provided. Please try submission again.", 'custom-registration-form-builder-with-submission-manager');
+                return false;
+            }
+        } else {
+            if(!empty($submission_id)) {
+                $old_submission = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_submissions WHERE submission_id = %d", $submission_id));
+                $old_db_data = maybe_unserialize($old_submission->data);
+                $db_data = array_replace($old_db_data, $db_data);
+                foreach($db_data as $fid => $new_data) {
+                    $result = $wpdb->update(
                         "{$wpdb->prefix}rm_submission_fields",
                         array(
-                            'submission_id' => $sub_id,
-                            'field_id' => $index,
+                            'value' => maybe_serialize($new_data->value),
+                        ),
+                        array(
+                            'submission_id' => $submission_id,
+                            'field_id' => $fid,
                             'form_id' => $form_id,
-                            'value' => maybe_serialize($data->value),
+                        ),
+                        array(
+                            '%s',
                         ),
                         array(
                             '%d',
                             '%d',
                             '%d',
-                            '%s'
-                        )
+                        ),
                     );
-                }
 
-                if(isset($sub_data['stat_id'])) {
-                    $this->update_stat_entry(absint($sub_data['stat_id']), $sub_id);
-                }
-
-                // Sending data to external URL
-                if(absint($form->form_options->should_export_submissions) == 1) {
-                    $exporter = new RM_Export_POST($form->form_options->export_submissions_to_url);
-                    $exporter->prepare_data($db_data);
-                    $exporter->send_data();
-                }
-
-                do_action('rm_submission_completed', $form_id, $user_id, $submission->get_data());
-
-                // Charge payment if form has payment
-                if($pricing_details->total_price > 0) {
-                    $payment_processor = $sub_data['rm_payment_method'];
-                    if($payment_processor == 'paypal') {
-                        $paypal_service = new RM_Paypal_Service();
-                        $data = new stdClass();
-                        $data->form_id = $form_id;
-                        $data->submission_id = $sub_id;
-                        if(absint($form->form_type) == RM_REG_FORM)
-                            $data->user_id = $user_id;
-
-                        $payment_html = $paypal_service->charge($data, $pricing_details);
-                        if(!empty($payment_html)) {
-                            echo $payment_html['html'];
-                            return;
-                        }
-                    } elseif($payment_processor === "stripe") {
-                        $stripe_service = RM_Stripe_Service::get_instance();
-                        $data = new stdClass();
-                        $data->form_id = $form_id;
-                        $data->form_name = $form->form_name;
-                        $data->submission_id = $sub_id;
-                        $data->user_email = $user_email;
-                        if(absint($form->form_type) == RM_REG_FORM)
-                            $data->user_id = $user_id;
-                        $payment_html = $stripe_service->show_card_elements($data, $pricing_details);
-                        if(!empty($payment_html)) {
-                            echo $payment_html['html'];
-                            return;
-                        }
-                    } else {
-                        $form_factory = defined('REGMAGIC_ADDON') ? new RM_Form_Factory_Addon() : new RM_Form_Factory();
-                        $form_obj = $form_factory->create_form($form_id);
-                        $req_obj = new stdClass();
-                        $req_obj->req = $sub_data;
-                        $params = array();
-                        $params['sub_detail'] = $sub_detail;
-                        $params['paystate'] = 'pre_payment';
-                        $params['user_email'] = $user_email;
-                        $params['form_id'] = $form_id;
-                        $payment_done = false;
-                        $payment_done = apply_filters('rm_process_payment', $payment_done, $form_obj, $req_obj, $params);
-                        $payment_html = $payment_done;
-                        if(isset($payment_html['html'])) {
-                            echo $payment_html['html'];
-                            return;
-                        } elseif($payment_processor == 'offline') {
-                            // Displaying post submission message
-                            $after_sub_msg = $form->form_options->form_success_message != "" ? $form->form_options->form_success_message : sprintf(esc_html__('%s Submitted','custom-registration-form-builder-with-submission-manager'), $form->form_name);
-                            echo "<div class='rm_form_submit_msg rm-form-submit-wrap'><div class='rm-form-submit-message-icon'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='#000000'><path d='M0 0h24v24H0z' fill='none'></path><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'></path></svg></div><div class='rm-post-sub-msg'>".wp_kses_post((string)$after_sub_msg)."</div></div>";
-                            if(!empty($form->form_options->form_is_unique_token)) {
-                                echo "<br>";
-                                echo "<div class='rmform-submisstion-token'>"
-                                . wp_kses_post(sprintf(esc_html__('Submission Token: %s','custom-registration-form-builder-with-submission-manager'), $token));
-                                echo "</div>";
-                            }
-                        }
-                    }
-                } else {
-                    // Displaying post submission message
-                    $after_sub_msg = $form->form_options->form_success_message != "" ? $form->form_options->form_success_message : sprintf(esc_html__('%s Submitted','custom-registration-form-builder-with-submission-manager'), $form->form_name);
-                    echo "<div class='rm_form_submit_msg rm-form-submit-wrap'><div class='rm-form-submit-message-icon'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='#000000'><path d='M0 0h24v24H0z' fill='none'></path><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'></path></svg></div><div class='rm-post-sub-msg'>".wp_kses_post((string)$after_sub_msg)."</div></div>";
-                    if(!empty($form->form_options->form_is_unique_token)) {
-                        echo "<br>";
-                        echo "<div class='rmform-submisstion-token'>"
-                        . wp_kses_post(sprintf(esc_html__('Submission Token: %s','custom-registration-form-builder-with-submission-manager'), $token));
-                        echo "</div>";
+                    if(empty($result)) {
+                        $wpdb->insert(
+                            "{$wpdb->prefix}rm_submission_fields",
+                            array(
+                                'value' => maybe_serialize($new_data->value),
+                                'field_id' => $fid,
+                                'form_id' => $form_id,
+                                'submission_id' => $submission_id
+                            ),
+                            array(
+                                '%s',
+                                '%d',
+                                '%d',
+                                '%d'
+                            ),
+                        );
                     }
                 }
 
-                // Auto login
-                if(!empty($form->form_options->auto_login) && !is_user_logged_in() && absint($form->form_type) == RM_REG_FORM && $pricing_details->total_price <= 0) {
-                    $user_activated = get_user_meta($user_id, 'rm_user_status', true);
-                    if($user_activated == 0 || ($user_activated == 1 && !empty(get_option('rm_option_prov_acc_act_criteria')))) {
-                        $_SESSION['RM_SLI_UID'] = $user_id;
-                        $login_service = new RM_Login_Service();
-                        $login_service->insert_login_log(array('email' => $user_email, 'username_used' => $user_email, 'ip' => $_SERVER['REMOTE_ADDR'] === '::1' ? 'localhost' : $_SERVER['REMOTE_ADDR'], 'time' => current_time('timestamp'), 'status' => 1, 'type' => 'normal', 'result' => 'success', 'social_type' => ''));
-                        if(!isset($form->form_redirect) || $form->form_redirect == 'none') {
-                            echo "<script>setTimeout(function() { document.location.href = '".esc_url(add_query_arg(array('login' => 1), get_permalink()))."'; }, 3000);</script>";
+                $sub_update_data = array(
+                    'data' => maybe_serialize($db_data),
+                );
+                $sub_update_format = array(
+                    '%s',
+                );
+                if(defined('RM_SAVE_SUBMISSION_BASENAME') && !$save_submission) {
+                    $sub_update_data['is_pending'] = 0;
+                    $sub_update_format[] = '%d';
+                }
+                $wpdb->update(
+                    "{$wpdb->prefix}rm_submissions",
+                    $sub_update_data,
+                    array(
+                        'submission_id' => $submission_id,
+                        'form_id' => $form_id,
+                    ),
+                    $sub_update_format,
+                    array(
+                        '%d',
+                        '%d',
+                    ),
+                );
+
+                $old_user = get_user_by('email', $old_submission->user_email);
+                if(!empty($old_user)) {
+                    // Updating user meta
+                    if(!empty($user_meta_fields)) {
+                        foreach($user_meta_fields as $meta_key => $meta_value) {
+                            update_user_meta($old_user->ID, $meta_key,$meta_value);
+                        }
+                    }
+
+                    $user_form_id = get_user_meta($old_user->ID,'RM_UMETA_FORM_ID', true);
+                    if(!empty($user_form_id) && ($form_id == $user_form_id)) {
+                        if(count($db_data) > 0) {
+                            update_user_meta($old_user->ID, 'rm_woo_registration_data', maybe_serialize($db_data));
                         }
                     }
                 }
 
-                // Redirecting after form submission
-                if(isset($form->form_redirect) && $form->form_redirect != 'none') {
-                    if($form->form_redirect == 'page') {
-                        $page_url = get_permalink($form->form_redirect_to_page);
-                        echo "<p>".sprintf(esc_html__("Redirecting you to %s", 'custom-registration-form-builder-with-submission-manager'), $page_url)."</p>";
-                        echo "<script>setTimeout(function() { document.location.href = '".esc_url($page_url)."'; }, 3000);</script>";
-                        //wp_redirect($page_url); exit;
-                    } elseif($form->form_redirect == 'url') {
-                        echo "<p>".sprintf(esc_html__("Redirecting you to %s", 'custom-registration-form-builder-with-submission-manager'), $form->form_redirect_to_url)."</p>";
-                        echo "<script>setTimeout(function() { document.location.href = '".esc_url($form->form_redirect_to_url)."'; }, 3000);</script>";
-                        //wp_redirect($form->form_redirect_to_url); exit;
-                    }
-                }
+                $note = new RM_Notes;
+                $note_data = array('submission_id' => $submission_id, 'notes' => '', 'status' => 'draft', 'type' => 'notification');
+                $note->set($note_data);
+                $note->insert_into_db();
 
+                do_action('rm_submission_edited', $old_submission->user_email);
+
+                echo '<p>'.esc_html__('Submission edited succesfully', 'custom-registration-form-builder-with-submission-manager').'</p>';
+
+                $edit_form_redirect = current_user_can('manage_options') ? admin_url('admin.php?page=rm_submission_view&rm_submission_id='.$submission_id) : get_permalink(get_option('rm_option_front_sub_page_id')).'?submission_id='.$submission_id;
+                echo "<p>".esc_html__("Redirecting you back to the submission details", 'custom-registration-form-builder-with-submission-manager')."</p>";
+                echo "<script>setTimeout(function() { document.location.href = '".$edit_form_redirect."'; }, 3000);</script>";
+            } else {
+                esc_html_e("Invalid submission edit.", 'custom-registration-form-builder-with-submission-manager');
                 return false;
             }
-        } else {
-            esc_html_e("User email not provided. Please try submission again.", 'custom-registration-form-builder-with-submission-manager');
-            return false;
         }
 
     }
 
-    public function render_form($form_id = null, $theme = null) {
+    public function render_form($form_id = null, $theme = null, $prefilled = false, $ex_sub_id = 0) {
         // Enqueuing important syles and scripts
         wp_enqueue_style(RM_PLUGIN_BASENAME, RM_BASE_URL . 'public/css/style_rm_front_end.css', array(), RM_PLUGIN_VERSION, 'all');
         if(defined('REGMAGIC_ADDON')) {
@@ -1115,152 +1262,190 @@ final class RM_Form_Factory_Revamp {
                 return;
             }
             $form->form_options = maybe_unserialize($form->form_options);
-            // Ban check
-            if($this->banned_check()) {
-                esc_html_e("You are banned from submitting the form.", 'custom-registration-form-builder-with-submission-manager');
-                return;
-            }
+            
+            if(!$prefilled) {
+                // Ban check
+                if($this->banned_check()) {
+                    esc_html_e("You are banned from submitting the form.", 'custom-registration-form-builder-with-submission-manager');
+                    return;
+                }
 
-            // Expiry check
-            if($this->expiry_check($form)) {
-                if($form->form_options->post_expiry_action == 'switch_to_another_form') {
-                    if(!empty($form->form_options->post_expiry_form_id)) {
-                        $form_id = absint($form->form_options->post_expiry_form_id);
-                        $form = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_forms WHERE form_id = %d", $form_id));
-                        if(empty($form)) {
-                            esc_html_e("Form doesn't exist in the database", 'custom-registration-form-builder-with-submission-manager');
+                // Expiry check
+                if($this->expiry_check($form)) {
+                    if($form->form_options->post_expiry_action == 'switch_to_another_form') {
+                        if(!empty($form->form_options->post_expiry_form_id)) {
+                            $form_id = absint($form->form_options->post_expiry_form_id);
+                            $form = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_forms WHERE form_id = %d", $form_id));
+                            if(empty($form)) {
+                                esc_html_e("Form doesn't exist in the database", 'custom-registration-form-builder-with-submission-manager');
+                                return;
+                            }
+                            $form->form_options = maybe_unserialize($form->form_options);
+                        } else {
                             return;
                         }
-                        $form->form_options = maybe_unserialize($form->form_options);
                     } else {
-                        return;
+                        if($form->form_options->form_message_after_expiry) {
+                            echo wp_kses_post((string)$form->form_options->form_message_after_expiry);
+                            return;
+                        } else {
+                            esc_html_e("This form has expired.", 'custom-registration-form-builder-with-submission-manager');
+                            return;
+                        }
                     }
-                } else {
-                    if($form->form_options->form_message_after_expiry) {
-                        echo wp_kses_post((string)$form->form_options->form_message_after_expiry);
-                        return;
-                    } else {
-                        esc_html_e("This form has expired.", 'custom-registration-form-builder-with-submission-manager');
+                }
+
+                // Update form diary
+                global $rm_form_diary;
+                if(isset($rm_form_diary[$form_id]))
+                    $rm_form_diary[$form_id]++;
+                else
+                    $rm_form_diary[$form_id] = 1;
+
+                // Form access interception
+                if(defined('REGMAGIC_ADDON')) {
+                    $params['form_id'] = $form_id;
+                    $fac_responce = $this->test_form_access($form, $_REQUEST, $params);
+                    if($fac_responce->status != 'allowed') {
+                        echo wp_kses_post((string)$fac_responce->html_str);
                         return;
                     }
                 }
-            }
 
-            // Update form diary
-            global $rm_form_diary;
-            if(isset($rm_form_diary[$form_id]))
-                $rm_form_diary[$form_id]++;
-            else
-                $rm_form_diary[$form_id] = 1;
+                $price_fields = 0;
 
-            // Form access interception
-            if(defined('REGMAGIC_ADDON')) {
-                $params['form_id'] = $form_id;
-                $fac_responce = $this->test_form_access($form, $_REQUEST, $params);
-                if($fac_responce->status != 'allowed') {
-                    echo wp_kses_post((string)$fac_responce->html_str);
+                // Handling Paypal redirect after payment
+                if (isset($_GET['rm_pproc'], $_GET['rm_fid'], $_GET['rm_fno'], $rm_form_diary[$form_id], $_GET['sh'])
+                    && $_GET['rm_fid'] == $form_id && $_GET['rm_fno'] == $rm_form_diary[$form_id]) {
+                    $paypal_service = new RM_Paypal_Service();
+                    ob_start();
+                    $paypal_service->callback($_GET['rm_pproc'], isset($_GET['rm_pproc_id']) ? $_GET['rm_pproc_id'] : null, $_GET['sh']);
+                    $paypal_callback_msg = ob_get_clean();
+                    $x = new stdClass;
+                    $x->form = $form;
+                    $x->form_name = $form->form_name;
+                    $after_sub_msg = $this->after_submission_proc($x);
+                    echo wp_kses_post((string)$paypal_callback_msg).'<br><br>'.wp_kses_post((string)$after_sub_msg);
                     return;
                 }
-            }
 
-            $price_fields = 0;
+                if(isset($_GET['rm_success']) && isset($_GET['rm_form_id']) && is_numeric($_GET['rm_form_id']) && $form_id == $_GET['rm_form_id']) {
+                    $html = "<div class='rm-post-sub-msg'>";
+                    $sub_id = isset($_GET['rm_sub_id']) ? absint($_GET['rm_sub_id']) : 0;
+                    $html .= $form->form_options->form_success_message != "" ? apply_filters('rm_form_success_msg',$form->form_options->form_success_message,$form_id,$sub_id) : $form->form_name . " Submitted ";
+                    $html .= '</div>';
+                    echo wp_kses_post($html);
+                    return;
+                }
 
-            // Handling Paypal redirect after payment
-            if (isset($_GET['rm_pproc'], $_GET['rm_fid'], $_GET['rm_fno'], $rm_form_diary[$form_id], $_GET['sh'])
-                && $_GET['rm_fid'] == $form_id && $_GET['rm_fno'] == $rm_form_diary[$form_id]) {
-                $paypal_service = new RM_Paypal_Service();
-                ob_start();
-                $paypal_service->callback($_GET['rm_pproc'], isset($_GET['rm_pproc_id']) ? $_GET['rm_pproc_id'] : null, $_GET['sh']);
-                $paypal_callback_msg = ob_get_clean();
-                $x = new stdClass;
-                $x->form = $form;
-                $x->form_name = $form->form_name;
-                $after_sub_msg = $this->after_submission_proc($x);
-                echo wp_kses_post((string)$paypal_callback_msg).'<br><br>'.wp_kses_post((string)$after_sub_msg);
-                return;
-            }
-
-            if(isset($_GET['rm_success']) && isset($_GET['rm_form_id']) && is_numeric($_GET['rm_form_id']) && $form_id == $_GET['rm_form_id']) {
-                $html = "<div class='rm-post-sub-msg'>";
-                $sub_id = isset($_GET['rm_sub_id']) ? absint($_GET['rm_sub_id']) : 0;
-                $html .= $form->form_options->form_success_message != "" ? apply_filters('rm_form_success_msg',$form->form_options->form_success_message,$form_id,$sub_id) : $form->form_name . " Submitted ";
-                $html .= '</div>';
-                echo wp_kses_post($html);
-                return;
-            }
-
-            // Handling Stripe payment
-            if (isset($_REQUEST['payment_intent_client_secret'])) {
-                wp_enqueue_script('rm_stripe_script','https://js.stripe.com/v3/');
-                wp_enqueue_script('rm_stripe_status_utility',RM_ADDON_BASE_URL. 'public/js/stripe_status_utility.js');
-                $rm_admin_vars = array('nonce'=>wp_create_nonce('rm_ajax_secure'));
-                wp_localize_script('rm_stripe_status_utility','rm_admin_vars',$rm_admin_vars);
-                wp_enqueue_style('rm_stripe_checkout_style');
+                // Handling Stripe payment
+                if (isset($_REQUEST['payment_intent_client_secret'])) {
+                    wp_enqueue_script('rm_stripe_script','https://js.stripe.com/v3/');
+                    wp_enqueue_script('rm_stripe_status_utility',RM_ADDON_BASE_URL. 'public/js/stripe_status_utility.js');
+                    $rm_admin_vars = array('nonce'=>wp_create_nonce('rm_ajax_secure'));
+                    wp_localize_script('rm_stripe_status_utility','rm_admin_vars',$rm_admin_vars);
+                    wp_enqueue_style('rm_stripe_checkout_style', RM_ADDON_BASE_URL . 'public/css/rm_stripe_checkout.css');
+                    
+                    $log_entry_id = absint($_REQUEST['log_id']);
+                    $total_price = sanitize_text_field($_REQUEST['total_price']);
+                    $submission_id = absint($_REQUEST['sub_id']);
+                    $description = sanitize_text_field($_REQUEST['description']);
+                    $label = esc_html__('Please enter the details to complete the payment:','custom-registration-form-builder-with-submission-manager');
+                    $btn_label = esc_html__('Pay','custom-registration-form-builder-with-submission-manager').' '.$total_price;
+                    echo "<div class=\"rm_stripe_fields\">
+                            <div class=\"rm_stripe_label\" style=\"display:none\">".wp_kses_post((string)$label)."</div>
+                            <form id=\"rm-stripe-payment-form\" data-log-id=\"".wp_kses_post((string)$log_entry_id)."\" data-total-price=\"".wp_kses_post((string)$total_price)."\" data-submission-id=\"".wp_kses_post((string)$submission_id)."\" data-description=\"".wp_kses_post((string)$description)."\">
+                            <div id=\"rm-stripe-payment-element\" style=\"display:none\">
+                                <!--Stripe.js injects the Payment Element-->
+                            </div>
+                            <button id=\"rm-stripe-submit\" style=\"display:none\">
+                                <div class=\"rm-stripe-spinner rm-stripe-hidden\" id=\"rm-stripe-spinner\"></div>
+                                <span id=\"rm-stripe-button-text\">".wp_kses_post((string)$btn_label)."</span>
+                            </button>
+                            <div id=\"rm-stripe-payment-message\" class=\"rm-stripe-hidden\"></div>
+                            </form>
+                        </div>";
+                    return;
+                }
                 
-                $log_entry_id = absint($_REQUEST['log_id']);
-                $total_price = sanitize_text_field($_REQUEST['total_price']);
-                $submission_id = absint($_REQUEST['sub_id']);
-                $description = sanitize_text_field($_REQUEST['description']);
-                $label = esc_html__('Please enter the details to complete the payment:','custom-registration-form-builder-with-submission-manager');
-                $btn_label = esc_html__('Pay','custom-registration-form-builder-with-submission-manager').' '.$total_price;
-                echo "<div class=\"rm_stripe_fields\">
-                        <div class=\"rm_stripe_label\" style=\"display:none\">".wp_kses_post((string)$label)."</div>
-                        <form id=\"rm-stripe-payment-form\" data-log-id=\"".wp_kses_post((string)$log_entry_id)."\" data-total-price=\"".wp_kses_post((string)$total_price)."\" data-submission-id=\"".wp_kses_post((string)$submission_id)."\" data-description=\"".wp_kses_post((string)$description)."\">
-                        <div id=\"rm-stripe-payment-element\" style=\"display:none\">
-                            <!--Stripe.js injects the Payment Element-->
-                        </div>
-                        <button id=\"rm-stripe-submit\" style=\"display:none\">
-                            <div class=\"rm-stripe-spinner rm-stripe-hidden\" id=\"rm-stripe-spinner\"></div>
-                            <span id=\"rm-stripe-button-text\">".wp_kses_post((string)$btn_label)."</span>
-                        </button>
-                        <div id=\"rm-stripe-payment-message\" class=\"rm-stripe-hidden\"></div>
-                        </form>
-                    </div>";
-                return;
-            }
-            
-            do_action('rm_pre_form_proc', $_REQUEST);
+                do_action('rm_pre_form_proc', $_REQUEST);
 
-            // Off limit check
-            if($this->is_off_limit_submission($form_id, $form->form_options)) {
-                esc_html_e("To fight spam admin has fixed the maximum number of submissions for this form from a single device. You can resubmit after 24 hours or you can contact the admin to reset the limit.", 'custom-registration-form-builder-with-submission-manager');
-                return;
-            }
-
-            // Handling form submission
-            if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['form_id'])) {
-                $errors = $this->save_submission($_POST, $form);
-                if(empty($errors))
+                // Off limit check
+                if($this->is_off_limit_submission($form_id, $form->form_options)) {
+                    esc_html_e("To fight spam admin has fixed the maximum number of submissions for this form from a single device. You can resubmit after 24 hours or you can contact the admin to reset the limit.", 'custom-registration-form-builder-with-submission-manager');
                     return;
-            } else {
-                $errors = array();
-            }
-
-            // Updating published pages for the selected form
-            if(!is_admin()) {
-                $current_page = get_the_ID();
-                $published_pages = maybe_unserialize($wpdb->get_var($wpdb->prepare("SELECT published_pages FROM {$wpdb->prefix}rm_forms WHERE form_id = %d", $form_id)));
-                if(is_array($published_pages)) {
-                    array_push($published_pages, $current_page);
-                } else {
-                    $published_pages = array($current_page);
                 }
-                $published_pages = array_unique($published_pages);
-                $wpdb->update(
-                    "{$wpdb->prefix}rm_forms",
-                    array('published_pages' => maybe_serialize($published_pages)),
-                    array('form_id' => $form_id),
-                    '%s'
-                );
 
-                // Creating stat entry
-                $stat_id = $this->create_stat_entry($form_id);
+                // Handling form submission
+                if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['form_id'])) {
+                    $errors = $this->save_submission($_POST, $form);
+                    if(empty($errors))
+                        return;
+                } else {
+                    $errors = array();
+                }
+
+                // Updating published pages for the selected form
+                if(!is_admin()) {
+                    $current_page = get_the_ID();
+                    $published_pages = maybe_unserialize($wpdb->get_var($wpdb->prepare("SELECT published_pages FROM {$wpdb->prefix}rm_forms WHERE form_id = %d", $form_id)));
+                    if(is_array($published_pages)) {
+                        array_push($published_pages, $current_page);
+                    } else {
+                        $published_pages = array($current_page);
+                    }
+                    $published_pages = array_unique($published_pages);
+                    $wpdb->update(
+                        "{$wpdb->prefix}rm_forms",
+                        array('published_pages' => maybe_serialize($published_pages)),
+                        array('form_id' => $form_id),
+                        '%s'
+                    );
+
+                    // Creating stat entry
+                    $stat_id = $this->create_stat_entry($form_id);
+                } else {
+                    $stat_id = -1;
+                }
             } else {
-                $stat_id = -1;
+                // Update form diary
+                global $rm_form_diary;
+                if(isset($rm_form_diary[$form_id]))
+                    $rm_form_diary[$form_id]++;
+                else
+                    $rm_form_diary[$form_id] = 1;
+
+                $price_fields = 0;
+
+                if(empty($ex_sub_id)) {
+                    esc_html_e('Invalid submission edit', 'custom-registration-form-builder-with-submission-manager');
+                    return;
+                }
+                
+                // Handling form submission
+                if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['form_id']) && isset($_POST['rm_prefilled'])) {
+                    $errors = $this->save_submission($_POST, $form, $prefilled, $ex_sub_id);
+                    if(empty($errors))
+                        return;
+                } else {
+                    $errors = array();
+                }
             }
 
             $form->rows = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_rows WHERE form_id = %d ORDER BY page_no, row_order ASC", $form_id));
-            $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d", $form_id), OBJECT_K);
+            if($prefilled) {
+                if(current_user_can('manage_options')) {
+                    $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type != 'Price' AND is_field_primary = 0", $form_id), OBJECT_K);
+                } else {
+                    if(isset($form->form_options->save_submission_enabled) && !empty($form->form_options->save_submission_enabled) && defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                        $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type != 'Price' AND is_field_primary = 0", $form_id), OBJECT_K);
+                    } else {
+                        $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type != 'Price' AND is_field_primary = 0 AND field_is_editable = 1", $form_id), OBJECT_K);
+                    }
+                }
+            } else {
+                $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d", $form_id), OBJECT_K);
+            }
             if(!empty($form->rows) && is_iterable($form->rows)) {
                 // Output CSS from Design area of the form
                 $this->output_custom_design($form);
@@ -1296,7 +1481,6 @@ final class RM_Form_Factory_Revamp {
                 echo "<form id='rmform-module-".esc_attr((string)$form->form_id)."' class='rmform-ui rmform-custom-form rmform-custom-form-".esc_attr((string)$form->form_id)." rmform-design--".esc_attr((string)$theme)."' action='' method='post' enctype='multipart/form-data'"
                 . "data-form-id='".esc_attr((string)$form->form_id)."' data-design='".esc_attr((string)$theme)."' data-style='".esc_attr((string)$label_layout)."' data-type='".esc_attr((string)$form->form_type)."'>";
 
-                $has_v3 = false;
                 $v3_key = '';
                 $has_pages = isset($form->form_options->form_pages) && is_array($form->form_options->form_pages) && count($form->form_options->form_pages) > 1 && defined('REGMAGIC_ADDON');
                 if($has_pages) {
@@ -1376,7 +1560,6 @@ final class RM_Form_Factory_Revamp {
                             }
 
                             if ($field->field_type != "Address" && $field->field_type != "WCBilling" && $field->field_type != "WCShipping" && $field->field_type != "Radio" && $field->field_type != "Checkbox" && $field->field_type != "Terms" && $field->field_type != "Price" && $field->field_type != "Privacy") {
-
                                 echo "<div id='rm-".wp_kses_post(strtolower($field->field_type))."-".wp_kses_post((string)$field_id)."' class='rmform-col rmform-col-".wp_kses_post((string)$col_array[$index])."'>";
                             } else {
                                 echo "<div id='rm-".wp_kses_post(strtolower($field->field_type))."-".wp_kses_post((string)$field_id)."' class='rm-address-field-wrap rmform-col rmform-col-".wp_kses_post((string)$col_array[$index])."'>";
@@ -1385,7 +1568,11 @@ final class RM_Form_Factory_Revamp {
                             //<!-rmform-has-error rm-form-has-hover rm-form-is-active -->
                             $field_method = strtolower("create_".str_replace("-","",$field->field_type)."_field");
                             if(method_exists($field_factory, $field_method)) {
-                                $field_factory->$field_method($field);
+                                if($prefilled) {
+                                    $field_factory->$field_method($field, $ex_sub_id);
+                                } else {
+                                    $field_factory->$field_method($field);
+                                }
                             } elseif(method_exists($field_factory_addon, $field_method)) {
                                 $field_factory_addon->$field_method($field);
                             }
@@ -1405,7 +1592,6 @@ final class RM_Form_Factory_Revamp {
                             }
 
                             if ($field->field_type != "Address" && $field->field_type != "WCBilling" && $field->field_type != "WCShipping" && $field->field_type != "Price" && $field->field_type != "Radio" && $field->field_type != "Checkbox" && $field->field_type != "Terms") {
-
                                 if (isset($field->field_options->help_text) && $field->field_options->help_text !== "") {
                                     echo "<div id='rm-note-".wp_kses_post((string)$field_id)."' class='rmform-note' style='display: none;'>".wp_kses_post((string)$field->field_options->help_text)."</div>";
                                 }
@@ -1498,13 +1684,19 @@ final class RM_Form_Factory_Revamp {
                             }
                         }
                     }
-                    // Adding stat ID field
-                    echo "<input type='hidden' name='stat_id' value='".wp_kses_post((string)$stat_id)."'>";
                     // Adding form ID field
                     echo "<input type='hidden' name='form_id' value='".wp_kses_post((string)$form_id)."'>";
                     echo "<input type='hidden' name='rm_cond_hidden_fields' id='rm_cond_hidden_fields' value=''>";
-                    // Adding subscription checkboxes
-                    $this->show_subscription_checkboxes($form);
+                    if(!$prefilled) {
+                        // Adding stat ID field
+                        echo "<input type='hidden' name='stat_id' value='".wp_kses_post((string)$stat_id)."'>";
+                        // Adding subscription checkboxes
+                        $this->show_subscription_checkboxes($form);
+                    } else {
+                        // Adding prefilled field
+                        echo "<input type='hidden' name='rm_prefilled' value='1'>";
+                        echo "<input type='hidden' name='rm_slug' value='rm_user_form_edit_sub'>";
+                    }
                     // Adding payment gateway selector field
                     if($price_fields > 0) {
                         $payment_gateways = get_option('rm_option_payment_gateway');
@@ -1582,7 +1774,7 @@ final class RM_Form_Factory_Revamp {
                     }
                     echo "</div>";
                     // Rendering submit button
-                    $this->render_submit_button($form, $has_pages);
+                    $this->render_submit_button($form, $has_pages, $price_fields, $prefilled);
                 }
                 echo "</form></div></div>";
                 $this->output_validation_js($form->form_id);
@@ -2178,7 +2370,6 @@ final class RM_Form_Factory_Revamp {
                 'required' => esc_html__("This field is required", 'custom-registration-form-builder-with-submission-manager'),
                 'passmatch' => esc_html__("Password does not match", 'custom-registration-form-builder-with-submission-manager'),
                 'emailmatch' => esc_html__("Email does not match", 'custom-registration-form-builder-with-submission-manager'),
-                'usertaken' => esc_html__("This username is already taken", 'custom-registration-form-builder-with-submission-manager'),
                 'passupper' => esc_html__("Password must contain an uppercase letter", 'custom-registration-form-builder-with-submission-manager'),
                 'passnumber' => esc_html__("Password must contain a number", 'custom-registration-form-builder-with-submission-manager'),
                 'passspecial' => esc_html__("Password must contain a special character", 'custom-registration-form-builder-with-submission-manager'),

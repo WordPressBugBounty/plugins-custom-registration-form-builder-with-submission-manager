@@ -52,13 +52,13 @@ class RM_Reports_Service extends RM_Services
         $interval_string = "BETWEEN '" .date('Y-m-d',strtotime($req->start_date)). "' AND '".date('Y-m-d',strtotime($req->end_date))."'  ORDER BY `submission_id` DESC ".$limit_string;
         $count_interval_string = "BETWEEN '" .date('Y-m-d',strtotime($req->start_date)). "' AND '".date('Y-m-d',strtotime($req->end_date))."'  ORDER BY `submission_id` DESC ";
         if($req->form_id =='all'){
-            $qry = "SELECT $column FROM `$table_name` WHERE $email_string CAST(submitted_on AS date) $interval_string";
-            $count_qry = "SELECT $column FROM `$table_name` WHERE $email_string CAST(submitted_on AS date) $count_interval_string";
+            $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT $column FROM `$table_name` WHERE `is_pending` = 0 AND $email_string CAST(submitted_on AS date) $interval_string" : "SELECT $column FROM `$table_name` WHERE $email_string CAST(submitted_on AS date) $interval_string";
+            $count_qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT $column FROM `$table_name` WHERE `is_pending` = 0 AND $email_string CAST(submitted_on AS date) $count_interval_string" : "SELECT $column FROM `$table_name` WHERE $email_string CAST(submitted_on AS date) $count_interval_string";
             $submissions = $wpdb->get_results($qry);
             $sub_count= count($wpdb->get_results($count_qry));
         }else{
-            $qry = "SELECT $column FROM `$table_name` WHERE `form_id` = $req->form_id AND $email_string CAST(submitted_on AS date) $interval_string";
-            $count_qry = "SELECT $column FROM `$table_name` WHERE `form_id` = $req->form_id AND $email_string CAST(submitted_on AS date) $count_interval_string";
+            $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT $column FROM `$table_name` WHERE `form_id` = $req->form_id AND `is_pending` = 0 AND $email_string CAST(submitted_on AS date) $interval_string" : "SELECT $column FROM `$table_name` WHERE `form_id` = $req->form_id AND $email_string CAST(submitted_on AS date) $interval_string";
+            $count_qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT $column FROM `$table_name` WHERE `form_id` = $req->form_id AND `is_pending` = 0 AND $email_string CAST(submitted_on AS date) $count_interval_string" : "SELECT $column FROM `$table_name` WHERE `form_id` = $req->form_id AND $email_string CAST(submitted_on AS date) $count_interval_string";
             $submissions = $wpdb->get_results($qry);
             $sub_count= count($wpdb->get_results($count_qry));
         }
@@ -91,10 +91,10 @@ class RM_Reports_Service extends RM_Services
             $chart_date[] = date("j M", strtotime($req->start_date));
             $count_interval_string = "= '" .date('Y-m-d',strtotime($req->start_date))."'";
             if($req->form_id =='all'){
-                $count_qry = "SELECT * FROM `$table_name` WHERE $email_string CAST(submitted_on AS date) $count_interval_string";
+                $count_qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT * FROM `$table_name` WHERE `is_pending` = 0 AND $email_string CAST(submitted_on AS date) $count_interval_string" : "SELECT * FROM `$table_name` WHERE $email_string CAST(submitted_on AS date) $count_interval_string";
                 $sub_count= count($wpdb->get_results($count_qry));
             }else{
-                $count_qry = "SELECT * FROM `$table_name` WHERE $email_string `form_id` = $req->form_id AND CAST(submitted_on AS date) $count_interval_string";
+                $count_qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT * FROM `$table_name` WHERE $email_string `form_id` = $req->form_id AND `is_pending` = 0 AND CAST(submitted_on AS date) $count_interval_string" : "SELECT * FROM `$table_name` WHERE $email_string `form_id` = $req->form_id AND CAST(submitted_on AS date) $count_interval_string";
                 $sub_count= count($wpdb->get_results($count_qry));
             }
             $chart_value[] = $sub_count;
@@ -1212,8 +1212,8 @@ class RM_Reports_Service extends RM_Services
         $interval_string = "BETWEEN '" .date('Y-m-d H:i:s',strtotime($req->start_date)). "' AND '".date('Y-m-d H:i:s',strtotime($req->end_date))."'  ORDER BY `submission_id` DESC ".$limit_string;
         $count_interval_string = "BETWEEN '" .date('Y-m-d H:i:s',strtotime($req->start_date)). "' AND '".date('Y-m-d H:i:s',strtotime($req->end_date))."'  ORDER BY `submission_id` DESC ";
         
-        $qry = "SELECT $column FROM `$table_name` WHERE `form_id` = $req->form_id AND $email_string CAST(submitted_on AS datetime) $interval_string";
-        $count_qry = "SELECT $column FROM `$table_name` WHERE `form_id` = $req->form_id AND $email_string CAST(submitted_on AS datetime) $count_interval_string";
+        $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT $column FROM `$table_name` WHERE `form_id` = $req->form_id AND `is_pending` = 0 AND $email_string CAST(submitted_on AS datetime) $interval_string" : "SELECT $column FROM `$table_name` WHERE `form_id` = $req->form_id AND $email_string CAST(submitted_on AS datetime) $interval_string";
+        $count_qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT $column FROM `$table_name` WHERE `form_id` = $req->form_id AND `is_pending` = 0 AND $email_string CAST(submitted_on AS datetime) $count_interval_string" : "SELECT $column FROM `$table_name` WHERE `form_id` = $req->form_id AND $email_string CAST(submitted_on AS datetime) $count_interval_string";
         $submissions = $wpdb->get_results($qry);
         $sub_count= count($wpdb->get_results($count_qry));
         

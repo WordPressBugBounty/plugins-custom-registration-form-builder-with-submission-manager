@@ -126,10 +126,11 @@ class RM_Front_Controller {
 
                     $settings = new RM_Options;
 
-                    if ($service->get_editable_fields($submission->get_form_id()))
+                    if($service->get_editable_fields($submission->get_form_id())) {
                         $data->is_editable = true;
-                    else
+                    } else {
                         $data->is_editable = false;
+                    }
 
                     $data->is_authorized = true;
                     $data->submission = $submission;
@@ -172,7 +173,9 @@ class RM_Front_Controller {
                     $data->form_type_status = $form->get_form_type();
                     $data->form_name = $form->get_form_name();
                     $data->form_is_unique_token = $form->get_form_is_unique_token();
-
+                    if(isset($form->form_options->save_submission_enabled) && !empty($form->form_options->save_submission_enabled) && isset($submission->is_pending) && $submission->is_pending == 1 && defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                        $data->is_editable = true;
+                    }
                     /*
                      * User details if form is registration type
                      */

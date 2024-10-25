@@ -415,9 +415,17 @@ class RM_DBManager
             return false;
 
         if ($descending === false) {
-            $results = $wpdb->get_results($wpdb->prepare("SELECT $column FROM `$table_name` WHERE `$foreign_key` = %d ORDER BY `$sort_by` LIMIT $limit OFFSET $offset", $form_id));
+            if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                $results = $wpdb->get_results($wpdb->prepare("SELECT $column FROM `$table_name` WHERE `$foreign_key` = %d AND `is_pending` = 0 ORDER BY `$sort_by` LIMIT $limit OFFSET $offset", $form_id));
+            } else {
+                $results = $wpdb->get_results($wpdb->prepare("SELECT $column FROM `$table_name` WHERE `$foreign_key` = %d ORDER BY `$sort_by` LIMIT $limit OFFSET $offset", $form_id));
+            }
         } else {
-            $results = $wpdb->get_results($wpdb->prepare("SELECT $column FROM `$table_name` WHERE `$foreign_key` = %d ORDER BY `$sort_by` DESC LIMIT $limit OFFSET $offset", $form_id));
+            if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                $results = $wpdb->get_results($wpdb->prepare("SELECT $column FROM `$table_name` WHERE `$foreign_key` = %d AND `is_pending` = 0 ORDER BY `$sort_by` DESC LIMIT $limit OFFSET $offset", $form_id));
+            } else {
+                $results = $wpdb->get_results($wpdb->prepare("SELECT $column FROM `$table_name` WHERE `$foreign_key` = %d ORDER BY `$sort_by` DESC LIMIT $limit OFFSET $offset", $form_id));
+            }
         }
 
         if ($results === NULL || count($results) === 0) {
@@ -596,6 +604,14 @@ class RM_DBManager
 
         $unique_id_name = RM_Table_Tech::get_unique_id_name($model_identifier);
 
+        if(defined('RM_SAVE_SUBMISSION_BASENAME') && $model_identifier == 'SUBMISSIONS') {
+            if(is_array($where)) {
+                $where['is_pending'] = 0;
+            } else {
+                $where = array('is_pending' => 0);
+            }
+        }
+        
         if ($unique_id_name === false)
             return false;
          /* update by vincent andrew */
@@ -654,6 +670,14 @@ class RM_DBManager
 
         if ($unique_id_name === false)
             return false;
+
+        if(defined('RM_SAVE_SUBMISSION_BASENAME') && $model_identifier == 'SUBMISSIONS') {
+            if(is_array($where)) {
+                $where['is_pending'] = 0;
+            } else {
+                $where = array('is_pending' => 0);
+            }
+        }
 
         $qry = "SELECT COUNT($unique_id_name) FROM $table_name WHERE ";
        
@@ -1122,6 +1146,23 @@ class RM_DBManager
         $table_name = RM_Table_Tech::get_table_name_for($model_identifier);
 
         $unique_id_name = RM_Table_Tech::get_unique_id_name($model_identifier);
+
+        if(defined('RM_SAVE_SUBMISSION_BASENAME') && $model_identifier == 'SUBMISSIONS') {
+            if(!isset($_GET['submission_id'])) {
+                if(is_array($where)) {
+                    $where['is_pending'] = 0;
+                } else {
+                    $where = array('is_pending' => 0);
+                }
+
+                if(is_array($data_specifier)) {
+                    $data_specifier[] = '%d';
+                } else {
+                    $data_specifier = array('%d');
+                }
+            }
+        }
+
         /* update by vincent andrew */
         if(empty($data_specifier) && is_array($where))
         {
@@ -1308,7 +1349,11 @@ class RM_DBManager
     public static function is_expired_by_submissions($form_id, $limit, &$remaining_subs = null) {
         global $wpdb;
         $table_name = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
-        $num_submissions = $wpdb->get_var($wpdb->prepare("Select count(*) FROM `$table_name` where `form_id` = %d AND `child_id` = 0 ", $form_id));
+        if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
+            $num_submissions = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `$table_name` WHERE `form_id` = %d AND `is_pending` = 0 AND `child_id` = 0 ", $form_id));
+        } else {
+            $num_submissions = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 ", $form_id));
+        }
         if ($num_submissions >= $limit) {
             $remaining_subs = 0;
             return true;
@@ -1397,15 +1442,15 @@ class RM_DBManager
             case 'all': {
                     if ((int) $field_id && $sub_ids)
                     {
-                        $qry = "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND `submission_id` in($sub_ids) ";
+                        $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND `is_pending` = 0 AND `submission_id` in($sub_ids) ": "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND `submission_id` in($sub_ids) ";
                         $data[] = $form_id;
                     }elseif ($searched)
                     {
-                        $qry = "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND  `submission_id` = 0 ";
+                        $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND `is_pending` = 0 AND `submission_id` = 0 ": "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND `submission_id` = 0 ";
                         $data[] = $form_id;
                     }else
                     {
-                        $qry = "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 ";
+                        $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND `is_pending` = 0 ": "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 ";
                         $data[] = $form_id;
                     }
                     if (!$descending) {
@@ -1434,17 +1479,17 @@ class RM_DBManager
 
         if ((int) $field_id && $sub_ids)
         {
-            $qry = "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND  `submission_id` in($sub_ids) AND (`submitted_on` $interval_string) $read_status ";
+            $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND `is_pending` = 0 AND `submission_id` in($sub_ids) AND (`submitted_on` $interval_string) $read_status " : "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND  `submission_id` in($sub_ids) AND (`submitted_on` $interval_string) $read_status ";
             $data2[] = $form_id;
         }
         elseif ($searched)
         {
-            $qry = "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND  `submission_id` = 0 AND (`submitted_on` $interval_string) $read_status ";
+            $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND `is_pending` = 0 AND `submission_id` = 0 AND (`submitted_on` $interval_string) $read_status ": "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND  `submission_id` = 0 AND (`submitted_on` $interval_string) $read_status ";
             $data2[] = $form_id;
         }
         else
         {
-            $qry = "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND  (`submitted_on` $interval_string) $read_status ";
+            $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND `is_pending` = 0 AND (`submitted_on` $interval_string) $read_status ": "SELECT * FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 AND  (`submitted_on` $interval_string) $read_status ";
             $data2[] = $form_id;
         }
 
@@ -1514,17 +1559,17 @@ class RM_DBManager
 
                 if ((int) $field_id && $sub_ids)
                 {
-                    $qry = "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND `submission_id` in($sub_ids) ";
+                    $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND `is_pending` = 0 AND `submission_id` in($sub_ids) ": "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND `submission_id` in($sub_ids) ";
                     $data[] = $form_id;
                 }
                 elseif ($searched)
                 {
-                    $qry = "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND `submission_id` = 0 ";
+                    $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND `is_pending` = 0 AND `submission_id` = 0 ": "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND `submission_id` = 0 ";
                     $data[] = $form_id;
                 }
                 else
                 {
-                    $qry = "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d ";
+                    $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND `is_pending` = 0 ": "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d ";
                     $data[] = $form_id;
                 }
                 if ($descending === false) {
@@ -1552,12 +1597,12 @@ class RM_DBManager
 
         if ((int) $field_id && $sub_ids)
         {
-            $qry = "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND `submission_id` in($sub_ids) AND (`submitted_on` $interval_string) ";
+            $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND `is_pending` = 0 AND `submission_id` in($sub_ids) AND (`submitted_on` $interval_string) ": "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND `submission_id` in($sub_ids) AND (`submitted_on` $interval_string) ";
             $data2[] = $form_id;
         }
         else
         {
-            $qry = "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND (`submitted_on` $interval_string) ";
+            $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND `is_pending` = 0 AND (`submitted_on` $interval_string) " : "SELECT `$col_name` FROM `$table_name` WHERE `form_id` = %d AND (`submitted_on` $interval_string) ";
             $data2[] = $form_id;
         }
         if ($descending === false) {
@@ -1938,10 +1983,15 @@ class RM_DBManager
         if(defined('REGMAGIC_ADDON')){
             return RM_DBManager_Addon::get_submissions($filter,$form_id,$selection,$sort_by,$descending,$result_type,$paginated);
         }
-        if(!(int) $form_id)
+        if(!(int) $form_id) {
             $where = "";
-        else
-            $where = "AND `form_id` = %d ";
+        } else {
+            if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                $where = "AND `form_id` = %d AND `is_pending` = 0 ";
+            } else {
+                $where = "AND `form_id` = %d ";
+            }
+        }
         global $wpdb;
         $wpdb->query('SET time_zone = "+00:00"');
         $table_name = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
@@ -2022,19 +2072,19 @@ class RM_DBManager
             case 'all':
                 if (((int) $filters['rm_field_to_search'] || $custom_status_search) && $sub_ids)
                 {
-                    $qry = "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `submission_id` in($sub_ids) {$where}";
+                    $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `is_pending` = 0 AND `submission_id` in($sub_ids) {$where}" : "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `submission_id` in($sub_ids) {$where}";
                     if(!empty($where))
                         $data[] = $form_id;
                 }
                 elseif ($searched)
                 {
-                    $qry = "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `submission_id` = 0 {$where}";
+                    $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `is_pending` = 0 AND `submission_id` = 0 {$where}" : "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `submission_id` = 0 {$where}";
                     if(!empty($where))
                         $data[] = $form_id;
                 }
                 else
                 {
-                    $qry = "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 {$where}";
+                    $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `is_pending` = 0 {$where}" : "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 {$where}";
                     if(!empty($where))
                         $data[] = $form_id;
                 }
@@ -2066,19 +2116,19 @@ class RM_DBManager
 
         if (((int) $filters['rm_field_to_search'] || $custom_status_search) && $sub_ids)
         {
-            $qry = "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `submission_id` in($sub_ids) AND (`submitted_on` $interval_string) {$where}";
+            $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `is_pending` = 0 AND `submission_id` in($sub_ids) AND (`submitted_on` $interval_string) {$where}" : "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `submission_id` in($sub_ids) AND (`submitted_on` $interval_string) {$where}";
             if(!empty($where))
                 $data2[] = $form_id;
         }
         elseif ($searched)
         {
-            $qry = "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `submission_id` = 0 AND (`submitted_on` $interval_string) {$where}";
+            $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `is_pending` = 0 AND `submission_id` = 0 AND (`submitted_on` $interval_string) {$where}" : "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `submission_id` = 0 AND (`submitted_on` $interval_string) {$where}";
             if(!empty($where))
                 $data2[] = $form_id;
         }
         else
         {
-            $qry = "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND (`submitted_on` $interval_string) {$where}";
+            $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND `is_pending` = 0 AND (`submitted_on` $interval_string) {$where}" : "SELECT $selection FROM `$table_name` WHERE `child_id` = 0 AND (`submitted_on` $interval_string) {$where}";
             if(!empty($where))
                 $data2[] = $form_id;
         }
@@ -2123,18 +2173,31 @@ class RM_DBManager
             $count = count($form_ids);
             $data_specifiers = array_fill(0, $count, '%d');
             $specifier_str = implode(', ', $data_specifiers);
-            $query = "SELECT * FROM $table_name WHERE $unique_id_name IN ("
-                    . "SELECT MAX($unique_id_name) FROM `$table_name` where `user_email` =%s "
-                    . " AND `form_id` IN ($specifier_str)  GROUP BY `form_id`)"
+            if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                $query = "SELECT * FROM $table_name WHERE $unique_id_name IN ("
+                    . "SELECT MAX($unique_id_name) FROM `$table_name` WHERE `user_email` = %s "
+                    . " AND `is_pending` = 0 AND `form_id` IN ($specifier_str) GROUP BY `form_id`)"
                     . "ORDER BY $unique_id_name DESC";
+            } else {
+                $query = "SELECT * FROM $table_name WHERE $unique_id_name IN ("
+                    . "SELECT MAX($unique_id_name) FROM `$table_name` WHERE `user_email` = %s "
+                    . " AND `form_id` IN ($specifier_str) GROUP BY `form_id`)"
+                    . "ORDER BY $unique_id_name DESC";
+            }
             if(!is_array($form_ids)){
                $form_ids= explode(',',(string)$form_ids);
             }
             $results = $wpdb->get_results($wpdb->prepare($query, array_merge(array($user_email), $form_ids)));
         } else {
-            $query = "SELECT * FROM $table_name WHERE $unique_id_name IN ("
-                    . "SELECT MAX($unique_id_name) FROM `$table_name` where `user_email` =%s GROUP BY `form_id`)"
+            if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                $query = "SELECT * FROM $table_name WHERE $unique_id_name IN ("
+                    . "SELECT MAX($unique_id_name) FROM `$table_name` WHERE `user_email` = %s AND `is_pending` = 0 GROUP BY `form_id`)"
                     . "ORDER BY $unique_id_name DESC";
+            } else {
+                $query = "SELECT * FROM $table_name WHERE $unique_id_name IN ("
+                    . "SELECT MAX($unique_id_name) FROM `$table_name` WHERE `user_email` = %s GROUP BY `form_id`)"
+                    . "ORDER BY $unique_id_name DESC";
+            }
             $results = $wpdb->get_results($wpdb->prepare($query, $user_email));
         }
 
@@ -2347,7 +2410,7 @@ class RM_DBManager
                 global $wpdb;
                 $table_name = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
                 $unique_id_name = RM_Table_Tech::get_unique_id_name('SUBMISSIONS');
-                $first_parent = $wpdb->get_var($wpdb->prepare("SELECT MIN($unique_id_name) FROM $table_name WHERE `last_child` = %d", $last_child));
+                $first_parent = defined('RM_SAVE_SUBMISSION_BASENAME') ? $wpdb->get_var($wpdb->prepare("SELECT MIN($unique_id_name) FROM $table_name WHERE `last_child` = %d AND `is_pending` = 0", $last_child)): $wpdb->get_var($wpdb->prepare("SELECT MIN($unique_id_name) FROM $table_name WHERE `last_child` = %d", $last_child));
                 if ((int) $first_parent)
                     return $first_parent;
                 else
@@ -2586,7 +2649,7 @@ class RM_DBManager
         global $wpdb;
         $table_name_submission = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
 
-        $result = $wpdb->get_row("SELECT * FROM $table_name_submission ORDER BY submitted_on DESC limit 1");
+        $result = defined('RM_SAVE_SUBMISSION_BASENAME') ? $wpdb->get_row("SELECT * FROM $table_name_submission WHERE `is_pending` = 0 ORDER BY submitted_on DESC limit 1"): $wpdb->get_row("SELECT * FROM $table_name_submission ORDER BY submitted_on DESC limit 1");
 
         return $result;
     }

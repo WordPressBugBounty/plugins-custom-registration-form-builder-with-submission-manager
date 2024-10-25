@@ -4,6 +4,7 @@ window.addEventListener("load", (event) => {
     const rmFormNextBtn = document.getElementById('rm-form-next-btn');
     const rmFormPrevBtn = document.getElementById('rm-form-prev-btn');
     const rmFormSubmitBtn = document.getElementById('rm-form-submit-btn');
+    const rmFormSaveBtn = document.getElementById('rm-form-save-btn');
     const rmFormLastFields = document.getElementById('rm-last-fields');
     const rmFormProgBar = document.querySelectorAll('ul#rmagic-progressbar li');
     const rmFormFields = document.querySelectorAll('form#rmform-module-'+rmValidationJS.formID+' input, form#rmform-module-'+rmValidationJS.formID+' select, form#rmform-module-'+rmValidationJS.formID+' textarea');
@@ -13,7 +14,11 @@ window.addEventListener("load", (event) => {
             primaryFields.push(rmFormFields[i].getAttribute("name"));
         }
         rmFormFields[i].addEventListener("blur", function() {
-            rmValidateField(this);
+            if(rmFormSaveBtn != null) {
+                rmValidateField(this, true);
+            } else {
+                rmValidateField(this);
+            }
         });
     }
 
@@ -28,9 +33,15 @@ window.addEventListener("load", (event) => {
             }
             rmFormSubmitBtn.removeAttribute("disabled");
         }, 4000);
+        if(rmFormSaveBtn != null) {
+            rmFormSaveBtn.setAttribute("disabled",true);
+            setTimeout(function() {
+                rmFormSaveBtn.removeAttribute("disabled");
+            }, 4000);
+        }
     }
 
-    function rmValidateField(field) {
+    function rmValidateField(field, saveSub = false) {
         let elName = field.getAttribute("name");
         var valid = true;
         var fieldErrors = [];
@@ -50,6 +61,10 @@ window.addEventListener("load", (event) => {
                 }
                 // Validating required fields
                 if(field.hasAttribute("required")) {
+                    if(saveSub && (field.dataset.primary != '1' && field.dataset.rmfieldtype != 'price' && field.name != 'username' && field.name != 'pwd' && field.name != 'password_confirmation' && field.name != 'email_confirmation')) {
+                        return true;
+                    }
+                    
                     if(field.getAttribute("type") == 'radio' || field.getAttribute("type") == 'checkbox') {
                         valid = false;
                         let fieldName = field.getAttribute("name");
@@ -129,7 +144,7 @@ window.addEventListener("load", (event) => {
                                             field.closest("div.rmform-field").classList.remove('rmform-has-error');
                                             valid = true;
                                         } else {
-                                            spanEl.innerText = rmValidationJS.texts.usertaken;
+                                            spanEl.innerText = data.data.msg;
                                             field.setAttribute("aria-invalid", "true");
                                             field.closest("div.rmform-field").classList.add('rmform-has-error');
                                             valid = false;
@@ -140,7 +155,7 @@ window.addEventListener("load", (event) => {
                                 }
                             };
                             if(field.value != '') {
-                                request.send("action=check_user_exists&username="+field.value+"&rm_sec_nonce="+rm_ajax.nonce);
+                                request.send("action=check_username_validity&username="+field.value+"&form_id="+rmValidationJS.formID+"&rm_sec_nonce="+rm_ajax.nonce);
                             }
                             break;
                         case 'pwd':
@@ -386,6 +401,65 @@ window.addEventListener("load", (event) => {
         return valid;
     }
 
+    function rmFormSubmitHandler(event, saveSub = false) {
+        event.preventDefault();
+        var invalidFields = [];
+        for(let i = 0; i < rmFormFields.length; i++) {
+            if(rmFormFields[i].getAttribute("aria-invalid") == "true" && (rmFormFields[i].dataset.primary == '1' || rmFormFields[i].name == 'username' || rmFormFields[i].name == 'pwd' || rmFormFields[i].name == 'password_confirmation' || rmFormFields[i].name == 'email_confirmation')) {
+                rmBlockFormSubmission();
+                invalidFields.push(rmFormFields[i]);
+                //return false;
+            } else {
+                if(rmValidateField(rmFormFields[i], saveSub)) {
+                } else {
+                    rmBlockFormSubmission();
+                    invalidFields.push(rmFormFields[i]);
+                    //break;
+                }
+            }
+        }
+        
+        if(invalidFields.length > 0) {
+            invalidFields[0].focus();
+            return false;
+        } else {
+            const saveSubInput = document.createElement("input");
+            saveSubInput.setAttribute("type", "hidden");
+            saveSubInput.setAttribute("name", "rm_save_submission");
+            saveSubInput.setAttribute("value", "1");
+            if(typeof grecaptcha != 'undefined') {
+                var recaptchaField = document.querySelector('div.g-recaptcha');
+                if(recaptchaField != null) {
+                    var reCaptchaResponse = grecaptcha.getResponse();
+                    if(reCaptchaResponse.length == 0) {
+                        document.getElementById('rm-recaptcha-error').innerText = "Please provide reCaptcha verification";
+                        recaptchaField.setAttribute("aria-invalid", "true");
+                        recaptchaField.closest("div.rmform-field").classList.add('rmform-has-error');
+                        return false;
+                    } else {
+                        document.getElementById('rm-recaptcha-error').innerText = "";
+                        recaptchaField.setAttribute("aria-invalid", "false");
+                        recaptchaField.closest("div.rmform-field").classList.remove('rmform-has-error');
+                        if(saveSub) {
+                            document.querySelector('form#rmform-module-'+rmValidationJS.formID).appendChild(saveSubInput);
+                        }
+                        document.querySelector('form#rmform-module-'+rmValidationJS.formID).submit();
+                    }
+                } else {
+                    if(saveSub) {
+                        document.querySelector('form#rmform-module-'+rmValidationJS.formID).appendChild(saveSubInput);
+                    }
+                    document.querySelector('form#rmform-module-'+rmValidationJS.formID).submit();
+                }
+            } else {
+                if(saveSub) {
+                    document.querySelector('form#rmform-module-'+rmValidationJS.formID).appendChild(saveSubInput);
+                }
+                document.querySelector('form#rmform-module-'+rmValidationJS.formID).submit();
+            }
+        }
+    }
+
     if(rmFormNextBtn != null) {
         rmFormNextBtn.addEventListener("click", function() {
             var invalidFields = [];
@@ -393,10 +467,14 @@ window.addEventListener("load", (event) => {
                 if(rmFormPages[i].style.display != "none") {
                     let pageFields = rmFormPages[i].querySelectorAll("input, select, textarea");
                     for(let j = 0; j < pageFields.length; j++) {
-                        if(pageFields[j].getAttribute("aria-invalid") == "true") {
-                            rmBlockFormSubmission();
-                            invalidFields.push(pageFields[j]);
-                            //return false;
+                        if(rmFormSaveBtn != null) {
+                            if(rmValidateField(pageFields[j], true)) {
+                            
+                            } else {
+                                rmBlockFormSubmission();
+                                invalidFields.push(pageFields[j]);
+                                //return false;
+                            }
                         } else {
                             if(rmValidateField(pageFields[j])) {
                             
@@ -421,6 +499,9 @@ window.addEventListener("load", (event) => {
                         if(rmFormPages[rmFormPages.length-1].style.display != "none") {
                             this.style.display = "none";
                             rmFormSubmitBtn.style.display = "block";
+                            if(rmFormSaveBtn != null && rmFormSaveBtn.style.display == "none") {
+                                rmFormSaveBtn.style.display = "block";
+                            }
                             rmFormLastFields.style.display = "block";
                         }
                         break;
@@ -432,49 +513,13 @@ window.addEventListener("load", (event) => {
 
     if(rmFormSubmitBtn != null) {
         rmFormSubmitBtn.addEventListener("click", function(e) {
-            e.preventDefault();
-            var invalidFields = [];
-            for(let i = 0; i < rmFormFields.length; i++) {
-                if(rmFormFields[i].getAttribute("aria-invalid") == "true") {
-                    rmBlockFormSubmission();
-                    invalidFields.push(rmFormFields[i]);
-                    //return false;
-                } else {
-                    if(rmValidateField(rmFormFields[i])) {
-                    } else {
-                        rmBlockFormSubmission();
-                        invalidFields.push(rmFormFields[i]);
-                        //break;
-                    }
-                }
-            }
-            
-            if(invalidFields.length > 0) {
-                invalidFields[0].focus();
-                return false;
-            } else {
-                if(typeof grecaptcha != 'undefined') {
-					var recaptchaField = document.querySelector('div.g-recaptcha');
-					if(recaptchaField != null) {
-						var reCaptchaResponse = grecaptcha.getResponse();
-						if(reCaptchaResponse.length == 0) {
-							document.getElementById('rm-recaptcha-error').innerText = "Please provide reCaptcha verification";
-							recaptchaField.setAttribute("aria-invalid", "true");
-							recaptchaField.closest("div.rmform-field").classList.add('rmform-has-error');
-							return false;
-						} else {
-							document.getElementById('rm-recaptcha-error').innerText = "";
-							recaptchaField.setAttribute("aria-invalid", "false");
-							recaptchaField.closest("div.rmform-field").classList.remove('rmform-has-error');
-							document.querySelector('form#rmform-module-'+rmValidationJS.formID).submit();
-						}
-					} else {
-						document.querySelector('form#rmform-module-'+rmValidationJS.formID).submit();
-					}
-                } else {
-                    document.querySelector('form#rmform-module-'+rmValidationJS.formID).submit();
-                }
-            }
+            rmFormSubmitHandler(e);
+        });
+    }
+
+    if(rmFormSaveBtn != null) {
+        rmFormSaveBtn.addEventListener("click", function(e) {
+            rmFormSubmitHandler(e, true);
         });
     }
 

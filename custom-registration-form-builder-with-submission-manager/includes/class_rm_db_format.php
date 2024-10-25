@@ -146,7 +146,9 @@ class RM_DB_FORMAT
                 case 'is_read':
                         $format = '%d';
                         break;
-       
+                case 'is_pending':
+                    $format = '%d';
+                    break;
                 default:
                         $format = '%s';
                     break;

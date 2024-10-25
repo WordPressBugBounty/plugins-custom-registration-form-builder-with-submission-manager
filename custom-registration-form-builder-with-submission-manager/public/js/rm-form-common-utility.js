@@ -90,25 +90,21 @@ jQuery(function ($) {
             var eprgbRemover = rmFormColorRgb.replace(avoid, '');
             var rmFormColor = eprgbRemover.substring(eprgbRemover.indexOf('(') + 1, eprgbRemover.indexOf(')'));
             $(':root').css('--themeColor', rmFormColor);
-        }
-        
-    
-        
-         var rmRgb = rmFormColorRgb.substr(3);
+            
+            var rmRgb = rmFormColorRgb.substr(3);
          
-        
-        rmRgb = rmRgb.split(',');
-        rmRgb[0] = parseFloat((rmRgb[0].substr(1)) / 255);
-        rmRgb[1] = parseFloat(rmRgb[1] / 255);
-        rmRgb[2] = parseFloat((rmRgb[2].substring(0, rmRgb[2].length-1)) / 255);
-        rmRgb.sort(function(a, b){return a-b});
-        rmLum = Math.ceil(((rmRgb[2] + rmRgb[1]) * 100) / 2);
-        
+            rmRgb = rmRgb.split(',');
+            rmRgb[0] = parseFloat((rmRgb[0].substr(1)) / 255);
+            rmRgb[1] = parseFloat(rmRgb[1] / 255);
+            rmRgb[2] = parseFloat((rmRgb[2].substring(0, rmRgb[2].length-1)) / 255);
+            rmRgb.sort(function(a, b){return a-b});
+            rmLum = Math.ceil(((rmRgb[2] + rmRgb[1]) * 100) / 2);
        
-        if (rmLum > 80) {
-            jQuery(":root").css("--rm-note-color", "0, 0, 0");
-        }else{
-          jQuery(":root").css("--rm-note-color", "255, 255, 255");
+            if (rmLum > 80) {
+                jQuery(":root").css("--rm-note-color", "0, 0, 0");
+            } else {
+                jQuery(":root").css("--rm-note-color", "255, 255, 255");
+            }
         }
  
 

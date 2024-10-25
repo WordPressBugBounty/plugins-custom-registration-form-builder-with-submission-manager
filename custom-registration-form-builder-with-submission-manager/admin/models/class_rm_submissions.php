@@ -21,6 +21,7 @@ class RM_Submissions extends RM_Base_Model
     //errors submission validation
     public $errors;
     public $is_read;
+    public $is_pending;
    
 
     public function __construct()
@@ -28,7 +29,8 @@ class RM_Submissions extends RM_Base_Model
         $this->initialized = false;
         $this->submission_id = NULL;
         $this->child_id = 0;
-        $this->is_read= 0;
+        $this->is_read = 0;
+        $this->is_pending = 0;
     }
     
      /*     * *Getters** */
@@ -390,7 +392,7 @@ class RM_Submissions extends RM_Base_Model
     
      /*     * **Database Operations*** */
 
-    public function insert_into_db($unique_token=null)
+    public function insert_into_db($unique_token=null, $temp = false)
     {
 
         if (!$this->initialized)   
@@ -426,6 +428,16 @@ class RM_Submissions extends RM_Base_Model
                 '%s',
                 '%d'
             );
+
+            if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                if($temp) {
+                    $data['is_pending'] = 1;
+                } else {
+                    $data['is_pending'] = 0;
+                }
+
+                $data_specifiers[] = '%d';
+            }
         } else {
             $data = array(            
                 'form_id' => $this->form_id,
@@ -458,7 +470,7 @@ class RM_Submissions extends RM_Base_Model
         return $result;
     }
 
-    public function update_into_db()
+    public function update_into_db($temp = false)
     {
         if (!$this->initialized)
         {
@@ -469,14 +481,14 @@ class RM_Submissions extends RM_Base_Model
             return false;
         }
 
-        $data = array(            
-                    'form_id' => $this->form_id,
-                    'data' => $this->data,
-                    'user_email' => $this->user_email,
-                    'is_read'=> $this->is_read,
-                    'child_id' => $this->child_id,
-                    'last_child' => $this->last_child ? $this->last_child : $this->submission_id
-                    );
+        $data = array(
+            'form_id' => $this->form_id,
+            'data' => $this->data,
+            'user_email' => $this->user_email,
+            'is_read'=> $this->is_read,
+            'child_id' => $this->child_id,
+            'last_child' => $this->last_child ? $this->last_child : $this->submission_id
+        );
 
         $data_specifiers = array(
             '%d',
@@ -486,6 +498,16 @@ class RM_Submissions extends RM_Base_Model
             '%d',
             '%d'
         );
+
+        if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
+            if($temp) {
+                $data['is_pending'] = 1;
+            } else {
+                $data['is_pending'] = 0;
+            }
+
+            $data_specifiers[] = '%d';
+        }
 
         $result = RM_DBManager::update_row('SUBMISSIONS', $this->submission_id, $data, $data_specifiers);
 
@@ -497,24 +519,29 @@ class RM_Submissions extends RM_Base_Model
         return true;
     }
 
-    public function load_from_db($submission_id,$should_set_id=true)
+    public function load_from_db($submission_id, $should_set_id = true)
     {
 
         $result = RM_DBManager::get_row('SUBMISSIONS', $submission_id);
 
         if (null !== $result)
         {       
-                if($should_set_id)
-                    $this->submission_id = $submission_id;
-                $this->form_id = $result->form_id;
-                $this->data = $result->data;
-                $this->user_email = $result->user_email;
-                $this->submitted_on = $result->submitted_on;
-                $this->unique_token = $result->unique_token;
-                $this->is_read= $result->is_read;
-                $this->child_id = $result->child_id;
-                $this->last_child = $result->last_child ? $result->last_child : $submission_id;
-                $this->initialized= true;
+            if($should_set_id)
+                $this->submission_id = $submission_id;
+            $this->form_id = $result->form_id;
+            $this->data = $result->data;
+            $this->user_email = $result->user_email;
+            $this->submitted_on = $result->submitted_on;
+            $this->unique_token = $result->unique_token;
+            $this->is_read= $result->is_read;
+            $this->child_id = $result->child_id;
+            $this->last_child = $result->last_child ? $result->last_child : $submission_id;
+            if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                $this->is_pending = $result->is_pending;
+            } else {
+                $this->is_pending = 0;
+            }
+            $this->initialized= true;
         } else
         {
             return false;

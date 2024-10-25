@@ -125,7 +125,11 @@ class RM_Chronos_Query_Builder {
         $sub_fields_table = RM_Table_Tech::get_table_name_for('SUBMISSION_FIELDS');
         $pay_log_table = RM_Table_Tech::get_table_name_for('PAYPAL_LOGS');
         
-        $query = "SELECT st.submission_id, st.user_email FROM $subs_table st WHERE st.form_id = {$this->form_id} AND st.submission_id IN (SELECT MAX(submission_id) FROM `$subs_table` WHERE `form_id` = {$this->form_id} GROUP BY `user_email`)";
+        if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
+            $query = "SELECT st.submission_id, st.user_email FROM $subs_table st WHERE st.form_id = {$this->form_id} AND st.is_pending = 0 AND st.submission_id IN (SELECT MAX(submission_id) FROM `$subs_table` WHERE `form_id` = {$this->form_id} GROUP BY `user_email`)";
+        } else {
+            $query = "SELECT st.submission_id, st.user_email FROM $subs_table st WHERE st.form_id = {$this->form_id} AND st.submission_id IN (SELECT MAX(submission_id) FROM `$subs_table` WHERE `form_id` = {$this->form_id} GROUP BY `user_email`)";
+        }
                 
         //Submissions time rule
         $extended_where = "";
@@ -205,7 +209,11 @@ class RM_Chronos_Query_Builder {
             $submitters = $wpdb->get_results("SELECT `ID` FROM `$user_table` WHERE `user_email` IN ('$subs_emails')", OBJECT_K);
         } else {
             $subs = $this->get_submissions($prime_joiner);
-            $submitters = $wpdb->get_results("SELECT `ID` FROM `$user_table` WHERE `user_email` IN (SELECT `user_email` FROM $rm_subs_table WHERE `form_id` = {$this->form_id})", OBJECT_K);
+            if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
+                $submitters = $wpdb->get_results("SELECT `ID` FROM `$user_table` WHERE `user_email` IN (SELECT `user_email` FROM $rm_subs_table WHERE `form_id` = {$this->form_id} AND `is_pending` = 0)", OBJECT_K);
+            } else {
+                $submitters = $wpdb->get_results("SELECT `ID` FROM `$user_table` WHERE `user_email` IN (SELECT `user_email` FROM $rm_subs_table WHERE `form_id` = {$this->form_id})", OBJECT_K);
+            }
         }
         
         if(!$submitters or count($submitters) == 0) {

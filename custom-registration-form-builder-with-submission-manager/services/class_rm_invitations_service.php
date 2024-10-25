@@ -16,7 +16,7 @@ class RM_Invitations_Service extends RM_Services
   public function get_resp_count($form_id)
   { 
       global $wpdb;
-       $res = RM_DBManager::get_generic('SUBMISSIONS', 'COUNT(DISTINCT `user_email`) as resp', "`child_id` = 0 AND `form_id` = $form_id");
+       $res = defined('RM_SAVE_SUBMISSION_BASENAME') ? RM_DBManager::get_generic('SUBMISSIONS', 'COUNT(DISTINCT `user_email`) as resp', "`child_id` = 0 AND `form_id` = $form_id AND `is_pending` = 0") : RM_DBManager::get_generic('SUBMISSIONS', 'COUNT(DISTINCT `user_email`) as resp', "`child_id` = 0 AND `form_id` = $form_id");
         if(is_array($res) && isset($res[0]))
             return (int) $res[0]->resp;
         else
@@ -28,7 +28,7 @@ class RM_Invitations_Service extends RM_Services
         global $wpdb;
         $sub_table = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
 
-        $qry = $wpdb->prepare("SELECT * FROM (SELECT * FROM $sub_table WHERE `child_id` = 0 AND `form_id` = %d ORDER BY `submission_id` DESC) AS subs GROUP BY subs.user_email LIMIT %d OFFSET %d", intval($form_id), intval($limit), intval($offset));
+        $qry = defined('RM_SAVE_SUBMISSION_BASENAME') ? $wpdb->prepare("SELECT * FROM (SELECT * FROM $sub_table WHERE `child_id` = 0 AND `form_id` = %d AND `is_pending` = 0 ORDER BY `submission_id` DESC) AS subs GROUP BY subs.user_email LIMIT %d OFFSET %d", intval($form_id), intval($limit), intval($offset)) : $wpdb->prepare("SELECT * FROM (SELECT * FROM $sub_table WHERE `child_id` = 0 AND `form_id` = %d ORDER BY `submission_id` DESC) AS subs GROUP BY subs.user_email LIMIT %d OFFSET %d", intval($form_id), intval($limit), intval($offset));
         $res = $wpdb->get_results($qry);
         if(is_array($res) && $res)
             return $res;

@@ -314,3 +314,27 @@
 /*---Theme Fixes---*/
 .rmagic {}
 /*---Theme Fixes End---*/
+
+.rm-submission-status {
+    padding: 1px 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 24px;
+}
+
+.rm-submission-status.rm-submission-pending {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.rm-submission-status.rm-submission-approved{
+    background-color: #d1e7dd;
+    color: #155724;
+}
+
+.rm-submission-status.rm-submission-rejected{
+    background-color: #f8d7da;
+    color: #721c24;
+}

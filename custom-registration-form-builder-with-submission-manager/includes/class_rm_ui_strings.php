@@ -3435,9 +3435,15 @@ class RM_UI_Strings {
 
             case 'LABEL_SHOW_TOTAL_PRICE' :
                 return __('Show total price on the form', 'custom-registration-form-builder-with-submission-manager');
+            
+            case 'LABEL_SAVE_SUBMISSION_ENABLED' :
+                return __('Enable users to save form submissions', 'custom-registration-form-builder-with-submission-manager');
 
             case 'HELP_SHOW_TOTAL_PRICE' :
                 return sprintf(__("Enables a real-time display of total amount when you have multiple products added to the form. <a target='_blank' class='rm-more' href='%s'>More</a>", 'custom-registration-form-builder-with-submission-manager'),"https://registrationmagic.com/knowledgebase/general-settings/#httotalprice");
+
+            case 'HELP_SAVE_SUBMISSION_ENABLED' :
+                return sprintf(__("Enable this option to allow users to save their form data temporarily instead of submitting it. <a target='_blank' class='rm-more' href='%s'>More</a>", 'custom-registration-form-builder-with-submission-manager'),"https://registrationmagic.com/knowledgebase/general-settings/#httotalprice");
 
             case 'LABEL_DATE_FORMAT' :
                 return __('Date format', 'custom-registration-form-builder-with-submission-manager');

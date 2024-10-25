@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 6.6
-Stable tag: 6.0.2.3
+Stable tag: 6.0.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -391,6 +391,12 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 9. Sample Registration Form
 
 == Changelog ==
+
+= 6.0.2.5: October 25, 2024 =
+* Updated: Edit submission functionality migrated to new form design. (Premium Only)
+* Fixed: Gender field showing redundant options in field settings. (Premium Only)
+* Fixed: Field conditions not getting duplicated with form duplication.
+* Multiple minor bug fixes.
 
 = 6.0.2.3: October 21, 2024 =
 * Fixed: Reset button not working in Reports filtering.
@@ -1406,6 +1412,12 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * New: Aweber Integration.
 
 == Upgrade Notice ==
+
+= 6.0.2.5: October 25, 2024 =
+* Updated: Edit submission functionality migrated to new form design. (Premium Only)
+* Fixed: Gender field showing redundant options in field settings. (Premium Only)
+* Fixed: Field conditions not getting duplicated with form duplication.
+* Multiple minor bug fixes.
 
 = 6.0.2.3: October 21, 2024 =
 * Fixed: Reset button not working in Reports filtering.

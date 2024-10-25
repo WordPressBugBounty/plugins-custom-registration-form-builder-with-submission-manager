@@ -674,6 +674,7 @@ class Registration_Magic
         //Ajax calls for Username checking
         $this->loader->add_action('wp_ajax_nopriv_rm_user_exists', $this->controller, 'run');
         $this->loader->add_action('wp_ajax_nopriv_check_user_exists', $this, 'check_user_exists');
+        $this->loader->add_action('wp_ajax_nopriv_check_username_validity', $this, 'check_username_validity');
         $this->loader->add_action('wp_ajax_nopriv_check_email_exists', $this, 'check_email_exists');
         //Ajax call to get the state field
         $this->loader->add_action('wp_ajax_rm_get_state', 'RM_Utilities', 'get_state');
@@ -1309,6 +1310,37 @@ class Registration_Magic
             }
         } else {
             echo wp_send_json_error();
+            die;
+        }
+	}
+
+    public function check_username_validity() {
+        if(check_ajax_referer('rm_ajax_secure','rm_sec_nonce')) {
+            $username = sanitize_text_field($_POST['username']);
+            $form_id = absint($_POST['form_id']);
+            if(username_exists($username)) {
+                echo wp_send_json_error(array(
+                    'msg' => esc_html__("This username is already taken", 'custom-registration-form-builder-with-submission-manager'),
+                ));
+                die;
+            } else {
+                $username_character_error = RM_Utilities::validate_username_characters($username, $form_id);
+                if(!empty($username_character_error)) {
+                    echo wp_send_json_error(array(
+                        'msg' => $username_character_error,
+                    ));
+                    die;
+                } else {
+                    echo wp_send_json_success();
+                    die;
+                }
+            }
+        } else {
+            echo wp_send_json_error(
+                array(
+                    'msg' => esc_html__('Security check failed', 'custom-registration-form-builder-with-submission-manager'),
+                )
+            );
             die;
         }
 	}

@@ -200,10 +200,13 @@ final class RM_Field_Factory_Revamp {
         echo "</div>";
     }
 
-    public function create_password_field($field = null) {
+    public function create_password_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'password',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -233,10 +236,12 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_placeholder)){
             $attributes['placeholder'] = $field->field_options->field_placeholder;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
             if ( $field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
             } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
@@ -258,10 +263,13 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_email_field($field = null) {
+    public function create_email_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'email',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -270,7 +278,7 @@ final class RM_Field_Factory_Revamp {
             'id' => $input_id,
             'data-fieldtype' => $field->field_type,
             'aria-labelledby' => $label_id,
-            'value' => isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "",
+            'value' => "",
             'placeholder' => isset($field->field_options->field_placeholder) ? $field->field_options->field_placeholder : "",
         );
         $main_label_attributes = array(
@@ -293,7 +301,12 @@ final class RM_Field_Factory_Revamp {
             }
         } else {
             $attributes['data-primary'] = '0';
-            if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
+            if(isset($old_value)) {
+                $attributes['value'] = $old_value;
+            } elseif(isset($field->field_options->field_default_value)) {
+                $attributes['value'] = $field->field_options->field_default_value;
+            }
+            if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
                 if ( $field->field_options->field_user_profile == 'existing_user_meta') {
                     $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
     
@@ -317,7 +330,6 @@ final class RM_Field_Factory_Revamp {
         echo $label;
 
         echo "<input ".$this->print_attributes($attributes)." >";
-
     }
 
     public function create_cnf_email_field($field = null) {
@@ -353,9 +365,13 @@ final class RM_Field_Factory_Revamp {
         }
     }
 
-    public function create_textbox_field($field = null) {
+    public function create_textbox_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'text',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -363,11 +379,16 @@ final class RM_Field_Factory_Revamp {
             'aria-describedby'=>'rm-note-'.$field->field_id,
             'minlength' => isset($field->field_options->field_min_length) ? $field->field_options->field_min_length : "",
             'maxlength' => isset($field->field_options->field_max_length) ? $field->field_options->field_max_length : "",
-            'value' => isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "",
+            'value' => "",
             'id' => $input_id,
             'aria-labelledby' => $label_id,
         );
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $attributes['value'] = $field->field_options->field_default_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
             if ($field->field_options->field_user_profile == 'existing_user_meta') {
                 if(!empty($field->field_options->existing_user_meta_key)) {
                     $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
@@ -411,10 +432,14 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_textarea_field($field = null) {
+    public function create_textarea_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        $value = "";
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'name' => $field->field_type . '_' . $field->field_id,
             'class' => 'rmform-control',
@@ -436,16 +461,17 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_placeholder)){
             $attributes['placeholder'] = $field->field_options->field_placeholder;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
+        if(isset($old_value)) {
+            $value = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $value = $field->field_options->field_default_value;
+        }
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
             if ( $field->field_options->field_user_profile == 'existing_user_meta') {
                 $value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
             } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
                 $value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
-            } else {
-                $value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
             }
-        } else {
-            $value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
         }
 
 
@@ -469,7 +495,7 @@ final class RM_Field_Factory_Revamp {
         echo "<textarea ".$this->print_attributes($attributes)." >$value</textarea>";
     }
 
-    public function create_mobile_field($field = null) {
+    public function create_mobile_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
         $embed= false;
@@ -483,6 +509,10 @@ final class RM_Field_Factory_Revamp {
             'minlength' => isset($field->field_options->field_min_length) ? $field->field_options->field_min_length : "",
             'maxlength' => isset($field->field_options->field_max_length) ? $field->field_options->field_max_length : "",
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $main_label_attributes = array(
             'for' => $input_id,
             'id' => $label_id,
@@ -494,11 +524,13 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_placeholder)){
             $attributes['placeholder'] = $field->field_options->field_placeholder;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if ($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif ($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -1012,9 +1044,14 @@ final class RM_Field_Factory_Revamp {
         echo "<div id='rm-note-".wp_kses_post((string)$field->field_id)."' class='rmform-note' style='display: none;'>".wp_kses_post((string)$field->field_options->help_text)."</div>";
     }
     // akash code start
-    public function create_select_field($field = null) {
+    public function create_select_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
+        $meta_value = "";
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'name' => $field->field_type . '_' . $field->field_id,
             'class' => 'rmform-control '. 'select_'.$field->field_id,
@@ -1039,16 +1076,18 @@ final class RM_Field_Factory_Revamp {
 
         $icon = isset($field->field_options->icon) && $field->field_options->icon->codepoint ? $this->field_icon($field->field_options->icon) : "";
 
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
+        if(isset($old_value)) {
+            $meta_value = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $meta_value = $field->field_options->field_default_value;
+        }
+
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
             if ( $field->field_options->field_user_profile == 'existing_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
             } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
-            } else {
-                $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
             }
-        } else {
-            $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
         }
 
         $options = explode(",",  $field->field_value);
@@ -1086,7 +1125,8 @@ final class RM_Field_Factory_Revamp {
         }
     }
 
-    public function create_Radio_field($field = null) {
+    public function create_radio_field($field = null, $ex_sub_id = 0) {
+        $checked = "";
         $attributes = array (
             'name' => $field->field_type . '_' . $field->field_id,
             'class' => 'rmform-control '. 'radio_'.$field->field_id,
@@ -1094,6 +1134,10 @@ final class RM_Field_Factory_Revamp {
             'type' => 'radio',
             'onchange' => 'rmToggleOtherText(this)'
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $main_label_attributes = array(
             'class' => 'rmform-label'
         );
@@ -1111,16 +1155,17 @@ final class RM_Field_Factory_Revamp {
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
 
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
+        if(isset($old_value)) {
+            $checked = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $checked = $field->field_options->field_default_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
             if ( $field->field_options->field_user_profile == 'existing_user_meta') {
                 $checked = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
             } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
                 $checked = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
-            } else {
-                $checked = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
             }
-        } else {
-            $checked = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
         }
 
         $label = "<span ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
@@ -1225,9 +1270,13 @@ final class RM_Field_Factory_Revamp {
         wp_enqueue_script( 'rm-new-frontend-field', RM_BASE_URL.'public/js/new_frontend_field.js', array('jquery','jquery-ui-datepicker'));
     }
 
-    public function create_checkbox_field($field = null) {
+    public function create_checkbox_field($field = null, $ex_sub_id = 0) {
         $options = unserialize($field->field_value);
-        
+        $checked = array();
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array (
             'name' => $field->field_type . '_' . $field->field_id . '[]',
             'class' => 'rmform-control '. 'checkbox_'.$field->field_id,
@@ -1248,17 +1297,19 @@ final class RM_Field_Factory_Revamp {
 
         $icon = isset($field->field_options->icon) && $field->field_options->icon->codepoint ? $this->field_icon($field->field_options->icon) : "";
 
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
+        if(isset($old_value)) {
+            $checked = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $checked = $field->field_options->field_default_value;
+        }
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
             if ( $field->field_options->field_user_profile == 'existing_user_meta') {
                 $checked = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
             } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
                 $checked = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
-            } else {
-                $checked = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
             }
-        } else {
-            $checked = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
         }
+        $checked = maybe_unserialize($checked);
 
         $label = "<span ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
@@ -1293,7 +1344,7 @@ final class RM_Field_Factory_Revamp {
             $attributes['value'] = $option;
             
             echo "<label class='rmform-check' for='$input_id'>";
-            if ($checked == $option) {
+            if(in_array($option, $checked)) {
                 $attributes['checked'] = 'checked';
             }
             echo "<input ".$this->print_attributes($attributes)." >";
@@ -1357,10 +1408,13 @@ final class RM_Field_Factory_Revamp {
         wp_enqueue_script( 'rm-new-frontend-field', RM_BASE_URL.'public/js/new_frontend_field.js', array('jquery','jquery-ui-datepicker'));
     }
 
-    public function create_jQueryUIDate_field($field = null) {
+    public function create_jQueryUIDate_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'text',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -1385,11 +1439,13 @@ final class RM_Field_Factory_Revamp {
             $attributes['placeholder'] = $field->field_options->field_placeholder;
         }
 
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -1416,16 +1472,19 @@ final class RM_Field_Factory_Revamp {
         wp_enqueue_script('rm-new-frontend-field', RM_BASE_URL.'public/js/new_frontend_field.js', array('jquery','jquery-ui-datepicker'));
     }
 
-    public function create_URL_field($field = null) {
+    public function create_url_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'url',
             'name' => $field->field_type . '_' . $field->field_id,
             'class' => 'rmform-control',
             'aria-describedby'=>'rm-note-'.$field->field_id,
-            'value' => isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "",
+            'value' => "",
             'id' => $input_id,
             'data-fieldtype' => $field->field_type,
             'aria-labelledby' => $label_id
@@ -1441,7 +1500,12 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_placeholder)){
             $attributes['placeholder'] = $field->field_options->field_placeholder;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $attributes['value'] = $field->field_options->field_default_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
             if ( $field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
 
@@ -1466,16 +1530,19 @@ final class RM_Field_Factory_Revamp {
         echo "<input " . $this->print_attributes($attributes) . " >";
     }
 
-    public function create_Number_field($field = null) {
+    public function create_number_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'number',
             'name' => $field->field_type . '_' . $field->field_id,
             'class' => 'rmform-control',
             'aria-describedby'=>'rm-note-'.$field->field_id,
-            'value' => isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "",
+            'value' =>"",
             'min' => '0',
             'id' => $input_id,
             'aria-labelledby' => $label_id
@@ -1497,11 +1564,16 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_placeholder)){
             $attributes['placeholder'] = $field->field_options->field_placeholder;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $attributes['value'] = $field->field_options->field_default_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
 
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -1526,10 +1598,14 @@ final class RM_Field_Factory_Revamp {
         echo "<input " . $this->print_attributes($attributes) . " >";
     }
 
-    public function create_Country_field($field = null) {
+    public function create_country_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        $meta_value = "";
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'name' => $field->field_type . '_' . $field->field_id,
             'class' => 'rmform-control',
@@ -1545,16 +1621,17 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)){
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $meta_value = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $meta_value = $field->field_options->field_default_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
-            } else {
-                $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
             }
-        } else {
-            $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
         }
 
         // conditional attributes
@@ -1584,10 +1661,14 @@ final class RM_Field_Factory_Revamp {
         echo "</select>";
     }
 
-    public function create_Timezone_field($field = null) {
+    public function create_timezone_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        $meta_value = "";
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'name' => $field->field_type . '_' . $field->field_id,
             'class' => 'rmform-control',
@@ -1603,17 +1684,17 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)){
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $meta_value = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $meta_value = $field->field_options->field_default_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
-            } else {
-                $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
             }
-        } else {
-            $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
         }
 
         $options = RM_Utilities_Revamp::get_timezones();
@@ -1636,18 +1717,22 @@ final class RM_Field_Factory_Revamp {
         echo $label;
         echo "<select " . $this->print_attributes($attributes) . " >";
         foreach($options as $name => $timezone) {
-            if ($meta_value == $timezone) {
-                echo "<option value='$name' selected> $timezone </option>";
+            if($meta_value == $timezone) {
+                echo "<option value=\"".eac_attr($name)."\" selected>".esc_html($timezone)."</option>";
             } else {
-                echo "<option value='$name'> $timezone </option>";
+                echo "<option value=\"".eac_attr($name)."\">".esc_html($timezone)."</option>";
             }
         }
         echo "</select>";
     }
 
-    public function create_Terms_field($field = null) {
+    public function create_terms_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'checkbox',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -1670,14 +1755,17 @@ final class RM_Field_Factory_Revamp {
             $attributes['disabled'] = "disabled";
         }
         $meta_value = "";
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $meta_value = $old_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
-        if ($meta_value == $attributes['value']) {
+        if($meta_value == $attributes['value']) {
             $attributes['checked'] = 'checked';
         }
 
@@ -1704,7 +1792,6 @@ final class RM_Field_Factory_Revamp {
             echo "<div class='rmform-control-wrap'>";
         }
 
-        // var_dump($field);
         if (isset($field->field_options->field_check_above_tc) && $field->field_options->field_check_above_tc == 1) {
             echo "<div class='rmform-terms-checkbox'>";
             if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
@@ -1749,7 +1836,8 @@ final class RM_Field_Factory_Revamp {
         
     }
 
-    public function create_address_field($field = null) {
+    public function create_address_field($field = null, $ex_sub_id = 0) {
+        $meta_value = "";
         $attributes = array(
             'type' => 'text',
             'class' => 'rmform-control',
@@ -1761,18 +1849,21 @@ final class RM_Field_Factory_Revamp {
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
         $icon = isset($field->field_options->icon) && $field->field_options->icon->codepoint ? $this->field_icon($field->field_options->icon) : "";
-
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
-                $meta_value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
-                $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
-            } else {
-                $meta_value = "";
-            }
-        } else {
-            $meta_value = "";
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
         }
+        if(isset($old_value)) {
+            $meta_value = $old_value;
+        }
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if ($field->field_options->field_user_profile == 'existing_user_meta') {
+                $meta_value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
+            } elseif ($field->field_options->field_user_profile == 'define_new_user_meta') {
+                $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
+            }
+        }
+        $meta_value = maybe_unserialize($meta_value);
 
         if ($field->field_options->field_address_type === "ca") {
             $field_ca_address1_en = $field->field_options->field_ca_address1_en ;
@@ -2571,28 +2662,34 @@ final class RM_Field_Factory_Revamp {
         wp_enqueue_script( 'rm-new-frontend-field', RM_BASE_URL.'public/js/new_frontend_field.js', array('jquery','jquery-ui-datepicker'));
     }
 
-    public function create_Hidden_field($field = null) {
+    public function create_hidden_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
-
         $attributes = array(
             'type' => 'Hidden',
             'name' => $field->field_type . '_' . $field->field_id,
             'class' => 'rmform-control',
             'aria-describedby'=>'rm-note-'.$field->field_id,
             'id' => $input_id,
-            'value' => isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : ""
+            'value' => ""
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
-
         if (isset($field->field_options->field_placeholder)){
             $attributes['placeholder'] = $field->field_options->field_placeholder;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $attributes['value'] = $field->field_options->field_default_value;
+        }
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if ($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif ($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -2691,11 +2788,10 @@ final class RM_Field_Factory_Revamp {
         echo "</div>";
     }
 
-    public function create_Fname_field($field = null) {
+    public function create_fname_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
         $current_user = wp_get_current_user(); 
-
         $attributes = array(
             'type' => 'text',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -2710,6 +2806,11 @@ final class RM_Field_Factory_Revamp {
             'id' => $label_id,
             'class' => 'rmform-label'
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $attributes['value'] = (string)$wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
+
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
 
@@ -2741,7 +2842,7 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_Lname_field($field = null) {
+    public function create_lname_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
         $current_user = wp_get_current_user(); 
@@ -2759,6 +2860,11 @@ final class RM_Field_Factory_Revamp {
             'id' => $label_id,
             'class' => 'rmform-label'
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $attributes['value'] = (string)$wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
+
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
 
@@ -2790,16 +2896,22 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_BInfo_field($field = null) {
+    public function create_binfo_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-        $current_user = wp_get_current_user(); 
-        if (!empty(get_user_meta($current_user->ID, 'description', true))) {
-            $value = get_user_meta($current_user->ID, 'description', true);
-        } elseif (isset($field->field_options->field_default_value)) {
+        $current_user = wp_get_current_user();
+        $value = "";
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
+        if(isset($old_value)) {
+            $value = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
             $value = $field->field_options->field_default_value;
-        } else {
-            $value = "";
+        }
+        if(!empty(get_user_meta($current_user->ID, 'description', true)) && !isset($old_value)) {
+            $value = get_user_meta($current_user->ID, 'description', true);
         }
         $attributes = array (
             'name' => $field->field_type . '_' . $field->field_id,
@@ -2832,7 +2944,6 @@ final class RM_Field_Factory_Revamp {
         }
         $icon = isset($field->field_options->icon) && $field->field_options->icon->codepoint ? $this->field_icon($field->field_options->icon) : "";
 
-
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
@@ -2848,7 +2959,7 @@ final class RM_Field_Factory_Revamp {
         echo "<textarea ".$this->print_attributes($attributes)." >$value</textarea>";
     }
 
-    public function create_Nickname_field($field = null) {
+    public function create_nickname_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
         $current_user = wp_get_current_user(); 
@@ -2866,6 +2977,11 @@ final class RM_Field_Factory_Revamp {
             'id' => $label_id,
             'class' => 'rmform-label'
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $attributes['value'] = (string)$wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
+
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
 
@@ -2899,7 +3015,7 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_Website_field($field = null) {
+    public function create_website_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
         $current_user = wp_get_current_user(); 
@@ -2919,6 +3035,10 @@ final class RM_Field_Factory_Revamp {
             'id' => $label_id,
             'class' => 'rmform-label'
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $attributes['value'] = (string)$wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
 
@@ -2946,10 +3066,13 @@ final class RM_Field_Factory_Revamp {
         echo "<input " . $this->print_attributes($attributes) . " >";
     }
 
-    public function create_Facebook_field($field = null) {
+    public function create_facebook_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'text',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -2974,11 +3097,13 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -2998,10 +3123,13 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_Twitter_field($field = null) {
+    public function create_twitter_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'text',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -3026,11 +3154,13 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -3050,10 +3180,13 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_Instagram_field($field = null) {
+    public function create_instagram_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'text',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -3078,11 +3211,13 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -3102,10 +3237,13 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_Linked_field($field = null) {
+    public function create_linked_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'text',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -3130,10 +3268,12 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
             } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
@@ -3154,10 +3294,13 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_youtube_field($field = null) {
+    public function create_youtube_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'text',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -3181,11 +3324,13 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -3205,10 +3350,13 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_vkontacte_field($field = null) {
+    public function create_vkontacte_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'text',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -3233,11 +3381,13 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -3257,10 +3407,13 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_skype_field($field = null) {
+    public function create_skype_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'text',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -3285,11 +3438,13 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -3309,10 +3464,13 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_soundcloud_field($field = null) {
+    public function create_soundcloud_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $attributes = array(
             'type' => 'text',
             'name' => $field->field_type . '_' . $field->field_id,
@@ -3337,11 +3495,13 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -3480,7 +3640,6 @@ final class RM_Field_Factory_Revamp {
             $attributes['height'] = $field->field_options->yt_player_height;
         }
         $attributes['src'] = $src;
-        // var_dump($field->field_options->yt_auto_play);
         if (isset($field->field_options->yt_auto_play) && $field->field_options->yt_auto_play == 1) {
             $attributes['allow'] = 'autoplay';
         }
@@ -3700,11 +3859,12 @@ final class RM_Field_Factory_Revamp {
         echo "<input " . $this->print_attributes($attributes) . " >";
     }
 
-    public function create_Repeatable_field($field = null){
+    public function create_repeatable_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
+        $value = array('');
 
         $attributes = array(
             'type' => 'text',
@@ -3715,6 +3875,10 @@ final class RM_Field_Factory_Revamp {
             'minlength' => isset($field->field_options->field_min_length) ? $field->field_options->field_min_length : "",
             'maxlength' => isset($field->field_options->field_max_length) ? $field->field_options->field_max_length : "",
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
@@ -3739,36 +3903,35 @@ final class RM_Field_Factory_Revamp {
 
         echo "<div class= 'rminput'>";
         echo "<div class= 'rm_field_type_repeatable_container' id='rm_field_type_repeatable_container_".$field->field_id."'>";
-        echo "<div class ='appendable_options' >";
-        if (isset($field->field_options->field_is_multiline) && $field->field_options->field_is_multiline == 1) {
-            unset($attributes['type']);
-            if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-                if ( $field->field_options->field_user_profile == 'existing_user_meta') {
-                    $value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-                } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
-                    $value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
-                } else {
-                    $value = "";
-                }
-            } else {
-                $value = "";
-            }
-            echo "<textarea " . $this->print_attributes($attributes) . ">$value</textarea>";
-        } else {
-            if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-                if ( $field->field_options->field_user_profile == 'existing_user_meta') {
-                    $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-                } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
-                    $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
-                }
-            }
-            echo "<input " . $this->print_attributes($attributes) . " >";
+
+        if(isset($old_value)) {
+            $value = $old_value;
         }
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if($field->field_options->field_user_profile == 'existing_user_meta') {
+                $value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
+            } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
+                $value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
+            }
+        }
+        $value = maybe_unserialize($value);
 
-        echo "<div class='rm_actions' id='rm_add_repeatable_field' onclick=\"rm_append_field('div', 'rm_field_type_repeatable_container_".$field->field_id."')\"><a>Add</a></div>";
+        foreach($value as $val) {
+            echo "<div class ='appendable_options' >";
+            if (isset($field->field_options->field_is_multiline) && $field->field_options->field_is_multiline == 1) {
+                if(isset($attributes['type']))
+                    unset($attributes['type']);
+                echo "<textarea " . $this->print_attributes($attributes) . ">$val</textarea>";
+            } else {
+                $attributes['value'] = $val;
+                echo "<input " . $this->print_attributes($attributes) . " >";
+            }
 
-        echo "<div class='rm_actions' id='rm_delete_repeatable_field' onclick=\"rm_delete_appended_field(this,'rm_field_type_repeatable_container_".$field->field_id."')\"><a href='javascript:void(0)'>Delete</a></div>";
-        echo "</div>";
+            echo "<div class='rm_actions' id='rm_add_repeatable_field' onclick=\"rm_append_field('div', 'rm_field_type_repeatable_container_".$field->field_id."')\"><a>Add</a></div>";
+
+            echo "<div class='rm_actions' id='rm_delete_repeatable_field' onclick=\"rm_delete_appended_field(this,'rm_field_type_repeatable_container_".$field->field_id."')\"><a href='javascript:void(0)'>Delete</a></div>";
+            echo "</div>";
+        }
         echo "</div>";
         echo "</div>";
     }
@@ -3807,19 +3970,26 @@ final class RM_Field_Factory_Revamp {
         echo $html;
     }
 
-    public function create_map_field($field = null){
+    public function create_map_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
 
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
+        $value = "";
 
         $main_label_attributes = array(
             'for' => $input_id,
             'id' => $label_id,
             'class' => 'rmform-label'
         );
+
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
+
         $icon = isset($field->field_options->icon) && $field->field_options->icon->codepoint ? $this->field_icon($field->field_options->icon) : "";
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
@@ -3837,9 +4007,12 @@ final class RM_Field_Factory_Revamp {
         $gmap_api_key = get_option('rm_option_google_map_key', '');
         $google_map_api_key = 'https://maps.googleapis.com/maps/api/js?key=' . $gmap_api_key . '&libraries=places&loading=async&loading=async&callback=rmInitGoogleApi';
 
+        if(isset($old_value)) {
+            $value = $old_value;
+        }
         echo "<div class='rminput'>";
         echo "<div class='rmmap_container'>";
-        echo "<input type='text' id='Map_$field->field_id' class='rm-map-controls rm_map_autocomplete rm-map-controls-uninitialized pac-target-input' onkeydown='rm_prevent_submission(event)' name='Map_$field->field_id' address_type='ga' street_label='Street Address' street_no_label='Street Number' city_label='City' state_label='State' country_label='Country' zip_label='Zip Code'>";
+        echo "<input type='text' id='Map_$field->field_id' class='rm-map-controls rm_map_autocomplete rm-map-controls-uninitialized pac-target-input' onkeydown='rm_prevent_submission(event)' name='Map_$field->field_id' value='$value' address_type='ga' street_label='Street Address' street_no_label='Street Number' city_label='City' state_label='State' country_label='Country' zip_label='Zip Code'>";
         echo "<div style='height:350px' class='map' id='mapMap_$field->field_id'></div>";
         echo "</div>";
         echo "</div>";
@@ -3849,7 +4022,7 @@ final class RM_Field_Factory_Revamp {
         wp_enqueue_script( 'rm-form-address', RM_BASE_URL.'public/js/script_rm_map.js', array('jquery'));
     }
 
-    public function create_phone_field($field = null){
+    public function create_phone_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
@@ -3865,6 +4038,10 @@ final class RM_Field_Factory_Revamp {
             'id' => $input_id,
             'aria-labelledby' => $label_id,
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $main_label_attributes = array(
             'for' => $input_id,
             'id' => $label_id,
@@ -3877,11 +4054,14 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)){
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if ($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
 
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif ($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -3905,14 +4085,14 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_language_field($field = null) {
+    public function create_language_field($field = null, $ex_sub_id = 0) {
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
         $options = RM_Utilities_Revamp::get_language();
-
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
+        $meta_value = "";
         $attributes = array (
             'name' => $field->field_type . '_' . $field->field_id,
             'class' => 'rmform-control '. 'select_'.$field->field_id,
@@ -3925,20 +4105,25 @@ final class RM_Field_Factory_Revamp {
             'id' => $label_id,
             'class' => 'rmform-label'
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
 
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $meta_value = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $meta_value = $field->field_options->field_default_value;
+        }
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if ($field->field_options->field_user_profile == 'existing_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif ($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
-            } else {
-                $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
             }
-        } else {
-            $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
         }
 
         // conditional attributes
@@ -3958,18 +4143,18 @@ final class RM_Field_Factory_Revamp {
         echo $label;
 
         echo "<select ".$this->print_attributes($attributes)." >";
-        echo "<option value=''>  </option>";
+        echo "<option value=''></option>";
         foreach($options as $option) {
-            if ( $meta_value == $option) {
-                echo "<option value='$option' selected> $option </option>";
+            if ($meta_value == $option) {
+                echo "<option value=\"".esc_attr($option)."\" selected>".esc_html($option)."</option>";
             } else {
-                echo "<option value='$option'> $option </option>";
+                echo "<option value=\"".esc_attr($option)."\">".esc_html($option)."</option>";
             }
         }
         echo "</select>";
     }
 
-    public function create_bdate_field($field = null) {
+    public function create_bdate_field($field = null, $ex_sub_id = 0) {
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
@@ -3989,12 +4174,16 @@ final class RM_Field_Factory_Revamp {
             'required_max_range' => '',
             'required_min_range' => ''
         );
-
         $main_label_attributes = array(
             'for' => $input_id,
             'id' => $label_id,
             'class' => 'rmform-label'
         );
+
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
 
@@ -4007,11 +4196,14 @@ final class RM_Field_Factory_Revamp {
             $attributes['required_min_range'] = isset($field->field_options->field_is_required_min_range) ? $field->field_options->field_is_required_min_range : '';
         }
 
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if ($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
 
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif ($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -4043,12 +4235,12 @@ final class RM_Field_Factory_Revamp {
         wp_localize_script('rm-new-frontend-field','bday_min_max',$bday_min_max);
     }
 
-    public function create_gender_field($field = null) {
+    public function create_gender_field($field = null, $ex_sub_id = 0) {
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
+        $meta_value = "";
         $attributes = array (
             'name' => $field->field_type . '_' . $field->field_id,
             'class' => 'rmform-control '. 'radio_'.$field->field_id,
@@ -4059,6 +4251,12 @@ final class RM_Field_Factory_Revamp {
             'id' => $label_id,
             'class' => 'rmform-label'
         );
+
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
+        
         $field_options = isset($field->field_options->gender_options) && !empty($field->field_options->gender_options) ? maybe_unserialize($field->field_options->gender_options) : array();
         
         $gender_options = array(
@@ -4087,16 +4285,17 @@ final class RM_Field_Factory_Revamp {
             }
         }
 
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $meta_value = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $meta_value = $field->field_options->field_default_value;
+        }
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if ($field->field_options->field_user_profile == 'existing_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif ($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
-            } else {
-                $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
             }
-        } else {
-            $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
         }
 
         // conditional attributes
@@ -4136,8 +4335,10 @@ final class RM_Field_Factory_Revamp {
             $attributes['id'] = "radio_".$field->field_id."_".$count;
             $attributes['value'] = $option;
             $attributes['onchange'] = 'rmToggleOtherText(this)';
-            if ($meta_value == $option ) {
+            if($meta_value == $option) {
                 $attributes['checked'] = 'checked';
+            } elseif(isset($attributes['checked'])) {
+                unset($attributes['checked']);
             }
             $attributes['aria-labelledby'] =  $label_id;
             if($other_option == $option){
@@ -4159,7 +4360,7 @@ final class RM_Field_Factory_Revamp {
                 $secondary_label_attributes['for'] = $attributes['id'];
                 echo "<label for='$other_label_for' class='rmform-label rmform-radio-check' id='$label_id'>$option</label>";
                 echo "</div>";
-            }else{
+            } else {
                 echo "<div class='rmform-check'>";
                 echo "<input ".$this->print_attributes($attributes).">";
                 echo "<label for='radio_$field->field_id".'_'."$count' class='rmform-label rmform-radio-check' id='$label_id'>$option</label>";
@@ -4188,13 +4389,13 @@ final class RM_Field_Factory_Revamp {
         wp_enqueue_script( 'rm-new-frontend-field', RM_BASE_URL.'public/js/new_frontend_field.js', array('jquery','jquery-ui-datepicker'));
     }
 
-    public function create_time_field($field = null){
+    public function create_time_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-        $attributes = array (
+        $attributes = array(
             'type' => 'time',
             'name' => $field->field_type . '_' . $field->field_id,
             'class' => 'rmform-control',
@@ -4207,14 +4408,20 @@ final class RM_Field_Factory_Revamp {
             'id' => $label_id,
             'class' => 'rmform-label'
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         if (isset($field->field_options->field_css_class)){
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if ($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif ($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -4289,12 +4496,13 @@ final class RM_Field_Factory_Revamp {
         echo apply_shortcodes($field->field_value);
     }
 
-    public function create_multidropdown_field($field = null){
+    public function create_multidropdown_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
+        $meta_value = "";
         $attributes = array (
             'name' => $field->field_type . '_' . $field->field_id . "[]",
             'class' => 'rmform-control '. 'select_'.$field->field_id,
@@ -4308,6 +4516,10 @@ final class RM_Field_Factory_Revamp {
             'id' => $label_id,
             'class' => 'rmform-label'
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
@@ -4315,18 +4527,19 @@ final class RM_Field_Factory_Revamp {
             $attributes['placeholder'] = $field->field_options->field_placeholder;
         }
 
-        $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
-                $meta_value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
-                $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
-            } else {
-                $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
-            }
-        } else {
-            $meta_value = isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "";
+        if(isset($old_value)) {
+            $meta_value = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $meta_value = $field->field_options->field_default_value;
         }
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if ($field->field_options->field_user_profile == 'existing_user_meta') {
+                $meta_value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
+            } elseif ($field->field_options->field_user_profile == 'define_new_user_meta') {
+                $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
+            }
+        }
+        $meta_value = maybe_unserialize($meta_value);
 
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
@@ -4350,24 +4563,37 @@ final class RM_Field_Factory_Revamp {
         echo "<select ".$this->print_attributes($attributes)." >";
         if (isset($field->field_options->field_select_label)) {
             $default = $field->field_options->field_select_label;
-            echo "<option value=''> $default </option>";
+            echo "<option value=''>$default</option>";
         }
         foreach($options as $option) {
-            if ($meta_value == $option){
-                echo "<option value='$option' selected> $option </option>";
-            }else{
-                echo "<option value='$option'> $option </option>";
+            if(is_array($meta_value)) {
+                if(in_array($option, $meta_value)) {
+                    echo "<option value=\"".esc_attr($option)."\" selected>".esc_html($option)."</option>";
+                } else {
+                    echo "<option value=\"".esc_attr($option)."\">".esc_html($option)."</option>";
+                }
+            } else {
+                if($meta_value == $option) {
+                    echo "<option value=\"".esc_attr($option)."\" selected>".esc_html($option)."</option>";
+                } else {
+                    echo "<option value=\"".esc_attr($option)."\">".esc_html($option)."</option>";
+                }
             }
         }
         echo "</select>";
     }
 
-    public function create_rating_field($field = null){
+    public function create_rating_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
+        $value = "";
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $class = "rateit rm_rating_face_".$field->field_options->rating_conf->star_face." rateit-font";
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         $data_rateit_min = "0";
         $data_rateit_max = isset($field->field_options->rating_conf->max_stars) ? $field->field_options->rating_conf->max_stars : "";
         
@@ -4436,7 +4662,11 @@ final class RM_Field_Factory_Revamp {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
 
-        echo "<input type='hidden' class='rateitbackend' id='rm_hidden_rate_Rating_$field->field_id' name='Rating_$field->field_id' value='' style='display: none;'>";
+        if(isset($old_value)) {
+            $value = $old_value;
+        }
+
+        echo "<input type='hidden' class='rateitbackend' id='rm_hidden_rate_Rating_".esc_attr($field->field_id)."' name='Rating_".esc_attr($field->field_id)."' value='".esc_attr($value)."' style='display: none;'>";
         echo "<div ".$this->print_attributes($attributes)."></div>";
 
         wp_enqueue_script( 'new-frontend-field-rating', RM_ADDON_BASE_URL . 'public/js/rating3/jquery.rateit.js', array('jquery'));
@@ -4444,7 +4674,7 @@ final class RM_Field_Factory_Revamp {
 
     }
     
-    public function create_custom_field($field = null){
+    public function create_custom_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
@@ -4467,17 +4697,23 @@ final class RM_Field_Factory_Revamp {
             'id' => $label_id,
             'class' => 'rmform-label'
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
         if (isset($field->field_options->field_placeholder)){
             $attributes['placeholder'] = $field->field_options->field_placeholder;
         }
-
         if (isset($field->field_options->field_css_class)){
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (is_user_logged_in() && isset($field->field_options->field_user_profile)) {
-            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        }
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if ($field->field_options->field_user_profile == 'existing_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
-            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+            } elseif ($field->field_options->field_user_profile == 'define_new_user_meta') {
                 $attributes['value'] = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
@@ -4510,7 +4746,7 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_SecEmail_field($field = null){
+    public function create_secemail_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
@@ -4525,13 +4761,22 @@ final class RM_Field_Factory_Revamp {
             'aria-describedby'=>'rm-note-'.$field->field_id,
             'id' => $input_id,
             'aria-labelledby' => $label_id,
-            'value' => isset($field->field_options->field_default_value) ? $field->field_options->field_default_value : "",
+            'value' => "",
         );
         $main_label_attributes = array(
             'for' => $input_id,
             'id' => $label_id,
             'class' => 'rmform-label'
         );
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
+        if(isset($old_value)) {
+            $attributes['value'] = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $attributes['value'] = $field->field_options->field_default_value;
+        }
 
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
@@ -4606,7 +4851,7 @@ final class RM_Field_Factory_Revamp {
     }
 
     // woocommerce fields
-    public function create_wcbilling_field($field = null) {
+    public function create_wcbilling_field($field = null, $ex_sub_id = 0) {
         if (!defined('REGMAGIC_ADDON') || !class_exists( 'WooCommerce' )) {
             return;
         }
@@ -4622,7 +4867,13 @@ final class RM_Field_Factory_Revamp {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
         $error_span_id = strtolower($field->field_type)."_{$field->field_id}-error";
-
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
+        if(isset($old_value)) {
+            $old_value = maybe_unserialize($old_value);
+        }
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
 
@@ -4670,8 +4921,13 @@ final class RM_Field_Factory_Revamp {
             $attributes['id'] = $input_id;
             $attributes['name'] = "wcbilling_".$field->field_id."[firstname]";
             $attributes['aria-labelledby'] = $label_id;
-
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['firstname'])) {
+                    $attributes['value'] = $old_value['firstname'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif(is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_first_name', true);
             }
 
@@ -4709,7 +4965,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcb_lastname_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['lastname'])) {
+                    $attributes['value'] = $old_value['lastname'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_last_name', true);
             }
             if (isset($field->field_options->field_wcb_lastname_req) && $field->field_options->field_wcb_lastname_req == 1){
@@ -4749,7 +5011,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                     $attributes['placeholder'] = $field_wcb_firstname_label;
                 }
-                if (is_user_logged_in()) {
+                if(isset($old_value)) {
+                    if(isset($old_value['firstname'])) {
+                        $attributes['value'] = $old_value['firstname'];
+                    } else {
+                        $attributes['value'] = "";
+                    }
+                } elseif (is_user_logged_in()) {
                     $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_first_name', true);
                 }
                 if (isset($field->field_options->field_wcb_firstname_req) && $field->field_options->field_wcb_firstname_req == 1){
@@ -4787,7 +5055,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                     $attributes['placeholder'] = $field_wcb_lastname_label;
                 }
-                if (is_user_logged_in()) {
+                if(isset($old_value)) {
+                    if(isset($old_value['lastname'])) {
+                        $attributes['value'] = $old_value['lastname'];
+                    } else {
+                        $attributes['value'] = "";
+                    }
+                } elseif (is_user_logged_in()) {
                     $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_last_name', true);
                 }
                 if (isset($field->field_options->field_wcb_lastname_req) && $field->field_options->field_wcb_lastname_req == 1){
@@ -4827,7 +5101,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcb_company_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['company'])) {
+                    $attributes['value'] = $old_value['company'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_company', true);
             }
             if (isset($field->field_options->field_wcb_company_req) && $field->field_options->field_wcb_company_req == 1){
@@ -4865,7 +5145,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcb_address1_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['add1'])) {
+                    $attributes['value'] = $old_value['add1'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_address_1', true);
             }
             if (isset($field->field_options->field_wcb_address1_req) && $field->field_options->field_wcb_address1_req == 1){
@@ -4903,7 +5189,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcb_address2_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['add2'])) {
+                    $attributes['value'] = $old_value['add2'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_address_2', true);
             }
             if (isset($field->field_options->field_wcb_address2_req) && $field->field_options->field_wcb_address2_req == 1){
@@ -4942,7 +5234,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcb_city_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['city'])) {
+                    $attributes['value'] = $old_value['city'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_city', true);
             }
             if (isset($field->field_options->field_wcb_city_req) && $field->field_options->field_wcb_city_req == 1){
@@ -4976,7 +5274,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcb_state_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['state'])) {
+                    $attributes['value'] = $old_value['state'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_state', true);
             }
             if (isset($field->field_options->field_wcb_state_req) && $field->field_options->field_wcb_state_req == 1){
@@ -5014,7 +5318,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                     $attributes['placeholder'] = $field_wcb_city_label;
                 }
-                if (is_user_logged_in()) {
+                if(isset($old_value)) {
+                    if(isset($old_value['city'])) {
+                        $attributes['value'] = $old_value['city'];
+                    } else {
+                        $attributes['value'] = "";
+                    }
+                } elseif (is_user_logged_in()) {
                     $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_city', true);
                 }
                 if (isset($field->field_options->field_wcb_city_req) && $field->field_options->field_wcb_city_req == 1){
@@ -5052,7 +5362,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                     $attributes['placeholder'] = $field_wcb_state_label;
                 }
-                if (is_user_logged_in()) {
+                if(isset($old_value)) {
+                    if(isset($old_value['state'])) {
+                        $attributes['value'] = $old_value['state'];
+                    } else {
+                        $attributes['value'] = "";
+                    }
+                } elseif (is_user_logged_in()) {
                     $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_state', true);
                 }
                 if (isset($field->field_options->field_wcb_state_req) && $field->field_options->field_wcb_state_req == 1){
@@ -5080,6 +5396,7 @@ final class RM_Field_Factory_Revamp {
         
         // country and zip
         if ((isset($field_wcb_country_en) && $field_wcb_country_en == "1") && (isset($field_wcb_zip_en) && $field_wcb_zip_en == "1")) {
+            $country_val = "";
             echo "<div class='rmform-row'>";
             echo "<div class='rmform-row-field-wrap'>";
             // country
@@ -5093,18 +5410,28 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcb_country_label;
             }
-            if (is_user_logged_in()) {
-                $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_country', true);
+            if(isset($old_value)) {
+                if(isset($old_value['country'])) {
+                    $country_val = $old_value['country'];
+                }
+            } elseif (is_user_logged_in()) {
+                $country_val = get_user_meta(get_current_user_id(), 'billing_country', true);
             }
             if (isset($field->field_options->field_wcb_country_req) && $field->field_options->field_wcb_country_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
             }
 
+            if(isset($attributes['value']))
+                unset($attributes['value']);
             echo "<select " . $this->print_attributes($attributes) . " >";
             foreach(RM_Utilities_Revamp::get_countries() as $name => $country) {
-                echo "<option value='$name'> $country </option>";
-            }        
+                if($name == $country_val || strpos($name, "[$country_val]")) {
+                    echo "<option value=\"".esc_attr($name)."\" selected>".esc_html($country)."</option>";
+                } else {
+                    echo "<option value=\"".esc_attr($name)."\">".esc_html($country)."</option>";
+                }
+            }
             echo "</select>";
             
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_country_label";
@@ -5129,7 +5456,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcb_zip_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['zip'])) {
+                    $attributes['value'] = $old_value['zip'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_postcode', true);
             }
             if (isset($field->field_options->field_wcb_zip_req) && $field->field_options->field_wcb_zip_req == 1){
@@ -5152,6 +5485,7 @@ final class RM_Field_Factory_Revamp {
         }else{
             // country
             if (isset($field_wcb_country_en) && $field_wcb_country_en == "1") {
+                $country_val = "";
                 echo "<div class='rmform-row'>";
                 echo "<div class='rmform-row-field-wrap'>";
                 echo "<div class='rmform-col rmform-col-12'>";
@@ -5164,18 +5498,27 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                     $attributes['placeholder'] = $field_wcb_country_label;
                 }
-                if (is_user_logged_in()) {
-                    $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_country', true);
+                if(isset($old_value)) {
+                    if(isset($old_value['country'])) {
+                        $country_val = $old_value['country'];
+                    }
+                } elseif (is_user_logged_in()) {
+                    $country_val = get_user_meta(get_current_user_id(), 'billing_country', true);
                 }
                 if (isset($field->field_options->field_wcb_country_req) && $field->field_options->field_wcb_country_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
                 }
-
+                if(isset($attributes['value']))
+                    unset($attributes['value']);
                 echo "<select " . $this->print_attributes($attributes) . " >";
                 foreach(RM_Utilities_Revamp::get_countries() as $name => $country) {
-                    echo "<option value='$name'> $country </option>";
-                }        
+                    if($name == $country_val || strpos($name, "[$country_val]")) {
+                        echo "<option value=\"".esc_attr($name)."\" selected>".esc_html($country)."</option>";
+                    } else {
+                        echo "<option value=\"".esc_attr($name)."\">".esc_html($country)."</option>";
+                    }
+                }
                 echo "</select>";
                 
                 $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_country_label";
@@ -5205,7 +5548,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                     $attributes['placeholder'] = $field_wcb_zip_label;
                 }
-                if (is_user_logged_in()) {
+                if(isset($old_value)) {
+                    if(isset($old_value['zip'])) {
+                        $attributes['value'] = $old_value['zip'];
+                    } else {
+                        $attributes['values'] = "";
+                    }
+                } elseif (is_user_logged_in()) {
                     $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_postcode', true);
                 }
                 if (isset($field->field_options->field_wcb_zip_req) && $field->field_options->field_wcb_zip_req == 1){
@@ -5242,7 +5591,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcb_phone_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['phone'])) {
+                    $attributes['value'] = $old_value['phone'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_phone', true);
             }
             if (isset($field->field_options->field_wcb_phone_req) && $field->field_options->field_wcb_phone_req == 1){
@@ -5279,7 +5634,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_label_as_placeholder) && $field->field_options->field_wcb_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcb_email_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['email'])) {
+                    $attributes['value'] = $old_value['email'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'billing_email', true);
             }
             if (isset($field->field_options->field_wcb_email_req) && $field->field_options->field_wcb_email_req == 1){
@@ -5313,7 +5674,7 @@ final class RM_Field_Factory_Revamp {
         }
     }
 
-    public function create_wcshipping_field($field = null) {
+    public function create_wcshipping_field($field = null, $ex_sub_id = 0) {
         if (!defined('REGMAGIC_ADDON') || !class_exists('WooCommerce')) {
             return;
         }
@@ -5329,6 +5690,15 @@ final class RM_Field_Factory_Revamp {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
         $error_span_id = strtolower($field->field_type)."_{$field->field_id}-error";
+        
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
+        if(isset($old_value)) {
+            $old_value = maybe_unserialize($old_value);
+        }
+
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
 
@@ -5375,7 +5745,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcs_firstname_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['firstname'])) {
+                    $attributes['value'] = $old_value['firstname'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_first_name', true);
             }
             if (isset($field->field_options->field_wcs_firstname_req) && $field->field_options->field_wcs_firstname_req == 1){
@@ -5406,7 +5782,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcs_lastname_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['lastname'])) {
+                    $attributes['value'] = $old_value['lastname'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_last_name', true);
             }
             if (isset($field->field_options->field_wcs_lastname_req) && $field->field_options->field_wcs_lastname_req == 1){
@@ -5442,7 +5824,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                     $attributes['placeholder'] = $field_wcs_firstname_label;
                 }
-                if (is_user_logged_in()) {
+                if(isset($old_value)) {
+                    if(isset($old_value['firstname'])) {
+                        $attributes['value'] = $old_value['firstname'];
+                    } else {
+                        $attributes['value'] = "";
+                    }
+                } elseif (is_user_logged_in()) {
                     $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_first_name', true);
                 }
                 if (isset($field->field_options->field_wcs_firstname_req) && $field->field_options->field_wcs_firstname_req == 1){
@@ -5478,7 +5866,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                     $attributes['placeholder'] = $field_wcs_lastname_label;
                 }
-                if (is_user_logged_in()) {
+                if(isset($old_value)) {
+                    if(isset($old_value['lastname'])) {
+                        $attributes['value'] = $old_value['lastname'];
+                    } else {
+                        $attributes['value'] = "";
+                    }
+                } elseif (is_user_logged_in()) {
                     $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_last_name', true);
                 }
                 if (isset($field->field_options->field_wcs_lastname_req) && $field->field_options->field_wcs_lastname_req == 1){
@@ -5516,7 +5910,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcs_company_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['company'])) {
+                    $attributes['value'] = $old_value['company'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_company', true);
             }
             if (isset($field->field_options->field_wcs_company_req) && $field->field_options->field_wcs_company_req == 1){
@@ -5552,7 +5952,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcs_address1_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['add1'])) {
+                    $attributes['value'] = $old_value['add1'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_address_1', true);
             }
             if (isset($field->field_options->field_wcs_address1_req) && $field->field_options->field_wcs_address1_req == 1){
@@ -5588,7 +5994,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcs_address2_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['add2'])) {
+                    $attributes['value'] = $old_value['add2'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_address_2', true);
             }
             if (isset($field->field_options->field_wcs_address2_req) && $field->field_options->field_wcs_address2_req == 1){
@@ -5626,7 +6038,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcs_city_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['city'])) {
+                    $attributes['value'] = $old_value['city'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_city', true);
             }
             if (isset($field->field_options->field_wcs_city_req) && $field->field_options->field_wcs_city_req == 1){
@@ -5657,7 +6075,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcs_state_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['state'])) {
+                    $attributes['value'] = $old_value['state'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_state', true);
             }
             if (isset($field->field_options->field_wcs_state_req) && $field->field_options->field_wcs_state_req == 1){
@@ -5693,7 +6117,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                     $attributes['placeholder'] = $field_wcs_city_label;
                 }
-                if (is_user_logged_in()) {
+                if(isset($old_value)) {
+                    if(isset($old_value['city'])) {
+                        $attributes['value'] = $old_value['city'];
+                    } else {
+                        $attributes['value'] = "";
+                    }
+                } elseif (is_user_logged_in()) {
                     $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_city', true);
                 }
                 if (isset($field->field_options->field_wcs_city_req) && $field->field_options->field_wcs_city_req == 1){
@@ -5729,7 +6159,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                     $attributes['placeholder'] = $field_wcs_state_label;
                 }
-                if (is_user_logged_in()) {
+                if(isset($old_value)) {
+                    if(isset($old_value['state'])) {
+                        $attributes['value'] = $old_value['state'];
+                    } else {
+                        $attributes['value'] = "";
+                    }
+                } elseif (is_user_logged_in()) {
                     $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_state', true);
                 }
                 if (isset($field->field_options->field_wcs_state_req) && $field->field_options->field_wcs_state_req == 1){
@@ -5755,6 +6191,7 @@ final class RM_Field_Factory_Revamp {
         
         // country and zip
         if ((isset($field_wcs_country_en) && $field_wcs_country_en == "1") && (isset($field_wcs_zip_en) && $field_wcs_zip_en == "1")) {
+            $country_val = "";
             echo "<div class='rmform-row'>";
             echo "<div class='rmform-row-field-wrap'>";
             // country
@@ -5768,16 +6205,26 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcs_country_label;
             }
-            if (is_user_logged_in()) {
-                $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_country', true);
+            if(isset($old_value)) {
+                if(isset($old_value['country'])) {
+                    $country_val = $old_value['country'];
+                }
+            } elseif (is_user_logged_in()) {
+                $country_val = get_user_meta(get_current_user_id(), 'shipping_country', true);
             }
             if (isset($field->field_options->field_wcs_country_req) && $field->field_options->field_wcs_country_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
             }
+            if(isset($attributes['value']))
+                unset($attributes['value']);
             echo "<select " . $this->print_attributes($attributes) . " >";
             foreach(RM_Utilities_Revamp::get_countries() as $name => $country) {
-                echo "<option value='$name'> $country </option>";
+                if($name == $country_val || strpos($name, "[$country_val]")) {
+                    echo "<option value=\"".esc_attr($name)."\" selected>".esc_html($country)."</option>";
+                } else {
+                    echo "<option value=\"".esc_attr($name)."\">".esc_html($country)."</option>";
+                }
             }        
             echo "</select>";
             
@@ -5802,7 +6249,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                 $attributes['placeholder'] = $field_wcs_zip_label;
             }
-            if (is_user_logged_in()) {
+            if(isset($old_value)) {
+                if(isset($old_value['zip'])) {
+                    $attributes['value'] = $old_value['zip'];
+                } else {
+                    $attributes['value'] = "";
+                }
+            } elseif (is_user_logged_in()) {
                 $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_postcode', true);
             }
 
@@ -5827,6 +6280,7 @@ final class RM_Field_Factory_Revamp {
         } else {
             // country
             if (isset($field_wcs_country_en) && $field_wcs_country_en == "1") {
+                $country_val = "";
                 echo "<div class='rmform-row'>";
                 echo "<div class='rmform-row-field-wrap'>";
                 echo "<div class='rmform-col rmform-col-12'>";
@@ -5839,17 +6293,26 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                     $attributes['placeholder'] = $field_wcs_country_label;
                 }
-                if (is_user_logged_in()) {
-                    $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_country', true);
+                if(isset($old_value)) {
+                    if(isset($old_value['country'])) {
+                        $country_val = $old_value['country'];
+                    }
+                } elseif (is_user_logged_in()) {
+                    $country_val = get_user_meta(get_current_user_id(), 'shipping_country', true);
                 }
                 if (isset($field->field_options->field_wcs_country_req) && $field->field_options->field_wcs_country_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
                 }
-
+                if(isset($attributes['value']))
+                    unset($attributes['value']);
                 echo "<select " . $this->print_attributes($attributes) . " >";
                 foreach(RM_Utilities_Revamp::get_countries() as $name => $country) {
-                    echo "<option value='$name'> $country </option>";
+                    if($name == $country_val || strpos($name, "[$country_val]")) {
+                        echo "<option value=\"".esc_attr($name)."\" selected>".esc_html($country)."</option>";
+                    } else {
+                        echo "<option value=\"".esc_attr($name)."\">".esc_html($country)."</option>";
+                    }
                 }        
                 echo "</select>";
                 
@@ -5880,7 +6343,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcs_label_as_placeholder) && $field->field_options->field_wcs_label_as_placeholder == '1'){
                     $attributes['placeholder'] = $field_wcs_zip_label;
                 }
-                if (is_user_logged_in()) {
+                if(isset($old_value)) {
+                    if(isset($old_value['zip'])) {
+                        $attributes['value'] = $old_value['zip'];
+                    } else {
+                        $attributes['value'] = "";
+                    }
+                } elseif (is_user_logged_in()) {
                     $attributes['value'] = get_user_meta(get_current_user_id(), 'shipping_postcode', true);
                 }
 
@@ -5915,7 +6384,7 @@ final class RM_Field_Factory_Revamp {
         }
     }
 
-    public function create_wcbillingphone_field($field = null) {
+    public function create_wcbillingphone_field($field = null, $ex_sub_id = 0) {
         if (!defined('REGMAGIC_ADDON') || !class_exists('WooCommerce')) {
             return;
         }
@@ -5940,6 +6409,11 @@ final class RM_Field_Factory_Revamp {
 
         if (isset($field->field_options->field_css_class)){
             $attributes['class'] .= " ".$field->field_options->field_css_class;
+        }
+
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $attributes['value'] = (string)$wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
         }
 
         // conditional attributes
