@@ -1344,8 +1344,14 @@ final class RM_Field_Factory_Revamp {
             $attributes['value'] = $option;
             
             echo "<label class='rmform-check' for='$input_id'>";
-            if(in_array($option, $checked)) {
-                $attributes['checked'] = 'checked';
+            if(is_array($checked)) {
+                if(in_array($option, $checked)) {
+                    $attributes['checked'] = 'checked';
+                }
+            } else {
+                if($option == $checked) {
+                    $attributes['checked'] = 'checked';
+                }
             }
             echo "<input ".$this->print_attributes($attributes)." >";
             unset($attributes['checked']);
