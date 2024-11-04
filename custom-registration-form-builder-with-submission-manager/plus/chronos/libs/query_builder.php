@@ -4,6 +4,7 @@ class RM_Chronos_Query_Builder {
     protected $user_query_arg;
     protected $sub_query_arg;
     protected $has_build_started;
+    protected $submission_query_arg;
     protected $form_id;
     const QUERY_ARG_NO_EFFECT = '__no_effect'; // This query argument has no effect, unset it.
     const QUERY_ARG_NULL_SET = '__null_set'; // This query argument guaranttees null data set, return empty data.
@@ -189,6 +190,7 @@ class RM_Chronos_Query_Builder {
         
         $wpdb->query('SET time_zone = "+00:00"');
         $result = $wpdb->get_results($query);
+        
         if(!$result)
             return array();
         else
@@ -234,6 +236,7 @@ class RM_Chronos_Query_Builder {
         if(count($this->sub_query_arg) > 0 && !empty($this->sub_query_arg['custom_status_attr'])){
             $result_set->cus_status = $this->sub_query_arg['custom_status_attr'];
         }
+        
         return $result_set;             
     }
     
@@ -258,13 +261,15 @@ class RM_Chronos_Query_Builder {
                 //$ext_query .= "";
                 $ext_query = $query;
                 $ival_q = "";
-                foreach($value_array as $val => $op) {                    
+                
+                foreach($value_array as $val => $op) {
+                    $val = html_entity_decode($val);
                     if($ival_q != "")
                         $ival_q .= " OR ";
                     //Remove multiple spaces
                     $search_val = preg_replace('!\s+!', ' ', $val);
                     $search_val = $wpdb->esc_like($search_val);
-                    $search_val = str_replace(" ", "%",$search_val);
+                    //$search_val = str_replace(" ", "%",$search_val);
                     $ival_q .= "`value` $op '%$search_val%'";
                 }
                 

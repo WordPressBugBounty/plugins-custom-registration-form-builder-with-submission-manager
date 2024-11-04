@@ -291,11 +291,10 @@ final class RM_Form_Factory_Revamp {
                     }
                     // Handling file fields
                     else if($form->fields[$field_id]->field_type == 'File' || $form->fields[$field_id]->field_type == 'Image' || $form->fields[$field_id]->field_type == 'ESign') {
-
                         if(absint($form->fields[$field_id]->field_options->field_is_required) == 1 && (!isset($_FILES[$field_name]) || empty($_FILES[$field_name])) && !$save_submission) {
                             array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
                             continue;
-                        } else if(!isset($_FILES[$field_name]) || empty($_FILES[$field_name]['name'])) {
+                        } else if(!isset($_FILES[$field_name]) || empty($_FILES[$field_name]['name'][0])) {
                             continue;
                         }
                         $attachment_ids = array();
@@ -1764,9 +1763,9 @@ final class RM_Form_Factory_Revamp {
                                 echo "<div class='g-recaptcha' data-sitekey='".esc_attr((string)$key)."'></div>";
                             } elseif($captcha_ver == 'v3') {
                                 $v3_key = get_option('rm_option_public_key3');
-                                wp_enqueue_script('rm-grecaptcha', 'https://www.google.com/recaptcha/api.js?render='.$v3_key);
+                                wp_enqueue_script('rm-grecaptcha', 'https://www.google.com/recaptcha/api.js?onload=rmInitCaptcha&render='.$v3_key);
                                 echo '<input type="hidden" class="g-recaptcha-response" id="g-recaptcha-response" name="g-recaptcha-response">';
-                                echo "<script>grecaptcha.ready(function() { grecaptcha.execute('".esc_attr((string)$v3_key)."', {action: 'submit'}).then(function(token) { document.getElementById('g-recaptcha-response').value = token; }); });</script>";
+                                echo "<script>function rmInitCaptcha() { grecaptcha.ready(function() { grecaptcha.execute('".esc_attr((string)$v3_key)."', {action: 'submit'}).then(function(token) { document.getElementById('g-recaptcha-response').value = token; }); }); }</script>";
                             }
                             echo "<div id='rm-recaptcha-error' class='rmform-error-message'></div>";
                             echo '</div></div></div></div>';

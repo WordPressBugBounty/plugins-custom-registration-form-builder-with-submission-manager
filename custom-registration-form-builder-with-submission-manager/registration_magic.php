@@ -15,11 +15,11 @@
  * Plugin Name:       RegistrationMagic
  * Plugin URI:        http://www.registrationmagic.com
  * Description:       A powerful system for customizing registration forms, setting up paid registrations, tracking submissions, managing users, assigning user roles, analyzing stats, and much more!!
- * Version:           6.0.2.6
+ * Version:           6.0.2.7
  * Tags:              registration, form, custom, analytics, simple, submissions
  * Requires at least: 5.2.0
  * Requires PHP:      7.2
- * Author:            Metagauss User Registration Team
+ * Author:            Metagauss User Registration Forms
  * Author URI:        https://profiles.wordpress.org/registrationmagicforms/
  * Text Domain:       custom-registration-form-builder-with-submission-manager
  * Domain Path:       /languages
@@ -78,7 +78,7 @@ if (is_plugin_active_for_network($rmgold) || is_plugin_active($rmgold) ||
 */
 if(!defined('RM_PLUGIN_VERSION')) {
     define('RM_PLUGIN_BASENAME', plugin_basename(__FILE__ ));
-    define('RM_PLUGIN_VERSION', '6.0.2.6');
+    define('RM_PLUGIN_VERSION', '6.0.2.7');
     define('RM_DB_VERSION', 5.9);
     define('RM_SHOW_WHATSNEW_SPLASH', false);  //Set it to 'false' to disable whatsnew screen.
     //define FB SDK req flags. Flags should be combined using logical OR and should be checked using AND.

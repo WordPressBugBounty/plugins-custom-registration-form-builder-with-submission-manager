@@ -78,7 +78,7 @@ final class RM_Field_Factory_Revamp {
         return $field_label;
     }
 
-    public function create_username_field($field = null) {
+    public function create_username_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
         $attributes = array(
@@ -113,7 +113,7 @@ final class RM_Field_Factory_Revamp {
 
     }
 
-    public function create_userpassword_field($field = null) {
+    public function create_userpassword_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
 
@@ -166,7 +166,7 @@ final class RM_Field_Factory_Revamp {
         }
     }
 
-    public function create_cnf_userpassword_field($field = null) {
+    public function create_cnf_userpassword_field($field = null, $ex_sub_id = 0) {
         $input_id_cnf = 'input_id_'.$field->field_type . '_' . $field->field_id. '_cnf';
         $label_id_cnf = 'label_id_'.$field->field_type . '_' . $field->field_id. '_cnf';
         
@@ -332,7 +332,7 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_cnf_email_field($field = null) {
+    public function create_cnf_email_field($field = null, $ex_sub_id = 0) {
         if (!is_user_logged_in()) {
             $input_id = 'input_id_cnf_'.$field->field_type . '_' . $field->field_id;
             $label_id = 'label_id_cnf_'.$field->field_type . '_' . $field->field_id;
@@ -694,7 +694,7 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_price_field($field = null){
+    public function create_price_field($field = null, $ex_sub_id = 0){
         global $wpdb;
         $price_field = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_paypal_fields WHERE field_id=%d", absint($field->field_value)));
         if (!empty($price_field)) {
@@ -720,7 +720,7 @@ final class RM_Field_Factory_Revamp {
         }
     }
 
-    public function create_fixed_price_field($field = null, $price_field = null) {
+    public function create_fixed_price_field($field = null, $price_field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
 
@@ -798,7 +798,7 @@ final class RM_Field_Factory_Revamp {
 
     }
 
-    public function create_multiselect_price_field($field = null, $price_field = null){
+    public function create_multiselect_price_field($field = null, $price_field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON') || empty($price_field)) {
             return;
         }
@@ -901,7 +901,7 @@ final class RM_Field_Factory_Revamp {
         }
     }
 
-    public function create_dropdown_price_field($field = null, $price_field = null){
+    public function create_dropdown_price_field($field = null, $price_field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON') || empty($price_field)) {
             return;
         }
@@ -994,7 +994,7 @@ final class RM_Field_Factory_Revamp {
         echo "<div id='rm-note-".wp_kses_post((string)$field->field_id)."' class='rmform-note' style='display: none;'>".wp_kses_post((string)$field->field_options->help_text)."</div>";
     }
 
-    public function create_userdifined_price_field($field = null, $price_field = null) {
+    public function create_userdifined_price_field($field = null, $price_field = null, $ex_sub_id = 0) {
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
@@ -2084,12 +2084,13 @@ final class RM_Field_Factory_Revamp {
                         $attributes['aria-required'] = 'true';
                     }
                     echo "<select " . $this->print_attributes($attributes) . " >";
-                    echo "<option value=''> --Select State-- </option>";
+                    echo "<option value=''>".esc_html('--Select State--','custom-registration-form-builder-with-submission-manager')."</option>";
                     foreach($us_states as $name => $state) {
-                        if (isset($meta_value['state']) && $meta_value['state'] != $name) {
-                            $attributes['checked'] = 'checked';
+                        if(isset($meta_value['state']) && ($meta_value['state'] == $state || $meta_value['state'] == $name)) {
+                            echo "<option value='".esc_attr($state)."' selected>".esc_html($state)."</option>";
+                        } else {
+                            echo "<option value='".esc_attr($state)."'>".esc_html($state)."</option>";
                         }
-                        echo "<option value='$name'> $state </option>";
                     }
                     echo "</select>";
                 }
@@ -2185,12 +2186,13 @@ final class RM_Field_Factory_Revamp {
                         }
                         
                         echo "<select " . $this->print_attributes($attributes) . " >";
-                        echo "<option value=''> --Select State-- </option>";
+                        echo "<option value=''>".esc_html('--Select State--','custom-registration-form-builder-with-submission-manager')."</option>";
                         foreach($us_states as $name => $state) {
-                            if (isset($meta_value['state']) && $meta_value['state'] == $state) {
-                                $attributes['checked'] = 'checked';
+                            if (isset($meta_value['state']) && ($meta_value['state'] == $state || $meta_value['state'] == $name)) {
+                                echo "<option value='".esc_attr($state)."' selected>".esc_html($state)."</option>";
+                            } else {
+                                echo "<option value='".esc_attr($state)."'>".esc_html($state)."</option>";
                             }
-                            echo "<option value='$name'> $state </option>";
                         }
                         echo "</select>";
                     }
@@ -2659,9 +2661,10 @@ final class RM_Field_Factory_Revamp {
             }
         }
         $gmap_api_key = get_option('rm_option_google_map_key', '');
-        $google_map_api_key = 'https://maps.googleapis.com/maps/api/js?key=' . $gmap_api_key . '&libraries=places&loading=async&callback=rmInitGoogleApi';
-        
-        wp_enqueue_script( 'google_map_api', $google_map_api_key);
+        if(!empty($gmap_api_key)) {
+            $google_map_api_key = 'https://maps.googleapis.com/maps/api/js?key=' . $gmap_api_key . '&libraries=places&loading=async&callback=rmInitGoogleApi';
+            wp_enqueue_script('google_map_api', $google_map_api_key);
+        }
 
         wp_enqueue_script( 'new-frontend-field-ca-address', RM_BASE_URL.'public/js/script_rm_address.js', array('jquery'));
 
@@ -2707,7 +2710,7 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";       
     }
 
-    public function create_ESign_field($field = null) {
+    public function create_ESign_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
 
@@ -2751,7 +2754,7 @@ final class RM_Field_Factory_Revamp {
         echo "<input " . $this->print_attributes($attributes) . " >";
     }
 
-    public function create_Privacy_field($field = null) {
+    public function create_Privacy_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
 
@@ -3527,7 +3530,7 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_htmlh_field($field = null) {
+    public function create_htmlh_field($field = null, $ex_sub_id = 0) {
         $attributes = array(
             'class'=> 'rmform-field-type-heading rmform-control'
         );
@@ -3541,7 +3544,7 @@ final class RM_Field_Factory_Revamp {
         echo "<h1 ".$this->print_attributes($attributes).">$value</h1>";
     }
 
-    public function create_htmlp_field($field = null) {
+    public function create_htmlp_field($field = null, $ex_sub_id = 0) {
         $attributes = array(
             'class'=> 'rmform-control'
         );
@@ -3555,7 +3558,7 @@ final class RM_Field_Factory_Revamp {
         echo "<p ".$this->print_attributes($attributes).">$value</p>";
     }
 
-    public function create_divider_field($field = null) {
+    public function create_divider_field($field = null, $ex_sub_id = 0) {
         $attributes = array(
             'class'=> 'rmform-divider',
             'width' => '100%',
@@ -3571,7 +3574,7 @@ final class RM_Field_Factory_Revamp {
         echo "<hr ".$this->print_attributes($attributes).">";
     }
 
-    public function create_spacing_field($field = null) {
+    public function create_spacing_field($field = null, $ex_sub_id = 0) {
         $attributes = array(
             'class'=> 'rmform-control rm_spacing'
         );
@@ -3584,7 +3587,7 @@ final class RM_Field_Factory_Revamp {
         echo "<div ".$this->print_attributes($attributes)."></div>";
     }
 
-    public function create_RichText_field($field = null) {
+    public function create_RichText_field($field = null, $ex_sub_id = 0) {
         $attributes = array(
             'class'=> 'rmform-control'
         );
@@ -3598,7 +3601,7 @@ final class RM_Field_Factory_Revamp {
         echo "<div ".$this->print_attributes($attributes).">$value</div>";
     }
 
-    public function create_Link_field($field = null) {
+    public function create_Link_field($field = null, $ex_sub_id = 0) {
         $attributes = array(
             'class'=> 'rmform-control'
         );
@@ -3625,7 +3628,7 @@ final class RM_Field_Factory_Revamp {
         echo "<a ".$this->print_attributes($attributes).">$icon  $value</a>";
     }
 
-    public function create_YouTubeV_field($field = null) {
+    public function create_YouTubeV_field($field = null, $ex_sub_id = 0) {
         $attributes = array(
             'class'=> 'rmform-control',
             'frameborder' => '0',
@@ -3655,7 +3658,7 @@ final class RM_Field_Factory_Revamp {
         echo "<iframe ".$this->print_attributes($attributes)."></iframe>";
     }
 
-    public function create_Iframe_field($field = null) {
+    public function create_Iframe_field($field = null, $ex_sub_id = 0) {
         $attributes = array(
             'class'=> 'rmform-control',
             'frameborder' => '0',
@@ -3687,7 +3690,7 @@ final class RM_Field_Factory_Revamp {
     }
 
     // conditional not added start
-    public function create_ImageV_field($field = null) {
+    public function create_ImageV_field($field = null, $ex_sub_id = 0) {
         $class = 'rmform-control';
         if (isset($field->field_options->field_css_class)) {
             $class .= " ".$field->field_options->field_css_class;
@@ -3774,7 +3777,7 @@ final class RM_Field_Factory_Revamp {
         echo $html;
     }
 
-    public function create_form_chart_field($field = null) {
+    public function create_form_chart_field($field = null, $ex_sub_id = 0) {
         $class = 'rmform-control';
         if (isset($field->field_options->field_css_class)) {
             $class .= " ".$field->field_options->field_css_class;
@@ -3795,17 +3798,17 @@ final class RM_Field_Factory_Revamp {
         echo $html;
     }
 
-    public function create_formdata_field($field = null){
+    public function create_formdata_field($field = null, $ex_sub_id = 0){
         $html = RM_Utilities_Revamp::get_formdata_widget_html($field->field_id);
         echo $html;
     }
 
-    public function create_feed_field($field = null){
+    public function create_feed_field($field = null, $ex_sub_id = 0){
         $html= RM_Utilities_Revamp::get_feed_widget_html($field->field_id);
         echo $html;
     }
 
-    public function create_timer_field($field = null){
+    public function create_timer_field($field = null, $ex_sub_id = 0){
 
         wp_enqueue_script( 'new-flipclock', RM_BASE_URL.'public/js/script_rm_new_flipclock.js', array('jquery'));
 
@@ -3816,7 +3819,7 @@ final class RM_Field_Factory_Revamp {
         echo "<div class='clock'></div>";
     }
     // conditional not added end
-    public function create_file_field($field = null){
+    public function create_file_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
@@ -3942,7 +3945,7 @@ final class RM_Field_Factory_Revamp {
         echo "</div>";
     }
 
-    public function create_mapv_field($field = null){
+    public function create_mapv_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
@@ -4450,7 +4453,7 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_image_field($field = null){
+    public function create_image_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
@@ -4495,7 +4498,7 @@ final class RM_Field_Factory_Revamp {
         echo "<input " . $this->print_attributes($attributes) . " >";
     }
 
-    public function create_shortcode_field($field = null){
+    public function create_shortcode_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
@@ -4809,7 +4812,7 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_pgavatar_field($field = null){
+    public function create_pgavatar_field($field = null, $ex_sub_id = 0){
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
@@ -6441,7 +6444,7 @@ final class RM_Field_Factory_Revamp {
         echo "<input ".$this->print_attributes($attributes)." >";
     }
 
-    public function create_pricev_field($field = null) {
+    public function create_pricev_field($field = null, $ex_sub_id = 0) {
         $total_price_localized_string = esc_html__('Total Price: %s', 'custom-registration-form-builder-with-submission-manager');
         $curr_pos = get_option('rm_option_currency_symbol_position', 'before');
         $curr_symbol = RM_Utilities_Revamp::get_currency_symbol(get_option('rm_option_currency', 'USD'));
@@ -6449,7 +6452,7 @@ final class RM_Field_Factory_Revamp {
         echo "<div class='rmrow rm-total-price-widget {$field->field_options->field_css_class}' data-rmpriceformat='{$price_formatting_data}'></div>";
     }
 
-    public function create_subcountv_field($field = null){
+    public function create_subcountv_field($field = null, $ex_sub_id = 0){
         $exp_str = RM_Utilities_Revamp::get_form_expiry_message($field->form_id);
         echo "<div class='rmrow rm_expiry_stat_container {$field->field_options->field_css_class}'>{$exp_str}</div>";
     }
