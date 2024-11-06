@@ -1724,9 +1724,9 @@ final class RM_Field_Factory_Revamp {
         echo "<select " . $this->print_attributes($attributes) . " >";
         foreach($options as $name => $timezone) {
             if($meta_value == $timezone) {
-                echo "<option value=\"".eac_attr($name)."\" selected>".esc_html($timezone)."</option>";
+                echo "<option value=\"".esc_attr($name)."\" selected>".esc_html($timezone)."</option>";
             } else {
-                echo "<option value=\"".eac_attr($name)."\">".esc_html($timezone)."</option>";
+                echo "<option value=\"".esc_attr($name)."\">".esc_html($timezone)."</option>";
             }
         }
         echo "</select>";

@@ -23,8 +23,10 @@ class RM_Form_Settings_Controller {
         $data = new stdClass();
         if (!isset($request->req['rm_form_id']) || !(int)$request->req['rm_form_id'] || !$form->load_from_db($request->req['rm_form_id'])){
             $view = $this->mv_handler->setView('show_notice');
-            $view->render(RM_UI_Strings::get('MSG_FS_NOT_AUTHORIZED'));
-           return;
+            //$view->render(RM_UI_Strings::get('MSG_FS_NOT_AUTHORIZED'));
+            $view->render(esc_html__('No form selected. Redirecting you back to the all forms page.','custom-registration-form-builder-with-submission-manager'));
+            echo "<script>window.setTimeout(function(){ window.location.href = '" . admin_url('admin.php?page=rm_form_manage') . "';}, 3000);</script>";
+            return;
         }
                 
         $form_options = $form->get_form_options();

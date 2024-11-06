@@ -20,10 +20,14 @@ class RM_Field_Controller {
     }
 
     public function add($model, $service, $request, $params) {
-        if (isset($request->req['rm_form_id']) && is_numeric($request->req['rm_form_id']))
+        if (isset($request->req['rm_form_id']) && is_numeric($request->req['rm_form_id'])) {
             $fields_data = $service->get_all_form_fields($request->req['rm_form_id']);
-        else
-            die(RM_UI_Strings::get('MSG_NO_FORM_SELECTED'));
+        } else {
+            // Ninja Forms conflict fix
+            echo '<div class="rm-builder-notice"><div class="rmnotice">'.esc_html__('No form selected. Redirecting you back to the all forms page.','custom-registration-form-builder-with-submission-manager').'</div></div>';
+            echo "<script>window.setTimeout(function(){ window.location.href = '" . admin_url('admin.php?page=rm_form_manage') . "';}, 3000);</script>";
+            die;
+        }
         
         if (isset($request->req['rm_form_page_no']))
             $form_page_no = $request->req['rm_form_page_no'];
@@ -127,6 +131,14 @@ class RM_Field_Controller {
     }
     
     public function add_widget($model, $service, $request, $params){
+        if (isset($request->req['rm_form_id']) && is_numeric($request->req['rm_form_id'])) {
+            $fields_data = $service->get_all_form_fields($request->req['rm_form_id']);
+        } else {
+            // Ninja Forms conflict fix
+            echo '<div class="rm-builder-notice"><div class="rmnotice">'.esc_html__('No form selected. Redirecting you back to the all forms page.','custom-registration-form-builder-with-submission-manager').'</div></div>';
+            echo "<script>window.setTimeout(function(){ window.location.href = '" . admin_url('admin.php?page=rm_form_manage') . "';}, 3000);</script>";
+            die;
+        }
         if (isset($request->req['rm_form_page_no']))
             $form_page_no = $request->req['rm_form_page_no'];
         else

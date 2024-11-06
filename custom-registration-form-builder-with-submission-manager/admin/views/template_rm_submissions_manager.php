@@ -411,8 +411,8 @@ if(!empty($data->filter->filters['rm_dateupto'])) {
                                                                                 $rm_custom_page_id = $submission->submission_id.'-page-'.$form_page; ?>
                                                                             <div class="rm-form-page rm-bg-white rm-border rm-p-3 rm-mr-2 rm-mb-3 rm-rounded-1" id="<?php echo esc_html( $rm_custom_page_id ); ?>">
                                                                                 <h1 class="rm-text-muted rm-text-small rm-text-center rm-fw-bold rm-text-uppercase"><?php echo esc_html($form_options->form_pages[$form_page]); ?></h1>
-                                                                                <?php foreach($form_fields as $form_field) { 
-                                                                                    if(isset($sub_data[absint($form_field->field_id)]) && $form_field->page_no == $form_page+1) { ?>
+                                                                                <?php foreach($form_fields as $form_field) {
+                                                                                    if(!empty($form_field) && isset($sub_data[absint($form_field->field_id)]) && $form_field->page_no == $form_page+1) { ?>
                                                                                     <div class="rm-box-row rm-mb-3">
                                                                                     <div class="rm-box-col-12">
                                                                                         <div class="rm-submission-lable rm-fw-bold "><?php echo esc_html($sub_data[absint($form_field->field_id)]->label); ?></div>

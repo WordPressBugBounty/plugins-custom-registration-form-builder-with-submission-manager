@@ -51,7 +51,7 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
             $tabs .= "<div class='childfieldsrow' id='rm-tabs-sorting-box-wrap' style='display:none'>";
         }
         $tabs .= "<div class='rm-profile-tabs-wrap rm-tabs-sorting-box rm-form-builder-box1'>";
-        $tabs .= "<ul class='rm_sortable_form_rows ui-sortable rm-admin-menu-arrangement' id='rm-field-sortable-tabs'>";
+        $tabs .= "<ul class='ui-sortable rm-admin-menu-arrangement' id='rm-field-sortable-tabs'>";
 
         $menu_items = array();
         foreach($subMenus as $menus){
@@ -258,7 +258,7 @@ jQuery(function($) {
     // validate form
     const admin_form = $('#reorder-submit-button');
     admin_form.click(function(e) {
-        var myInput1 = document.getElementById("rm_form_manage");
+        var myInput1 = document.getElementById("rm_form_manage_title");
         var myInput2 = document.getElementById("rm_dashboard_widget_dashboard_title");
         var myInput3 = document.getElementById("rm_submission_manage_title");
         var myInput4 = document.getElementById("rm_sent_emails_manage_title");
@@ -270,10 +270,10 @@ jQuery(function($) {
         var myInput10 = document.getElementById("rm_reports_dashboard_title");
         var myInput11 = document.getElementById("rm_user_role_manage_title");
         var myInput12 = document.getElementById("rm_paypal_field_manage_title");
-        var myInput13 = document.getElementById("rm_form_manage_cstatus");
+        var myInput13 = document.getElementById("rm_form_manage_cstatus_title");
         var myInput14 = document.getElementById("rm_ex_chronos_manage_tasks_title");
         var myInput15 = document.getElementById("rm_invitations_manage_title");
-        var myInput16 = document.getElementById("rm_options_manage");
+        var myInput16 = document.getElementById("rm_options_manage_title");
 
         var isValid = true;
         if (myInput1.value.trim() === "" || myInput2.value.trim() === "" || myInput3.value.trim() === "" || myInput4.value.trim() === "" || myInput5.value.trim() === "" || myInput6.value.trim() === "" || myInput7.value.trim() === "" || myInput8.value.trim() === "" || myInput9.value.trim() === "" || myInput10.value.trim() === "" || myInput11.value.trim() === "" || myInput12.value.trim() === "" || myInput13.value.trim() === "" || myInput14.value.trim() === "" || myInput15.value.trim() === "" || myInput16.value.trim() === "") {
