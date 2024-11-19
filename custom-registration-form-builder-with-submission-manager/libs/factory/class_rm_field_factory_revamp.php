@@ -558,7 +558,6 @@ final class RM_Field_Factory_Revamp {
                 $rm_country_field = $wpdb->get_row($wpdb->prepare("SELECT * from `$table_name` where $unique_id_name = %d", $field->field_options->country_field));
                 $country_field_name= $rm_country_field->field_type.'_'.$field->field_options->country_field;
 
-
                 $force_match_js= '';
                 if(!empty($field->field_options->country_match)) {
                     $force_match_js= "document.getElementById('$input_id').closest('.rminput,.rmwc-input').find('.selected-flag').classList.add('disable-flag');";
@@ -575,10 +574,6 @@ final class RM_Field_Factory_Revamp {
                         $tel_params .= 'preferredCountries:'.rtrim((string)$preferred_countries, ',').'],';
                     }
                 }
-
-                if(!$embed){
-                    wp_add_inline_script('rm_mobile_script',"window.addEventListener('load', (event) => { document.querySelector('input[name=".$country_field_name."]').onchange = function() { var selected_value = this.value; var index= selected_value.search(/\[[A-Z]{2}\]/i); if(index>=0) { var country = selected_value.substr(index+1,2).toLowerCase(); iti_" . $field->field_id . ".setCountry(country); ".$force_match_js."}})});");
-                }
             } else if(!empty($field->field_options->en_geoip)) {
                 $tel_params .= 'initialCountry:"auto", geoIpLookup: function(callback) { fetch("https://ipapi.co/json").then(function(res) { return res.json(); }).then(function(data) { callback(data.country_code); }).catch(function() { callback("us"); }); },';
             }
@@ -593,7 +588,11 @@ final class RM_Field_Factory_Revamp {
             } else {
                 if($embed){
                 } else {
-                    wp_add_inline_script('rm_mobile_script',"window.addEventListener('load', (event) => { if (typeof telDuplicate_" . $field->field_id . " === 'undefined') { telDuplicate_" . $field->field_id . " = true; const rmMobileEl = document.getElementById('$input_id'); var iti_" . $field->field_id . " = window.intlTelInput(rmMobileEl, {$tel_params}); rmMobileEl.addEventListener('keyup', (event) => { const check = iti_" . $field->field_id . ".isValidNumber() ? 1 : 0; rmMobileEl.dataset.validnumber = check; rmMobileEl.dataset.fullnumber = iti_" . $field->field_id . ".getNumber(intlTelInputUtils.numberFormat.E164); }); } });");
+                    if(empty($country_field_name)) {
+                        wp_add_inline_script('rm_mobile_script',"window.addEventListener('load', (event) => { if (typeof telDuplicate_" . $field->field_id . " === 'undefined') { telDuplicate_" . $field->field_id . " = true; const rmMobileEl = document.getElementById('$input_id'); var iti_" . $field->field_id . " = window.intlTelInput(rmMobileEl, {$tel_params}); rmMobileEl.addEventListener('keyup', (event) => { const check = iti_" . $field->field_id . ".isValidNumber() ? 1 : 0; rmMobileEl.dataset.validnumber = check; rmMobileEl.dataset.fullnumber = iti_" . $field->field_id . ".getNumber(intlTelInputUtils.numberFormat.E164); }); } });");
+                    } else {
+                        wp_add_inline_script('rm_mobile_script',"window.addEventListener('load', (event) => { if (typeof telDuplicate_" . $field->field_id . " === 'undefined') { telDuplicate_" . $field->field_id . " = true; const rmMobileEl = document.getElementById('$input_id'); var iti_" . $field->field_id . " = window.intlTelInput(rmMobileEl, {$tel_params}); rmMobileEl.addEventListener('keyup', (event) => { const check = iti_" . $field->field_id . ".isValidNumber() ? 1 : 0; rmMobileEl.dataset.validnumber = check; rmMobileEl.dataset.fullnumber = iti_" . $field->field_id . ".getNumber(intlTelInputUtils.numberFormat.E164); }); } document.querySelector('select[name=".$country_field_name."]').onchange = function() { var selected_value = this.value; var index= selected_value.search(/\[[A-Z]{2}\]/i); if(index>=0) { var country = selected_value.substr(index+1,2).toLowerCase(); iti_" . $field->field_id . ".setCountry(country); ".$force_match_js."} } });");
+                    }
                 }
             }
 
@@ -2246,7 +2245,11 @@ final class RM_Field_Factory_Revamp {
                         if (isset($meta_value['country']) && $meta_value['country'] == $country) {
                             $attributes['checked'] = 'checked';
                         }
-                        echo "<option value=\"$country\"> $country </option>";
+                        if(empty($ccode)) {
+                            echo "<option>".esc_html($country)."</option>";
+                        } else {
+                            echo "<option value=\"".esc_attr($country)."\">".esc_html($country)."</option>";
+                        }
                     }
                     echo "</select>";
                 } elseif ( isset($field->field_options->ca_state_type) && $field->field_options->ca_state_type === "america" ) {
@@ -2363,8 +2366,12 @@ final class RM_Field_Factory_Revamp {
                             $attributes['aria-required'] = 'true';
                         }
                         echo "<select " . $this->print_attributes($attributes) . " >";
-                        foreach(RM_Utilities_Revamp::get_countries() as $country) {
-                            echo "<option value=\"$country\">$country</option>";
+                        foreach(RM_Utilities_Revamp::get_countries() as $code => $country) {
+                            if(empty($code)) {
+                                echo "<option>".esc_html($country)."</option>";
+                            } else {
+                                echo "<option value=\"".esc_attr($country)."\">".esc_html($country)."</option>";
+                            }
                         }
                         echo "</select>";
                     } elseif ( isset($field->field_options->ca_state_type) && $field->field_options->ca_state_type === "america" ) {

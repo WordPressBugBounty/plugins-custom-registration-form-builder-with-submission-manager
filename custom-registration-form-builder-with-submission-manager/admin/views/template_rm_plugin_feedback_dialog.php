@@ -392,9 +392,8 @@ $deactivate_reasons = array(
 }
 
 #rm-deactivate-feedback-dialog-form .rm-feedback-form-feature-box textarea.rm-plugin-feedback-textarea{
-    width: 100%;
-    min-height: 100%;
-    height: 100%;
+    width: 100% !important;
+    min-height: 75px !important;
 }
 
 #rm-deactivate-feedback-dialog-wrapper.rm-modal-view{

@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 6.6
-Stable tag: 6.0.2.8
+Stable tag: 6.0.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -380,17 +380,25 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 
 == Screenshots ==
 
-1. All Forms - Card View
-2. All Forms - List View
-3. Fields Manager / Form Layout Editor
-4. Form Row Properties
-5. Form Dashboard
-6. User Manager
-7. Overview
-8. Sample Login Form
-9. Sample Registration Form
+1. All Forms - Card View: A compact, card-style layout showcasing all forms created within RegistrationMagic, each with essential form details and quick actions for easy management.
+2. All Forms - List View: A list view of all forms, displaying comprehensive form information such as submission count, views, and quick-access configuration options.
+3. Fields Manager / Form Layout Editor: A flexible, drag-and-drop layout editor that allows administrators to add, arrange, and configure custom fields to create tailored user registration forms.
+4. Form Row Properties: Detailed customization panel for form rows, offering control over field arrangement, styling, and advanced properties to match branding and layout preferences.
+5. Form Dashboard: A powerful dashboard for individual forms, showing key metrics, settings, and performance analytics, including submission trends and user engagement statistics.
+6. User Manager: A centralized area for managing users registered through RegistrationMagic forms, complete with user roles, status indicators, and bulk management actions.
+7. Overview: A summary view highlighting RegistrationMagic's key metrics and activity insights, providing a snapshot of form performance and user engagement over time.
+8. Sample Login Form: A customizable login form created using RegistrationMagic, demonstrating login and authentication capabilities seamlessly integrated with WordPress.
+9. Sample Registration Form: A basic registration form showcasing field layout and styling options, designed with RegistrationMagic’s visual editor for a quick start on user onboarding.
+10. Inbox or Submissions Manager: Centralized dashboard for viewing and managing form submissions, with options for sorting, filtering, and responding to entries.
+11. Payments: A dedicated area to view and manage payment transactions made through forms, including payment status, method, and transaction history.
+12. Form Analytics: Detailed analytics for individual forms, displaying submission trends, views, and other performance metrics to help optimize user engagement.
+13. Field Analytics: Insights into the performance of individual fields, showing data on user interactions to optimize field placement and design.
+14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.0.2.9: November 19, 2024 =
+* Minor bug fixes.
 
 = 6.0.2.8: November 6, 2024 =
 * Minor bug fixes.
@@ -1422,6 +1430,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * New: Aweber Integration.
 
 == Upgrade Notice ==
+
+= 6.0.2.9: November 19, 2024 =
+* Minor bug fixes.
 
 = 6.0.2.8: November 6, 2024 =
 * Minor bug fixes.

@@ -1034,7 +1034,11 @@ final class RM_Form_Factory_Revamp {
                                 return;
                             } elseif($payment_processor == 'offline') {
                                 // Displaying post submission message
-                                $after_sub_msg = $form->form_options->form_success_message != "" ? $form->form_options->form_success_message : sprintf(esc_html__('%s Submitted','custom-registration-form-builder-with-submission-manager'), $form->form_name);
+                                if($save_submission) {
+                                    $after_sub_msg = esc_html__('Form Submission Saved','custom-registration-form-builder-with-submission-manager');
+                                } else {
+                                    $after_sub_msg = $form->form_options->form_success_message != "" ? $form->form_options->form_success_message : sprintf(esc_html__('%s Submitted','custom-registration-form-builder-with-submission-manager'), $form->form_name);
+                                }
                                 echo "<div class='rm_form_submit_msg rm-form-submit-wrap'><div class='rm-form-submit-message-icon'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='#000000'><path d='M0 0h24v24H0z' fill='none'></path><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'></path></svg></div><div class='rm-post-sub-msg'>".wp_kses_post((string)$after_sub_msg)."</div></div>";
                                 if(!empty($form->form_options->form_is_unique_token)) {
                                     echo "<br>";
@@ -1046,7 +1050,11 @@ final class RM_Form_Factory_Revamp {
                         }
                     } else {
                         // Displaying post submission message
-                        $after_sub_msg = $form->form_options->form_success_message != "" ? $form->form_options->form_success_message : sprintf(esc_html__('%s Submitted','custom-registration-form-builder-with-submission-manager'), $form->form_name);
+                        if($save_submission) {
+                            $after_sub_msg = esc_html__('Form Submission Saved','custom-registration-form-builder-with-submission-manager');
+                        } else {
+                            $after_sub_msg = $form->form_options->form_success_message != "" ? $form->form_options->form_success_message : sprintf(esc_html__('%s Submitted','custom-registration-form-builder-with-submission-manager'), $form->form_name);
+                        }
                         echo "<div class='rm_form_submit_msg rm-form-submit-wrap'><div class='rm-form-submit-message-icon'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='#000000'><path d='M0 0h24v24H0z' fill='none'></path><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'></path></svg></div><div class='rm-post-sub-msg'>".wp_kses_post((string)$after_sub_msg)."</div></div>";
                         if(!empty($form->form_options->form_is_unique_token)) {
                             echo "<br>";
