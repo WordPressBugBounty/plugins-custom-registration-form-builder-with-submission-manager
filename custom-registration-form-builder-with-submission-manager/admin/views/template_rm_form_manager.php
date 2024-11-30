@@ -253,7 +253,7 @@ if($data->descending == true) {
                         <div class="rm-di-flex rm-align-items-center" >
                             <span class="material-icons rm-fs-7 rm-mr-1">push_pin</span>
                             <strong>
-                                <a href="#" class="row-title">
+                                <a href="admin.php?page=rm_login_field_manage" class="row-title">
                                   <?php esc_html_e('Login Form', 'custom-registration-form-builder-with-submission-manager'); ?>
                                 </a>
                             </strong>

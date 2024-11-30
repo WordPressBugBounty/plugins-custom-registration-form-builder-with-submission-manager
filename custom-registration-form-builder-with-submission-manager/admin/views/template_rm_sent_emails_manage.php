@@ -125,7 +125,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
 <form method="post" action="" name="rm_sent_emails_manage" id="rm_sent_emails_action_form">
     <input type="hidden" name="rm_search_state" value="<?php echo esc_attr($data->search_state_query); ?>" id="rm_search_state_input_field" />
                 <input type="hidden" name="rm_slug" value="" id="rm_slug_input_field" />
-                <table class="rmagic-table rmagic-table-wrap">
+                <table class="rmagic-table rm-sent-email-manage-table">
                     <?php 
                     if ($data->mails)
                     {

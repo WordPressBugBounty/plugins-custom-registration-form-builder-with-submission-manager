@@ -499,6 +499,25 @@ ul#rmagic-progressbar li .rm-form-page-name {
     padding: 6px 8px;
 }
 
+.rmformui .rmform-row .rmform-field select[multiple] option{
+    padding: 2px 3px;
+    margin-bottom: 1px;
+}
+
+.rmformui .rmform-row .rmform-field select[multiple] option:checked {
+    background-color: #c4ddf7;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Ensure the dropdown has enough height to show multiple selections */
+.rmformui .rmform-row .rmform-field select[multiple] {
+    padding: 8px;
+    border: 1px solid #ccc; /* Optional: Customize the border */
+    border-radius: 4px; /* Optional: Customize border-radius */
+}
+
+
 /*--- Repeatable Field----*/
 
 .rmformui .rmform-row .rmform-field .appendable_options .rm_actions{

@@ -224,17 +224,22 @@ class RM_Email
     * @param	bool	$auto_clear = TRUE
     * @return	bool
     */
-   public function send($auto_clear = TRUE)
-   {
+    public function send($auto_clear = TRUE) {
         $this->build_headers();
-        if (empty($this->to))
+        
+        if(empty($this->to))
             return false;
+        
         add_action('phpmailer_init', array($this,'config_phpmailer'));
+        
         if(empty($this->attachments))
-            return wp_mail($this->to, $this->subject, $this->body);
+            $return = wp_mail($this->to, $this->subject, $this->body);
         else
-           return wp_mail($this->to, $this->subject, $this->body, $this->header_str, $this->attachments);
-
+            $return = wp_mail($this->to, $this->subject, $this->body, $this->header_str, $this->attachments);
+        
+        remove_action('phpmailer_init', array($this,'config_phpmailer'));
+        
+        return $return;
    }
    
     public function config_phpmailer($phpmailer) {

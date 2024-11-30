@@ -39,6 +39,8 @@ $form->configure(array(
 
         $form->addElement(new Element_Textbox("<b>" . RM_UI_Strings::get('LABEL_CSS_CLASS') . ":</b>", "field_css_class", array("id" => "rm_field_class", "class" => "rm_static_field rm_required", "value" => $data->model->field_options->field_css_class, "longDesc"=>RM_UI_Strings::get('HELP_ADD_FIELD_CSS_CLASS'))));
         
+        $form->addElement(new Element_HTML('<div id="rm_form_sub_count">'.'This widget will only appear if you have form submission limits enabled from "Limits" section in the form\'s "Dashboard"'.'</div>'));
+        
         //Button Area
         $form->addElement(new Element_HTMLL('&#8592; &nbsp; '.__('Cancel','custom-registration-form-builder-with-submission-manager'), '?page=rm_field_manage&rm_form_id='.$data->form_id, array('class' => 'cancel')));
 

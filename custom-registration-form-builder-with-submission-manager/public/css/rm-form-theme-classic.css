@@ -210,10 +210,17 @@
 
 /*--- Label Left-----*/
 
-.rmform-ui.rmform-custom-form[data-style=label_left] .rmform-row .rmform-col > .rmform-field{
+@media (min-width: 783px) {
+   .rmform-ui.rmform-custom-form[data-style=label_left] .rmform-row .rmform-col > .rmform-field{
     display: flex;
 
 }
+    
+  .widget_rm_form_widget .rmform-ui.rmform-custom-form[data-style="label_left"] .rmform-row .rmform-col > .rmform-field {
+        display: initial !important;
+    }
+
+
 
 .rmform-ui.rmform-custom-form[data-style=label_left] .rmform-row  .rm-address-field-wrap.rmform-col > .rmform-field .rmform-field {
     display: block;
@@ -264,4 +271,6 @@
     top: 12px !important;
 }
 
+
+}
 

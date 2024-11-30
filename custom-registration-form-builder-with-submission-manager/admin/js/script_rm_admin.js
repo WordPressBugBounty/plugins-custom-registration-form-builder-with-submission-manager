@@ -724,11 +724,12 @@
         var form = RM_jQ("#rm_user_manager_form");
         form.children('input#rm_slug_input_field').val('rm_user_delete');
         form.submit();
-    }
+    };
     
 
     RM_jQ.rm_append_textbox_other = function (elem) {
         RM_jQ("#rmaddotheroptiontextboxdiv").show();
+        RM_jQ("#rmaddotheroptiontextdiv").addClass("rm-custom-value-appended");
         RM_jQ("#rm_field_is_other_option").val(1);
     };
 

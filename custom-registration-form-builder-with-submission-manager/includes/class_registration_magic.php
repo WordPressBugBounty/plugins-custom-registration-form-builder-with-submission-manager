@@ -133,7 +133,8 @@ class Registration_Magic
 
         $rm_i18n = new RM_i18n();
 
-        $this->loader->add_action('plugins_loaded', $rm_i18n, 'load_plugin_textdomain');
+        //$this->loader->add_action('plugins_loaded', $rm_i18n, 'load_plugin_textdomain');
+        $this->loader->add_action('init', $rm_i18n, 'load_plugin_textdomain');
     }
 
     /**

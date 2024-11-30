@@ -733,7 +733,7 @@ class RM_Public {
         
         // Success message
         $response['msg'] .= '<div id="rmform">';
-        $response['msg'] .= "<br><br><div class='rm-post-sub-msg'>";
+        $response['msg'] .= "<br><div class='rm-post-sub-msg'>";
         $response['msg'] .= $form->form_options->form_success_message != "" ? apply_filters('rm_form_success_msg',$form->form_options->form_success_message,$form_id,$submission->get_submission_id()) : $form->get_form_name() . " ". __('Submitted','custom-registration-form-builder-with-submission-manager');
         $response['msg'] .= '</div>';
         

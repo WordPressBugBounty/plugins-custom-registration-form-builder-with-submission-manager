@@ -143,7 +143,7 @@ if(isset($data->model->field_options->rm_textbox) && !empty($data->model->field_
 } else {
     $other_field_value = RM_UI_Strings::get('MSG_THEIR_ANS');
 }
-$form->addElement(new Element_HTML('<div class="rmrow"><div class="rmfield" for="rm_other_option_text"><label>  </label></div><div class="rminput"><input type="text" name="rm_textbox" id="rm_other_option_text" class="rm_static_field" readonly="disabled" value="'.$other_field_value.'"><div id="rmaddotheroptiontextdiv2"></div></div></div>'));
+$form->addElement(new Element_HTML('<div class="rmrow"><div class="rmfield" for="rm_other_option_text"><label>  </label></div><div class="rminput"><input type="text" name="rm_textbox" id="rm_other_option_text" class="rm_static_field" readonly="disabled" value="'.$other_field_value.'"><div id="rmaddotheroptiontextdiv2" onclick="jQuery.rm_delete_textbox_other(this)">'.RM_UI_Strings::get('LABEL_DELETE').'</div></div></div>'));
 $form->addElement(new Element_HTML('</div>'));
 
 $form->addElement(new Element_HTML("<div class='' id='rm_basic_field_layout'>"));
@@ -269,9 +269,9 @@ $form->addElement(new Element_Checkbox("<b>" . RM_UI_Strings::get('LABEL_IS_UNIQ
 $form->addElement(new Element_HTML('</div>'));
 
 $meta_options = array(
-    'do_not_add' => esc_html__('Do Not Add','custom-registration-form-builder-with-submission-manager'),
-    'existing_user_meta' => esc_html__('Associate with Existing User Meta Key','custom-registration-form-builder-with-submission-manager'),
-    'define_new_user_meta' => esc_html__('Define New User Meta Key','custom-registration-form-builder-with-submission-manager')
+    'do_not_add' => esc_html__('Do not add','custom-registration-form-builder-with-submission-manager'),
+    'existing_user_meta' => esc_html__('Associate with existing user meta key','custom-registration-form-builder-with-submission-manager'),
+    'define_new_user_meta' => esc_html__('Define new user meta key','custom-registration-form-builder-with-submission-manager')
 );
 if(empty($data->model->field_options->field_user_profile)){
     if(!empty($data->model->field_options->field_meta_add)){
@@ -284,7 +284,7 @@ if(empty($data->model->field_options->field_user_profile)){
 $non_meta_fields= array('Price','ImageV','Shortcode','MapV','SubCountV','Form_Chart','FormData','Feed','Username','UserPassword','Privacy','WCBilling','WCShipping','WCBillingPhone','Fname','Lname','BInfo','Nickname','SecEmail','Website');
 if(!in_array($data->selected_field, $non_meta_fields)){
     $form->addElement(new Element_HTML("<div id='rm_user_meta_options'>"));
-        $form->addElement(new Element_Radio(__('Add Field to WordPress User Profile','custom-registration-form-builder-with-submission-manager').":", "field_user_profile",$meta_options, array("id" => "field_user_profile", "value" =>$data->model->field_options->field_user_profile, "longDesc"=>__('Saves the field value in a profile field in WordPress User Profile using User Meta. You can create new custom fields in the profile by selecting Define New User Meta Key. Please note that this feature only works with user registration forms.','custom-registration-form-builder-with-submission-manager'))));
+        $form->addElement(new Element_Radio(__('Add Field to WordPress User Profile','custom-registration-form-builder-with-submission-manager').":", "field_user_profile",$meta_options, array("id" => "field_user_profile", "value" =>$data->model->field_options->field_user_profile, "longDesc"=>__('Saves the field value in a profile field in WordPress User Profile using User Meta. You can create new custom fields in the profile by selecting "Define new user meta key". Please note that this feature only works with user registration forms.','custom-registration-form-builder-with-submission-manager'))));
         $display_user_meta_options= $data->model->field_options->field_user_profile=='existing_user_meta' || $data->model->field_options->field_user_profile=='define_new_user_meta' ? '' : 'style="display:none"';
         $form->addElement(new Element_HTML("<div class='childfieldsrow' id='rm_user_meta_key_options' $display_user_meta_options>"));
             $form->addElement(new Element_Select("<b>" .__('Select User Meta Key','custom-registration-form-builder-with-submission-manager'). "</b>", "existing_user_meta_key",$data->metas, array('id'=>"existing_user_meta","value" =>$data->model->field_options->existing_user_meta_key, "class" => "rm_user_meta_option", "longDesc"=>__('Select a User Meta Key from wp_usermeta table in which you wish to save user response to this field. This is very useful for using form data with other plugins. But please be very careful that the field type matches expected meta key value. If you are not sure, consider creating a new user meta key.','custom-registration-form-builder-with-submission-manager'))));
@@ -311,14 +311,17 @@ $form->addElement(new Element_HTML('<div class="rmrow rm_sub_heading">' . RM_UI_
 
 
  
- $form->addElement(new Element_Checkbox("<b>" . RM_UI_Strings::get('LABEL_IS_REQUIRED_RANGE') . "</b>", "field_is_required_range", array(1 => ""), array("id" => "rm_field_is_required_range", "class" => "rm_field_is_required_range","value" => $data->model->field_options->field_is_required_range, "longDesc" => RM_UI_Strings::get('HELP_ADD_FIELD_BDATE_RANGE'))));
-
-         $form->addElement(new Element_jQueryUIDate("<b>" . RM_UI_Strings::get('LABEL_IS_REQUIRED_MAX_RANGE') . "</b>", 'field_is_required_max_range', array('class' => 'rm_dateelement',"id" => "rm_is_required_max_range", "value" => $data->model->field_options->field_is_required_max_range, "longDesc" => RM_UI_Strings::get('HELP_ADD_FORM_AUTO_EXP_TIME_LIMIT'))));
+$form->addElement(new Element_Checkbox("<b>" . RM_UI_Strings::get('LABEL_IS_REQUIRED_RANGE') . "</b>", "field_is_required_range", array(1 => ""), array("id" => "rm_field_is_required_range", "class" => "rm_field_is_required_range","value" => $data->model->field_options->field_is_required_range, "onclick" => "hide_show(this)", "longDesc" => RM_UI_Strings::get('HELP_ADD_FIELD_BDATE_RANGE'))));
+if($data->model->field_options->field_is_required_range==1)
+    $form->addElement(new Element_HTML('<div class="childfieldsrow" id="rm_field_is_required_range_childfieldsrow">'));
+else
+    $form->addElement(new Element_HTML('<div class="childfieldsrow" id="rm_field_is_required_range_childfieldsrow" style="display:none">'));
 $form->addElement(new Element_jQueryUIDate("<b>" . RM_UI_Strings::get('LABEL_IS_REQUIRED_MIN_RANGE') . "</b>", "field_is_required_min_range", array("id" => "rm_is_required_min_range", "class" => "rm_static_field rm_required", "value" => $data->model->field_options->field_is_required_min_range, "longDesc" => RM_UI_Strings::get('HELP_ADD_FIELD_SHOW_ON_USERPAGE'))));
-$form->addElement(new Element_HTML('<div class="rmrow" id="rm_range_error_row"><div class="rmfield" for="rm_field_value_options_textarea"><label></label></div><div class="rminput" id="rm_range_error_text"></div></div>'));
+$form->addElement(new Element_jQueryUIDate("<b>" . RM_UI_Strings::get('LABEL_IS_REQUIRED_MAX_RANGE') . "</b>", 'field_is_required_max_range', array('class' => 'rm_dateelement',"id" => "rm_is_required_max_range", "value" => $data->model->field_options->field_is_required_max_range, "longDesc" => RM_UI_Strings::get('HELP_ADD_FORM_AUTO_EXP_TIME_LIMIT'))));
+$form->addElement(new Element_HTML('<div class="" id="rm_range_error_row"><div class="rmfield" for="rm_field_value_options_textarea"><label></label></div><div class="rminput" id="rm_range_error_text"></div></div>'));
 
- 
- $form->addElement(new Element_HTML('</div>'));
+$form->addElement(new Element_HTML('</div>'));
+$form->addElement(new Element_HTML('</div>'));
 // $form->addElement(new Element_HTML('<div id="scroll" style="display:none">'));
 // $form->addElement(new Element_Checkbox("<b>" . RM_UI_Strings::get('LABEL_IS_REQUIRED_SCROLL') . "</b>", "field_is_required_scroll", array(1 => ""), array("id" => "rm_field_is_required_scroll", "class" => "rm_static_field rm_required", "value" => $data->model->field_options->field_is_required_scroll, "longDesc" => RM_UI_Strings::get('HELP_ADD_FIELD_REQUIRED_SCROLL'))));
 //$form->addElement(new Element_HTML('</div>'));
@@ -530,8 +533,9 @@ function change_icon_shape(e){
                var min_date=new Date(jQuery("#rm_is_required_min_range").val());
                if(max_date<=min_date)
                {
-                   jQuery('#rm_range_error_text').html('Invalid Range');
-                   jQuery('#rm_range_error_row').show();
+                jQuery('<div><?php esc_html_e('Maximum Date cannot be earlier than Minimum Date','custom-registration-form-builder-with-submission-manager'); ?></div>').insertAfter("#rm_is_required_max_range");
+                   //jQuery('#rm_range_error_text').html('<?php esc_html_e('Invalid Date Range','custom-registration-form-builder-with-submission-manager'); ?>');
+                   //jQuery('#rm_range_error_row').show();
                    e.preventDefault();
                }
                }

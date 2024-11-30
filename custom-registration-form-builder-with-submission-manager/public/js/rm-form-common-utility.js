@@ -168,6 +168,7 @@ if (jQuery('.rmform-custom-form').attr('data-style') === 'label_left') {
         var rmFormInput = $(this).find('input.rmform-control, select.rmform-control, textarea.rmform-control');
         var errorMessage = $(this).find('.rmform-error-message');
         var rmFormFieldNote = $(this).find('.rmform-note');
+        var rmFormFieldHint = $(this).find('.rm-field-hint');
 
         if (rmFormInput.length) {
             if (errorMessage.length) {
@@ -175,6 +176,10 @@ if (jQuery('.rmform-custom-form').attr('data-style') === 'label_left') {
             } else {
                 rmFormInput.wrap('<div class="rmform-control-wrap"></div>');
             }
+        }
+
+        if (rmFormFieldHint.length) {
+            rmFormFieldHint.prependTo($(this).find('.rmform-control-wrap'));
         }
 
         if (rmFormFieldNote.length) {

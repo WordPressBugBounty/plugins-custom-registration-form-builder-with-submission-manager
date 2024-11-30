@@ -3534,6 +3534,7 @@ table.rm_paypal_order_details, table.rm_paypal_order_details th, table.rm_paypal
 
 #rm_paypal_order_success img{
     width: 55px;
+    margin: 0px auto;
 }
 
 #rm_paypal_order_area {

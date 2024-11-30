@@ -224,20 +224,20 @@ if (!defined('WPINC')) {
                             <ul>
                                 <li>  
                                     <input id="rm_ca_state_all" type="radio" name="ca_state_type" value="all"> 
-                                    <label for="rm-addr-textbox-state" onclick="rm_state_type_changed(\'all\')">'.__('All Countries', 'custom-registration-form-builder-with-submission-manager').'</label>
+                                    <label for="rm_ca_state_all" onclick="rm_state_type_changed(\'all\')">'.__('All Countries', 'custom-registration-form-builder-with-submission-manager').'</label>
                                 
                                 </li>
                                 <li>
                                           <input id="rm_ca_state_america" type="radio" name="ca_state_type" value="america">    
-                                          <label for="rm-addr-select-state" onclick="rm_state_type_changed(\'america\')">'.__('U.S. States', 'custom-registration-form-builder-with-submission-manager').'</label>    
+                                          <label for="rm_ca_state_america" onclick="rm_state_type_changed(\'america\')">'.__('U.S. States', 'custom-registration-form-builder-with-submission-manager').'</label>    
                                 </li>
                                 <li>
                                           <input id="rm_ca_state_america_can" type="radio" name="ca_state_type" value="america_can">    
-                                          <label for="rm-addr-select-state" onclick="rm_state_type_changed(\'america_can\')">'.__('U.S. States & Canadian Provinces', 'custom-registration-form-builder-with-submission-manager').'</label>    
+                                          <label for="rm_ca_state_america_can" onclick="rm_state_type_changed(\'america_can\')">'.__('U.S. States & Canadian Provinces', 'custom-registration-form-builder-with-submission-manager').'</label>    
                                 </li>
                                 <li>
                                           <input id="rm_ca_state_limited" type="radio" name="ca_state_type" value="limited">    
-                                          <label for="rm-addr-select-state" onclick="rm_state_type_changed(\'limited\')">'.__('Limited Countries', 'custom-registration-form-builder-with-submission-manager').'</label>    
+                                          <label for="rm_ca_state_limited" onclick="rm_state_type_changed(\'limited\')">'.__('Limited Countries', 'custom-registration-form-builder-with-submission-manager').'</label>    
                                 </li>
 
 

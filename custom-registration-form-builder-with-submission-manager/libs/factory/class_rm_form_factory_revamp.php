@@ -36,14 +36,14 @@ final class RM_Form_Factory_Revamp {
         echo "</div>";
     }
 
-    private function save_submission($sub_data = array(), $form = null, $prefilled = false, $submission_id = null) {
+    private function save_submission($sub_data = array(), $form = null, $form_no = null, $prefilled = false, $submission_id = null) {
         // Getting form ID
         $form_id = absint($form->form_id);
         
         // Checking valid submission for this form
-        if((!isset($sub_data['form_id']) || absint($sub_data['form_id']) != $form_id)) {
-            esc_html_e('Invalid form submission','custom-registration-form-builder-with-submission-manager');
-            return false;
+        if(!isset($sub_data['form_id']) || !isset($sub_data['form_no']) || absint($sub_data['form_id']) != $form_id || absint($sub_data['form_no']) != $form_no) {
+            //esc_html_e('Invalid form submission','custom-registration-form-builder-with-submission-manager');
+            return 'ignore';
         }
 
         // Defining important variables
@@ -290,7 +290,7 @@ final class RM_Form_Factory_Revamp {
                         }
                     }
                     // Handling file fields
-                    else if($form->fields[$field_id]->field_type == 'File' || $form->fields[$field_id]->field_type == 'Image' || $form->fields[$field_id]->field_type == 'ESign') {
+                    else if($form->fields[$field_id]->field_type == 'File' || $form->fields[$field_id]->field_type == 'Image' || $form->fields[$field_id]->field_type == 'ESign' || $form->fields[$field_id]->field_type == 'PGAvatar') {
                         if(absint($form->fields[$field_id]->field_options->field_is_required) == 1 && (!isset($_FILES[$field_name]) || empty($_FILES[$field_name])) && !$save_submission) {
                             array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
                             continue;
@@ -403,6 +403,10 @@ final class RM_Form_Factory_Revamp {
                         $data_block->type = $form->fields[$field_id]->field_type;
                         $data_block->meta = null;
                         $db_data[$field_id] = $data_block;
+
+                        if($form->fields[$field_id]->field_type == 'PGAvatar') {
+                            $user_meta_fields[$profile_meta_arr[$form->fields[$field_id]->field_type]] = $data_block->value[0];
+                        }
                     } // Handling price fields
                     else if($form->fields[$field_id]->field_type == 'Price') {
                         $has_price = true;
@@ -510,6 +514,7 @@ final class RM_Form_Factory_Revamp {
                                 }
                             }
 
+                            // Validating Website and URL fields
                             if($form->fields[$field_id]->field_type == 'URL' || $form->fields[$field_id]->field_type == 'Website') {
                                 if(!empty($sub_data[$field_name])) {
                                     if(!preg_match("/(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?/", $sub_data[$field_name])) {
@@ -1385,7 +1390,7 @@ final class RM_Form_Factory_Revamp {
 
                 // Handling form submission
                 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['form_id'])) {
-                    $errors = $this->save_submission($_POST, $form);
+                    $errors = $this->save_submission($_POST, $form, $rm_form_diary[$form_id]);
                     if(empty($errors))
                         return;
                 } else {
@@ -1431,7 +1436,7 @@ final class RM_Form_Factory_Revamp {
                 
                 // Handling form submission
                 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['form_id']) && isset($_POST['rm_prefilled'])) {
-                    $errors = $this->save_submission($_POST, $form, $prefilled, $ex_sub_id);
+                    $errors = $this->save_submission($_POST, $form, $rm_form_diary[$form_id], $prefilled, $ex_sub_id);
                     if(empty($errors))
                         return;
                 } else {
@@ -1469,7 +1474,7 @@ final class RM_Form_Factory_Revamp {
                 echo "<div class='rmformui'>";
                 echo "<div id='rm-form-container' class='rmform-design--".wp_kses_post((string)$theme)."-container'>";
                 // Displaying errors
-                if(!empty($errors)) {
+                if(!empty($errors) && is_array($errors)) {
                     echo "<div id='rm-form-errors' class='rmform-errors-message'>";
                     foreach($errors as $error) {
                         echo "<div class='rm-form-error'>".wp_kses_post((string)$error)."</div>";
@@ -1693,6 +1698,7 @@ final class RM_Form_Factory_Revamp {
                     }
                     // Adding form ID field
                     echo "<input type='hidden' name='form_id' value='".wp_kses_post((string)$form_id)."'>";
+                    echo "<input type='hidden' name='form_no' value='".wp_kses_post((string)$rm_form_diary[$form_id])."'>";
                     echo "<input type='hidden' name='rm_cond_hidden_fields' id='rm_cond_hidden_fields' value=''>";
                     if(!$prefilled) {
                         // Adding stat ID field
@@ -1767,13 +1773,15 @@ final class RM_Form_Factory_Revamp {
                             $captcha_ver = get_option('rm_option_recaptcha_v');
                             if($captcha_ver == 'v2') {
                                 $key = get_option('rm_option_public_key');
-                                wp_enqueue_script('rm-grecaptcha', 'https://www.google.com/recaptcha/api.js');
+                                $locale = get_locale();
+                                $lang = explode('_', (string)$locale);
+                                wp_enqueue_script('rm-grecaptcha', "https://www.google.com/recaptcha/api.js?onload=rmInitCaptchaV2&render=explicit&hl=$lang[0]");
                                 echo "<div class='g-recaptcha' data-sitekey='".esc_attr((string)$key)."'></div>";
                             } elseif($captcha_ver == 'v3') {
                                 $v3_key = get_option('rm_option_public_key3');
                                 wp_enqueue_script('rm-grecaptcha', 'https://www.google.com/recaptcha/api.js?onload=rmInitCaptcha&render='.$v3_key);
-                                echo '<input type="hidden" class="g-recaptcha-response" id="g-recaptcha-response" name="g-recaptcha-response">';
-                                echo "<script>function rmInitCaptcha() { grecaptcha.ready(function() { grecaptcha.execute('".esc_attr((string)$v3_key)."', {action: 'submit'}).then(function(token) { document.getElementById('g-recaptcha-response').value = token; }); }); }</script>";
+                                echo '<input type="hidden" class="g-recaptcha-response" id="g-recaptcha-response-'.esc_attr((string)$form_id).'-'.esc_attr((string)$rm_form_diary[$form_id]).'" name="g-recaptcha-response">';
+                                echo "<script>function rmInitCaptcha() { grecaptcha.ready(function() { grecaptcha.execute('".esc_attr((string)$v3_key)."', {action: 'submit'}).then(function(token) { document.getElementById('g-recaptcha-response-".esc_attr((string)$form_id)."-".esc_attr((string)$rm_form_diary[$form_id])."').value = token; }); }); }</script>";
                             }
                             echo "<div id='rm-recaptcha-error' class='rmform-error-message'></div>";
                             echo '</div></div></div></div>';

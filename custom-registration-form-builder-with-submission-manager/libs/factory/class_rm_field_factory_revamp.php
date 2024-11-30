@@ -10,7 +10,7 @@ final class RM_Field_Factory_Revamp {
     private function print_attributes($atts = array()) {
         $str = '';
         foreach($atts as $k => $v) {
-            if (($k == 'required') || ($k == 'readonly') || ($k == 'checked') || ($k == 'selected') || ($k == 'disabled')) {
+            if (($k == 'required') || ($k == 'readonly') || ($k == 'checked') || ($k == 'selected') || ($k == 'disabled') || ($k == 'multiple')) {
                 $str .= esc_attr($k).' ';
             } else {
                 $str .= esc_attr($k).'="'.esc_attr($v).'" ';
@@ -31,11 +31,11 @@ final class RM_Field_Factory_Revamp {
                 $controlling_field_id = $rule['controlling_field'];
                 $fields = $wpdb->get_results("SELECT field_type FROM {$wpdb->prefix}rm_fields WHERE field_id = $controlling_field_id");
 
-                if ($fields[0]->field_type == "Username") {
+                if(isset($fields[0]->field_type) && $fields[0]->field_type == "Username") {
                     $cond_field_name = "username";
-                } elseif ($fields[0]->field_type == "Password") {
+                } elseif(isset($fields[0]->field_type) && $fields[0]->field_type == "Password") {
                     $cond_field_name = "pwd";
-                } elseif($fields[0]->field_type == "Checkbox") {
+                } elseif(isset($fields[0]->field_type) && $fields[0]->field_type == "Checkbox") {
                     $cond_field_name = $fields[0]->field_type. '_' . $controlling_field_id . '[]';
                 } else {
                     $cond_field_name = $fields[0]->field_type. '_' . $controlling_field_id;
@@ -557,6 +557,7 @@ final class RM_Field_Factory_Revamp {
                 $table_name = RM_Table_Tech::get_table_name_for('FIELDS');
                 $rm_country_field = $wpdb->get_row($wpdb->prepare("SELECT * from `$table_name` where $unique_id_name = %d", $field->field_options->country_field));
                 $country_field_name= $rm_country_field->field_type.'_'.$field->field_options->country_field;
+
 
                 $force_match_js= '';
                 if(!empty($field->field_options->country_match)) {
@@ -2246,7 +2247,7 @@ final class RM_Field_Factory_Revamp {
                             $attributes['checked'] = 'checked';
                         }
                         if(empty($ccode)) {
-                            echo "<option>".esc_html($country)."</option>";
+                            echo "<option value=\"\">".esc_html($country)."</option>";
                         } else {
                             echo "<option value=\"".esc_attr($country)."\">".esc_html($country)."</option>";
                         }
@@ -2282,7 +2283,7 @@ final class RM_Field_Factory_Revamp {
                     }
                     echo "<select " . $this->print_attributes($attributes) . " >";
                     foreach($countries as $country) {
-                        echo "<option value=\"$country\">$country</option>";
+                        echo "<option value=\"".esc_attr($country)."\">".esc_html($country)."</option>";
                     }
                     echo "</select>";
                 }
@@ -2368,7 +2369,7 @@ final class RM_Field_Factory_Revamp {
                         echo "<select " . $this->print_attributes($attributes) . " >";
                         foreach(RM_Utilities_Revamp::get_countries() as $code => $country) {
                             if(empty($code)) {
-                                echo "<option>".esc_html($country)."</option>";
+                                echo "<option value=\"\">".esc_html($country)."</option>";
                             } else {
                                 echo "<option value=\"".esc_attr($country)."\">".esc_html($country)."</option>";
                             }
@@ -2400,7 +2401,7 @@ final class RM_Field_Factory_Revamp {
                         }
                         echo "<select " . $this->print_attributes($attributes) . " >";
                         foreach($countries as $country) {
-                            echo "<option value=\"$country\"> $country </option>";
+                            echo "<option value=\"".esc_attr($country)."\">".esc_html($country)."</option>";
                         }
                         echo "</select>";
                     }
@@ -4346,10 +4347,11 @@ final class RM_Field_Factory_Revamp {
         }elseif($layout == 'horizontal'){
             echo "<div class='rmform-field-horizontal-row'>";
         }
-        foreach($options as $option) {
+        $options = apply_filters('rm_gender_modify_options', $options, $field_options, $gender_options);
+        foreach($options as $value => $option) {
             $label_id = 'label_id_'.$field->field_id."_".$count;
             $attributes['id'] = "radio_".$field->field_id."_".$count;
-            $attributes['value'] = $option;
+            $attributes['value'] = is_string($value) ? $value : $option;
             $attributes['onchange'] = 'rmToggleOtherText(this)';
             if($meta_value == $option) {
                 $attributes['checked'] = 'checked';
@@ -4581,6 +4583,7 @@ final class RM_Field_Factory_Revamp {
             $default = $field->field_options->field_select_label;
             echo "<option value=''>$default</option>";
         }
+        
         foreach($options as $option) {
             if(is_array($meta_value)) {
                 if(in_array($option, $meta_value)) {
@@ -4836,11 +4839,6 @@ final class RM_Field_Factory_Revamp {
                 'id' => $input_id,
                 'aria-labelledby' => $label_id
             );
-            $multiple= get_option('rm_option_allow_multiple_file_uploads');
-            if (isset($multiple) && $multiple == "yes") {
-                $attributes['name'] = $field->field_type . '_' . $field->field_id . '[]';
-                $attributes['multiple'] = 'multiple';
-            }
             $main_label_attributes = array(
                 'for' => $input_id,
                 'id' => $label_id,

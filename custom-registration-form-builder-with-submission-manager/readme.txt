@@ -1,14 +1,14 @@
 === RegistrationMagic – User Registration Plugin with Custom Registration Forms ===
 Contributors: registrationmagic, metagauss, registrationmagicforms
 Donate link: http://registrationmagic.com/
-Tags: user registration, registration, registration form, payment form, event registration
+Tags: user registration, registration, WooCommerce registration form, payment form, event registration
 Requires at least: 5.2
-Tested up to: 6.6
-Stable tag: 6.0.2.9
+Tested up to: 6.7
+Stable tag: 6.0.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Best WordPress user registration plugin for custom registration forms, signup and login pages, member enrollment, event registration, and more.
+Create customized user registration forms, accept payments, track submissions, manage users, analyze stats, assign user roles and more!
 
 == Description ==
 
@@ -24,17 +24,17 @@ Create custom WordPress registration forms, publish signup and login pages, enab
 
 https://youtu.be/1AvhmIifzjg
 
-RegistrationMagic tracks all incoming form submissions and activities, which can be monitored from individual form dashboard, allowing you to make informed decisions about your form tweaks. You can also accept attachments (single or multiple), and view or download them from a single area inside the dashboard. Advanced filters allow you to track form submissions for a specific form within a time period.
+RegistrationMagic tracks all incoming registration form submissions and activities, which can be monitored from individual form dashboard, allowing you to make informed decisions about your form tweaks. You can also accept attachments (single or multiple), and view or download them from a single area inside the dashboard. Advanced filters allow you to track form submissions for a specific registration form within a time period.
 
 There is also a full-fledged [User Management module](https://registrationmagic.com/wordpress-user-management-plugin-guide/) integrated with RegistrationMagic. It goes a step ahead of default WordPress User manager by connecting user registration and payment activities with individual user accounts. User Manager is the central hub for RegistrationMagic's user management system, which provides important information about each user within individual user pages. User management also offers enhanced options like suspending and re-activating users.
 
 RegistrationMagic not only allows you to create [new user roles](https://registrationmagic.com/register-users-specific-role-wordpress-site/) but integrate them with your login and registration system easily. You can even create paid user roles using in-built manager!
 
-Full integration with WordPress' default user-meta system means you can hook your form fields with existing user-meta keys, or create new ones right from the comfort of your registration form dashboard. Therefore, not only all registration form submissions are visible inside WordPress User pages as table, you can also go ahead and map individual form fields to user profile fields (or create new ones from scratch)! This also opens a world of opportunity for integrations with other plugins using WP user-meta. 
+Full integration with WordPress' default user-meta system means you can hook your registration fields with existing user-meta keys, or create new ones right from the comfort of your registration form dashboard. Therefore, not only all registration form submissions are visible inside WordPress User pages as table, you can also go ahead and map individual registration form fields to user profile fields (or create new ones from scratch)! This also opens a world of opportunity for integrations with other plugins using WP user-meta. 
 
 [Learn more about RegistrationMagic features here.](https://registrationmagic.com/features/)
 
-Not happy with default WordPress registration page? You can define and replace default WordPress registration page with your own custom-built form. RegistrationMagic provides you with more control and flexibility over your WordPress registration page. It redefined the user experience by combining specialized roles of both login and registration plugin.
+Not happy with default WordPress registration page? You can define and replace default WordPress registration page with your own custom-built registration form. RegistrationMagic provides you with more control and flexibility over your WordPress registration page. It redefined the user experience by combining specialized roles of both login and registration plugin.
 
 With RegistrationMagic you can build anything from simple to complex [registration approval system](https://registrationmagic.com/manual-approval-of-registered-users/) to enable or disable user registration. Powerful Custom Status feature offers an option to create multi-step registration approval process. [Automations](https://registrationmagic.com/complete-automation-guide-wordpress-forms/) can be used for [automated registration approval](https://registrationmagic.com/automate-wordpress-user-account-activation-deactivation-deletion/) mechanism. These features allow you to use RegistrationMagic for industry specific registration systems, like [WordPress event registration plugin](https://registrationmagic.com/event-registration-form-plugin/) for online or physical events, member registration plugin for teams, WordPress application form plugin for businesses and WordPress enrollment plugin for sport camps. If you are [registering with limited seats](https://registrationmagic.com/restrict-limit-user-registration-wordpress/), the Limits feature can help you build WordPress event registration form, which has both a booking time window and option to limit the number of bookings. You can also [generate token numbers](https://registrationmagic.com/assign-unique-registration-token-number-to-user/) for every booking for these event registration forms. Another example would be to use it as [WordPress course registration plugin](https://registrationmagic.com/best-wordpress-class-registration-plugin/) for classes. 
 
@@ -60,17 +60,17 @@ RegistrationMagic forms data and submission records work with WordPress' Export 
 
 * Unified User Registration Forms Manager.
 * Unlimited Online User Registration Forms.
-* Form Cards with at-the-glance information.
-* Quick and simple drag and drop form builder.
+* Registration Form Cards with at-the-glance information.
+* Quick and simple drag-drop registration form and login form builder.
 * Built in User Login form.
-* Submission counter on form card.
-* Default form selector.
-* Short-code system for forms.
+* Submission counter on registration form card.
+* Default registration forms selector.
+* Short-code system for all registration forms.
 * Submissions Dashboard Widget.
 * Submissions under User profiles.
-* Sort form cards alphabetically or chronologically.
-* Duplicate forms.
-* HTML Embed code for forms (Premium).
+* Sort registration form cards alphabetically or chronologically.
+* Duplicate registration forms.
+* HTML Embed code for registration forms (Premium).
 * Terms and Condition Checkbox.
 * Custom WordPress user registration URL.
 * Default register page.
@@ -79,14 +79,14 @@ RegistrationMagic forms data and submission records work with WordPress' Export 
 
 New overview feature introduces powerful bird's eye view of all registration related user activities on your website through charts and tables widgets on a single page. These include:
 
-* Form submission comparison bar graphs.
-* Trending forms.
+* Registration form submission comparison bar graphs.
+* Trending registration forms.
 * Latest submissions timeline.
 * User registrations line graph.
 * User logins line graph.
 * Submission counters.
-* Latest forms.
-* Latest logins timeline.
+* Latest registration forms.
+* Latest logins timeline from login forms.
 * Quick access to global settings.
 
 = General Settings =
@@ -118,11 +118,13 @@ New overview feature introduces powerful bird's eye view of all registration rel
 = External Integration =
 
 * Social login register using Facebook, LinkedIn, Microsoft, Twitter, Instagram and Google Accounts (User registration form with front-end login).
-* Integrate with MailChimp (MailChimp Custom Fields and MailChimp User registration Form).
-* Integrate with MailPoet (MailPoet Custom Fields, and MailPoet User registration Form).
-* Integrate with WooCommerce (WooCommerce Custom Fields, WooCommerce user registration Form * WooCommerce Vendor Registration & WooCommerce Floating Cart).
+* Integrate with MailChimp Custom Fields and MailChimp User registration Form.
+* Integrate with MailPoet Custom Fields and Mailpoet User registration Form.
+* Integrate with WooCommerce (WooCommerce Custom Fields, WooCommerce user registration Form, WooCommerce Vendor Registration & WooCommerce Floating Cart).
 * Integrate with DropBox.
-* Integrate with NewsLetter Plugin (NewsLetter Custom Fields & NewsLetter User Registration Form).
+* Integrate with NewsLetter Plugin Custom Fields & NewsLetter User Registration Form
+
+.
 * Integrate with Google Maps API key. (Premium)
 
 = Accounts =
@@ -147,14 +149,14 @@ New overview feature introduces powerful bird's eye view of all registration rel
 
 * Limit the user submissions based on number, date or both.
 * Define the number of submissions allowed.
-* Set a deadline for form submission.
+* Set a deadline for registration form submission.
 * Custom message to the user after submission is complete.
 
 = Access Control =
 
 * Enable date based access. Define age or specific time between dates.
 * Passphrase based access. Define secret question and passphrase.
-* User Role based Access. Define roles that will have access to the form.
+* User Role based Access. Define roles that will have access to registration forms.
 * Custom Denial Message.
 
 = Registration form Custom Fields =
@@ -204,7 +206,7 @@ New overview feature introduces powerful bird's eye view of all registration rel
 = Logged In View =
 
 * Define what users see after login page post login.
-* Display custom greetings and message.
+* Display custom greetings and message after user login.
 
 = Login Redirections =
 
@@ -250,7 +252,7 @@ New overview feature introduces powerful bird's eye view of all registration rel
 * A separate manager to create and manage prices for forms. 
 * Fixed, Multi-Select, Drop-Down and User Defined price options (Premium).
 * Custom labels for sub-pricing options (Premium).
-* Build WordPress form with payment option.
+* Build WordPress registration form with payment option.
 
 = Payments =
 
@@ -274,14 +276,14 @@ Payments feature is an essential companion to RegistrationMagic's forms. Payment
 
 = Email Users =
 
-* Broadcast email message to all users who have submitted a specific form.
+* Broadcast email message to all users who have submitted a specific registration form.
 * Use Mail merge to send personalized messages.
 * See queues in progress sending messages.
-* Quickly view number of recipients for each form.
+* Quickly view number of recipients for each registration form.
 
 = User Manager =
 
-* User Manager with tabular view of registered users or those who filled out the form.
+* User Manager with tabular view of registered users or those who filled out the registration form.
 * Filter User registrations by day, week, month and year.
 * Filter Users based on their status.
 * Activate or deactivate multiple users.
@@ -298,7 +300,7 @@ Payments feature is an essential companion to RegistrationMagic's forms. Payment
 * Inherit permissions from WP User roles.
 * Paid User roles (Premium).
 
-= Registration Shortcodes and Variables =
+= User Registration Shortcodes and Variables =
 
 [A list of useful shortcodes and variables used in RegistrationMagic](https://registrationmagic.com/wordpress-registration-shortcodes-list/).
 
@@ -322,18 +324,18 @@ Detailed instructions can be found here:
 
 == Frequently Asked Questions ==
 
-= Q: I am seeing following error message when visiting the form: "Submission limit reached for this form, please try back after 24 hours" =
-Ans: This is an anti-spam measure built into RegistrationMagic. A form can be submitted only certain number of times from a given device within a period of 24 hours. You can define the limit from Global Settings → Security. Change the value of Form Submission Limit for a Device as required. Set the limit to zero in order to disable the feature altogether, i.e. allow unlimited submissions from a device. 
+= Q: I am seeing following error message when visiting the registration form: "Submission limit reached for this form, please try back after 24 hours" =
+Ans: This is an anti-spam measure built into RegistrationMagic. A registration form can be submitted only certain number of times from a given device within a period of 24 hours. You can define the limit from Global Settings → Security. Change the value of Form Submission Limit for a Device as required. Set the limit to zero in order to disable the feature altogether, i.e. allow unlimited submissions from a device. 
 
 Note that in RegistrationMagic Premium, a global override is also available for this setting in Form Settings → Global Overrides.
 
-= Q: "Access Denied" error when trying to view form? =
+= Q: "Access Denied" error when trying to view registration form? =
 Ans: Please make sure that you haven't accidentally blocked your own IP address! Confirm it from Global Settings → Security → Banned IP addresses from accessing the form.
 
 Also make sure that you are using latest version of RegistrationMagic, as this issue may arise from IPv6 connections, which were addressed in latest versions.
 
 = Q: Submit button not working/does nothing! =
-Ans: Most of the time this happens due to a javascript error from a third-party plugin or theme. You will need to check browser console and see if there are any errors pointing to a file outside of RegistrationMagic repository. If you are able to trace it to a plugin, try disabling it and reload the form.
+Ans: Most of the time this happens due to a javascript error from a third-party plugin or theme. You will need to check browser console and see if there are any errors pointing to a file outside of RegistrationMagic repository. If you are able to trace it to a plugin, try disabling it and reload the registration form.
 
 Another reason can be minification of JS files and inline scripts. Disable these if you are using a plugin for minification and try again.
 
@@ -349,7 +351,7 @@ Ans: RegistrationMagic uses standard WordPress po/mo files for maintaining trans
 As a nice little trick you can even modify texts using this, for example label of username and password fields.
 
 = Q: Can I create early bird user registration forms with it? =
-Ans: RegistrationMagic allows you to set limits to your forms and render a different form once the limit has reached. Limit can be based on number of form submissions or a set date. To create early bird form system, you need to create two different forms - One for Early Bird user registration and the other one for regular user registration. Obviously, you can set different prices for them. After that, set limit on the early bird form by going to Form Card → Settings → Limits. Turn on 'Auto Expires', then define its limits. Below the limits, there's an option 'Post Expiry Action'. Select Display another form. A new drop down will appear below it. Choose your regular user registration form. Now go ahead and publish your early bird form and RegistrationMagic will take care of the rest :)
+Ans: RegistrationMagic allows you to set limits to your registration forms and render a different registration form once the limit has reached. Limit can be based on number of form submissions or a set date. To create early bird form system, you need to create two different forms - One for Early Bird user registration and the other one for regular user registration. Obviously, you can set different prices for them. After that, set limit on the early bird form by going to Form Card → Settings → Limits. Turn on 'Auto Expires', then define its limits. Below the limits, there's an option 'Post Expiry Action'. Select Display another form. A new drop down will appear below it. Choose your regular user registration form. Now go ahead and publish your early bird form and RegistrationMagic will take care of the rest :)
 
 In fact you can daisy chain multiple forms like this to create a system of forms! It opens up a host of new possibilities.
 
@@ -396,6 +398,13 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.0.3.0: November 29, 2024 =
+* New: Added option to turn on/off account activation email in Global Settings.
+* Fixed: ProfileGrid Avatar field not working with the new form shortcode.
+* Fixed: Unable to delete additional "Other" field from radio and checkbox fields.
+* Fixed: Redundant product creation upon form import.
+* Multiple bug fixes & UI improvements.
 
 = 6.0.2.9: November 19, 2024 =
 * Minor bug fixes.
@@ -1430,6 +1439,13 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * New: Aweber Integration.
 
 == Upgrade Notice ==
+
+= 6.0.3.0: November 29, 2024 =
+* New: Added option to turn on/off account activation email in Global Settings.
+* Fixed: ProfileGrid Avatar field not working with the new form shortcode.
+* Fixed: Unable to delete additional "Other" field from radio and checkbox fields.
+* Fixed: Redundant product creation upon form import.
+* Multiple bug fixes & UI improvements.
 
 = 6.0.2.9: November 19, 2024 =
 * Minor bug fixes.
@@ -2553,7 +2569,7 @@ This release mainly focusses on Username, Password and Mobile Number custom fiel
 * New Form Widget: Map
 * New Form Widget: Form Data Chart
 * New Form Widget: Form Meta-Data
-* New Form Widget: Registration Feed
+* New Form Widget: User Registration Feed
 
 
 = 3.8.2.0 =

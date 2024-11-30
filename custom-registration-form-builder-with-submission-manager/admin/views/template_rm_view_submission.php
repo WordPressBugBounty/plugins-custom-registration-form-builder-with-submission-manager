@@ -190,8 +190,8 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                                 }  elseif ($sub->type == 'Time') {                                  
                                     //echo esc_html($sub_data['time']).", ".__("Timezone",'custom-registration-form-builder-with-submission-manager').": ".esc_html($sub_data['timezone']);
                                     echo esc_html(date('h:i a', strtotime($sub_data['time'])));
-                                } elseif ($sub->type == 'Checkbox') {   
-                                    echo esc_html(implode(', ',RM_Utilities::get_lable_for_option($field_id, $sub_data)));
+                                } elseif ($sub->type == 'Checkbox') {
+                                    echo wp_kses_post(implode('<br>',RM_Utilities::get_lable_for_option($field_id, $sub_data)));
                                 } elseif ($sub->type == 'URL') {
                                     $url = esc_url($sub_data['url']);
                                     echo wp_kses_post("<a href='$url'>$url</a>");

@@ -32,6 +32,8 @@ jQuery(document).ready(function() {
     }
 });
 
+var rmReCaptchas = [];
+
 function update_state_dropdown($field_id) {
     const options = {
         US: [
@@ -155,4 +157,9 @@ function rmToggleOtherText(field){
     }
 }
 
-// document.addEventListener('DOMContentLoaded', update_state_dropdown);
+function rmInitCaptchaV2() {
+    let captEls = document.getElementsByClassName('g-recaptcha');
+    for(let index = 0; index < captEls.length; index++) {
+        rmReCaptchas.push(grecaptcha.render(captEls[index], {'sitekey' : captEls[index].dataset.sitekey}));
+    }
+}
