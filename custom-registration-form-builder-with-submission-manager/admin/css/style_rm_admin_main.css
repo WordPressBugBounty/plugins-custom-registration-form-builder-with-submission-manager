@@ -21,9 +21,6 @@
     margin: 0px;
 }
 
-.rmagic a:not(.rmagic.rm-user-manager a):not(.rmagic.rm_inbox_table a):not(.rmagic .rmmagic-all-forms a) {
- 
-}
 
 .rmagic a:not(:where(.rmagic.rm-user-manager a, .rmagic.rm_inbox_table a, .rmagic .rmmagic-all-forms a)){
     text-decoration: none;
@@ -127,6 +124,7 @@ ul.tokens-token-list .tokens-input-text {
     cursor: pointer;
     border: solid 1px #2271b1;
     border-style: solid;
+    appearance: none;
     -webkit-appearance: none;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -163,9 +161,7 @@ body.admin_page_rm_field_manage{
     border-color: #135e96;
 }
 
-.rmagic .sidebar .filter-row input[type=submit]:active,
-.rmagic .sidebar input[type=button]:active {
-}
+
 
 .rmagic .sidebar .filter-row span {
     width: 100%;
@@ -211,6 +207,8 @@ body.admin_page_rm_field_manage{
     background-image: none;
     border: 0px;
     font-weight: 600;
+    margin-left: 0px;
+    padding-left: 0px;
 }
 
 .rmagic .rminput select#rm_field_type_select_dropdown:hover {
@@ -387,11 +385,18 @@ body.admin_page_rm_field_manage{
     width: 62%;
     text-align: center;
     cursor: pointer;
+    margin-left: 28px;
+    padding-left: 0px;
 }
 
 .rmagic .rm_action_container #rmaddotheroptiontextdiv {
     display: inline-flex;
     align-items: center;
+}
+
+.rmagic .rm_action_container #rmaddotheroptiontextdiv.rm-custom-value-appended{
+    color: inherit;
+    cursor: default;
 }
 
 #rmaddotheroptiontextboxdiv .rminput {
@@ -408,9 +413,9 @@ body.admin_page_rm_field_manage{
     padding-left: 12px;
     padding-top: 9px;
     width: 7%;
-    text-transform: uppercase;
-    color: #F38989;
+    color: #ef0000;
     font-size: 12px;
+    cursor: pointer;
 }
 
 #rmaddotheroptiontextboxdiv .rmrow .rminput #rmaddotheroptiontextdiv2 a{
@@ -536,7 +541,8 @@ span.rm-newsletter-button a:focus {
 }
 
 #rm_no_api_notice,
-#rm_product_notice {
+#rm_product_notice,
+#rm_form_sub_count {
     width: 100%;
     float: left;
     text-align: left;
@@ -2433,7 +2439,7 @@ i#id_show_selected_icon.material-icons {
     top: 0px;
     right: 16px;
     background-color: rgb(250, 250, 250);
-    padding: 7px 10px 5px 10px;
+    padding: 7px 10px 5px 14px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     border: 1px solid #8d96a0;
@@ -2537,6 +2543,7 @@ i#id_show_selected_icon.material-icons {
 
 .rmagic .rm-address-field-state ul li label {
     padding: 2px 16px;
+    cursor: pointer;
 }
 
 .rmagic .rm-address-field-state ul li input[type="radio"]:checked+label {
@@ -6159,6 +6166,10 @@ div[class^="rm-grid-sidebar"] a.rm_deactivated {
     width: 27%;
 }
 
+.rmagic .rmrow .rminput ul.rm_sortable_elements li.appendable_options.rm-deletable-options:first-child .rm_actions{
+    display: none;
+}
+
 .rmagic .rmrow .rminput ul.rm_sortable_elements li.appendable_options.rm-deletable-options .rm_actions a{
     color: #ef0000;
 }
@@ -6387,6 +6398,7 @@ div[class^="rm-grid-sidebar"] a.rm_deactivated {
 .rmagic .rmrow .rminput ul.rm_sortable_elements li.appendable_options.rm-deletable-options {
     width: 100%;
     float: left;
+    margin-left: -6px;
 }
 
 .rmagic .rmrow .rminput ul.rm_sortable_elements li.appendable_options.rm-deletable-options span.rm_sortable_handle.ui-sortable-handle {
@@ -7358,6 +7370,7 @@ img.rm_feature_icon {
     cursor: pointer;
     border: solid 1px #2271b1;
     border-style: solid;
+    appearance: none;
     -webkit-appearance: none;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -7380,6 +7393,7 @@ img.rm_feature_icon {
 }
 
 #rm_user_delete_popup .rm-user-delete-wrap .rm_delete_options select {
+    appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     margin-left: 10px;
@@ -7496,6 +7510,7 @@ button.rm_pr_action {
     transition: 0.2s;
     border-width: 1px;
     border-style: solid;
+    appearance: none;
     -webkit-appearance: none;
     border-radius: 3px;
 }
@@ -11772,11 +11787,20 @@ span.rm-license-validity-notice{
 
 .rm-form-badges-wrap .rm-form-badge a span.rm-form-badge-icon{
     font-size: 0.9rem!important;
+    line-height: 0px !important;
 }
 
 .rm-form-badges-wrap .rm-form-badge a {
     position: relative;
     z-index: 9999;
+    line-height: 0px !important;
+}
+.rm-form-badges-wrap .rm-form-badge a span.rm-form-badge-icon svg{
+    width: 14px;
+}
+
+.rm-form-badges-wrap .rm-form-badge a span.rm-form-badge-icon.rm-form-badge-redirection svg{
+    width: 16px;
 }
 
 .rm-form-badges-wrap .rm-form-badge:hover{

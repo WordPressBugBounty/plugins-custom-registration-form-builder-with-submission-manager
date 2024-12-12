@@ -342,6 +342,12 @@ class RM_Options
             'enable_user_invoice'=>'',
             'invoice_font'=>'',
             'enable_email_invoice'=>'',
+            'enable_turnstile'=>'',
+            'rm_turnstile_public_key'=>'',
+            'rm_turnstile_private_key'=>'',
+            'rm_turnstile_theme'=> '',
+            'rm_turnstile_size'=>'',
+            'rm_turnstile_message' => '',
         );
     }
 

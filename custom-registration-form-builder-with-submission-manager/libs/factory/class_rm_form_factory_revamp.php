@@ -300,7 +300,7 @@ final class RM_Form_Factory_Revamp {
                         $attachment_ids = array();
                         $attachment = new RM_Attachment_Service();
                         $default_allowed_exts = $form->fields[$field_id]->field_type == 'File' ? 'jpg|jpeg|png|gif|doc|pdf|docx|txt' : 'jpg|jpeg|png|gif';
-                        $allowed_file_types = empty($form->fields[$field_id]->field_value) ? (string)get_option('rm_option_allowed_file_types') : strtolower($form->fields[$field_id]->field_value);
+                        $allowed_file_types = empty($form->fields[$field_id]->field_value) ? str_replace(' ','',(string)get_option('rm_option_allowed_file_types')) : str_replace(' ','',strtolower($form->fields[$field_id]->field_value));
                         $allowed_file_types = empty($allowed_file_types) ? explode('|',$default_allowed_exts) : explode('|',$allowed_file_types);
                         $file_size = intval(get_option('rm_option_file_size'));
                         $file_size_error = get_option('rm_option_file_size_error');
@@ -319,7 +319,7 @@ final class RM_Form_Factory_Revamp {
                                     // Error for file field
                                     $file_extension = explode('.', $file_name);
                                     if(isset($file_extension[1])) {
-                                        if(!in_array($file_extension[1], $allowed_file_types)) {
+                                        if(!in_array(strtolower($file_extension[1]), $allowed_file_types)) {
                                             array_push($errors, sprintf(esc_html__('%s file type is not allowed for upload.','custom-registration-form-builder-with-submission-manager'), trim(strtoupper($file_extension[1]))));
                                         }
                                     } else {
@@ -362,7 +362,7 @@ final class RM_Form_Factory_Revamp {
                                 // Error for file field
                                 $file_extension = explode('.', $file_name);
                                 if(isset($file_extension[1])) {
-                                    if(!in_array($file_extension[1], $allowed_file_types)) {
+                                    if(!in_array(strtolower($file_extension[1]), $allowed_file_types)) {
                                         array_push($errors, sprintf(esc_html__('%s file type is not allowed for upload.','custom-registration-form-builder-with-submission-manager'), trim(strtoupper($file_extension[1]))));
                                     }
                                 } else {
@@ -654,6 +654,8 @@ final class RM_Form_Factory_Revamp {
                 }
             }
         }
+
+        $errors = apply_filters('rm_validate_before_form_submit', $errors, $form);
 
         // Checking if there are any validation errors
         if(!empty($errors)) {
@@ -1621,6 +1623,7 @@ final class RM_Form_Factory_Revamp {
                                 // echo "<div id='rm-cnf-note-".wp_kses_post((string)$field_id)."' class='rmform-note' style='display: none;'></div>"; // karan's code updated by akash
                                 echo "<span class='rmform-error-message' id='rmform-password_confirmation-error'></span>";
                                 echo "</div>";
+                                $pass_match_err = $field->field_options->pass_mismatch_err;
                             }
                             // 
                             echo "</div>";
@@ -1656,6 +1659,7 @@ final class RM_Form_Factory_Revamp {
                                 // echo "<div id='rm-cnf-note-".wp_kses_post((string)$field_id)."' class='rmform-note' style='display: none;'></div>"; // karan's code updated by akash
                                 echo "<span class='rmform-error-message' id='rmform-password_confirmation-error'></span>";
                                 echo "</div></div>";
+                                $pass_match_err = $field->field_options->pass_mismatch_err;
                             }
                         }
                         echo "</div></div>";
@@ -1787,12 +1791,19 @@ final class RM_Form_Factory_Revamp {
                             echo '</div></div></div></div>';
                         }
                     }
+
+                    do_action('rm_extend_field_before_submit', $form);
+                    
                     echo "</div>";
                     // Rendering submit button
                     $this->render_submit_button($form, $has_pages, $price_fields, $prefilled);
                 }
                 echo "</form></div></div>";
-                $this->output_validation_js($form->form_id);
+                if(isset($pass_match_err)) {
+                    $this->output_validation_js($form->form_id, $pass_match_err);
+                } else {
+                    $this->output_validation_js($form->form_id);
+                }
             }
         }
     }
@@ -2375,7 +2386,7 @@ final class RM_Form_Factory_Revamp {
         return $ord_rows;
     }
 
-    private function output_validation_js($form_id = null) {
+    private function output_validation_js($form_id = null, $pass_match_err = "") {
         wp_enqueue_script('revamp-field-validation', RM_BASE_URL . 'public/js/revamp-field-validation.js');
         wp_localize_script('revamp-field-validation', 'rmValidationJS', array(
             'formID' => $form_id,
@@ -2383,7 +2394,7 @@ final class RM_Form_Factory_Revamp {
             'pwdRules' => get_option('rm_option_enable_custom_pw_rests', false) == 'yes' ? get_option('rm_option_custom_pw_rests', false) : false,
             'texts' => array(
                 'required' => esc_html__("This field is required", 'custom-registration-form-builder-with-submission-manager'),
-                'passmatch' => esc_html__("Password does not match", 'custom-registration-form-builder-with-submission-manager'),
+                'passmatch' => empty($pass_match_err) ? esc_html__("Password does not match", 'custom-registration-form-builder-with-submission-manager') : $pass_match_err,
                 'emailmatch' => esc_html__("Email does not match", 'custom-registration-form-builder-with-submission-manager'),
                 'passupper' => esc_html__("Password must contain an uppercase letter", 'custom-registration-form-builder-with-submission-manager'),
                 'passnumber' => esc_html__("Password must contain a number", 'custom-registration-form-builder-with-submission-manager'),

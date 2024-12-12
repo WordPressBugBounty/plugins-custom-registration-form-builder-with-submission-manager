@@ -31,18 +31,21 @@ final class RM_Field_Factory_Revamp {
                 $controlling_field_id = $rule['controlling_field'];
                 $fields = $wpdb->get_results("SELECT field_type FROM {$wpdb->prefix}rm_fields WHERE field_id = $controlling_field_id");
 
-                if(isset($fields[0]->field_type) && $fields[0]->field_type == "Username") {
-                    $cond_field_name = "username";
-                } elseif(isset($fields[0]->field_type) && $fields[0]->field_type == "Password") {
-                    $cond_field_name = "pwd";
-                } elseif(isset($fields[0]->field_type) && $fields[0]->field_type == "Checkbox") {
-                    $cond_field_name = $fields[0]->field_type. '_' . $controlling_field_id . '[]';
-                } else {
-                    $cond_field_name = $fields[0]->field_type. '_' . $controlling_field_id;
+                if(isset($fields[0]->field_type)) {
+                    if($fields[0]->field_type == "Username") {
+                        $cond_field_name = "username";
+                    } elseif($fields[0]->field_type == "Password") {
+                        $cond_field_name = "pwd";
+                    } elseif($fields[0]->field_type == "Checkbox") {
+                        $cond_field_name = $fields[0]->field_type. '_' . $controlling_field_id . '[]';
+                    } else {
+                        $cond_field_name = $fields[0]->field_type. '_' . $controlling_field_id;
+                    }
+
+                    $data_cond_option .= $cond_field_name ."|";
+                    $data_cond_operator .= $rule['op'] ."|";
+                    $data_cond_value .= $rule['values'][0] ."|";
                 }
-                $data_cond_option .= $cond_field_name ."|";
-                $data_cond_operator .= $rule['op'] ."|";
-                $data_cond_value .= $rule['values'][0] ."|";
             }
             $data_cond_option = rtrim($data_cond_option, "|");
             $data_cond_operator = rtrim($data_cond_operator, "|");
@@ -191,7 +194,6 @@ final class RM_Field_Factory_Revamp {
             $attributes['readonly'] = 'readonly';
             unset($attributes['placeholder']);
         }
-        
         $cnf_pass_label = isset($field->field_options->cnf_pass_label) && !empty($field->field_options->cnf_pass_label) ? $field->field_options->cnf_pass_label : __('Enter password again', 'custom-registration-form-builder-with-submission-manager');
         echo "<label ".$this->print_attributes($main_label_attributes)." >".esc_html($cnf_pass_label)."<span class='rmform-req-symbol'>*</span> </label>";
         echo "<div class='rmform-c-toggle-wrap'>";
@@ -1742,7 +1744,7 @@ final class RM_Field_Factory_Revamp {
         $attributes = array(
             'type' => 'checkbox',
             'name' => $field->field_type . '_' . $field->field_id,
-            'class' => 'rmform-control',
+            'class' => 'rmform-control'.' '.strtolower($field->field_type . '_' . $field->field_id),
             'aria-describedby'=>'rm-note-'.$field->field_id,
             'value' => 'on',
             'rows' => '',

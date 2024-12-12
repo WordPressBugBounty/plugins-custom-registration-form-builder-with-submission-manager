@@ -73,16 +73,19 @@ window.addEventListener("load", (event) => {
                             let fieldName = field.getAttribute("name");
                             let siblings = [];
                             if(field.getAttribute("type") == 'checkbox') {
-                                fieldName = fieldName.slice(0, -2);
+                                if(fieldName.endsWith("[]")) {
+                                    fieldName = fieldName.slice(0, -2);
+                                }
                                 siblings = rmForm.querySelectorAll('input.'+fieldName.toLowerCase());
                             } else {
                                 siblings = rmForm.querySelectorAll('input[name='+fieldName+']');
                             }
+                            
                             if(siblings.length > 0) {
                                 for(i = 0; i < siblings.length; i++) {
                                     if(siblings[i].checked == true) {
                                         if(siblings[i].value == '') {
-                                            let otherVal = rmForms.querySelector('#'+fieldName+'_other_input').value;
+                                            let otherVal = rmForm.querySelector('#'+fieldName+'_other_input').value;
                                             valid = otherVal == '' ? false : true;
                                         } else {
                                             valid = true;
@@ -445,7 +448,6 @@ window.addEventListener("load", (event) => {
                     let recaptchaField = rmForm.querySelector('div.g-recaptcha');
                     if(recaptchaField != null) {
                         let reCaptchaResponse = grecaptcha.getResponse(rmReCaptchas[it]);
-                        console.log(reCaptchaResponse);
                         if(reCaptchaResponse.length == 0) {
                             rmForm.querySelector('#rm-recaptcha-error').innerText = "Please provide reCaptcha verification";
                             recaptchaField.setAttribute("aria-invalid", "true");

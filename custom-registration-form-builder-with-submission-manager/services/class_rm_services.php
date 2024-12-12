@@ -1210,14 +1210,15 @@ class RM_Services {
             'is_field_primary' => 1,
             'field_order'=>-1,
             'en_confirm_pwd'=>array(1),
-            'pass_mismatch_err'=>'Your passwords do not match. Please check again.',
+            'pass_mismatch_err'=>esc_html__('Your passwords do not match. Please check again.','custom-registration-form-builder-with-submission-manager'),
             'en_pass_strength'=>array(1),
             'pwd_strength_type'=>array(1),
             'pwd_short_msg'=>'Too Short',
             'pwd_weak_msg'=>'Weak',
             'pwd_medium_msg'=>'Medium',
             'pwd_strong_msg'=>'Strong',
-            'help_text'=>'Password must be at least 7 characters long.'));
+            'help_text'=>esc_html__('Password must be at least 7 characters long.','custom-registration-form-builder-with-submission-manager')
+        ));
 
         $field_id = $field->insert_into_db();
 

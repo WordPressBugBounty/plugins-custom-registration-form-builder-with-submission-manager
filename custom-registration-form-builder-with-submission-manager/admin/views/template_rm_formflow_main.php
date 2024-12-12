@@ -115,7 +115,7 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
     </div>
 <?php endif; } ?>
 
-<div class="rmagic rm-footer-notice rm-hide-version-number" style="float:left; opacity: 0"><a></a>
+<div class="rmagic rm-footer-notice rm-hide-version-number" style="float:left; opacity: 0; display:none;"><a></a>
     <div class="rm-box-wrap">
         <div class="rm-box-row">
             <div class="rm-box-col-12 rm-footer-notice-col rm-border-top rm-mt-4">

@@ -98,7 +98,7 @@ else{
                             <td><?php echo date('d M, Y',strtotime($submission->submitted_on));?></td>
                             <td><?php echo esc_html($submission->user_email);?></td>
                             <td><?php echo esc_html($submission->form_id);?></td>
-                            <td class="rm-reports-submission-view"><a target="__blank" href="<?php echo admin_url('?page=rm_submission_view&rm_submission_id='.$submission->submission_id);?>"><span class="material-icons"> open_in_new </span></a></td>
+                            <td class="rm-reports-submission-view"><a target="__blank" href="<?php echo admin_url('admin.php?page=rm_submission_view&rm_submission_id='.$submission->submission_id);?>"><span class="material-icons"> open_in_new </span></a></td>
                         </tr>
                         <?php endforeach;?>
                         </tbody>

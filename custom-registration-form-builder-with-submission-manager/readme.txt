@@ -1,10 +1,10 @@
-=== RegistrationMagic – User Registration Plugin with Custom Registration Forms ===
+=== RegistrationMagic - Custom Registration Forms, User Registration, Payment, and User Login ===
 Contributors: registrationmagic, metagauss, registrationmagicforms
 Donate link: http://registrationmagic.com/
 Tags: user registration, registration, WooCommerce registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 6.0.3.0
+Stable tag: 6.0.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -398,6 +398,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.0.3.1: December 11, 2024 =
+* Minor bug fixes.
 
 = 6.0.3.0: November 29, 2024 =
 * New: Added option to turn on/off account activation email in Global Settings.
@@ -1439,6 +1442,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * New: Aweber Integration.
 
 == Upgrade Notice ==
+
+= 6.0.3.1: December 11, 2024 =
+* Minor bug fixes.
 
 = 6.0.3.0: November 29, 2024 =
 * New: Added option to turn on/off account activation email in Global Settings.
