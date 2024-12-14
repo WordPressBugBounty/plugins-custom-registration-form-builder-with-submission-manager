@@ -47,9 +47,6 @@ if($data->descending == true) {
 
 <div class="wrap">    
  <div class="rmagic rmagic-wide rmmagic-all-forms rm-custom-list-table">  
-  
-<h1 class="wp-heading-inline"><?php esc_html_e('All Forms', 'custom-registration-form-builder-with-submission-manager'); ?></h1>
-<a href="#rm_add_new_form_popup" onclick="CallModalBox(this)" class="page-title-action"><?php esc_html_e('Add New Form', 'custom-registration-form-builder-with-submission-manager');?></a>
 
         <div class="alignright rm-mb-2 rm-position-relative" >
             <div class="rm-display-items-selector rm-di-flex rm-box-center">
@@ -70,7 +67,10 @@ if($data->descending == true) {
 
  
  <!---Top Filter--->
-
+ <div class="rm-top-head-section">
+ <h1 class="wp-heading-inline"><?php esc_html_e('All Forms', 'custom-registration-form-builder-with-submission-manager'); ?></h1>
+<a href="#rm_add_new_form_popup" onclick="CallModalBox(this)" class="page-title-action"><?php esc_html_e('Add New Form', 'custom-registration-form-builder-with-submission-manager');?></a>
+</div>
 <ul class="subsubsub">
     <li class="all"><a class="all<?php if(empty($data->form_filter)) echo ' current'; ?>" href="<?php echo esc_url(admin_url("admin.php?page=rm_form_manage&rm_form_search=".(string)$data->search_term)); ?>" aria-current="page"><?php esc_html_e('All', 'custom-registration-form-builder-with-submission-manager'); ?> <span class="count">(<?php echo esc_html($data->total_forms); ?>)</span></a> |</li>
     <li class="active"><a class="<?php if($data->form_filter == 'registration') echo 'current'; ?>" href="<?php echo esc_url(admin_url("admin.php?page=rm_form_manage&rm_form_filter=registration&rm_form_search=".(string)$data->search_term)); ?>"><?php esc_html_e('Creates User Account', 'custom-registration-form-builder-with-submission-manager'); ?> <span class="count">(<?php echo esc_html($data->reg_forms); ?>)</span></a>

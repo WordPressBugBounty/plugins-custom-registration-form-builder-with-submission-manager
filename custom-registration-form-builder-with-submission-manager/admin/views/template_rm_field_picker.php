@@ -18,15 +18,18 @@ if (!defined('WPINC')) {
 <ul class="rmform-field-tabs">
     
      <?php if($data->form->form_type==1 && (!in_array('Username', $primary_fields) || !in_array('UserPassword', $primary_fields))): ?> 
-      <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_user_password_tab')" id="rm_fields_defaultOpen"><?php echo esc_html__('Account Fields', 'custom-registration-form-builder-with-submission-manager'); ?> <span class="rm-field-counter">2</span></li>
+      <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_user_password_tab')" id="rm_fields_defaultOpen"><?php echo esc_html__('Account Fields', 'custom-registration-form-builder-with-submission-manager'); ?> <span class="rm-field-counter"><?php echo 3 - count($primary_fields); ?></span></li>
     <?php endif; ?> 
     
   <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_common_fields_tab')" id="rm_fields_defaultOpen"><?php esc_html_e('Common Fields', 'custom-registration-form-builder-with-submission-manager'); ?> <span class="rm-field-counter">5</span></li>
-  <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_special_fields_tab')"><?php esc_html_e('Special Fields', 'custom-registration-form-builder-with-submission-manager'); ?> <span class="rm-field-counter">27</span></li>
-  <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_profile_fields_tab')"><?php esc_html_e('Profile Fields', 'custom-registration-form-builder-with-submission-manager'); ?> <span class="rm-field-counter">7</span></li>
+  <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_special_fields_tab')"><?php esc_html_e('Special Fields', 'custom-registration-form-builder-with-submission-manager'); ?> <span class="rm-field-counter"><?php echo defined('REGMAGIC_ADDON') ? 27 : 14; ?></span></li>
+  <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_profile_fields_tab')"><?php esc_html_e('Profile Fields', 'custom-registration-form-builder-with-submission-manager'); ?> <span class="rm-field-counter"><?php echo defined('REGMAGIC_ADDON') ? 7 : 6; ?></span></li>
   <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_wc_fields_tab')"><?php echo esc_html__('WooCommerce Fields', 'custom-registration-form-builder-with-submission-manager'); ?> <span class="rm-field-counter">3</span></li>
   <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_social_fields_tab')"><?php echo wp_kses_post((string)RM_UI_Strings::get("LABEL_SOCIAL_FIELDS")); ?> <span class="rm-field-counter">8</span></li>
   <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_display_fields_tab')"><?php esc_html_e('Display Fields', 'custom-registration-form-builder-with-submission-manager'); ?>  <span class="rm-field-counter">16</span></li>
+  <?php if(!defined('REGMAGIC_ADDON')) { ?>
+  <li class="rmform-field-tablinks rmform-field-tablink-premium " onclick="openTab(event, 'rm_premium_fields_tab')"><?php esc_html_e('Premium Fields', 'custom-registration-form-builder-with-submission-manager'); ?>  <span class="rm-field-counter">14</span></li>
+  <?php } ?>
 </ul>
         
     </div>
@@ -305,7 +308,7 @@ if (!defined('WPINC')) {
             <?php if(defined('REGMAGIC_ADDON')) { ?>
             <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_File")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links" onclick="add_new_field_to_page('File')">
             <?php } else { ?>
-            <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_File")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+            <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_File")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
             <?php } ?>
                 <a class="rm_field_deactivated" href="javascript:void(0)">
                     <span class="rm-add-fields-icon">
@@ -324,7 +327,7 @@ if (!defined('WPINC')) {
             <?php if(defined('REGMAGIC_ADDON')) { ?>
               <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Repeatable")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('Repeatable')">
                   <?php } else { ?>
-                   <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Repeatable")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+                   <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Repeatable")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
 
                    <?php } ?>
                   <a class="rm_field_deactivated" href="javascript:void(0)">
@@ -343,7 +346,7 @@ if (!defined('WPINC')) {
             <?php if(defined('REGMAGIC_ADDON')) { ?>
                 <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Map")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('Map')">
                  <?php } else { ?>
-                <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Map")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+                <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Map")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
                <?php } ?>
                 <a class="rm_field_deactivated" href="javascript:void(0)">
                     <span class="rm-add-fields-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Zm-40-98v-468l-160-56v468l160 56Zm80 0 120-40v-474l-120 46v468Zm-440-10 120-46v-468l-120 40v474Zm440-458v468-468Zm-320-56v468-468Z"/></svg></span>
@@ -359,7 +362,7 @@ if (!defined('WPINC')) {
             <?php if(defined('REGMAGIC_ADDON')) { ?>
             <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Phone")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('Phone')">
                 <?php } else { ?>
-                <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Phone")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+                <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Phone")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
 
                 <?php } ?>
                 <a class="rm_field_deactivated" href="javascript:void(0)">
@@ -376,7 +379,7 @@ if (!defined('WPINC')) {
            <?php if(defined('REGMAGIC_ADDON')) { ?>
                 <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Language")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('Language')">
                <?php } else { ?>
-               <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Language")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+               <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Language")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
                  <?php } ?>
                <a class="rm_field_deactivated" href="javascript:void(0)">
                    <span class="rm-add-fields-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q83 0 155.5 31.5t127 86q54.5 54.5 86 127T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Zm0-82q26-36 45-75t31-83H404q12 44 31 83t45 75Zm-104-16q-18-33-31.5-68.5T322-320H204q29 50 72.5 87t99.5 55Zm208 0q56-18 99.5-55t72.5-87H638q-9 38-22.5 73.5T584-178ZM170-400h136q-3-20-4.5-39.5T300-480q0-21 1.5-40.5T306-560H170q-5 20-7.5 39.5T160-480q0 21 2.5 40.5T170-400Zm216 0h188q3-20 4.5-39.5T580-480q0-21-1.5-40.5T574-560H386q-3 20-4.5 39.5T380-480q0 21 1.5 40.5T386-400Zm268 0h136q5-20 7.5-39.5T800-480q0-21-2.5-40.5T790-560H654q3 20 4.5 39.5T660-480q0 21-1.5 40.5T654-400Zm-16-240h118q-29-50-72.5-87T584-782q18 33 31.5 68.5T638-640Zm-234 0h152q-12-44-31-83t-45-75q-26 36-45 75t-31 83Zm-200 0h118q9-38 22.5-73.5T376-782q-56 18-99.5 55T204-640Z"/></svg></span>
@@ -392,7 +395,7 @@ if (!defined('WPINC')) {
             <?php if(defined('REGMAGIC_ADDON')) { ?>
             <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Bdate")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('Bdate')">
                 <?php } else { ?>
-            <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Bdate")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+            <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Bdate")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
                  <?php } ?>
                 <a class="rm_field_deactivated" href="javascript:void(0)">
                     <span class="rm-add-fields-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M160-80q-17 0-28.5-11.5T120-120v-200q0-33 23.5-56.5T200-400v-160q0-33 23.5-56.5T280-640h160v-58q-18-12-29-29t-11-41q0-15 6-29.5t18-26.5l42-42q2-2 14-6 2 0 14 6l42 42q12 12 18 26.5t6 29.5q0 24-11 41t-29 29v58h160q33 0 56.5 23.5T760-560v160q33 0 56.5 23.5T840-320v200q0 17-11.5 28.5T800-80H160Zm120-320h400v-160H280v160Zm-80 240h560v-160H200v160Zm80-240h400-400Zm-80 240h560-560Zm560-240H200h560Z"/></svg></span>
@@ -409,7 +412,7 @@ if (!defined('WPINC')) {
                <?php if(defined('REGMAGIC_ADDON')) { ?>
                <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Gender")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('Gender')">
                   <?php } else { ?>
-                   <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Gender")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+                   <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Gender")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
                     <?php } ?>
                     <a class="rm_field_deactivated" href="javascript:void(0)">
                         <span class="rm-add-fields-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M220-120v-260h-20q-17 0-28.5-11.5T160-420v-180q0-33 23.5-56.5T240-680h120q33 0 56.5 23.5T440-600v180q0 17-11.5 28.5T400-380h-20v260q0 17-11.5 28.5T340-80h-80q-17 0-28.5-11.5T220-120Zm80-600q-33 0-56.5-23.5T220-800q0-33 23.5-56.5T300-880q33 0 56.5 23.5T380-800q0 33-23.5 56.5T300-720Zm300 600v-200h-65q-20 0-32-16.5t-5-36.5l84-253q8-26 29.5-40t48.5-14q27 0 48.5 14t29.5 40l84 253q7 20-5 36.5T785-320h-65v200q0 17-11.5 28.5T680-80h-40q-17 0-28.5-11.5T600-120Zm60-600q-33 0-56.5-23.5T580-800q0-33 23.5-56.5T660-880q33 0 56.5 23.5T740-800q0 33-23.5 56.5T660-720Z"/></svg></span>
@@ -425,7 +428,7 @@ if (!defined('WPINC')) {
                <?php if(defined('REGMAGIC_ADDON')) { ?>
                  <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Time")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('Time')">
                  <?php } else { ?>
-                 <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Time")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+                 <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Time")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
 
                 <?php } ?>
                 <a class="rm_field_deactivated" href="javascript:void(0)">
@@ -443,7 +446,7 @@ if (!defined('WPINC')) {
             <?php if(defined('REGMAGIC_ADDON')) { ?>
             <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Image")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('Image')">
                  <?php } else { ?>
-              <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Image")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+              <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Image")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
 
                 <?php } ?>
                 <a class="rm_field_deactivated" href="javascript:void(0)">
@@ -459,7 +462,7 @@ if (!defined('WPINC')) {
           <?php if(defined('REGMAGIC_ADDON')) { ?>
             <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Shortcode")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('Shortcode')">
                 <?php } else { ?>
-                <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Shortcode")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+                <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Shortcode")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
 
                   <?php } ?>
                 <a class="rm_field_deactivated" href="javascript:void(0)">
@@ -477,7 +480,7 @@ if (!defined('WPINC')) {
                 <?php if(defined('REGMAGIC_ADDON')) { ?>
                 <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Multi-Dropdown")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('Multi-Dropdown')">
                 <?php } else { ?>
-                <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Multi-Dropdown")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+                <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Multi-Dropdown")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
                   <?php } ?>
                 <a class="rm_field_deactivated" href="javascript:void(0)">
                     <span class="rm-add-fields-icon">
@@ -496,7 +499,7 @@ if (!defined('WPINC')) {
         <?php if(defined('REGMAGIC_ADDON')) { ?>
         <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Rating")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('Rating')">
                     <?php } else { ?>
-                     <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Rating")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+                     <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Rating")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
                      <?php } ?>
                         <a class="rm_field_deactivated" href="javascript:void(0)">
                             <span class="rm-add-fields-icon">
@@ -514,7 +517,7 @@ if (!defined('WPINC')) {
         <?php if(defined('REGMAGIC_ADDON')) { ?>
                   <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Custom")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('Custom')">
                   <?php } else { ?>
-                  <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Custom")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field">
+                  <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_Custom")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
                     <?php } ?>
                     <a class="rm_field_deactivated" href="javascript:void(0)">
                        <span class="rm-add-fields-icon">
@@ -597,7 +600,7 @@ if (!defined('WPINC')) {
                <?php if(defined('REGMAGIC_ADDON')) { ?>
                 <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_SecEmail")); ?>" data-category="rm_profile_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('SecEmail')">
                  <?php } else { ?>
-                <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_SecEmail")); ?>" data-category="rm_profile_fields_tab" class="rm_button_like_links rm-premium-field">
+                <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_SecEmail")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
                    <?php } ?>  
 
                 <a class="rm_field_deactivated" href="javascript:void(0)">
@@ -1404,16 +1407,19 @@ rm-field-search-result a:hover{
     }
 
     .rm_button_like_links.rm-premium-field{
-        background: linear-gradient(to right, rgb(255 78 214 / 5%), rgb(255 89 51 / 5%));
-        border: 1px solid rgb(251 219 229);
+        background: linear-gradient(to right, rgba(128, 128, 128, 0.1), rgba(160, 160, 160, 0.1));
+        border: 1px solid rgba(200, 200, 200, 0.5);
+        color: rgba(100, 100, 100, 0.8);
+        cursor: not-allowed;
+        opacity: 0.6;
     }
 
     .rm_button_like_links.rm-premium-field .rm-add-fields-subtext{
-        color: #EB5989;
+        color: #6e6e6e;
     }
 
     .rmform-fields .rm_button_like_links.rm-premium-field a svg{
-        fill: #EB5989;
+       fill: #606060;
     }
 
 
@@ -1439,6 +1445,7 @@ rm-field-search-result a:hover{
         font-weight: 700;
         text-transform: uppercase;
         background-image: linear-gradient(to right, #ff4ed6, #ff39ac, #ff3681, #ff4459, #ff5933);
+        display:none;
     }
 
     .rm-premium-tag span{
@@ -1462,7 +1469,7 @@ rm-field-search-result a:hover{
     #rm-field-selector .rm-modal-wrap{
         width: 80%;
         left: 10%;
-        min-height: 400px;
+        min-height: 600px;
     }
     
     .rmform-fields.rmform-wc-fields .rm_button_like_links .rm-add-fields-subtext{
@@ -1624,6 +1631,28 @@ rm-field-search-result a:hover{
    }
 
   
+}
+
+.rmform-field-tabs .rmform-field-tablinks.rmform-field-tablink-premium {
+    color: #EB5989;
+    background: linear-gradient(to right, rgb(255 78 214 / 5%), rgb(255 89 51 / 5%));
+    border: 1px solid rgb(251 219 229);
+    border-radius: 3px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    width: max-content;
+}
+
+/* Hover Effect */
+.rmform-field-tabs .rmform-field-tablinks.rmform-field-tablink-premium:hover {
+ background: linear-gradient(to right, rgb(255 78 214 / 8%), rgb(255 89 51 / 8%));   
+
+}
+
+
+.rmform-field-tabs .rmform-field-tablinks.rmform-field-tablink-premium .rm-field-counter{
+        background-image: linear-gradient(to right, #ff4ed6, #ff39ac, #ff3681, #ff4459, #ff5933);
 }
     
     

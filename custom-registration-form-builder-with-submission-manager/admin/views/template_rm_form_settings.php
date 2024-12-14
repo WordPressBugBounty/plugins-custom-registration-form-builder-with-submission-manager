@@ -845,7 +845,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                 </div>
             </div>
         </div>
-        <!--
+        
         <div class="rm-grid-section dbfl">
             <div class="rm-grid-section-title dbfl" id="rm-sidebar-quick-toggles">
                 <?php echo wp_kses_post((string)RM_UI_Strings::get('FD_LABEL_QCK_TOGGLE')); ?>
@@ -906,7 +906,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
             </div>
 
         </div>
-        -->
+        
     </div>
 
     <!-- action form to execute rm_slug_actions -->
