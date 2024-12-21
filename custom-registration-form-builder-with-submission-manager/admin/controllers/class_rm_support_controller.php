@@ -38,4 +38,9 @@ class RM_Support_Controller
         $view= $this->mv_handler->setView('premium');
         $view->render();
     }
+
+    public function extensions_page($model,$service,$request,$params){
+        $view= $this->mv_handler->setView('extensions');
+        $view->render();
+    }
 }

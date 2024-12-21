@@ -1780,6 +1780,7 @@ final class RM_Form_Factory_Revamp {
                                 $locale = get_locale();
                                 $lang = explode('_', (string)$locale);
                                 wp_enqueue_script('rm-grecaptcha', "https://www.google.com/recaptcha/api.js?onload=rmInitCaptchaV2&render=explicit&hl=$lang[0]");
+                                wp_enqueue_script('rm-new-frontend-field', RM_BASE_URL.'public/js/new_frontend_field.js', array('jquery','jquery-ui-datepicker'));
                                 echo "<div class='g-recaptcha' data-sitekey='".esc_attr((string)$key)."'></div>";
                             } elseif($captcha_ver == 'v3') {
                                 $v3_key = get_option('rm_option_public_key3');
@@ -1960,7 +1961,11 @@ final class RM_Form_Factory_Revamp {
             }
             if($criterion == "submissions" || $criterion == "both") {
                 global $wpdb;
-                $num_submissions = $wpdb->get_var($wpdb->prepare("SELECT count(*) FROM {$wpdb->prefix}rm_submissions where form_id = %d AND child_id = 0", $form->form_id));
+                if(isset($form->form_options->exclude_pending_subs) && !empty($form->form_options->exclude_pending_subs)) {
+                    $num_submissions = $wpdb->get_var($wpdb->prepare("SELECT count(*) FROM {$wpdb->prefix}rm_submissions as sub left join {$wpdb->prefix}rm_paypal_logs as pl on sub.submission_id=pl.submission_id where pl.status='Completed' and sub.form_id=%d and sub.child_id=0", $form->form_id));
+                } else {
+                    $num_submissions = $wpdb->get_var($wpdb->prepare("SELECT count(*) FROM {$wpdb->prefix}rm_submissions where form_id = %d AND child_id = 0", $form->form_id));
+                }
                 if($num_submissions >= $submission_limit) {
                     $expired = true;
                 }

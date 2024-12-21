@@ -1348,11 +1348,21 @@ class RM_DBManager
 
     public static function is_expired_by_submissions($form_id, $limit, &$remaining_subs = null) {
         global $wpdb;
+        $form = new RM_Forms();
+        $form->load_from_db($form_id);
         $table_name = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
         if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
-            $num_submissions = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `$table_name` WHERE `form_id` = %d AND `is_pending` = 0 AND `child_id` = 0 ", $form_id));
+            if(isset($form->form_options->exclude_pending_subs) && !empty($form->form_options->exclude_pending_subs)) {
+                $num_submissions = $wpdb->get_var($wpdb->prepare("SELECT count(*) FROM {$wpdb->prefix}rm_submissions as sub left join {$wpdb->prefix}rm_paypal_logs as pl on sub.submission_id=pl.submission_id where pl.status='Completed' and sub.form_id=%d and sub.is_pending=0 and sub.child_id=0 ", $form->form_id));
+            } else {
+                $num_submissions = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `$table_name` WHERE `form_id` = %d AND `is_pending` = 0 AND `child_id` = 0 ", $form_id));
+            }
         } else {
-            $num_submissions = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 ", $form_id));
+            if(isset($form->form_options->exclude_pending_subs) && !empty($form->form_options->exclude_pending_subs)) {
+                $num_submissions = $wpdb->get_var($wpdb->prepare("SELECT count(*) FROM {$wpdb->prefix}rm_submissions as sub left join {$wpdb->prefix}rm_paypal_logs as pl on sub.submission_id=pl.submission_id where pl.status='Completed' and sub.form_id=%d and sub.child_id=0", $form->form_id));
+            } else {
+                $num_submissions = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `$table_name` WHERE `form_id` = %d AND `child_id` = 0 ", $form_id));
+            }
         }
         if ($num_submissions >= $limit) {
             $remaining_subs = 0;

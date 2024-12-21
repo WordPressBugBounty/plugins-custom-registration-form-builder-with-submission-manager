@@ -349,9 +349,9 @@ if($data->descending == true) {
                     <?php
                     if(!empty($entry->expiry_details) && $entry->expiry_details->state == 'expired') {
                         if(($entry->expiry_details->criteria == 'subs' || $entry->expiry_details->criteria == 'both') && absint($entry->expiry_details->sub_limit) > 0) {
-                            $remaining_subs = absint($entry->expiry_details->sub_limit) - absint($entry->count);
+                            //$remaining_subs = absint($entry->expiry_details->sub_limit) - absint($entry->count);
                             $bar_width = (absint($entry->count)/absint($entry->expiry_details->sub_limit))*100;
-                            echo "<div class='rm-form-expiry-info'><div class='rm-text-center'><span class='rm-total-limits-remaining'>".esc_html(absint($entry->expiry_details->sub_limit)-$remaining_subs)."</span>/</span class='rm-total-limits'>".absint($entry->expiry_details->sub_limit)."</span></div><div class='rm-limit-counter'><span style='width:".esc_attr($bar_width)."%' class='limit-counter-progress rm-form-limit-expired'></span></div>";
+                            echo "<div class='rm-form-expiry-info'><div class='rm-text-center'><span class='rm-total-limits-remaining'>".esc_html(absint($entry->expiry_details->sub_limit)-$entry->expiry_details->remaining_subs)."</span>/</span class='rm-total-limits'>".absint($entry->expiry_details->sub_limit)."</span></div><div class='rm-limit-counter'><span style='width:".esc_attr($bar_width)."%' class='limit-counter-progress rm-form-limit-expired'></span></div>";
                         }
                         if(($entry->expiry_details->criteria == 'date' || $entry->expiry_details->criteria == 'both') && $entry->expiry_details->remaining_days == 0) {
                             echo "<div class='rm-form-expiry-info'><div class='rm-form-limit-days-remains rm-text-center rm-fw-bold rm-text-small rm-my-1'>".sprintf(esc_html__('Expired on %s', 'custom-registration-form-builder-with-submission-manager'),gmdate('d M Y', strtotime($entry->expiry_details->date_limit)))."</div></div>";
@@ -365,21 +365,21 @@ if($data->descending == true) {
                                 echo "<div class='rm-form-expiry-info'><div class='rm-form-limit-days-remains rm-text-center rm-fw-bold rm-text-small rm-my-1'>".wp_kses_post((string)RM_UI_Strings::get('LABEL_FORM_EXPIRES_ON')." ".$exp_date)."</div></div>";
                             }
                         } else if($entry->expiry_details->criteria == 'subs') {
-                            $remaining_subs = absint($entry->expiry_details->sub_limit) - absint($entry->count);
+                            //$remaining_subs = absint($entry->expiry_details->sub_limit) - absint($entry->count);
                             if(absint($entry->expiry_details->sub_limit) > 0) {
-                                $bar_width = ((absint($entry->expiry_details->sub_limit)-$remaining_subs)/absint($entry->expiry_details->sub_limit))*100;
+                                $bar_width = ((absint($entry->expiry_details->sub_limit)-$entry->expiry_details->remaining_subs)/absint($entry->expiry_details->sub_limit))*100;
                             } else {
                                 $bar_width = 100;
                             }
-                            echo "<div class='rm-form-expiry-info'><div class='rm-text-center'><span class='rm-total-limits-remaining'>".esc_html(absint($entry->expiry_details->sub_limit)-$remaining_subs)."</span>/</span class='rm-total-limits'>".absint($entry->expiry_details->sub_limit)."</span></div><div class='rm-limit-counter'><span style='width:".esc_attr($bar_width)."%' class='limit-counter-progress rm-form-limit-in-progress'></span></div>";
+                            echo "<div class='rm-form-expiry-info'><div class='rm-text-center'><span class='rm-total-limits-remaining'>".esc_html(absint($entry->expiry_details->sub_limit)-$entry->expiry_details->remaining_subs)."</span>/</span class='rm-total-limits'>".absint($entry->expiry_details->sub_limit)."</span></div><div class='rm-limit-counter'><span style='width:".esc_attr($bar_width)."%' class='limit-counter-progress rm-form-limit-in-progress'></span></div>";
                         } else if($entry->expiry_details->criteria == 'both') {
-                            $remaining_subs = absint($entry->expiry_details->sub_limit) - absint($entry->count);
+                            //$remaining_subs = absint($entry->expiry_details->sub_limit) - absint($entry->count);
                             if(absint($entry->expiry_details->sub_limit) > 0) {
-                                $bar_width = ((absint($entry->expiry_details->sub_limit)-$remaining_subs)/absint($entry->expiry_details->sub_limit))*100;
+                                $bar_width = ((absint($entry->expiry_details->sub_limit)-$entry->expiry_details->remaining_subs)/absint($entry->expiry_details->sub_limit))*100;
                             } else {
                                 $bar_width = 100;
                             }
-                            echo "<div class='rm-form-expiry-info'><div class='rm-text-center'><span class='rm-total-limits-remaining'>".esc_html(absint($entry->expiry_details->sub_limit)-$remaining_subs)."</span>/</span class='rm-total-limits'>".absint($entry->expiry_details->sub_limit)."</span></div><div class='rm-limit-counter'><span style='width:".esc_attr($bar_width)."%' class='limit-counter-progress rm-form-limit-in-progress'></span></div> <div class='rm-form-limit-days-remains rm-text-center rm-fw-bold rm-text-small rm-my-1'>".wp_kses_post((string)sprintf(RM_UI_Strings::get('LABEL_FORM_EXPIRES_IN'),$entry->expiry_details->remaining_days))."</div></div>";
+                            echo "<div class='rm-form-expiry-info'><div class='rm-text-center'><span class='rm-total-limits-remaining'>".esc_html(absint($entry->expiry_details->sub_limit)-$entry->expiry_details->remaining_subs)."</span>/</span class='rm-total-limits'>".absint($entry->expiry_details->sub_limit)."</span></div><div class='rm-limit-counter'><span style='width:".esc_attr($bar_width)."%' class='limit-counter-progress rm-form-limit-in-progress'></span></div> <div class='rm-form-limit-days-remains rm-text-center rm-fw-bold rm-text-small rm-my-1'>".wp_kses_post((string)sprintf(RM_UI_Strings::get('LABEL_FORM_EXPIRES_IN'),$entry->expiry_details->remaining_days))."</div></div>";
                         } else if($entry->expiry_details->criteria == 'status' && defined('REGMAGIC_ADDON')) {
                             echo "<div class='rm-form-expiry-info'><div class='rm-form-limit-days-remains rm-text-center rm-fw-bold rm-text-small rm-my-1'>".esc_html($entry->expiry_details->status)."</div></div>";
                         }

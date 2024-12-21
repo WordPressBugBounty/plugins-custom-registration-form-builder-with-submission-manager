@@ -504,7 +504,7 @@ and open the template in the editor.
 
         </request>
 
-        <request slug="rm_support_" allowed_actions="forum,frontend"  controller="support_controller">
+        <request slug="rm_support_" allowed_actions="forum,frontend,extensions_page"  controller="support_controller">
 
             <actions>
                 <action name="forum">
@@ -513,6 +513,11 @@ and open the template in the editor.
             
             <actions>
                 <action name="frontend">
+                </action>
+            </actions>
+
+            <actions>
+                <action name="extensions_page">
                 </action>
             </actions>
 

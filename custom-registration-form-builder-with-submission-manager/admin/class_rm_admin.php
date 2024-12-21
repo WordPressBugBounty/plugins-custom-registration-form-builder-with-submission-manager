@@ -1252,6 +1252,7 @@ class RM_Admin {
                         add_submenu_page("rm_form_manage", RM_UI_Strings::get('ADMIN_MENU_PREMIUM'), "<div style='color:#ff6c6c; display: inline' class='rm-premium-link'>".RM_UI_Strings::get('ADMIN_MENU_PREMIUM')."</div>", "manage_options", "rm_support_premium_page", array($this->get_controller(), 'run'));
 
                     } else {
+                        add_submenu_page("rm_form_manage", esc_html__('Extensions', 'custom-registration-form-builder-with-submission-manager'), "<div style='color:#ff6c6c; display: inline' class='rm-premium-ext-link'>".esc_html__('Extensions', 'custom-registration-form-builder-with-submission-manager')."</div>", "manage_options", "rm_support_extensions_page", array($this->get_controller(), 'run'));
 
                         $addon_admin = new RM_Admin_Addon();
 
@@ -1386,6 +1387,7 @@ class RM_Admin {
                     if(!defined('REGMAGIC_ADDON')) {
                         add_submenu_page("rm_form_manage", RM_UI_Strings::get('ADMIN_MENU_PREMIUM'), "<div style='color:#ff6c6c;'>".RM_UI_Strings::get('ADMIN_MENU_PREMIUM')."</div>", "manage_options", "rm_support_premium_page", array($this->get_controller(), 'run'));
                     } else {
+                        add_submenu_page("rm_form_manage", esc_html__('Extensions', 'custom-registration-form-builder-with-submission-manager'), "<div style='color:#ff6c6c; display: inline' class='rm-premium-ext-link'>".esc_html__('Extensions', 'custom-registration-form-builder-with-submission-manager')."</div>", "manage_options", "rm_support_extensions_page", array($this->get_controller(), 'run'));
                         $addon_admin = new RM_Admin_Addon();
                         $addon_admin->add_menu($this);
                     }

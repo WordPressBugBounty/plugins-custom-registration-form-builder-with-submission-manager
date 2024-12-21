@@ -136,6 +136,7 @@ class RM_Form_Settings_Controller {
             $options['form_expiry_date'] = $request->req['form_expiry_date'];
             if(defined('REGMAGIC_ADDON')) {
                 $options['form_limit_by_cs'] = isset($request->req['form_limit_by_cs']) ? maybe_serialize($request->req['form_limit_by_cs']) : null;
+                $options['exclude_pending_subs'] = isset($request->req['exclude_pending_subs']) ? $request->req['exclude_pending_subs'] : null;
             }
             
             if(isset( $request->req['form_message_after_expiry']))
@@ -150,7 +151,6 @@ class RM_Form_Settings_Controller {
                  $options['admin_email'] = implode(",", $request->req['resp_emails']);        
             if(isset( $request->req['post_expiry_form_id']))
                 $options['post_expiry_form_id'] = $request->req['post_expiry_form_id'];
-            //var_dump($request->req);die;
             if (isset($request->req['rm_form_id']) && (int)$request->req['rm_form_id']) {
                 $model->load_from_db($request->req['rm_form_id']);
                 $model->set($options);

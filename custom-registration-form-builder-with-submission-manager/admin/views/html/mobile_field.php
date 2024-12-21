@@ -34,7 +34,7 @@ if (!defined('WPINC')) {
     
     // Custom format options
     $form->addElement(new Element_HTML('<div style="display:none" id="child_custom" class="childfieldsrow rm-format-options">'));    
-        $form->addElement(new Element_Textbox("<b>".__('Define custom format', 'custom-registration-form-builder-with-submission-manager'). "</b>", "custom_mobile_format", array("class" => "rm_static_field", "value" =>!empty($data->model->field_options->custom_mobile_format) ? $data->model->field_options->custom_mobile_format : '(000)-000-0000', "longDesc"=>__('Enter the custom format you wish to use for mobile number. Use 9 for numeric placeholder. You can combine it with () and -.', 'custom-registration-form-builder-with-submission-manager'))));
+        $form->addElement(new Element_Textbox("<b>".__('Define custom format', 'custom-registration-form-builder-with-submission-manager'). "</b>", "custom_mobile_format", array("class" => "rm_static_field", "value" =>!empty($data->model->field_options->custom_mobile_format) ? $data->model->field_options->custom_mobile_format : '(000)-000-0000', "longDesc"=>__('Enter the custom format you wish to use for mobile number. Use 0 for numeric placeholder. You can combine it with () and -.', 'custom-registration-form-builder-with-submission-manager'))));
     $form->addElement(new Element_HTML('</div>'));
      
     $lim_countries_count=0;
