@@ -2,9 +2,6 @@
 if (!defined('WPINC')) {
     die('Closed');
 }
-$file = $_SERVER["SCRIPT_NAME"];
-$file_break = Explode('/', (string)$file);
-$pfile = $file_break[count($file_break) - 1];
 if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_rm_form_manager.php'); else {
 /**
  * @internal Template File [Form Manager]

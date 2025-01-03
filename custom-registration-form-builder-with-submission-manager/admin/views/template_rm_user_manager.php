@@ -128,7 +128,7 @@ if ($sorting == 'oldest') {
                </div>
                 <p class="search-box">
                     <label class="screen-reader-text" for="user-search-input"><?php esc_html_e('Search Users','custom-registration-form-builder-with-submission-manager');?>:</label>
-                    <input type="search" id="user-search-input" name="rm_to_search" value="<?php echo sanitize_text_field($data->filter->filters['rm_to_search']); ?>">
+                    <input type="search" id="user-search-input" name="rm_to_search" value="<?php esc_html_e($data->filter->filters['rm_to_search']); ?>">
                     <input type="submit" id="search-submit" class="button" onclick="rm_user_search();" value="<?php esc_html_e('Search Users','custom-registration-form-builder-with-submission-manager');?>">
                 </p>
                 

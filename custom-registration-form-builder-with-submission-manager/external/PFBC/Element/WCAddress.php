@@ -247,7 +247,7 @@ class Element_WCAddress extends Element {
              
                     </div>
                     
-                    <div data-style="<?php echo esc_attr($this->_attributes['textfield_style']); ?>" id="<?php echo esc_attr($field_name) . '_state_attrs'; ?>" data-name="<?php echo esc_attr($field_name) . '[state]'; ?>" data-placeholder="<?php echo empty($this->_attributes['field_wcb_label_as_placeholder']) ? '' : esc_attr($this->_attributes['field_wcb_state_label']); ?>" data-required="<?php echo empty($this->_attributes['field_wcb_state_req']) ? '' : 'required'; ?>" data-value="<?php echo empty($values['state']) ? '' : esc_attr($values['state']); ?>" data-class="<?php echo empty($this->_attributes['field_css_class']) ? '' : esc_attr($this->_attributes['field_css_class']); ?>"></div>
+                    <div data-style="<?php echo esc_attr($this->_attributes['textfield_style']); ?>" id="<?php echo esc_attr($field_name) . '_state_attrs'; ?>" data-name="<?php echo esc_attr($field_name) . '[state]'; ?>" data-placeholder="<?php echo empty($this->_attributes['field_wcb_label_as_placeholder']) ? '' : esc_attr($this->_attributes['field_wcb_state_label']); ?>" data-required="<?php echo empty($this->_attributes['field_wcb_state_req']) ? '' : 'required'; ?>" data-value="<?php //echo empty($values['state']) ? '' : esc_attr($values['state']); ?>" data-class="<?php echo empty($this->_attributes['field_css_class']) ? '' : esc_attr($this->_attributes['field_css_class']); ?>"></div>
                     <script>
                     jQuery(document).ready(function () {
                         jQuery("[name='<?php echo wp_kses_post((string)$field_name) . '[country]'; ?>']").change(function () {
@@ -757,7 +757,7 @@ class Element_WCAddress extends Element {
    
                     </div>
                     
-                    <div data-style="<?php echo esc_attr($this->_attributes['textfield_style']); ?>" id="<?php echo esc_attr($field_name) . '_state_attrs'; ?>" data-name="<?php echo esc_attr($field_name) . '[state]'; ?>" data-placeholder="<?php echo empty($this->_attributes['field_wcs_label_as_placeholder']) ? '' : esc_attr($this->_attributes['field_wcs_state_label']); ?>" data-required="<?php echo empty($this->_attributes['field_wcs_state_req']) ? '' : 'required'; ?>" data-value="<?php echo empty($values['state']) ? '' : esc_attr($values['state']); ?>" data-class="<?php echo empty($this->_attributes['field_css_class']) ? '' : esc_attr($this->_attributes['field_css_class']); ?>" ></div>
+                    <div data-style="<?php echo esc_attr($this->_attributes['textfield_style']); ?>" id="<?php echo esc_attr($field_name) . '_state_attrs'; ?>" data-name="<?php echo esc_attr($field_name) . '[state]'; ?>" data-placeholder="<?php echo empty($this->_attributes['field_wcs_label_as_placeholder']) ? '' : esc_attr($this->_attributes['field_wcs_state_label']); ?>" data-required="<?php echo empty($this->_attributes['field_wcs_state_req']) ? '' : 'required'; ?>" data-value="<?php //echo empty($values['state']) ? '' : esc_attr($values['state']); ?>" data-class="<?php echo empty($this->_attributes['field_css_class']) ? '' : esc_attr($this->_attributes['field_css_class']); ?>" ></div>
                     <script>
                     jQuery(document).ready(function () {
                         jQuery("[name='<?php echo wp_kses_post((string)$field_name) . '[country]'; ?>']").change(function () {

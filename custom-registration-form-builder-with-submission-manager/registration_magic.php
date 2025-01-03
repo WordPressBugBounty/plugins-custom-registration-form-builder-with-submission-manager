@@ -15,7 +15,7 @@
  * Plugin Name:       RegistrationMagic
  * Plugin URI:        http://www.registrationmagic.com
  * Description:       A powerful system for customizing registration forms, setting up paid registrations, tracking submissions, managing users, assigning user roles, analyzing stats, and much more!!
- * Version:           6.0.3.3
+ * Version:           6.0.3.4
  * Tags:              registration, form, custom, analytics, simple, submissions
  * Requires at least: 5.2.0
  * Requires PHP:      7.2
@@ -78,7 +78,7 @@ if (is_plugin_active_for_network($rmgold) || is_plugin_active($rmgold) ||
 */
 if(!defined('RM_PLUGIN_VERSION')) {
     define('RM_PLUGIN_BASENAME', plugin_basename(__FILE__ ));
-    define('RM_PLUGIN_VERSION', '6.0.3.3');
+    define('RM_PLUGIN_VERSION', '6.0.3.4');
     define('RM_DB_VERSION', 5.9);
     define('RM_SHOW_WHATSNEW_SPLASH', false);  //Set it to 'false' to disable whatsnew screen.
     //define FB SDK req flags. Flags should be combined using logical OR and should be checked using AND.
@@ -214,8 +214,11 @@ if(!defined('RM_PLUGIN_VERSION')) {
         $theme_editing = isset($_REQUEST['action']) && $_REQUEST['action']=='edit-theme-plugin-file' ? true : null;
         $code_profiler_request = isset($_REQUEST['action']) && $_REQUEST['action'] == 'codeprofiler_start_profiler' ? true : false;
         //if(!session_id() && !$theme_editing)
-        if(session_status() === PHP_SESSION_NONE && !headers_sent() && !$code_profiler_request)
-            session_start();
+        if(strpos($_SERVER['REQUEST_URI'], '/wiki/') === false) {
+            if(session_status() === PHP_SESSION_NONE && !headers_sent() && !$code_profiler_request) {
+                session_start();
+            }
+        }
         
         if(is_admin()) {
             if((isset($_REQUEST['page']) && $_REQUEST['page'] === 'health-check') || (isset($_REQUEST['health-check-troubleshoot-enable-plugin'])) || (isset($_REQUEST['health-check-troubleshoot-disable-plugin'])) || (isset($_REQUEST['action']) && in_array($_REQUEST['action'], array('health-check-site-status','health-check-loopback-requests','jupiterx_system_status'))) || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'site-health'))) {

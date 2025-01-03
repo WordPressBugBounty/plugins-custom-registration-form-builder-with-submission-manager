@@ -5,9 +5,6 @@ if (!defined('WPINC')) {
 if($data->old_view == false || $data->old_view == 0) {
     include_once(RM_ADMIN_DIR . 'views/template_rm_form_manager_old.php');
 } else {
-$file = $_SERVER["SCRIPT_NAME"];
-$file_break = Explode('/', (string)$file);
-$pfile = $file_break[count($file_break) - 1];
 /**
  * @internal Template File [Form Manager]
  *

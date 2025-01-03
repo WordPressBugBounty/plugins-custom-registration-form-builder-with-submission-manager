@@ -1360,13 +1360,25 @@ class RM_Utilities {
         if(defined('REGMAGIC_ADDON')) {
             return RM_Utilities_Addon::safe_login();
         }
-        if (isset($_SESSION['RM_SLI_UID'])) {
-            $user_status_flag = get_user_meta($_SESSION['RM_SLI_UID'], 'rm_user_status', true);
-            if ($user_status_flag === '0' || $user_status_flag === '') {
-                wp_clear_auth_cookie();
-                wp_set_auth_cookie($_SESSION['RM_SLI_UID']);
-                wp_set_current_user($_SESSION['RM_SLI_UID']);
+        
+        if(isset($_SESSION['RM_SLI_UID'])) {
+            if(empty($_SESSION['RM_SLI_UID']))
+                return;
+
+            $user_id = absint($_SESSION['RM_SLI_UID']);
+            if ($user_id > 0) {
+                $user = get_user_by('ID', $user_id);
+                if ($user) {
+                    $user_status_flag = get_user_meta($user_id, 'rm_user_status', true);
+                    if($user_status_flag == '0' || $user_status_flag == '') {
+                        wp_clear_auth_cookie();
+                        wp_set_current_user($user_id);
+                        wp_set_auth_cookie($user_id);
+                        do_action('wp_login', $user->user_login, $user);
+                    }
+                }
             }
+
             unset($_SESSION['RM_SLI_UID']);
         }
     }
