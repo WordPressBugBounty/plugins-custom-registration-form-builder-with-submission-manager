@@ -4940,8 +4940,9 @@ div[class^="rm-grid-sidebar"] a.rm_deactivated {
 /*---Support Page----*/
 
 .rmagic.rm-support-wrap {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 5px 0% 0 0%;
+    width: 98%;
 }
 
 .rmagic .rm-support-block-head {
@@ -4950,7 +4951,7 @@ div[class^="rm-grid-sidebar"] a.rm_deactivated {
 }
 
 .rmagic .rm-support-block-icon {
-    width: 45%;
+    width: 49%;
     max-width: 100%;
 }
 
@@ -4965,7 +4966,7 @@ div[class^="rm-grid-sidebar"] a.rm_deactivated {
     width: 45%;
     max-width: 100%;
     text-align: left;
-    margin: 60px 4% 15px 4%;
+    margin: 40px 4% 15px 4%;
 }
 
 .rmagic .rm-support-container {
@@ -4978,13 +4979,13 @@ div[class^="rm-grid-sidebar"] a.rm_deactivated {
     flex-direction: row;
     flex-wrap: wrap;
     float: left;
-    margin-top: 25px;
+    margin-top: 0px;
 }
 
 .rmagic .rm-support-block {
-    width: 48%;
+    width: 49%;
     margin: 20px 0 20px 0;
-    max-width: 580px;
+    max-width: 100%;
     background-color: #fff;
 }
 
@@ -5055,6 +5056,10 @@ div[class^="rm-grid-sidebar"] a.rm_deactivated {
 
 .rmagic #rm_jqnotice_text {
     color: #0087be;
+}
+
+.rmagic.rm-support-wrap + .rmagic.rmagic-premium-banner{
+    margin: 0 auto;
 }
 
 

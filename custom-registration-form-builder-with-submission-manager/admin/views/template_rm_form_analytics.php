@@ -27,6 +27,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                 <li onclick="window.history.back()"><a href="javascript:void(0)"><?php echo RM_UI_Strings::get("LABEL_BACK"); ?></a></li>
                 <li onclick="jQuery.rm_do_action_with_alert('<?php echo RM_UI_Strings::get('ALERT_STAT_RESET'); ?>', 'rm_form_analytic_dd', 'rm_analytics_reset')"><a href="javascript:void(0)"><?php echo RM_UI_Strings::get('LABEL_RESET_STATS'); ?></a></li>
                 <li><a href="<?php echo admin_url().'admin.php?page=rm_reports_dashboard'; ?>"><?php echo RM_UI_Strings::get('ADMIN_MENU_REPORTS'); ?></a></li>
+                <li><a href="<?php echo admin_url().'admin.php?page=rm_dashboard_widget_dashboard'; ?>"><?php echo RM_UI_Strings::get('ADMIN_MENU_DASH'); ?></a></li>
                 <li class="rm-form-toggle">
                     <?php
                     if (count($data->forms) !== 0) {

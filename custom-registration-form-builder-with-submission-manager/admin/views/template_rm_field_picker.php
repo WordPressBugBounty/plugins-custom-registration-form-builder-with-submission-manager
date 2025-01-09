@@ -28,7 +28,7 @@ if (!defined('WPINC')) {
   <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_social_fields_tab')"><?php echo wp_kses_post((string)RM_UI_Strings::get("LABEL_SOCIAL_FIELDS")); ?> <span class="rm-field-counter">8</span></li>
   <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_display_fields_tab')"><?php esc_html_e('Display Fields', 'custom-registration-form-builder-with-submission-manager'); ?>  <span class="rm-field-counter">16</span></li>
   <?php if(!defined('REGMAGIC_ADDON')) { ?>
-  <li class="rmform-field-tablinks rmform-field-tablink-premium " onclick="openTab(event, 'rm_premium_fields_tab')"><?php esc_html_e('Premium Fields', 'custom-registration-form-builder-with-submission-manager'); ?>  <span class="rm-field-counter">14</span></li>
+  <li class="rmform-field-tablinks" onclick="openTab(event, 'rm_premium_fields_tab')"><?php esc_html_e('Premium Fields', 'custom-registration-form-builder-with-submission-manager'); ?>  <span class="rm-field-counter">14</span></li>
   <?php } ?>
 </ul>
         

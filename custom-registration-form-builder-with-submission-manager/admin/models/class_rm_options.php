@@ -30,7 +30,7 @@ class RM_Options
         $this->default['currency'] = 'USD';
         $this->default['admin_order'] = array(
             array("rm_form_manage",__('All Forms','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_dashboard_widget_dashboard",__('Overview','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
+            array("rm_dashboard_widget_dashboard",__('Overview','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"hidden","false"),
             array("rm_submission_manage",__('Inbox','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
             array("rm_sent_emails_manage",__('Outbox','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"hidden","false"),
             array("rm_attachment_manage",__('Attachments','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),

@@ -1019,8 +1019,7 @@ class RM_Admin {
                                 } elseif ($value[0] == 'rm_dashboard_widget_dashboard') {
 
                                     // Overview
-
-                                    //add_submenu_page("rm_form_manage", $menu_title, $menu_title, "manage_options", $value[0], array($this->get_controller(), 'run'));
+                                    add_submenu_page("rm_dummy_string", $menu_title, $menu_title, "manage_options", $value[0], array($this->get_controller(), 'run'));
 
                                     // Overview options
 
@@ -1299,7 +1298,7 @@ class RM_Admin {
                     //add_submenu_page("rm_dashboard_widget_dashboard", RM_UI_Strings::get('ADMIN_MENU_NEWFORM_PT'), RM_UI_Strings::get('ADMIN_MENU_NEWFORM'), "manage_options", "rm_form_add", array($this->get_controller(), 'run'));
                     //add_submenu_page("rm_dashboard_widget_dashboard", RM_UI_Strings::get('ADMIN_MENU_NEWFORM_PT'), RM_UI_Strings::get('ADMIN_MENU_NEWFORM_PT'), "manage_options", "rm_dashboard_widget_dashboard&create_new_form", "__return_null");
                     add_submenu_page("rm_form_manage", RM_UI_Strings::get('ADMIN_SUBMENU_REG'), RM_UI_Strings::get('ADMIN_SUBMENU_REG'), "manage_options", "rm_form_manage", array($this->get_controller(), 'run'));
-                    add_submenu_page("rm_form_manage", RM_UI_Strings::get('ADMIN_MENU_DASH'), RM_UI_Strings::get('ADMIN_MENU_DASH'), "manage_options", "rm_dashboard_widget_dashboard", array($this->get_controller(), 'run'));
+                    add_submenu_page("rm_dummy_string", RM_UI_Strings::get('ADMIN_MENU_DASH'), RM_UI_Strings::get('ADMIN_MENU_DASH'), "manage_options", "rm_dashboard_widget_dashboard", array($this->get_controller(), 'run'));
                     add_submenu_page("rm_dummy_string", RM_UI_Strings::get('ADMIN_MENU_NEWFORM_PT'), RM_UI_Strings::get('ADMIN_MENU_NEWFORM_PT'), "manage_options", "rm_form_sett_general", array($this->get_controller(), 'run'));
                     add_submenu_page("rm_form_manage", RM_UI_Strings::get('ADMIN_MENU_SUBS'), RM_UI_Strings::get('ADMIN_MENU_SUBS')."$unread_count_show", "manage_options", "rm_submission_manage", array($this->get_controller(), 'run'));
                     add_submenu_page("rm_form_manage", RM_UI_Strings::get('ADMIN_MENU_ATTS'), RM_UI_Strings::get('ADMIN_MENU_ATTS'), "manage_options", "rm_attachment_manage", array($this->get_controller(), 'run'));

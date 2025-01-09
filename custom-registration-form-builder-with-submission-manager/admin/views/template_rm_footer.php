@@ -18,21 +18,21 @@ if(!empty($_GET['rm_form_id'])):
 <!--Premium Banner-->
 <div class="rmagic rmagic-premium-banner rm-hide-version-number" style="opacity: 0">
         <div class="rm-bg-white rm-border rm-box-wrap rm-my-4 rm-rounded-1">
-            <div class="rm-box-row rm-border-bottom">
-                <div class="rm-box-col-4">
-                    <div class="rm-d-flex rm-box-h-100 rm-align-items-center rm-flex-wrap rm-align-content">
+            <div class="rm-box-row rm-align-items-center">
+                <div class="rm-box-col-3">
+                    <div class="rm-d-flex rm-box-h-100 rm-align-items-center rm-flex-wrap rm-align-content ">
                     <div class="rm-text-uppercase rm-fs-7 rm-fw-bold rm-mb-1 rm-pb-2 rm-text-dark"><?php esc_html_e("Every website deserves it.", 'custom-registration-form-builder-with-submission-manager'); ?></div>
                     <div class="rm-fs-2 rm-fw-bold rm-mb-1 rm-text-dark rm-pb-1"><?php esc_html_e("RegistrationMagic", 'custom-registration-form-builder-with-submission-manager'); ?></div>
                     <div class="rm-fs-2 rm-fw-bold rm-premium-text rm-py-2"><?php esc_html_e("Premium", 'custom-registration-form-builder-with-submission-manager'); ?></div>
                 </div>
             </div>
-            <div class="rm-box-col-3 rm-text-center rm-mb-3">
+            <div class="rm-box-col-2 rm-text-center rm-mb-5">
                 <img src="<?php echo RM_IMG_URL . 'rm-premium-icon.png'; ?>" width="60px">
             </div>
-            <div class="rm-box-col-5">
-                <div class="rm-d-flex rm-box-h-100 rm-align-items-center rm-flex-wrap rm-align-content">
+            <div class="rm-box-col-4">
+                <div class="rm-d-flex rm-box-h-100 rm-align-items-center rm-flex-wrap rm-align-content ">
                     <div class="rm-fs-6 rm-text-dark rm-pb-2 rm-mb-2 rm-fw-bold"><?php esc_html_e("Unlock the most powerful version:", 'custom-registration-form-builder-with-submission-manager'); ?></div>
-                    <ul class="rm-text-dark rm-p-0 rm-m-0">
+                    <ul class="rm-text-dark rm-p-0 rm-m-0 rm-mb-3">
                         <li class="rm-di-flex rm-align-items-center"><span class="rm-mr-1 rm-lh-0"><img src="<?php echo RM_IMG_URL . 'rm-tick-icon.png'; ?>" width="14px" ></span><?php esc_html_e("Access all advanced options and payment gateways.", 'custom-registration-form-builder-with-submission-manager'); ?></li>
                             <li class="rm-di-flex rm-align-items-center"><span class="rm-mr-1 rm-lh-0"><img src="<?php echo RM_IMG_URL . 'rm-tick-icon.png'; ?>" width="14px" ></span><?php esc_html_e("Even more powerful registration forms and login system.", 'custom-registration-form-builder-with-submission-manager'); ?></li>
                         <li class="rm-di-flex rm-align-items-center"><span class="rm-mr-1 rm-lh-0"><img src="<?php echo RM_IMG_URL . 'rm-tick-icon.png'; ?>" width="14px" ></span><?php esc_html_e("Even more powerful reporting and analysis features.", 'custom-registration-form-builder-with-submission-manager'); ?></li>
@@ -40,26 +40,18 @@ if(!empty($_GET['rm_form_id'])):
                     </ul>
                 </div>
             </div>
-        </div>
-            <div class="rm-box-row rm-py-2">
-                <div class="rm-box-col-7">
-                    <div class="rm-d-flex rm-box-h-100 rm-align-items-center">
-                        <div class="">"<?php esc_html_e("True to its name, RegistrationMagic has some seriously spell-binding features.", 'custom-registration-form-builder-with-submission-manager'); ?>"
-                        <div class="rm-fw-bold rm-pt-1"><?php esc_html_e("~WPEngine", 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                <div class="rm-box-col-3">
+                    <div class="rm-text-center">
+                        <a href="https://registrationmagic.com/comparison/?utm_source=wp_admin&utm_medium=premium_banner_footer&utm_campaign=admin_upgrade_premium" target="_blabk" class="rm-d-inline-block">
+                            <button class="button button-primary rm-px-4 rm-py-1">
+                                <?php esc_html_e("Upgrade Now!", 'custom-registration-form-builder-with-submission-manager'); ?>
+                            </button>
+                        </a>
+                        <div class="rm-text-small rm-text-muted"><?php esc_html_e("It takes less than a minute to upgrade.", 'custom-registration-form-builder-with-submission-manager'); ?></div>
                     </div>
                 </div>
-            </div>
-            <div class="rm-box-col-5">
-                <div class="rm-text-end">
-                    <a href="https://registrationmagic.com/comparison/?utm_source=wp_admin&utm_medium=premium_banner_footer&utm_campaign=admin_upgrade_premium" target="_blabk" class="rm-d-inline-block">
-                        <button class="button button-primary rm-btn-button rm-btn-success rm-px-4 rm-py-1">
-                        <?php esc_html_e("Upgrade Now!", 'custom-registration-form-builder-with-submission-manager'); ?>
-                        </button>
-                    </a>
-                    <div class="rm-text-small rm-text-muted"><?php esc_html_e("It takes less than a minute to upgrade.", 'custom-registration-form-builder-with-submission-manager'); ?></div>
-                </div>
-            </div>
         </div>
+          
     </div>
 </div>
 <!--Premium Banner End-->
@@ -258,10 +250,10 @@ if($dismiss_icon == 0) { ?>
 }
 
 .rm-premium-text{
-   background: -webkit-linear-gradient(left, #FF4ED9 , #FF5933);
-   background: -o-linear-gradient(right, #FF4ED9, #FF5933);
-   background: -moz-linear-gradient(right, #FF4ED9, #FF5933);
-   background: linear-gradient(to right, #FF4ED9 , #FF5933); 
+   background: -webkit-linear-gradient(left, #2271B1 , #2271B1);
+   background: -o-linear-gradient(right, #2271B1, #2271B1);
+   background: -moz-linear-gradient(right, #2271B1, #2271B1);
+   background: linear-gradient(to right, #2271B1 , #2271B1); 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
