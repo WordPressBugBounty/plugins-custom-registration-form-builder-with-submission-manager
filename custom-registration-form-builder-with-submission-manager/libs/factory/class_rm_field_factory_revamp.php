@@ -90,6 +90,7 @@ final class RM_Field_Factory_Revamp {
             'class' => 'rmform-control',
             'aria-describedby'=>'rm-note-'.$field->field_id,
             'id' => $input_id,
+            'autocomplete' => 'username',
             'aria-labelledby' => $label_id
         );
         $main_label_attributes = array(
@@ -123,12 +124,13 @@ final class RM_Field_Factory_Revamp {
         $attributes = array(
             'type' => 'password',
             'name' => 'pwd',
-            'class' => 'rmform-control',
+            'class' => 'rmform-control rm-pwd-control',
             'aria-describedby'=>'rm-note-'.$field->field_id,
             'id' => $input_id,
             'aria-labelledby' => $label_id,
             'required' => 'required',
             'aria-required' => 'true',
+            'autocomplete' => 'new-password',
             'placeholder' => isset($field->field_options->field_placeholder) ? $field->field_options->field_placeholder : "",
         );
         $main_label_attributes = array(
@@ -147,7 +149,7 @@ final class RM_Field_Factory_Revamp {
 
         echo "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}<span class='rmform-req-symbol'>*</span> </label>";
         echo "<div class='rmform-toggle-wrap'>";
-        echo "<span class='rm-togglePassword rm-togglePassword-show'></span>";
+        echo "<span class='rm-togglePassword rm-pwd-togglePassword'></span>";
         echo "<input ".$this->print_attributes($attributes)." >";
         echo "</div>";
         // scripts
@@ -182,6 +184,7 @@ final class RM_Field_Factory_Revamp {
             'aria-labelledby' => $label_id_cnf,
             'required' => 'required',
             'aria-required' => 'true',
+            'autocomplete' => 'new-password',
             'placeholder' => esc_html__('Repeat your password', 'custom-registration-form-builder-with-submission-manager'),
         );
 
@@ -197,7 +200,7 @@ final class RM_Field_Factory_Revamp {
         $cnf_pass_label = isset($field->field_options->cnf_pass_label) && !empty($field->field_options->cnf_pass_label) ? $field->field_options->cnf_pass_label : __('Enter password again', 'custom-registration-form-builder-with-submission-manager');
         echo "<label ".$this->print_attributes($main_label_attributes)." >".esc_html($cnf_pass_label)."<span class='rmform-req-symbol'>*</span> </label>";
         echo "<div class='rmform-c-toggle-wrap'>";
-        echo "<span class='rm-togglePassword rm-togglePassword-show'></span>";
+        echo "<span class='rm-togglePassword'></span>";
         echo "<input ".$this->print_attributes($attributes)." >";
         echo "</div>";
     }
@@ -860,7 +863,7 @@ final class RM_Field_Factory_Revamp {
             if($curr_pos == 'before') {
                 $price_drop = $price_field->option_label[$x] . " ( $curr_sym" .$price_field->option_price[$x] . " )";
             } else {
-                $price_drop = "( $curr_sym" .$price_field->option_price[$x] . " ) " . $price_field->option_label[$x];
+                $price_drop = $price_field->option_label[$x] . " ( " .$price_field->option_price[$x] . "$curr_sym )";
             }
             $attributes['id'] = $input_id . "_multiselect_checkbox_".$x;
             $attributes['value'] = '_'.$x;
@@ -959,12 +962,12 @@ final class RM_Field_Factory_Revamp {
 
         echo "<div class='rmform-pricefield'>";
         echo "<select ".$this->print_attributes($attributes)." >";
-        echo "<option value=''> Select an option </option>";
+        echo "<option value=''>".RM_UI_Strings::get('SELECT_FIELD_FIRST_OPTION')."</option>";
         for ($x = 0; $x < count($price_field->option_label); $x++) {
             if($curr_pos == 'before') {
                 $price_drop = $price_field->option_label[$x] . " ( $curr_sym" .$price_field->option_price[$x] . " )";
             } else {
-                $price_drop = "( $curr_sym" .$price_field->option_price[$x] . " ) " . $price_field->option_label[$x];
+                $price_drop = $price_field->option_label[$x] . " ( " .$price_field->option_price[$x] . "$curr_sym )";
             }
             echo "<option value='_$x'> $price_drop </option>";          
         }
@@ -1112,10 +1115,14 @@ final class RM_Field_Factory_Revamp {
         }
 
         foreach($options as $option) {
-            if($meta_value == $option){
-                echo "<option value='".esc_attr(trim($option))."' selected>".esc_html(trim($option))."</option>";
+            $option = trim($option);
+            if(empty($option)) {
+                continue;
+            }
+            if($meta_value == $option) {
+                echo "<option value='".esc_attr($option)."' selected>".esc_html($option)."</option>";
             }else{
-                echo "<option value='".esc_attr(trim($option))."'>".esc_html(trim($option))."</option>";
+                echo "<option value='".esc_attr($option)."'>".esc_html($option)."</option>";
             }
         }
 
@@ -2319,7 +2326,9 @@ final class RM_Field_Factory_Revamp {
                 if(isset($attributes['onchange'])) {
                     unset($attributes['onchange']);
                 }
-                
+                if(isset($attributes['readonly'])) {
+                    unset($attributes['readonly']);
+                }
                 if (isset($field->field_options->field_ca_zip_req) && $field->field_options->field_ca_zip_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
@@ -2437,6 +2446,9 @@ final class RM_Field_Factory_Revamp {
                     $attributes['value'] = isset($meta_value['zip']) ? $meta_value['zip'] : '';
                     if(isset($attributes['onchange'])) {
                         unset($attributes['onchange']);
+                    }
+                    if(isset($attributes['readonly'])) {
+                        unset($attributes['readonly']);
                     }
                     $error_span_id = str_replace(array("[","]"),"",strtolower($attributes['name']))."-error";
 

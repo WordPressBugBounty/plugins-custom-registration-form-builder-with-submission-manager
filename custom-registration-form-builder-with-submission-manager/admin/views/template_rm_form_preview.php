@@ -36,6 +36,7 @@
         
         wp_enqueue_script('rm_front_form_script', RM_BASE_URL."public/js/rm_front_form.js",array('rm_front', 'jquery'), RM_PLUGIN_VERSION, false);
         wp_localize_script('rm_front_form_script','rm_ajax',$rm_ajax_data);
+        wp_enqueue_script('rm_password_utility', RM_BASE_URL."public/js/password-utility.js",array('jquery'));
         //Register jQ validate scripts but don't actually enqueue it. Enqueue it from within the shortcode callback.
         wp_enqueue_script('rm_jquery_validate', RM_BASE_URL."public/js/jquery.validate.min.js", array('jquery'), RM_PLUGIN_VERSION);
         wp_enqueue_script('rm_jquery_validate_add', RM_BASE_URL."public/js/additional-methods.min.js", array('jquery'), RM_PLUGIN_VERSION);

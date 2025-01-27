@@ -115,43 +115,7 @@ jQuery(function ($) {
         
         
         
-        //Password Field Show hide
-        
-        
-        if (jQuery('[name="pwd"]').length > 0) {
-            jQuery('[name="pwd"]').closest('div').addClass('rmform-password-toggle-wrap').parent().addClass('rmform-password-field-col');
-
-            var rmPwdToggleSpan = $('.rm-togglePassword');
-
-  
-            var rmPwdPasswordInput = $('input[type="password"][name="pwd"]');
-
-            //rmPwdToggleSpan.add(rmPwdPasswordInput).wrapAll(rmPwdwrapper);
-
-            const togglePassword = document.querySelector(".rm-togglePassword");
-            if (togglePassword) {
-                const password = document.querySelector("input[name='pwd']");
-                togglePassword.addEventListener("click", function () {
-                    const type = password.getAttribute("type") === "password" ? "text" : "password";
-                    password.setAttribute("type", type);
-                    this.classList.toggle("rm-togglePassword-show");
-                });
-            }
-        }
-        
-        if (jQuery('[name="password_confirmation"]').length > 0) {
-            jQuery('[name="password_confirmation"]').closest('div').addClass('rmform-c-password-toggle-wrap').parent().addClass('rmform-password-field-col');
-            const rmFormctogglePassword = document.querySelector(".rmform-c-password-toggle-wrap .rm-togglePassword");
-            if (rmFormctogglePassword) {
-                const rmFormconfirmPassword = document.querySelector("input[name='password_confirmation']");
-                rmFormctogglePassword.addEventListener("click", function () {
-                    const type = rmFormconfirmPassword.getAttribute("type") === "password" ? "text" : "password";
-                    rmFormconfirmPassword.setAttribute("type", type);
-                    this.classList.toggle("rm-togglePassword-show");
-                });
-            }
-        }
-        
+    
         
         // Labels Left
         
@@ -465,6 +429,68 @@ function rm_append_field(tag, element_id) {
 function rm_delete_appended_field(element, element_id) {
     if (jQuery(element).parents("#".element_id).children(".appendable_options").length > 1)
         jQuery(element).parent(".appendable_options").remove();
+}
+
+function rm_get_country_code_by_name(country_list,selected_country) {
+    var regex = new RegExp(selected_country + "\[[A-Z{{2}}\]",'i');
+    if(selected_country.toLowerCase()=='india'){
+        return 'in';
+    }
+    else if(selected_country.toLowerCase()=='' || selected_country.toLowerCase()=='us' || selected_country.toLowerCase()=='united_states'){
+        return 'us';
+    }
+    else if(selected_country.toLowerCase()=='canada'){
+        return 'ca';
+    }
+   
+    var country_code='';
+    for(country in country_list)
+    {
+        var found= country.search(regex);
+        if(found>=0){
+            var index= country.search(/\[[A-Z]{2}\]/i);
+      
+            if(index>=0) 
+            { 
+                country_code= country.substr(index+1,2).toLowerCase();
+                return country_code;
+            }
+        }
+    }
+    return country_code;
+}
+
+function scroll_down_end(element) {
+    if (element.scrollTop + element.offsetHeight >= element.scrollHeight) {
+        var div = jQuery(element).parent().siblings();
+        jQuery(div).children().removeAttr('disabled');
+    } else {
+        var text_height = jQuery(element).css('font-size').replace('px', '');
+        text_height = Math.ceil(parseInt(text_height));
+        var field_height = Math.floor(jQuery(element).height());
+        var line_per_field = Math.floor(jQuery(element).height() / text_height);
+        var text = jQuery(element).val();
+        var lines = text.split(/\r|\r\n|\n/);
+        var count = text.length;
+        
+        var count = count / field_height;
+        
+        var count = Math.floor(count);
+        
+        lines = lines.length;
+        count =count *line_per_field;
+        if (lines > count)
+            count = lines;
+     
+        if (count <= line_per_field) {
+            count = 1;
+        }
+        
+        if ((count * field_height) <= field_height) {
+            var div = jQuery(element).parent().siblings();
+            jQuery(div).children().removeAttr('disabled');
+        }
+    }
 }
 
 //Radio and checkbox field Field JS

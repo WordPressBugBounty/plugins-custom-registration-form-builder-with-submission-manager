@@ -428,6 +428,7 @@ class RM_Frontend_Form_Multipage extends RM_Frontend_Form_Base
         
         $jqvalidate = RM_Utilities::enqueue_external_scripts('rm_jquery_validate', RM_BASE_URL."public/js/jquery.validate.min.js", array('jquery'));
         $jqvalidate .= RM_Utilities::enqueue_external_scripts('rm_jquery_validate_add', RM_BASE_URL."public/js/additional-methods.min.js", array('jquery'));
+        $jqvalidate .= RM_Utilities::enqueue_external_scripts('rm_password_utility', RM_BASE_URL."public/js/password-utility.js", array('jquery'));
         $jq_front_form_script = RM_Utilities::enqueue_external_scripts('rm_front_form_script', RM_BASE_URL."public/js/rm_front_form.js", array('jquery'));
         wp_enqueue_script('rm_front');
         wp_enqueue_script('rm_jquery_conditionalize');

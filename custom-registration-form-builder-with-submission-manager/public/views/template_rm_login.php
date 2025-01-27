@@ -163,7 +163,7 @@ else // Normal form with username and password
                     }
                    $form->addElement(new Element_Textbox($field['field_label'], "username", array("required" => "1","class"=>$field['field_css_class'], "minlength"=>isset($field['field_min_length'])?$field['field_min_length']:0, "maxlength"=>isset($field['field_max_length'])?$field['field_max_length']:'', "placeholder" => $field['placeholder'],'style'=>isset($data->design['style_textfield'])?$data->design['style_textfield']:null)));
                 } else if ($field['field_type'] == 'password') {
-                    $form->addElement(new Element_Password($field['field_label'], "pwd", array("required" => "1", "class"=>$field['field_css_class'], "minlength"=>isset($field['field_min_length'])?$field['field_min_length']:0, "maxlength"=>isset($field['field_max_length'])?$field['field_max_length']:'', "placeholder" => $field['placeholder'],'style'=>isset($data->design['style_textfield'])?$data->design['style_textfield']:null)));
+                    $form->addElement(new Element_Password($field['field_label'], "pwd", array("required" => "1", "class"=>$field['field_css_class']. ' ' .'rm_login_pwd_field', "minlength"=>isset($field['field_min_length'])?$field['field_min_length']:0, "maxlength"=>isset($field['field_max_length'])?$field['field_max_length']:'', "placeholder" => $field['placeholder'],'style'=>isset($data->design['style_textfield'])?$data->design['style_textfield']:null)));
                 } else {
                     /* Get widget data in field options format to comply with existing field structure */
                     $login_model = new RM_Login_Fields();
@@ -261,34 +261,7 @@ else // Normal form with username and password
 
 <?php } ?>
 
-<script>
 
-
-//PassWord field Show Hide
-
-if (jQuery('.rm-login-wrapper [name="pwd"]').length > 0) {
-    const passwordInput = jQuery('.rm-login-wrapper [name="pwd"]:not(.rm-login-widget-modal .rm-login-wrapper [name="pwd"])');
-    const closestDiv = passwordInput.closest('div.rminput');
-    
-    //console.log(closestDiv);
-    closestDiv.addClass('rm-password-toggle-wrap');
-    closestDiv.prepend('<span class="rm-togglePassword"></span>');
-
-    const togglePassword = document.querySelector(".rm-togglePassword");
-    if (togglePassword) {
-        togglePassword.addEventListener("click", function () {
-            const password = document.querySelector("input[name='pwd']");
-            const type = password.getAttribute("type") === "password" ? "text" : "password";
-            password.setAttribute("type", type);
-            this.classList.toggle("rm-togglePassword-show");
-        });
-    }
-}
-
-
-
-
-</script>
 
 <?php
 /*

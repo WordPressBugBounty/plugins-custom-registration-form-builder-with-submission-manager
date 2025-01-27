@@ -1227,6 +1227,7 @@ final class RM_Form_Factory_Revamp {
         }
         wp_enqueue_style('rm-form-revamp-style', RM_BASE_URL . 'public/css/rm-form-common-utility.css', array(), RM_PLUGIN_VERSION);
         wp_enqueue_script('rm-form-revamp-script', RM_BASE_URL . 'public/js/rm-form-common-utility.js', array('jquery'), RM_PLUGIN_VERSION);
+        wp_enqueue_script('rm_password_utility', RM_BASE_URL . 'public/js/password-utility.js', array('jquery'), RM_PLUGIN_VERSION);
         wp_dequeue_script('rm_jquery_conditionalize');
         wp_enqueue_script('rm-form-revamp-conditionize', RM_BASE_URL . 'public/js/conditionize_revamp.jquery.js', array('jquery'), RM_PLUGIN_VERSION);
         if(is_rtl()) {

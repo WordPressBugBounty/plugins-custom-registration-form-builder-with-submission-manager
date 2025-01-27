@@ -13,7 +13,7 @@ and open the template in the editor.
 
 form.rmagic-form .rmagic-row *:not(:where(.rm-togglePassword, .rmnote, .rmnote *, .intl-tel-input, .intl-tel-input *, .iti.iti--allow-dropdown, .iti.iti--allow-dropdown *,
 .rminput .rateit-font .rateit-range > div, .rminput .rateit, .rminput.rateit *, .rm-flip-clock-wrapper, .rm-flip-clock-wrapper *,
-.rmagic-row .rmagic-fields-wrap .rm_divider, i.rm_front_field_icon)) {
+.rmagic-row .rmagic-fields-wrap .rm_divider, i.rm_front_field_icon, i.rm_front_field_icon, .rmform-password-toggle-wrap)) {
       background: none;
     border: 0 none;
     border-radius: 0;

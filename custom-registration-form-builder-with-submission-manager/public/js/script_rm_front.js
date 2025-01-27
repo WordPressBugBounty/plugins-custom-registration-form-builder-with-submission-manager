@@ -650,8 +650,25 @@ RM_togglePasswordField("#rm_reset_pass_form", "old_pass", "rm-password-toggle-wr
 RM_togglePasswordField("#rm_reset_pass_form", "new_pass", "rm-password-toggle-wrap");
 RM_togglePasswordField("#rm_reset_pass_form", "new_pass_repeat", "rm-password-toggle-wrap");
  
+// Old Builder form
+function RM_OldForm_togglePasswordField(formID, selector, wrapperClass) {
+    const RM_field = jQuery(`${formID} .rmagic-row [name="${selector}"]`);
     
+    if (RM_field.length > 0) {
+        RM_field.closest('div').addClass(wrapperClass).prepend('<span class="rm-togglePassword"></span>');
+        
+        const RM_togglePassword = RM_field.siblings('.rm-togglePassword'); // Use jQuery for consistent targeting
+        
+        RM_togglePassword.on("click", function () {
+            const RM_type = RM_field.attr("type") === "password" ? "text" : "password";
+            RM_field.attr("type", RM_type);
+            jQuery(this).toggleClass("rm-togglePassword-show");
+        });
+    }
+}
+
+// Initialize for two fields
+RM_OldForm_togglePasswordField("form.rmagic-form", "pwd", "rm-password-toggle-wrap");
+RM_OldForm_togglePasswordField("form.rmagic-form", "password_confirmation", "rm-password-toggle-wrap");
+
 });
-
-
-
