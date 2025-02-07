@@ -414,6 +414,8 @@ final class RM_Form_Factory_Revamp {
                         if(empty($price_field))
                             continue;
                         $price_field_name = $field_name."_{$price_field->field_id}";
+                        $curr_pos = get_option('rm_option_currency_symbol_position', 'before');
+                        $curr_sym = RM_Utilities_Revamp::get_currency_symbol(get_option('rm_option_currency', 'USD'));
                         if(isset($sub_data[$price_field_name]) && !empty($sub_data[$price_field_name])) {
                             $price_field->extra_options = maybe_unserialize($price_field->extra_options);
                             switch($price_field->type) {
@@ -427,19 +429,31 @@ final class RM_Form_Factory_Revamp {
                                     $pricing_details->total_price += $price * $quantity;
                                     $tmp_billing = (object) array('label'=>$price_field->name, 'price'=>$price, 'qty'=>$quantity);
                                     $pricing_details->billing[] = apply_filters('rm_field_product_billing_'.$price_field->field_id, $tmp_billing);
+
+                                    $data_block->label = $form->fields[$field_id]->field_label;
+                                    $data_block->value = $curr_pos == 'before' ? "{$price_field->name} ({$curr_sym}{$price}) &times; $quantity" : "{$price_field->name} ({$price}{$curr_sym}) &times; $quantity";
+                                    $data_block->type = $form->fields[$field_id]->field_type;
+                                    $data_block->meta = null;
+                                    $db_data[$field_id] = $data_block;
                                     break;
                                 case "userdef":
                                     if(defined('REGMAGIC_ADDON')) {
                                         $total_price = floatval($sub_data[$price_field_name]);
                                         $pricing_details->total_price += round($total_price, 2);
                                         $pricing_details->billing[] = (object) array('label'=>$price_field->name, 'price'=>$total_price, 'qty' => 1);
+                                        
+                                        $data_block->label = $form->fields[$field_id]->field_label;
+                                        $data_block->value = $curr_pos == 'before' ? "{$price_field->name} ({$curr_sym}{$total_price})" : "{$price_field->name} ({$total_price}{$curr_sym})";
+                                        $data_block->type = $form->fields[$field_id]->field_type;
+                                        $data_block->meta = null;
+                                        $db_data[$field_id] = $data_block;
                                     }
                                     break;
                                 case "multisel":
                                     if(defined('REGMAGIC_ADDON')) {
                                         $tmp_v = maybe_unserialize($price_field->option_price);
                                         $tmp_l = maybe_unserialize($price_field->option_label);
-                                                                            
+                                        $price_val_arr = array();
                                         foreach($sub_data[$price_field_name] as $pf_single_val) {
                                             $index = (int)substr($pf_single_val, 1);
                                             if(!isset($tmp_v[$index]))
@@ -452,7 +466,14 @@ final class RM_Form_Factory_Revamp {
                                             
                                             $pricing_details->total_price += floatval($tmp_v[$index]) * $quantity;
                                             $pricing_details->billing[] = (object)array('label'=>$tmp_l[$index], 'price'=>floatval($tmp_v[$index]),'qty' => $quantity);
+                                            $price_val_arr[] = $curr_pos == 'before' ? "{$tmp_l[$index]} ({$curr_sym}{$tmp_v[$index]}) &times; $quantity" : "{$tmp_l[$index]} ({$tmp_v[$index]}{$curr_sym}) &times; $quantity"; 
                                         }
+
+                                        $data_block->label = $form->fields[$field_id]->field_label;
+                                        $data_block->value = $price_val_arr;
+                                        $data_block->type = $form->fields[$field_id]->field_type;
+                                        $data_block->meta = null;
+                                        $db_data[$field_id] = $data_block;
                                     }
                                     break;
                                 case "dropdown":
@@ -470,6 +491,12 @@ final class RM_Form_Factory_Revamp {
                                         
                                         $pricing_details->total_price += floatval($tmp_v[$index]) * $quantity;
                                         $pricing_details->billing[] = (object)array('label'=>$tmp_l[$index], 'price'=>floatval($tmp_v[$index]), 'qty' => $quantity);
+                                        
+                                        $data_block->label = $form->fields[$field_id]->field_label;
+                                        $data_block->value = $curr_pos == 'before' ? "{$tmp_l[$index]} ({$curr_sym}{$tmp_v[$index]}) &times; $quantity" : "{$tmp_l[$index]} ({$tmp_v[$index]}{$curr_sym}) &times; $quantity";
+                                        $data_block->type = $form->fields[$field_id]->field_type;
+                                        $data_block->meta = null;
+                                        $db_data[$field_id] = $data_block;
                                     }
                                     break;
                             }
@@ -1085,7 +1112,7 @@ final class RM_Form_Factory_Revamp {
                     }
     
                     // Redirecting after form submission
-                    if(isset($form->form_redirect) && $form->form_redirect != 'none') {
+                    if(isset($form->form_redirect) && $form->form_redirect != 'none' && !$save_submission) {
                         if($form->form_redirect == 'page') {
                             $page_url = get_permalink($form->form_redirect_to_page);
                             echo "<p>".sprintf(esc_html__("Redirecting you to %s", 'custom-registration-form-builder-with-submission-manager'), $page_url)."</p>";

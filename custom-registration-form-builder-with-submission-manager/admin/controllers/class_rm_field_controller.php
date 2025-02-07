@@ -295,7 +295,7 @@ class RM_Field_Controller {
         }
         
         $data->recent_forms = RM_Utilities::get_recent_forms($service);
-        $data->popular_forms = RM_Utilities::get_popular_forms($service);
+        //$data->popular_forms = RM_Utilities::get_popular_forms($service);
 
         if (!$fopts->form_pages) {
             $data->total_page = 1;

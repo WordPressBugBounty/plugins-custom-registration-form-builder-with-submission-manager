@@ -696,7 +696,7 @@ class RM_Email_Service
         $message= wpautop(str_replace(array('{{username}}','{{sitename}}','{{Login_IP}}','{{login_time}}'),array($user->user_login,get_bloginfo('title'),$_SERVER["REMOTE_ADDR"], RM_Utilities::get_current_time(current_time('timestamp'))),$template_options['failed_login_err']));
         $rm_email= new RM_Email();
         $rm_email->message($message);
-        $rm_email->subject(__("Failed login Attempt",'custom-registration-form-builder-with-submission-manager'));
+        $rm_email->subject(__("Failed Login Attempt",'custom-registration-form-builder-with-submission-manager'));
         $rm_email->to($user->user_email);
         $gopt = new RM_Options();
         $rm_email->from($gopt->get_value_of('admin_email'));
@@ -709,7 +709,7 @@ class RM_Email_Service
         $message= wpautop(str_replace(array('{{username}}','{{sitename}}','{{Login_IP}}','{{login_time}}'),array($user->user_login,get_bloginfo('title'),$_SERVER["REMOTE_ADDR"], RM_Utilities::get_current_time(current_time('timestamp'))),$template_options['failed_login_err_admin']));
         $rm_email= new RM_Email();
         $rm_email->message($message);
-        $rm_email->subject(__("Failed login Attempt",'custom-registration-form-builder-with-submission-manager'));
+        $rm_email->subject(__("Failed Login Attempt",'custom-registration-form-builder-with-submission-manager'));
         $gopt = new RM_Options();
         $rm_email->to($gopt->get_value_of('admin_email'));
         $rm_email->send();

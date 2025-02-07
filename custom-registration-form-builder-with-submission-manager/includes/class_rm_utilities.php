@@ -2730,10 +2730,7 @@ class RM_Utilities {
               return;
       $form_options= $form_model->get_form_options();
       if(empty($username_field)){
-            $form_options->hide_username= 1;
-       }
-       else{
-           $form_options->hide_username= 0;
+            $form_options->hide_username = 1;
        }
         $form_model->set_form_options($form_options);
         $form_model->update_into_db();

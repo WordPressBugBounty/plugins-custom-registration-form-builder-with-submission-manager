@@ -71,19 +71,19 @@ $primary_fields = array();
                                             ?>
                                         </ul>
                                     </div>
-
+                                    <!--
                                     <div class="rm-fs-popular-forms">
                                         <div class="rm-fs-forms-title"><?php _e('Popular Forms', 'custom-registration-form-builder-with-submission-manager'); ?></div>
                                         <ul id="rm-fs-popular-forms">
-    <?php foreach ($data->popular_forms as $popular_form) { ?>
+                                            <?php //foreach ($data->popular_forms as $popular_form) { ?>
                                                 <li>
-                                                    <a href="?page=rm_field_manage&rm_form_id=<?php echo esc_attr($popular_form['id']); ?>"><?php echo esc_html($popular_form['name']); ?>
-                                                    <span class="rm-fs-form-desc"><?php echo esc_html($popular_form['desc']); ?></span>
+                                                    <a href="?page=rm_field_manage&rm_form_id=<?php //echo esc_attr($popular_form['id']); ?>"><?php //echo esc_html($popular_form['name']); ?>
+                                                    <span class="rm-fs-form-desc"><?php //echo esc_html($popular_form['desc']); ?></span>
                                                     </a>
                                                     
                                                 </li>
                                             <?php
-                                            }
+                                            //}
                                             /* foreach ($data->forms as $form_id => $form)
                                               if ($data->form_id == $form_id)
                                               echo "<div>" . esc_html($form) . "</div>";
@@ -93,7 +93,7 @@ $primary_fields = array();
                                             ?>
                                         </ul> 
                                     </div> 
-
+                                    -->
                                     <div class="rm-fs-search-result" style="display:none;">
                                         <div class="rm-fs-search-result-head"><span>0</span> <?php _e('result(s) found', 'custom-registration-form-builder-with-submission-manager'); ?> <a href="javascript:void(0)"><?php _e('Reset', 'custom-registration-form-builder-with-submission-manager'); ?></a></div>
                                         <div class="rm-fs-forms-title"><?php _e('Search Result', 'custom-registration-form-builder-with-submission-manager'); ?></div>

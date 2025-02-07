@@ -269,8 +269,7 @@ class RM_Utilities_Revamp {
     }
 
     public static function get_countries() {
-        $list= array(
-            null => RM_UI_Strings::get("LABEL_SELECT_COUNTRY"),
+        $list = array(
             "Afghanistan[AF]" => __("Afghanistan","custom-registration-form-builder-with-submission-manager"),
             "Aland Islands[AX]" => __("Aland Islands","custom-registration-form-builder-with-submission-manager"),
             "Albania[AL]" => __("Albania","custom-registration-form-builder-with-submission-manager"),
@@ -518,8 +517,11 @@ class RM_Utilities_Revamp {
             "Zambia[ZM]" => __("Zambia","custom-registration-form-builder-with-submission-manager"),
             "Zimbabwe[ZW]" => __("Zimbabwe","custom-registration-form-builder-with-submission-manager")        
           );
-        $list = apply_filters('rm_country_list',$list);
-        return $list;
+          $list = apply_filters('rm_country_list',$list);
+          setlocale(LC_COLLATE, get_locale().'.UTF-8');
+          asort($list, SORT_LOCALE_STRING);
+          $def_element = array(null => RM_UI_Strings::get("LABEL_SELECT_COUNTRY"));
+          return array_merge($def_element, $list);
     }
 
     public static function get_timezones() {
