@@ -96,6 +96,11 @@ if($dismiss_icon == 0) { ?>
 
 
 <div class="wrap">
+    
+    <div class="rm-footer-promotion rm-w-100 rm-box-w-100 rm-d-flex rm-justify-content-center">
+    <div class="rm-text-center"> <a href="https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/" target="_blank" class="rm-text-decoration-none rm-di-flex rm-footer-notice-icon-wrap"> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368" class="rm-mr-1"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M15 4v7H5.17l-.59.59-.58.58V4h11m1-2H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm5 4h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1z"/></svg> <?php esc_html_e('Have a question?', 'custom-registration-form-builder-with-submission-manager'); ?> </a></div>
+    </div>
+    
 <div class="rm-footer-notice rm-border-top rm-mt-4" style="float:left; opacity: 0; display:none">
     <div class="rm-footer-notice-info rm-text-center">
         <div class="rm-footer-notice-icon-wrap rm-di-flex rm-align-items-center"><a href="https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/"  target="_blank"  class="rm-footer-notice-icon rm-mr-1 rm-d-flex rm-text-decoration-none"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368" class="rm-mr-1"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M15 4v7H5.17l-.59.59-.58.58V4h11m1-2H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm5 4h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1z"/></svg> <?php esc_html_e('Have a question?', 'custom-registration-form-builder-with-submission-manager'); ?> </a></div>

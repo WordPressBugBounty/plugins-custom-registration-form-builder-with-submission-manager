@@ -1964,7 +1964,7 @@ class RM_UI_Strings {
 
 
             case 'NEWSLETTER_SUB_MSG':
-                return __("<span class='rm-newsletter-button'><a href='javascript:void(0)' onclick='handle_newsletter_subscription_click(\"" . self::get('MSG_NEWSLETTER_SUBMITTED') . "\")'> Click here</a></span> to keep up with breakthroughs and innovations we are bringing to WordPress registration system.", 'custom-registration-form-builder-with-submission-manager');
+                return __("Click here</a></span> to keep up with breakthroughs and innovations we are bringing to WordPress registration system.", 'custom-registration-form-builder-with-submission-manager');
 
             case 'MAIL_ACTIVATE_USER_DEF_SUB':
                 return __("Activate User", 'custom-registration-form-builder-with-submission-manager');

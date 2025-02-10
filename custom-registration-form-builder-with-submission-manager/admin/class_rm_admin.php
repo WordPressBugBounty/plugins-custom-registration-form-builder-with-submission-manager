@@ -2383,14 +2383,14 @@ class RM_Admin {
         }
 
         if(!$nl_subscribed) {
-            $newsletter_sub_link = RM_UI_Strings::get('NEWSLETTER_SUB_MSG');
+            $newsletter_sub_link = true;
         } else {
             $newsletter_sub_link = null;
         }
 
         global $rm_env_requirements;
         if (($rm_env_requirements & RM_REQ_EXT_CURL) && $newsletter_sub_link && isset($_GET['page']) && $_GET['page'] == 'rm_form_manage') { ?>
-            <div class="rm-newsletter-banner rm-newsletter-notice" id="rm_newsletter_sub"><?php echo wp_kses_post((string)$newsletter_sub_link);?><img src="<?php echo esc_url(RM_IMG_URL . 'close-rm.png'); ?>" onclick="jQuery('#rm_newsletter_sub').hide()"></div>
+            <div class="rm-newsletter-banner rm-newsletter-notice" id="rm_newsletter_sub"><span class='rm-newsletter-button'><a href='javascript:void(0);' onclick='handle_newsletter_subscription_click("<?php echo wp_kses_post(RM_UI_Strings::get("MSG_NEWSLETTER_SUBMITTED")); ?>")'><?php echo wp_kses_post(RM_UI_Strings::get('NEWSLETTER_SUB_MSG')); ?><img src="<?php echo esc_url(RM_IMG_URL . 'close-rm.png'); ?>" onclick="jQuery('#rm_newsletter_sub').hide()"></div>
         <?php }
 
     }

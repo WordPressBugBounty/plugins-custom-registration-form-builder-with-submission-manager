@@ -13,7 +13,7 @@ if(defined('REGMAGIC_ADDON') && $dismiss_banner == 0) { ?>
 <div class="rmagic rm-customize-banner-main rm-hide-version-number">
 <div class="pg-customize-banner-row rm-box-row">
     <div class="rm-box-col-12">
-        <div class="rm-customize-banner-wrap rm-d-flex rm-justify-content-between rm-box-center rm-p-3 rm-box-w-100 rm-white-bg ">
+        <div class="rm-customize-banner-wrap rm-d-flex rm-justify-content-between rm-box-center rm-p-3 rm-box-w-100 rm-white-bg rm-mb-3">
             <div class="rm-position-absolute rm-banner-close-icon rm-cursor">&#x2715</div> 
             <div class="rm-customize-banner-logo"><img width="128" src="<?php echo esc_url(RM_IMG_URL).'rm-logo.png'?>"></div>
             <div class="rm-banner-pitch-content-wrap rm-lh-normal">

@@ -129,6 +129,10 @@ if (jQuery('.rmform-custom-form').attr('data-style') === 'label_left') {
             return;
         }
         
+        if ($(this).find('.rmform-field-horizontal-row').length) {
+            return;
+        }
+        
         var rmFormInput = $(this).find('input.rmform-control, select.rmform-control, textarea.rmform-control');
         var errorMessage = $(this).find('.rmform-error-message');
         var rmFormFieldNote = $(this).find('.rmform-note');
