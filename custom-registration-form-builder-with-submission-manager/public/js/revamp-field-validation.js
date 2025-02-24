@@ -135,12 +135,17 @@ window.addEventListener("load", (event) => {
                                 }
                                 break;
                             case 'email_confirmation':
-                                let emailField = rmForm.querySelector(primaryFields[4]);
+                                let emailField = rmForm.querySelector("input[name="+primaryFields[4]+"]");
                                 if(emailField != null) {
                                     if(field.value != emailField.value) {
                                         fieldErrors.push(rmValidationJS.texts.emailmatch);
+                                        field.setAttribute("aria-invalid", "true");
+                                        field.closest("div.rmform-field").classList.add('rmform-has-error');
                                         valid = false;
                                     } else {
+                                        field.setAttribute("aria-invalid", "false");
+                                        field.closest("div.rmform-field").classList.remove('rmform-has-error');
+                                        valid = true;
                                         //spanEl.innerText = "";
                                         //valid = true;
                                     }
@@ -484,6 +489,11 @@ window.addEventListener("load", (event) => {
                     if(rmFormPages[i].style.display != "none") {
                         let pageFields = rmFormPages[i].querySelectorAll("input, select, textarea");
                         for(let j = 0; j < pageFields.length; j++) {
+                            if(pageFields[j].getAttribute("aria-invalid") == "true" && (pageFields[j].dataset.primary == '1' || pageFields[j].name == 'username' || pageFields[j].name == 'pwd' || pageFields[j].name == 'password_confirmation' || pageFields[j].name == 'email_confirmation')) {
+                                rmBlockFormSubmission();
+                                invalidFields.push(pageFields[j]);
+                                //return false;
+                            }
                             if(rmFormSaveBtn != null) {
                                 if(rmValidateField(pageFields[j], true)) {
                                 

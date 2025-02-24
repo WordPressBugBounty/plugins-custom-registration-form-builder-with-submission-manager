@@ -1926,7 +1926,7 @@ final class RM_Form_Factory_Revamp {
     }
 
     private function banned_check() {
-        $banned_ip_formats = get_option('rm_option_banned_ip');
+        $banned_ip_formats = maybe_unserialize(get_option('rm_option_banned_ip'));
         if(empty($banned_ip_formats)) {
             return false;
         }
@@ -2359,7 +2359,7 @@ final class RM_Form_Factory_Revamp {
     }
 
     private function is_email_banned($email = null) {
-        $banned_email_formats = get_option('rm_option_banned_email');
+        $banned_email_formats = maybe_unserialize(get_option('rm_option_banned_email'));
         $banned = false;
 
         if(is_array($banned_email_formats)) {

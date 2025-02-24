@@ -1714,6 +1714,10 @@ pre.rm-pre-wrapper-for-script-tags {
     text-align: center;
 }
 
+.rmagic .rmcontent.rm-login-wrapper .buttonarea input[type='submit']{
+    margin:0px;
+}
+
 .rmagic .rm-thirdp-login-button-wrap .rm-third-party-login {
     display: inline-table;
     position: relative;

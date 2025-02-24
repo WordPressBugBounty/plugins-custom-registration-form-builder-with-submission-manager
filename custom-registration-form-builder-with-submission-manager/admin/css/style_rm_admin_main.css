@@ -5697,7 +5697,8 @@ div[class^="rm-grid-sidebar"] a.rm_deactivated {
 /*--- RM Login Dashboard----*/
 
 .rm-login-configuration-wrap .rm-grid-section > .rm-grid-icon {
-    min-height: 110px;
+    min-height: 92px;
+    max-height: 92px;
 }
 
 .rm-login-configuration-wrap .rm-grid-section .rm-grid-icon-area i {

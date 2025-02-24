@@ -1094,7 +1094,7 @@ final class RM_Field_Factory_Revamp {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
-
+        
         $options = explode(",",  $field->field_value);
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
@@ -1116,7 +1116,7 @@ final class RM_Field_Factory_Revamp {
 
         foreach($options as $option) {
             $option = trim($option);
-            if(empty($option)) {
+            if($option === null || $option === false || $option === '') {
                 continue;
             }
             if($meta_value == $option) {

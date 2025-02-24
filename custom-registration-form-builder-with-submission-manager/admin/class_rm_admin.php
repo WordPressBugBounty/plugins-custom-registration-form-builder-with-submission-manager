@@ -892,7 +892,7 @@ class RM_Admin {
 
                                 add_submenu_page("rm_dummy_string", esc_html__('Custom Tabs', 'custom-registration-form-builder-with-submission-manager'), esc_html__('Custom Tabs', 'custom-registration-form-builder-with-submission-manager'), $value[0]."manage_options", "rm_options_manage_ctabs", array($this->get_controller(), 'run'));
 
-                                if (class_exists('Registration_Magic_Addon')){
+                                if(class_exists('Registration_Magic_Addon')){
                                     add_submenu_page("rm_dummy_string", __('Add Custom Tabs', 'custom-registration-form-builder-with-submission-manager'), __('Add Custom Tabs', 'custom-registration-form-builder-with-submission-manager'), $value[0]."manage_options", "rm_options_add_ctabs", array($this->get_controller(), 'run')); 
                                 }
                                 } elseif ($value[0] == 'rm_sent_emails_manage') {
@@ -1198,6 +1198,10 @@ class RM_Admin {
 
                                     add_submenu_page("rm_dummy_string", esc_html__('Custom Tabs', 'custom-registration-form-builder-with-submission-manager'), esc_html__('Custom Tabs', 'custom-registration-form-builder-with-submission-manager'), "manage_options", "rm_options_manage_ctabs", array($this->get_controller(), 'run'));
 
+                                    if (class_exists('Registration_Magic_Addon')){
+                                        add_submenu_page("rm_dummy_string", esc_html__('Add Custom Tabs', 'custom-registration-form-builder-with-submission-manager'), esc_html__('Add Custom Tabs', 'custom-registration-form-builder-with-submission-manager'), "manage_options", "rm_options_add_ctabs", array($this->get_controller(), 'run')); 
+                                    }
+
                                     if (current_user_can( "manage_options" )){
 
                                         add_submenu_page("rm_dummy_string", RM_UI_Strings::get('ARRANGE_ADMIN_MENU'), RM_UI_Strings::get('ARRANGE_ADMIN_MENU'), "manage_options", "rm_options_admin_menu", array($this->get_controller(), 'run'));
@@ -1413,6 +1417,9 @@ class RM_Admin {
                     add_submenu_page("rm_dummy_string", __('ProfileGrid', 'custom-registration-form-builder-with-submission-manager'), __('ProfileGrid', 'custom-registration-form-builder-with-submission-manager'), "manage_options", "rm_form_sett_profilegrid", array($this->get_controller(), 'run'));
                     add_submenu_page("rm_dummy_string", __('EventPrime', 'custom-registration-form-builder-with-submission-manager'), __('EventPrime', 'custom-registration-form-builder-with-submission-manager'), "manage_options", "rm_options_eventprime", array($this->get_controller(), 'run'));
                     add_submenu_page("rm_dummy_string", esc_html__('Custom Tabs', 'custom-registration-form-builder-with-submission-manager'), esc_html__('Custom Tabs', 'custom-registration-form-builder-with-submission-manager'), "manage_options", "rm_options_manage_ctabs", array($this->get_controller(), 'run'));
+                    if(class_exists('Registration_Magic_Addon')){
+                        add_submenu_page("rm_dummy_string", esc_html__('Add Custom Tabs', 'custom-registration-form-builder-with-submission-manager'), esc_html__('Add Custom Tabs', 'custom-registration-form-builder-with-submission-manager'), "manage_options", "rm_options_add_ctabs", array($this->get_controller(), 'run')); 
+                    }
                     add_submenu_page("rm_dummy_string", RM_UI_Strings::get('PAYMENTS_INVOICE_SETTING_MENU'), RM_UI_Strings::get('PAYMENTS_INVOICE_SETTING_MENU'), "manage_options", "rm_options_manage_invoice", array($this->get_controller(), 'run'));
                     add_submenu_page("rm_dummy_string", RM_UI_Strings::get('ARRANGE_ADMIN_MENU'), RM_UI_Strings::get('ARRANGE_ADMIN_MENU'), "manage_options", "rm_options_admin_menu", array($this->get_controller(), 'run'));
                 } else {

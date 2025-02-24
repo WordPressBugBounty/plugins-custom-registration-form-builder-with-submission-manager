@@ -40,6 +40,7 @@
 }
 
 .rmformui .rmform-row .rmform-field{
+    position: relative
 }
 
 @media (min-width: 783px) {
@@ -198,8 +199,12 @@
     width: fit-content;
     cursor: pointer;
     min-height: 1.5rem;
-    padding-left: 1.5em;
+    padding-left: 1em;
     margin-bottom: .125rem;
+}
+
+.rmformui .rmform-row div[id^="rm-checkbox-"] .rmform-field .rmform-check {
+    padding-left: 1.5em;
 }
 
 .rmformui .rmform-row .rmform-field .rmform-check:checked:before{
@@ -423,7 +428,9 @@ ul#rmagic-progressbar li .rm-form-page-name {
     box-shadow: 2px 2px 2px 0px rgba(150, 150, 150, 0.4);
     font-size: 13px;
     border-radius: 3px;
-    position: relative
+    position: absolute;
+    width: 100%;
+    z-index: 99999;
 }
 
 .rmformui .rmform-note:empty{
@@ -833,6 +840,10 @@ ul#rmagic-progressbar li .rm-form-page-name {
 .rmformui .rmform-row .rmform-field .rmform-control P {
     padding: 0px;
     margin: 0px;
+}
+
+html[style*="--themeColor"] #ui-datepicker-div.ui-datepicker.ui-widget.ui-widget-content{
+    font-size: initial;
 }
 
 /*---- Image field----*/

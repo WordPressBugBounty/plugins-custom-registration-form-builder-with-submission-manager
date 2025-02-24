@@ -347,7 +347,7 @@ class RM_User_Services extends RM_Services
     public function get_users_all($offset = '', $number = '', $search_str = '', $user_status = 'all', $interval = 'all', $sort = 'latest', $role='all', $user_ids = array(), $fields_to_return = 'all') {
         
         //$args = array('number' => $number, 'offset' => $offset, 'include' => $user_ids, 'search' => '*' . $search_str . '*');
-        $args = array('cache_results' => false, 'number' => $number, 'offset' => $offset,'search' => '*' . $search_str . '*');
+        $args = empty($search_str) ? array('cache_results' => false, 'number' => $number, 'offset' => $offset): array('cache_results' => false, 'number' => $number, 'offset' => $offset,'search' => '*' . $search_str . '*');
         
         if($role != 'all'){
             $args['role'] = $role;
@@ -356,27 +356,24 @@ class RM_User_Services extends RM_Services
             $args['fields'] = $fields_to_return;
         }
         
-        switch ($user_status) {
+        switch($user_status) {
             case 'active':
-                $args['meta_query'] = array('relation' => 'OR',
+                $args['meta_query'] = array(
                     array(
                         'key' => 'rm_user_status',
                         'value' => '1',
                         'compare' => '!='
                     ),
+                );
+                break;
+            case 'pending':
+                $args['meta_query'] = array(
                     array(
                         'key' => 'rm_user_status',
                         'value' => '1',
-                        'compare' => 'NOT EXISTS'
-                ));
-                break;
-
-            case 'pending':
-                $args['meta_query'] = array(array(
-                        'key' => 'rm_user_status',
-                        'value' => '1',
                         'compare' => '='
-                ));
+                    )
+                );
                 break;
         }
         switch ($interval) {

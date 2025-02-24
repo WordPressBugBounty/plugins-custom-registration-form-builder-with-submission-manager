@@ -191,6 +191,7 @@ else // Normal form with username and password
         if (get_option('rm_option_enable_captcha') == "yes" && !empty($data->show_captcha))
             $form->addElement(new Element_Captcha());
 
+        do_action('rm_extend_login_field_before_submit', $form, $data);
 
         if($data->buttons['align']=='left' || $data->buttons['align']=='right'){
             if(empty($data->design['style_btnfield'])){

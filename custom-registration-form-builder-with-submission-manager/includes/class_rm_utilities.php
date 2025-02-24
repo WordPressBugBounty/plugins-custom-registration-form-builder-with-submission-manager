@@ -3347,7 +3347,10 @@ class RM_Utilities {
             'for'     => array(),
             'data-rmpriceformat' => array(),
             'data-bmargin' => array(),
-            'data-rmt-tabcontent' => array()
+            'data-rmt-tabcontent' => array(),
+            'data-sitekey' => array(),
+            'data-theme' => array(),
+            'data-size' => array()
         );
         // anchor
         $my_allowed['a'] = array(

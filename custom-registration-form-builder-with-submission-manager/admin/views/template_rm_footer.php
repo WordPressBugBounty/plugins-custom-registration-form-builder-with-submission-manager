@@ -113,6 +113,11 @@ if($dismiss_icon == 0) { ?>
 <?php } ?>
 <style>
     
+    .rm-footer-promotion{
+        max-width: 1120px;
+         margin: 5px 10% 0 5%;
+    }
+    
     .rm-footer-notice{
         width: 100% !important;
     }
@@ -292,8 +297,20 @@ if($dismiss_icon == 0) { ?>
 .registrationmagic_page_rm_submission_manage .rmagic.rmagic-premium-banner,
 .admin_page_rm_licensing .rmagic.rmagic-premium-banner,
 .registrationmagic_page_rm_user_manage .rmagic.rmagic-premium-banner,
-.registrationmagic_page_rm_support_premium_page .rmagic.rmagic-premium-banner{
+.registrationmagic_page_rm_support_premium_page .rmagic.rmagic-premium-banner,
+.admin_page_rm_login_sett_manage .rmagic.rmagic-premium-banner{
     margin: 0px auto;
+}
+
+.registrationmagic_page_rm_dashboard_widget_dashboard .rm-footer-promotion,
+.admin_page_rm_form_sett_manage .rm-footer-promotion,
+.registrationmagic_page_rm_submission_manage .rm-footer-promotion,
+.admin_page_rm_licensing .rm-footer-promotion,
+.registrationmagic_page_rm_user_manage .rm-footer-promotion,
+.registrationmagic_page_rm_support_premium_page .rm-footer-promotion,
+.registrationmagic_page_rm_support_forum .rm-footer-promotion,
+.admin_page_rm_login_sett_manage .rm-footer-promotion{
+     margin: 0px auto;
 }
 
 .registrationmagic_page_rm_dashboard_widget_dashboard .rmagic.rm-footer-notice,

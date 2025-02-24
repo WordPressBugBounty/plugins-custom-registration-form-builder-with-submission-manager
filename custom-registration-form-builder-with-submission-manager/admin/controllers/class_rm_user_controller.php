@@ -126,7 +126,7 @@ class RM_USER_Controller
         $view_data->total_page = 0;
         if($view_data->total_users){
             $total_page = $view_data->total_users / $entries_per_page;
-            $view_data->total_page = round($total_page);
+            $view_data->total_page = ceil($total_page);
         }
         $view_data->rm_slug = $request->req['page'];
         $view = $this->mv_handler->setView('user_manager');

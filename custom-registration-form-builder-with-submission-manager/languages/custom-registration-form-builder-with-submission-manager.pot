@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RegistrationMagic Basic v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2025-02-07 16:31+0530\n"
+"POT-Creation-Date: 2025-02-22 09:59+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: RegistrationMagic Support <support@registrationmagic.com>\n"
@@ -86,35 +86,35 @@ msgid "You are using older version of IE. Please update IE to latest version"
 msgstr ""
 
 #: admin/class_rm_admin.php:678 admin/class_rm_admin.php:991
-#: admin/class_rm_admin.php:1403
+#: admin/class_rm_admin.php:1407
 msgid "Login Dashboard"
 msgstr ""
 
 #: admin/class_rm_admin.php:680 admin/class_rm_admin.php:682
 #: admin/class_rm_admin.php:684 admin/class_rm_admin.php:993
 #: admin/class_rm_admin.php:995 admin/class_rm_admin.php:997
-#: admin/class_rm_admin.php:1399 admin/class_rm_admin.php:1400
-#: admin/class_rm_admin.php:1401
+#: admin/class_rm_admin.php:1403 admin/class_rm_admin.php:1404
+#: admin/class_rm_admin.php:1405
 msgid "Login Fields"
 msgstr ""
 
 #: admin/class_rm_admin.php:686 admin/class_rm_admin.php:999
-#: admin/class_rm_admin.php:1402
+#: admin/class_rm_admin.php:1406
 msgid "Logged in View"
 msgstr ""
 
 #: admin/class_rm_admin.php:688 admin/class_rm_admin.php:1001
-#: admin/class_rm_admin.php:1404
+#: admin/class_rm_admin.php:1408
 msgid "Login Redirections"
 msgstr ""
 
 #: admin/class_rm_admin.php:690 admin/class_rm_admin.php:1003
-#: admin/class_rm_admin.php:1405
+#: admin/class_rm_admin.php:1409
 msgid "Login Validation & Security"
 msgstr ""
 
 #: admin/class_rm_admin.php:692 admin/class_rm_admin.php:1005
-#: admin/class_rm_admin.php:1406 admin/views/template_rm_form_manager.php:276
+#: admin/class_rm_admin.php:1410 admin/views/template_rm_form_manager.php:276
 #: admin/views/template_rm_login_recovery.php:11
 #: admin/views/template_rm_login_sett_manage.php:128
 #: includes/class_rm_utilities.php:502
@@ -122,12 +122,12 @@ msgid "Password Recovery"
 msgstr ""
 
 #: admin/class_rm_admin.php:694 admin/class_rm_admin.php:1007
-#: admin/class_rm_admin.php:1408
+#: admin/class_rm_admin.php:1412
 msgid "Two Factor Authentication"
 msgstr ""
 
 #: admin/class_rm_admin.php:696 admin/class_rm_admin.php:1009
-#: admin/class_rm_admin.php:1407 admin/views/template_rm_login_email_temp.php:12
+#: admin/class_rm_admin.php:1411 admin/views/template_rm_login_email_temp.php:12
 #: admin/views/template_rm_login_sett_manage.php:137
 #: includes/class_rm_ui_strings.php:3507 includes/class_rm_ui_strings.php:3531
 #: includes/class_rm_ui_strings.php:3534
@@ -135,23 +135,23 @@ msgid "Email Templates"
 msgstr ""
 
 #: admin/class_rm_admin.php:698 admin/class_rm_admin.php:1011
-#: admin/class_rm_admin.php:1409
+#: admin/class_rm_admin.php:1413
 msgid "Third Part Integrations"
 msgstr ""
 
 #: admin/class_rm_admin.php:700 admin/class_rm_admin.php:1013
-#: admin/class_rm_admin.php:1410 admin/views/template_rm_form_manager.php:274
+#: admin/class_rm_admin.php:1414 admin/views/template_rm_form_manager.php:274
 #: admin/views/template_rm_login_sett_manage.php:241
 msgid "Login Analytics"
 msgstr ""
 
 #: admin/class_rm_admin.php:702 admin/class_rm_admin.php:1015
-#: admin/class_rm_admin.php:1411
+#: admin/class_rm_admin.php:1415
 msgid "Log Retention"
 msgstr ""
 
 #: admin/class_rm_admin.php:704 admin/class_rm_admin.php:1017
-#: admin/class_rm_admin.php:1412
+#: admin/class_rm_admin.php:1416
 msgid "Advanced Log"
 msgstr ""
 
@@ -160,45 +160,45 @@ msgid "Add Custom Status"
 msgstr ""
 
 #: admin/class_rm_admin.php:841 admin/class_rm_admin.php:1157
-#: admin/class_rm_admin.php:1341
+#: admin/class_rm_admin.php:1345
 #: admin/views/template_rm_reports_attachments.php:17
 msgid "Attachments Reports"
 msgstr ""
 
 #: admin/class_rm_admin.php:843 admin/class_rm_admin.php:1159
-#: admin/class_rm_admin.php:1342 admin/views/template_rm_reports_payments.php:17
+#: admin/class_rm_admin.php:1346 admin/views/template_rm_reports_payments.php:17
 msgid "Payments Reports"
 msgstr ""
 
 #: admin/class_rm_admin.php:845 admin/class_rm_admin.php:1161
-#: admin/class_rm_admin.php:1343
+#: admin/class_rm_admin.php:1347
 msgid "Compare Form Reports"
 msgstr ""
 
 #: admin/class_rm_admin.php:847 admin/class_rm_admin.php:922
 #: admin/class_rm_admin.php:1163 admin/class_rm_admin.php:1165
-#: admin/class_rm_admin.php:1344 admin/class_rm_admin.php:1345
+#: admin/class_rm_admin.php:1348 admin/class_rm_admin.php:1349
 msgid "Notifications Reports"
 msgstr ""
 
 #: admin/class_rm_admin.php:849 admin/class_rm_admin.php:922
-#: admin/class_rm_admin.php:1165 admin/class_rm_admin.php:1345
+#: admin/class_rm_admin.php:1165 admin/class_rm_admin.php:1349
 msgid "Add Notifications Reports"
 msgstr ""
 
 #: admin/class_rm_admin.php:877 admin/class_rm_admin.php:1193
-#: admin/class_rm_admin.php:1359
+#: admin/class_rm_admin.php:1363
 #: admin/views/template_rm_options_user_privacy.php:23
 msgid "User Privacy"
 msgstr ""
 
 #: admin/class_rm_admin.php:879 admin/class_rm_admin.php:1195
-#: admin/class_rm_admin.php:1397
+#: admin/class_rm_admin.php:1401
 msgid "Advance Options"
 msgstr ""
 
 #: admin/class_rm_admin.php:881 admin/class_rm_admin.php:1197
-#: admin/class_rm_admin.php:1413 admin/views/template_rm_form_settings.php:330
+#: admin/class_rm_admin.php:1417 admin/views/template_rm_form_settings.php:330
 #: admin/views/template_rm_form_settings.php:340
 #: admin/views/template_rm_options_manager.php:159
 #: admin/views/template_rm_profilegrid.php:10
@@ -211,29 +211,30 @@ msgid "Arrange Admin Menu"
 msgstr ""
 
 #: admin/class_rm_admin.php:893 admin/class_rm_admin.php:1199
-#: admin/class_rm_admin.php:1415
+#: admin/class_rm_admin.php:1419
 msgid "Custom Tabs"
 msgstr ""
 
-#: admin/class_rm_admin.php:896
+#: admin/class_rm_admin.php:896 admin/class_rm_admin.php:1202
+#: admin/class_rm_admin.php:1421
 msgid "Add Custom Tabs"
 msgstr ""
 
-#: admin/class_rm_admin.php:1226 admin/class_rm_admin.php:1241
-#: admin/class_rm_admin.php:1368
+#: admin/class_rm_admin.php:1230 admin/class_rm_admin.php:1245
+#: admin/class_rm_admin.php:1372
 msgid "Licensing"
 msgstr ""
 
-#: admin/class_rm_admin.php:1254 admin/class_rm_admin.php:1389
+#: admin/class_rm_admin.php:1258 admin/class_rm_admin.php:1393
 msgid "Extensions"
 msgstr ""
 
-#: admin/class_rm_admin.php:1414
+#: admin/class_rm_admin.php:1418
 #: admin/views/template_rm_options_eventprime.php:10
 msgid "EventPrime"
 msgstr ""
 
-#: admin/class_rm_admin.php:2030
+#: admin/class_rm_admin.php:2037
 #, php-format
 msgid ""
 "You have invalid or expired license keys for RegistrationMagic. You can renew "
@@ -242,7 +243,7 @@ msgid ""
 "class=\"button action button-primary rm-mt-2\">Renew License </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2042
+#: admin/class_rm_admin.php:2049
 #, php-format
 msgid ""
 "You have invalid or expired license keys for RegistrationMagic. You can renew "
@@ -251,7 +252,7 @@ msgid ""
 "class=\"button action\">Renew License </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2053
+#: admin/class_rm_admin.php:2060
 #, php-format
 msgid ""
 "Your license key for RegistrationMagic has expired and it's no longer "
@@ -259,7 +260,7 @@ msgid ""
 "class='button action' target='_blank'>Renew License </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2064
+#: admin/class_rm_admin.php:2071
 #, php-format
 msgid ""
 "You have reached license key limit for RegistrationMagic. Please upgrade for "
@@ -267,7 +268,7 @@ msgid ""
 "action'>Upgrade License </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2075
+#: admin/class_rm_admin.php:2082
 #, php-format
 msgid ""
 "You have reached fair usage license key limit for RegistrationMagic. Please "
@@ -275,14 +276,14 @@ msgid ""
 "action'>Contact Support </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2088
+#: admin/class_rm_admin.php:2095
 #, php-format
 msgid ""
 "You have deactivated your license key for RegistrationMagic and it's no "
 "longer receiving updates. <a href='%s' class='button action'>Activate Now</a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2146
+#: admin/class_rm_admin.php:2153
 #, php-format
 msgid ""
 "Hey, there 👋 ! It looks like you are publishing events on your website. "
@@ -291,7 +292,7 @@ msgid ""
 "to try now!"
 msgstr ""
 
-#: admin/class_rm_admin.php:2163
+#: admin/class_rm_admin.php:2170
 #, php-format
 msgid ""
 "Hey, there 👋 ! It looks like you are building a user community or membership "
@@ -300,28 +301,28 @@ msgid ""
 "href=\"%s\">Click here</a> to try now!"
 msgstr ""
 
-#: admin/class_rm_admin.php:2177
+#: admin/class_rm_admin.php:2184
 #, php-format
 msgid ""
 "Unlock all RegistrationMagic features by upgrading to Premium. It takes less "
 "than 5 minutes! <a href=\"%s\" target=\"_blank\">Click here</a> to start."
 msgstr ""
 
-#: admin/class_rm_admin.php:2190
+#: admin/class_rm_admin.php:2197
 #, php-format
 msgid ""
 "Upgrade to RegistrationMagic Premium+ by paying the difference! <a "
 "href=\"%s\">Click here </a>to upgrade."
 msgstr ""
 
-#: admin/class_rm_admin.php:2203
+#: admin/class_rm_admin.php:2210
 #, php-format
 msgid ""
 "RegistrationMagic Premium license key is missing. <a href=\"%s\" "
 "class=\"button action\">Activate License </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2216
+#: admin/class_rm_admin.php:2223
 #, php-format
 msgid ""
 "Unlicensed version of RegistrationMagic Premium. Auto-updates are disabled. "
@@ -329,7 +330,7 @@ msgid ""
 "to get your license key."
 msgstr ""
 
-#: admin/class_rm_admin.php:2231
+#: admin/class_rm_admin.php:2238
 #, php-format
 msgid ""
 "Your RegistrationMagic Premium license key has expired. Renew now or upgrade "
@@ -337,7 +338,7 @@ msgid ""
 "\"_blank\">Click here</a> to proceed."
 msgstr ""
 
-#: admin/class_rm_admin.php:2246
+#: admin/class_rm_admin.php:2253
 #, php-format
 msgid ""
 "Your RegistrationMagic Premium license key has expired. Auto-updates are "
@@ -345,7 +346,7 @@ msgid ""
 "href=\"%s\" target=\"_blank\">Click here</a> to proceed."
 msgstr ""
 
-#: admin/class_rm_admin.php:2335
+#: admin/class_rm_admin.php:2342
 msgid ""
 "It seems you are using now obsolete version of PHP. Please note that "
 "RegistrationMagic works best with PHP 5.6 or later versions. You may want to "
@@ -353,7 +354,7 @@ msgid ""
 "message may not display again once dismissed."
 msgstr ""
 
-#: admin/class_rm_admin.php:2361
+#: admin/class_rm_admin.php:2368
 #, php-format
 msgid ""
 "Using Easy Digital Downloads? <a target=\"__blank\" href=\"%s\">Learn how to</"
@@ -361,11 +362,11 @@ msgid ""
 "which display customer order history and details with the form submission."
 msgstr ""
 
-#: admin/class_rm_admin.php:2361 admin/class_rm_admin.php:2373
+#: admin/class_rm_admin.php:2368 admin/class_rm_admin.php:2380
 msgid "Dismiss"
 msgstr ""
 
-#: admin/class_rm_admin.php:2373
+#: admin/class_rm_admin.php:2380
 #, php-format
 msgid ""
 "Using WooCommerce? <a target=\"__blank\" href=\"%s\">Learn how to</a> create "
@@ -373,33 +374,33 @@ msgid ""
 "display customer order history with the form submission."
 msgstr ""
 
-#: admin/class_rm_admin.php:2416 admin/views/template_rm_dashboard.php:502
+#: admin/class_rm_admin.php:2423 admin/views/template_rm_dashboard.php:502
 msgid "User Area Layout"
 msgstr ""
 
-#: admin/class_rm_admin.php:2418
+#: admin/class_rm_admin.php:2425
 msgid "Set user area tabs order and visibility."
 msgstr ""
 
-#: admin/class_rm_admin.php:2432
+#: admin/class_rm_admin.php:2439
 #: admin/views/template_rm_options_ctabs_manager.php:21
 #: includes/class_rm_ui_strings.php:804
 msgid "Customize User Area Tab"
 msgstr ""
 
-#: admin/class_rm_admin.php:2434
+#: admin/class_rm_admin.php:2441
 msgid "Add customized tabs to the user area"
 msgstr ""
 
-#: admin/class_rm_admin.php:2448
+#: admin/class_rm_admin.php:2455
 msgid "Invoice Setting"
 msgstr ""
 
-#: admin/class_rm_admin.php:2450
+#: admin/class_rm_admin.php:2457
 msgid "Setup Invoice options"
 msgstr ""
 
-#: admin/class_rm_admin.php:2579 admin/class_rm_admin.php:2605
+#: admin/class_rm_admin.php:2586 admin/class_rm_admin.php:2612
 #: admin/controllers/class_rm_form_controller.php:335
 #: admin/controllers/class_rm_options_controller.php:120
 #: admin/controllers/class_rm_user_controller.php:51
@@ -410,7 +411,7 @@ msgstr ""
 msgid "Failed security check"
 msgstr ""
 
-#: admin/class_rm_admin.php:2596
+#: admin/class_rm_admin.php:2603
 msgid "Security check failed. Please refresh the page and try again later."
 msgstr ""
 
@@ -1033,8 +1034,8 @@ msgstr ""
 #: admin/views/template_rm_paypal_field_add.php:74
 #: admin/views/template_rm_primary_field_add.php:107
 #: admin/views/template_rm_user_edit.php:38
-#: admin/views/template_rm_user_manager.php:505
-#: admin/views/template_rm_user_manager.php:560
+#: admin/views/template_rm_user_manager.php:485
+#: admin/views/template_rm_user_manager.php:540
 #: admin/views/template_rm_user_view.php:360 admin/views/widgets/divider.php:32
 #: admin/views/widgets/feed.php:46 admin/views/widgets/form_chart.php:40
 #: admin/views/widgets/formdata.php:80 admin/views/widgets/htmlh.php:32
@@ -1463,7 +1464,7 @@ msgstr ""
 
 #: admin/views/template_rm_fd_promo.php:95
 #: admin/views/template_rm_login_fd_promo.php:85
-#: admin/views/template_rm_login_field_manager.php:251 blocks/index.js:282
+#: admin/views/template_rm_login_field_manager.php:251 blocks/index.js:283
 #: includes/class_rm_ui_strings.php:1107 includes/class_rm_utilities.php:521
 #: public/widgets/class_rm_login_btn_widget.php:45
 #: public/widgets/class_rm_login_btn_widget.php:125
@@ -1852,9 +1853,9 @@ msgstr ""
 #: admin/views/template_rm_options_user_privacy.php:25
 #: admin/views/template_rm_submissions_manager.php:84
 #: admin/views/template_rm_submissions_manager.php:558
-#: admin/views/template_rm_user_manager.php:157
-#: admin/views/template_rm_user_manager.php:325
-#: admin/views/template_rm_user_manager.php:586
+#: admin/views/template_rm_user_manager.php:137
+#: admin/views/template_rm_user_manager.php:305
+#: admin/views/template_rm_user_manager.php:566
 #: includes/class_rm_ui_strings.php:705 plus/chronos/templates/edit_task.php:172
 #: plus/chronos/templates/edit_task.php:187
 msgid "Delete"
@@ -2514,7 +2515,7 @@ msgstr ""
 
 #: admin/views/template_rm_footer.php:25
 #: admin/views/template_rm_form_upload.php:26
-#: blocks/class-reg-magic-block.php:126 includes/class_rm_ui_strings.php:1762
+#: blocks/class-reg-magic-block.php:125 includes/class_rm_ui_strings.php:1762
 msgid "RegistrationMagic"
 msgstr ""
 
@@ -2573,17 +2574,17 @@ msgstr ""
 msgid "See Quick Links"
 msgstr ""
 
-#: admin/views/template_rm_footer.php:101
+#: admin/views/template_rm_footer.php:101 admin/views/template_rm_footer.php:106
 #: admin/views/template_rm_formflow_main.php:123
 msgid "Have a question?"
 msgstr ""
 
-#: admin/views/template_rm_footer.php:103
+#: admin/views/template_rm_footer.php:108
 #: admin/views/template_rm_formflow_main.php:125
 msgid "Reach out to the RegistrationMagic Community for help "
 msgstr ""
 
-#: admin/views/template_rm_footer.php:103
+#: admin/views/template_rm_footer.php:108
 #: admin/views/template_rm_form_settings.php:121
 #: admin/views/template_rm_formflow_main.php:125
 msgid "here"
@@ -2731,7 +2732,7 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:50
 #: admin/views/template_rm_form_manager.php:85
 #: admin/views/template_rm_submissions_manager.php:65
-#: admin/views/template_rm_user_manager.php:117
+#: admin/views/template_rm_user_manager.php:98
 msgid "Results per page"
 msgstr ""
 
@@ -2772,6 +2773,7 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:72
 #: admin/views/template_rm_options_general.php:96
 #: admin/views/template_rm_reports_submissions.php:59
+#: admin/views/template_rm_user_manager.php:123
 #: admin/views/widgets/subcountv.php:30 includes/class_rm_ui_strings.php:1380
 msgid "All"
 msgstr ""
@@ -2793,8 +2795,8 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:507
 #: admin/views/template_rm_submissions_manager.php:81
 #: admin/views/template_rm_submissions_manager.php:555
-#: admin/views/template_rm_user_manager.php:152
-#: admin/views/template_rm_user_manager.php:581
+#: admin/views/template_rm_user_manager.php:132
+#: admin/views/template_rm_user_manager.php:561
 msgid "Select bulk action"
 msgstr ""
 
@@ -2802,8 +2804,8 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:509
 #: admin/views/template_rm_submissions_manager.php:83
 #: admin/views/template_rm_submissions_manager.php:557
-#: admin/views/template_rm_user_manager.php:154
-#: admin/views/template_rm_user_manager.php:583
+#: admin/views/template_rm_user_manager.php:134
+#: admin/views/template_rm_user_manager.php:563
 msgid "Bulk actions"
 msgstr ""
 
@@ -2830,8 +2832,8 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:529
 #: admin/views/template_rm_submissions_manager.php:144
 #: admin/views/template_rm_submissions_manager.php:569
-#: admin/views/template_rm_user_manager.php:202
-#: admin/views/template_rm_user_manager.php:606
+#: admin/views/template_rm_user_manager.php:182
+#: admin/views/template_rm_user_manager.php:586
 #, php-format
 msgid "%s items"
 msgstr ""
@@ -2884,8 +2886,8 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:338
 #: admin/views/template_rm_form_manager.php:465
 #: admin/views/template_rm_formcard_menu.php:42
-#: admin/views/template_rm_user_manager.php:253
-#: admin/views/template_rm_user_manager.php:442 blocks/index.js:235
+#: admin/views/template_rm_user_manager.php:233
+#: admin/views/template_rm_user_manager.php:422 blocks/index.js:236
 #: includes/class_rm_ui_strings.php:494 includes/class_rm_ui_strings.php:4407
 #: includes/class_rm_utilities.php:467
 msgid "Submissions"
@@ -3865,8 +3867,8 @@ msgstr ""
 #: admin/views/template_rm_form_setup.php:128
 #: admin/views/template_rm_login_advanced.php:239
 #: admin/views/template_rm_login_analytics.php:209
-#: admin/views/template_rm_user_manager.php:562
-#: admin/views/template_rm_user_manager.php:779
+#: admin/views/template_rm_user_manager.php:542
+#: admin/views/template_rm_user_manager.php:759
 #: admin/views/template_rm_user_view.php:361
 #: admin/views/template_rm_user_view.php:386
 #: includes/class_rm_ui_strings.php:1401
@@ -3960,7 +3962,7 @@ msgstr ""
 #: admin/views/template_rm_form_setup.php:161
 #: admin/views/template_rm_login_advanced.php:234
 #: admin/views/template_rm_login_analytics.php:204
-#: admin/views/template_rm_user_manager.php:547
+#: admin/views/template_rm_user_manager.php:527
 #: admin/views/template_rm_user_view.php:354
 #: includes/class_rm_ui_strings.php:428 includes/class_rm_ui_strings.php:3344
 #: includes/class_rm_ui_strings.php:4706
@@ -4915,9 +4917,9 @@ msgstr ""
 #: admin/views/template_rm_license.php:268
 #: admin/views/template_rm_license.php:274
 #: admin/views/template_rm_license.php:280
-#: admin/views/template_rm_user_manager.php:155
-#: admin/views/template_rm_user_manager.php:313
-#: admin/views/template_rm_user_manager.php:584
+#: admin/views/template_rm_user_manager.php:135
+#: admin/views/template_rm_user_manager.php:293
+#: admin/views/template_rm_user_manager.php:564
 #: includes/class_rm_licensing.php:136 includes/class_rm_licensing.php:141
 #: includes/class_rm_licensing.php:147 includes/class_rm_licensing.php:152
 #: includes/class_rm_licensing.php:159 includes/class_rm_ui_strings.php:767
@@ -5062,8 +5064,8 @@ msgstr ""
 #: admin/views/template_rm_login_advanced.php:230
 #: admin/views/template_rm_login_analytics.php:125
 #: admin/views/template_rm_login_analytics.php:200
-#: admin/views/template_rm_user_manager.php:328
-#: admin/views/template_rm_user_manager.php:525
+#: admin/views/template_rm_user_manager.php:308
+#: admin/views/template_rm_user_manager.php:505
 #: plus/chronos/templates/edit_task.php:374
 msgid "Send Email"
 msgstr ""
@@ -5083,7 +5085,7 @@ msgstr ""
 #: admin/views/template_rm_login_analytics.php:156
 #: admin/views/template_rm_reports_submissions.php:92
 #: admin/views/template_rm_submissions_manager.php:247
-#: admin/views/template_rm_user_manager.php:304
+#: admin/views/template_rm_user_manager.php:284
 #: includes/class_rm_ui_strings.php:788 includes/class_rm_ui_strings.php:4640
 #: includes/class_rm_ui_strings.php:4718
 msgid "View"
@@ -5123,7 +5125,7 @@ msgstr ""
 
 #: admin/views/template_rm_login_advanced.php:233
 #: admin/views/template_rm_login_analytics.php:203
-#: admin/views/template_rm_user_manager.php:533
+#: admin/views/template_rm_user_manager.php:513
 #: includes/class_rm_ui_strings.php:3341
 msgid "To"
 msgstr ""
@@ -5144,7 +5146,7 @@ msgstr ""
 
 #: admin/views/template_rm_login_advanced.php:235
 #: admin/views/template_rm_login_analytics.php:205
-#: admin/views/template_rm_user_manager.php:554
+#: admin/views/template_rm_user_manager.php:534
 #: admin/views/template_rm_user_view.php:357
 msgid "Message"
 msgstr ""
@@ -6664,8 +6666,8 @@ msgid "Date"
 msgstr ""
 
 #: admin/views/template_rm_payments_view.php:281
-#: admin/views/template_rm_user_manager.php:243
-#: admin/views/template_rm_user_manager.php:432
+#: admin/views/template_rm_user_manager.php:223
+#: admin/views/template_rm_user_manager.php:412
 msgid "User"
 msgstr ""
 
@@ -7686,8 +7688,8 @@ msgstr ""
 msgid "Form Submissions Report"
 msgstr ""
 
-#: admin/views/template_rm_reports_submissions.php:58 blocks/index.js:205
-#: blocks/index.js:380 includes/class_rm_ui_strings.php:4452
+#: admin/views/template_rm_reports_submissions.php:58 blocks/index.js:206
+#: blocks/index.js:381 includes/class_rm_ui_strings.php:4452
 msgid "Select Form"
 msgstr ""
 
@@ -7725,13 +7727,13 @@ msgstr ""
 
 #: admin/views/template_rm_submissions_manager.php:97
 #: admin/views/template_rm_submissions_manager.php:108
-#: admin/views/template_rm_user_manager.php:178
+#: admin/views/template_rm_user_manager.php:158
 msgid "All Dates"
 msgstr ""
 
 #: admin/views/template_rm_submissions_manager.php:121
 #: admin/views/template_rm_submissions_manager.php:742
-#: admin/views/template_rm_user_manager.php:196
+#: admin/views/template_rm_user_manager.php:176
 msgid "Filter"
 msgstr ""
 
@@ -8124,140 +8126,149 @@ msgstr ""
 msgid "RegistrationMagic Submissions"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:109 blocks/index.js:323
+#: admin/views/template_rm_user_manager.php:90 blocks/index.js:324
 #: includes/class_rm_ui_strings.php:1795
 msgid "Users"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:130
-#: admin/views/template_rm_user_manager.php:132
+#: admin/views/template_rm_user_manager.php:111
+#: admin/views/template_rm_user_manager.php:113
 msgid "Search Users"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:156
-#: admin/views/template_rm_user_manager.php:309
-#: admin/views/template_rm_user_manager.php:585
+#: admin/views/template_rm_user_manager.php:124
+#: includes/class_rm_ui_strings.php:1146
+msgid "Active"
+msgstr ""
+
+#: admin/views/template_rm_user_manager.php:125
+msgid "Inactive"
+msgstr ""
+
+#: admin/views/template_rm_user_manager.php:136
+#: admin/views/template_rm_user_manager.php:289
+#: admin/views/template_rm_user_manager.php:565
 #: includes/class_rm_ui_strings.php:770
 msgid "Deactivate"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:163
-#: admin/views/template_rm_user_manager.php:592
+#: admin/views/template_rm_user_manager.php:143
+#: admin/views/template_rm_user_manager.php:572
 msgid "Change role to..."
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:174
-#: admin/views/template_rm_user_manager.php:603
+#: admin/views/template_rm_user_manager.php:154
+#: admin/views/template_rm_user_manager.php:583
 #: includes/class_rm_ui_strings.php:2463
 msgid "Change"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:184
+#: admin/views/template_rm_user_manager.php:164
 msgid "All Roles"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:208
-#: admin/views/template_rm_user_manager.php:613
+#: admin/views/template_rm_user_manager.php:188
+#: admin/views/template_rm_user_manager.php:593
 msgid "First Page"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:209
-#: admin/views/template_rm_user_manager.php:614
+#: admin/views/template_rm_user_manager.php:189
+#: admin/views/template_rm_user_manager.php:594
 msgid "Previous Page"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:220
-#: admin/views/template_rm_user_manager.php:625
+#: admin/views/template_rm_user_manager.php:200
+#: admin/views/template_rm_user_manager.php:605
 msgid "Next Page"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:221
-#: admin/views/template_rm_user_manager.php:626
+#: admin/views/template_rm_user_manager.php:201
+#: admin/views/template_rm_user_manager.php:606
 msgid "Last Page"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:237
-#: admin/views/template_rm_user_manager.php:426
+#: admin/views/template_rm_user_manager.php:217
+#: admin/views/template_rm_user_manager.php:406
 msgid "Select All"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:251
-#: admin/views/template_rm_user_manager.php:440
+#: admin/views/template_rm_user_manager.php:231
+#: admin/views/template_rm_user_manager.php:420
 #: includes/class_rm_ui_strings.php:736 includes/class_rm_ui_strings.php:843
 #: includes/class_rm_ui_strings.php:3555 includes/class_rm_ui_strings.php:4480
 msgid "Name"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:252
-#: admin/views/template_rm_user_manager.php:441
+#: admin/views/template_rm_user_manager.php:232
+#: admin/views/template_rm_user_manager.php:421
 #: includes/class_rm_ui_strings.php:404
 msgid "Role"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:254
-#: admin/views/template_rm_user_manager.php:443
+#: admin/views/template_rm_user_manager.php:234
+#: admin/views/template_rm_user_manager.php:423
 msgid "Revenue"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:258
-#: admin/views/template_rm_user_manager.php:447
+#: admin/views/template_rm_user_manager.php:238
+#: admin/views/template_rm_user_manager.php:427
 msgid "Registered On"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:266
-#: admin/views/template_rm_user_manager.php:455
+#: admin/views/template_rm_user_manager.php:246
+#: admin/views/template_rm_user_manager.php:435
 msgid "Last login"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:300
+#: admin/views/template_rm_user_manager.php:280
 msgid "— Inactive"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:319
+#: admin/views/template_rm_user_manager.php:299
 #: includes/class_rm_ui_strings.php:4732
 msgid "Unblock Email"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:321
+#: admin/views/template_rm_user_manager.php:301
 #: includes/class_rm_ui_strings.php:2966
 msgid "Block Email"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:327
+#: admin/views/template_rm_user_manager.php:307
 msgid "Login Details"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:344
+#: admin/views/template_rm_user_manager.php:324
 #: admin/views/widgets/imagev.php:55 includes/class_rm_ui_strings.php:1101
 msgid "None"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:416
+#: admin/views/template_rm_user_manager.php:396
 msgid "No User Found."
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:472
+#: admin/views/template_rm_user_manager.php:452
 msgid "Delete Users"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:486
+#: admin/views/template_rm_user_manager.php:466
 msgid "Delete all content"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:491
+#: admin/views/template_rm_user_manager.php:471
 msgid "Attribute all content to:"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:507
+#: admin/views/template_rm_user_manager.php:487
 msgid "Confirm Deletion"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:804
+#: admin/views/template_rm_user_manager.php:784
 #: admin/views/template_rm_user_view.php:398
 msgid "Sending..."
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:813
+#: admin/views/template_rm_user_manager.php:793
 #: admin/views/template_rm_user_view.php:405
 msgid "Email has been sent successfully."
 msgstr ""
@@ -8355,27 +8366,27 @@ msgstr ""
 msgid "Geocode was not successful for the following reason: "
 msgstr ""
 
-#: blocks/class-reg-magic-block.php:137
+#: blocks/class-reg-magic-block.php:136
 msgid "OMG you can not view private data."
 msgstr ""
 
-#: blocks/class-reg-magic-block.php:297
+#: blocks/class-reg-magic-block.php:296
 msgid "Please Select Form"
 msgstr ""
 
-#: blocks/index.js:148
+#: blocks/index.js:149
 msgid "Registration Form"
 msgstr ""
 
-#: blocks/index.js:206 blocks/index.js:381
+#: blocks/index.js:207 blocks/index.js:382
 msgid "Choose Form that need to show."
 msgstr ""
 
-#: blocks/index.js:387
+#: blocks/index.js:388
 msgid "Select Timrange"
 msgstr ""
 
-#: blocks/index.js:388
+#: blocks/index.js:389
 msgid "Choose timerange to dislay users."
 msgstr ""
 
@@ -12539,10 +12550,6 @@ msgstr ""
 msgid "Specific Period"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:1146
-msgid "Active"
-msgstr ""
-
 #: includes/class_rm_ui_strings.php:1152
 msgid "Register As"
 msgstr ""
@@ -13630,7 +13637,7 @@ msgstr ""
 msgid "Registrant"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:1855 public/views/template_rm_login.php:226
+#: includes/class_rm_ui_strings.php:1855 public/views/template_rm_login.php:227
 msgid "Lost your password?"
 msgstr ""
 
@@ -13797,8 +13804,8 @@ msgstr ""
 
 #: includes/class_rm_ui_strings.php:1967
 msgid ""
-"<span class='rm-newsletter-button'><a href='javascript:void(0)' "
-"onclick='handle_newsletter_subscription_click(\""
+"Click here</a></span> to keep up with breakthroughs and innovations we are "
+"bringing to WordPress registration system."
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1973
@@ -19769,10 +19776,10 @@ msgstr ""
 msgid "Monthly"
 msgstr ""
 
-#: services/class_rm_user_services.php:578
+#: services/class_rm_user_services.php:575
 msgid "Sign in with Facebook"
 msgstr ""
 
-#: services/class_rm_user_services.php:905
+#: services/class_rm_user_services.php:902
 msgid "Request denied"
 msgstr ""

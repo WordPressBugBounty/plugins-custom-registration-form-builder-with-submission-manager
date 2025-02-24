@@ -44,65 +44,46 @@ if ($sorting == 'oldest') {
     $new_date_sorting = 'latest';
 }
 /* Sorting */
+$rm_status = isset($_GET['rm_status']) ? sanitize_text_field($_GET['rm_status']) : 'all';
+if(!in_array($rm_status, array('all', 'active', 'pending'))) {
+    $rm_status = 'all';
+}
 
-    $rm_status = isset($_GET['rm_status']) ? sanitize_key($_GET['rm_status']) : 'all';
-    if(!in_array($rm_status, array('all', 'active', 'pending'))){
-    	$rm_status = 'all';
-    }
-    $all_active_users_query = new WP_User_Query(
-                            array(
-                                'fields'=>'ID',
-                                'meta_query' => array(
-                                    'relation' => 'OR',
-                                    array(
-                                        'key' => 'rm_user_status',
-                                        'value' => '1',
-                                        'compare' => '!='
-                                    ),
-                                    array(
-                                        'key' => 'rm_user_status',
-                                        'value' => '1',
-                                        'compare' => 'NOT EXISTS'
-                                    )
-                                )
-                            )
+$all_active_users_query = new WP_User_Query(
+    array(
+        'fields'=>'ID',
+        'meta_query' => array(
+            array(
+                'key' => 'rm_user_status',
+                'value' => '1',
+                'compare' => '!='
+            ),
+        )
+    )
+);
+$all_active_users = $all_active_users_query->get_total();
+$all_deactive_users_query = new WP_User_Query(
+    array(
+        'fields'=>'ID',
+        'meta_query' => array(
+            array(
+                'key' => 'rm_user_status',
+                'value' => '1',
+                'compare' => '='
+            )
+        )
+    )
+);
+$all_deactive_users = $all_deactive_users_query->get_total();
 
-    );
-    $all_active_users = call_user_func(array($all_active_users_query, 'get_total'));
-    //$all_active_users = $all_active_users_query->total_users;
-    //get_user_count
-    $all_deactive_users = count(get_users(
-                    array('meta_query' => array(
-                            array(
-                                'key' => 'rm_user_status',
-                                'value' => '1',
-                                'compare' => '='
-                            )
-                        ))
-    ));
-    $all_deactive_users_query = new WP_User_Query(
-                            
-                            array(
-                                'fields'=>'ID',
-                                'meta_query' => array(
-                                    'relation' => 'OR',
-                                    array(
-                                        'key' => 'rm_user_status',
-                                        'value' => '1',
-                                        'compare' => '='
-                                    )
-                                )
-                            )
+global $wpdb;
+$all_user_count = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->users}");
 
-    );
-    $all_deactive_users = call_user_func(array($all_deactive_users_query, 'get_total'));
-    
-    global $wp_roles;
-    $all_roles = $wp_roles->roles;
-    $user_ids = array();
-    ?>
+global $wp_roles;
+$all_roles = $wp_roles->roles;
+$user_ids = array();
+?>
     <!-----Operationsbar Starts----->
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <div class="wrap">
         <div class="rmagic rmagic-wide rm-user-manager">
@@ -139,10 +120,9 @@ if ($sorting == 'oldest') {
                     <input type="hidden" name="rm_slug" value="" id="rm_slug_input_field"/>
                     <input type="hidden" name="page" value="rm_user_manage"/>
                     <input type="hidden" name="rm_sort" value="<?php echo isset($_GET['rm_sort']) && in_array($_GET['rm_sort'], array('latest','oldest','0toz','zto0')) ? sanitize_text_field($_GET['rm_sort']) : 'latest';?>"/>
-                    <li class="all"><a href="?page=rm_user_manage" class="<?php if ($rm_status == 'all') { echo 'current';} ?>" aria-current="page">All <span class="count">(<?php echo get_user_count(); ?>)</span></a> |</li>
-
-                    <li class="active"><a href="?page=rm_user_manage&rm_status=active" class="<?php if ($rm_status == 'active') { echo 'current';} ?>">Active <span class="count">(<?php echo $all_active_users; ?>)</span></a> |</li>
-                    <li class="pending"><a href="?page=rm_user_manage&rm_status=pending" class="<?php if ($rm_status == 'pending') { echo 'current';} ?>">Inactive <span class="count">(<?php echo $all_deactive_users; ?>)</span></a></li>
+                    <li class="all"><a href="?page=rm_user_manage" class="<?php if ($rm_status == 'all') { echo 'current';} ?>" aria-current="page"><?php esc_html_e('All','custom-registration-form-builder-with-submission-manager'); ?> <span class="count">(<?php echo absint($all_user_count); ?>)</span></a> |</li>
+                    <li class="active"><a href="?page=rm_user_manage&rm_status=active" class="<?php if ($rm_status == 'active') { echo 'current';} ?>"><?php esc_html_e('Active','custom-registration-form-builder-with-submission-manager'); ?> <span class="count">(<?php echo absint($all_active_users); ?>)</span></a> |</li>
+                    <li class="pending"><a href="?page=rm_user_manage&rm_status=pending" class="<?php if ($rm_status == 'pending') { echo 'current';} ?>"><?php esc_html_e('Inactive','custom-registration-form-builder-with-submission-manager'); ?> <span class="count">(<?php echo absint($all_deactive_users); ?>)</span></a></li>
                 </ul>
              
 

@@ -3,16 +3,15 @@
 /**
  * The Gutenberg Block functionality of the plugin.
  *
- * @link       https://profilegrid.co
+ * @link       https://registrationmagic.com
  * @since      1.0.0
  *
- * @package    Profile_Magic
- * @subpackage Profile_Magic/block
+ * @package    RegistrationMagic
+ * @subpackage RegistrationMagic/block
  */
 class Reg_Magic_Block {
 
-    private $profile_magic;
-    private $version;
+    private $version = RM_PLUGIN_VERSION;
 
     public function enqueue_scripts() {
         $index_js = 'index.js';
@@ -175,7 +174,7 @@ class Reg_Magic_Block {
 
     public function reg_magic_block_register() {
         global $pagenow;
-
+        
         // Skip block registration if Gutenberg is not enabled/merged.
         if (!function_exists('register_block_type')) {
             return;
