@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, WooCommerce registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 6.0.3.9
+Stable tag: 6.0.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -398,6 +398,14 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.0.4.0: March 07, 2025 =
+* New: Launching Digital Signature form field. (Premium Only)
+* New: Option added to search submissions by unique token. (Premium Only)
+* New: Options added to edit Login Form email subjects.
+* Updated: Field conditions will now apply on "Rich Text" display field as well.
+* Fixed: Field conditions not working properly with the Address field.
+* Minor bug fixes & UI improvements.
 
 = 6.0.3.9: February 22, 2025 =
 * Minor bug fixes & UI improvements.
@@ -1468,6 +1476,14 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * New: Aweber Integration.
 
 == Upgrade Notice ==
+
+= 6.0.4.0: March 07, 2025 =
+* New: Launching Digital Signature form field. (Premium Only)
+* New: Option added to search submissions by unique token. (Premium Only)
+* New: Options added to edit Login Form email subjects.
+* Updated: Field conditions will now apply on "Rich Text" display field as well.
+* Fixed: Field conditions not working properly with the Address field.
+* Minor bug fixes & UI improvements.
 
 = 6.0.3.9: February 22, 2025 =
 * Minor bug fixes & UI improvements.

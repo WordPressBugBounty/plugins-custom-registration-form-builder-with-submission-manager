@@ -433,6 +433,10 @@ ul#rmagic-progressbar li .rm-form-page-name {
     z-index: 99999;
 }
 
+.rmform-ui.rmform-custom-form[data-style=label_left] .rmform-note{
+    width: auto;
+}
+
 .rmformui .rmform-note:empty{
     display: none !important;
 }

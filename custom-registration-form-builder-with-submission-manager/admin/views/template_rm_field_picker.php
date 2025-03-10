@@ -530,7 +530,26 @@ if (!defined('WPINC')) {
 
                        </div>
                     </a>
-        </div>   
+        </div>
+        <?php if(defined('REGMAGIC_ADDON')) { ?>
+            <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_DigitalSignature")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links rm-premium-field-active" onclick="add_new_field_to_page('DigitalSign')">
+                  <?php } else { ?>
+                  <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_DigitalSignature")); ?>" data-category="rm_premium_fields_tab" class="rm_button_like_links rm-premium-field">
+                    <?php } ?>
+                    <a class="rm_field_deactivated" href="javascript:void(0)">
+                        <span class="rm-add-fields-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                                <path d="M400-160q0-40 28.5-68.5T480-256q40 0 68.5 28.5T577-160q0 40-28.5 68.5T480-64q-40 0-68.5-28.5T400-160Zm100-108q-11 0-18.5 7.5T480-160q0-11 7.5-18.5T506-186q11 0 18.5 7.5T532-160q0 11-7.5 18.5T506-134ZM560-112q11 0 18.5 7.5T586-96q0 11-7.5 18.5T560-70q-11 0-18.5-7.5T534-96q0-11 7.5-18.5T560-112ZM480-560q70 0 119.5 49.5T649-391q20 32 32 69.5T688-152q0 46-16.5 89.5t-46.5 73.5q-22.5 22.5-49.5 34.5t-61.5 12q-34 0-63-13t-51-38q-25-32-41.5-71T402-411q9-31 24-58t35.5-49q30.5-29.5 69.5-49T480-560Z"></path>
+                            </svg>
+                        </span>
+                        <div class="rm-add-fields-text-wrap">
+                            <div class="rm-add-fields-text"><?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_TYPE_DIGITALSIGNATURE")); ?></div>
+                            <div class="rm-add-fields-subtext"><?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_DigitalSignature")); ?></div>
+                             <div class="rm-premium-tag"><span><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368"><rect fill="none" height="24" width="24"/><path d="M9.68,13.69L12,11.93l2.31,1.76l-0.88-2.85L15.75,9h-2.84L12,6.19L11.09,9H8.25l2.31,1.84L9.68,13.69z M20,10 c0-4.42-3.58-8-8-8s-8,3.58-8,8c0,2.03,0.76,3.87,2,5.28V23l6-2l6,2v-7.72C19.24,13.87,20,12.03,20,10z M12,4c3.31,0,6,2.69,6,6 s-2.69,6-6,6s-6-2.69-6-6S8.69,4,12,4z M12,19l-4,1.02v-3.1C9.18,17.6,10.54,18,12,18s2.82-0.4,4-1.08v3.1L12,19z"/></svg></span><?php esc_html_e('Premium', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+
+                        </div>
+                    </a>
+            </div>
                       
                       
             <?php endif; ?>

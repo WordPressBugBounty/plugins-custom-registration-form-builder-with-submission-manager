@@ -197,4 +197,30 @@ class RM_Attachment_Service extends RM_Services {
                 return $loop->post_count;
         }
     }
+    
+    public function save_base64_image( $base64_img, $title, $type='png' ) {
+
+        // Define private upload directory.
+        $upload_dir  = WP_CONTENT_DIR . '/uploads/registrationmagic/';
+        if ( ! file_exists( $upload_dir ) ) {
+            mkdir( $upload_dir, 0755, true );
+            //$htaccess_content = "Order Deny,Allow\nDeny from all";
+            //file_put_contents( $upload_dir . '.htaccess', $htaccess_content );
+        }
+
+        $img       = str_replace( 'data:image/'.$type.';base64,', '', $base64_img );
+        $img       = str_replace( ' ', '+', $img );
+        $decoded   = base64_decode( $img );
+        $filename  = $title.'.'.$type;
+        $hashed_filename = md5( $filename . microtime() ) . '_' . $filename;
+        $file_path = $upload_dir . $hashed_filename;
+        
+        // Save the image in the private directory.
+        if ( file_put_contents( $file_path, $decoded ) ) {
+            return $hashed_filename; // Return only filename (not URL) for security.
+        }
+
+        //return new WP_Error( 'upload_failed', 'Failed to save image.' );
+    }
+
 }

@@ -23,7 +23,7 @@ class RM_Submission_Filter extends RM_Filter {
         parent::__constuct($request,$service, $params, $default_param_values);
         
         $this->set_form($service);
-        if ((isset($this->params['rm_field_to_search']) && (int) $this->params['rm_field_to_search']) || isset($this->params['filter_tags'])) {
+        if ((isset($this->params['rm_field_to_search']) && !empty($this->params['rm_field_to_search'])) || isset($this->params['filter_tags'])) {
             $this->searched = true;
         } 
        

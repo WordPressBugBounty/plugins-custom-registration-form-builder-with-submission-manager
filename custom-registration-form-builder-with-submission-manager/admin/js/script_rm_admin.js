@@ -478,6 +478,7 @@
             case 'Timezone' :
             case 'Language' :
             case 'ESign':
+            case 'DigitalSign':
             case 'Image' :
             case 'PGAvatar' :
             case 'Rating' :

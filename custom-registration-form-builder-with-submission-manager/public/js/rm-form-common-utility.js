@@ -513,3 +513,21 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   
 });
+
+jQuery(document).ready(function(e){
+    if(jQuery('div.rm-sign-canvas').length){
+        var sign_fields = document.querySelectorAll(".rm-sign-canvas");
+        for (i=0; i < sign_fields.length; i++){
+            var canvas_id = sign_fields[i].getAttribute('id');
+            var hidden_field_id = jQuery('#'+canvas_id).closest('.rmform-field').find('.rm-form-hidden-signature').attr('id');
+            jQuery('#'+canvas_id).signature({syncField: '#'+hidden_field_id, syncFormat: 'PNG'}); 
+             
+        }
+        jQuery('.rm-sign-clear').click(function() { 
+                var canvas_id = jQuery(this).closest('.rmform-field').find('.rm-sign-canvas').attr('id');
+                var hidden_field_id = jQuery(this).closest('.rmform-field').find('.rm-form-hidden-signature').attr('id');
+                jQuery('#'+canvas_id).signature('clear');
+                jQuery('#'+hidden_field_id).val('');
+        });
+    }
+});

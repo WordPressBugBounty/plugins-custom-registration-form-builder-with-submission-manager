@@ -5442,8 +5442,11 @@ final class RM_Field_Factory_Revamp {
                 if(isset($old_value['country'])) {
                     $country_val = $old_value['country'];
                 }
-            } elseif (is_user_logged_in()) {
+            } elseif(is_user_logged_in()) {
                 $country_val = get_user_meta(get_current_user_id(), 'billing_country', true);
+            } elseif(function_exists('wc_get_base_location')) {
+                $wc_base_loc = wc_get_base_location();
+                $country_val = isset($wc_base_loc['country']) ? $wc_base_loc['country'] : "";
             }
             if (isset($field->field_options->field_wcb_country_req) && $field->field_options->field_wcb_country_req == 1){
                 $attributes['required'] = 'required';
@@ -5532,6 +5535,9 @@ final class RM_Field_Factory_Revamp {
                     }
                 } elseif (is_user_logged_in()) {
                     $country_val = get_user_meta(get_current_user_id(), 'billing_country', true);
+                } elseif(function_exists('wc_get_base_location')) {
+                    $wc_base_loc = wc_get_base_location();
+                    $country_val = isset($wc_base_loc['country']) ? $wc_base_loc['country'] : "";
                 }
                 if (isset($field->field_options->field_wcb_country_req) && $field->field_options->field_wcb_country_req == 1){
                     $attributes['required'] = 'required';
@@ -6239,6 +6245,9 @@ final class RM_Field_Factory_Revamp {
                 }
             } elseif (is_user_logged_in()) {
                 $country_val = get_user_meta(get_current_user_id(), 'shipping_country', true);
+            } elseif(function_exists('wc_get_base_location')) {
+                $wc_base_loc = wc_get_base_location();
+                $country_val = isset($wc_base_loc['country']) ? $wc_base_loc['country'] : "";
             }
             if (isset($field->field_options->field_wcs_country_req) && $field->field_options->field_wcs_country_req == 1){
                 $attributes['required'] = 'required';
@@ -6327,6 +6336,9 @@ final class RM_Field_Factory_Revamp {
                     }
                 } elseif (is_user_logged_in()) {
                     $country_val = get_user_meta(get_current_user_id(), 'shipping_country', true);
+                } elseif(function_exists('wc_get_base_location')) {
+                    $wc_base_loc = wc_get_base_location();
+                    $country_val = isset($wc_base_loc['country']) ? $wc_base_loc['country'] : "";
                 }
                 if (isset($field->field_options->field_wcs_country_req) && $field->field_options->field_wcs_country_req == 1){
                     $attributes['required'] = 'required';
@@ -6474,5 +6486,69 @@ final class RM_Field_Factory_Revamp {
     public function create_subcountv_field($field = null, $ex_sub_id = 0){
         $exp_str = RM_Utilities_Revamp::get_form_expiry_message($field->form_id);
         echo "<div class='rmrow rm_expiry_stat_container {$field->field_options->field_css_class}'>{$exp_str}</div>";
+    }
+    
+    public function create_DigitalSign_field($field = null) {
+        if(!defined('REGMAGIC_ADDON')) {
+            return;
+        }
+        $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
+        $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
+
+        $attributes = array(
+            'type' => 'text',
+            'name' => $field->field_type . '_' . $field->field_id,
+            'class' => 'rmform-control rm-form-hidden-signature',
+            'aria-describedby'=>'rm-note-'.$field->field_id,
+            'id' => $input_id,
+            'aria-labelledby' => $label_id
+        );
+        $multiple= get_option('rm_option_allow_multiple_file_uploads');
+        
+        if (isset($multiple) && $multiple == "yes") {
+            $attributes['name'] = $field->field_type . '_' . $field->field_id . '[]';
+            $attributes['multiple'] = 'multiple';
+        }
+        $main_label_attributes = array(
+            'for' => $input_id,
+            'id' => $label_id,
+            'class' => 'rmform-label'
+        );
+        // conditional attributes
+        $attributes = $this->conditional_attributes($attributes, $field);
+
+        $icon = isset($field->field_options->icon) && $field->field_options->icon->codepoint ? $this->field_icon($field->field_options->icon) : "";
+
+        $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
+
+        if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
+            $attributes['required'] = 'required';
+            $attributes['aria-required'] = 'true';
+
+            $astrick = get_option('rm_option_show_asterix');
+            if(isset($astrick) && $astrick == "yes"){
+                $label .= "<span class='rmform-req-symbol'>*</span>";
+            }
+        }
+        $label .= "</label>";
+        echo $label;
+        //echo "<input " . $this->print_attributes($attributes) . " >";
+        ?>
+        
+        <div id="<?php echo $input_id;?>-capture" class="rm-sign-canvas">
+            <div id="<?php echo $input_id;?>-clear" class="rm-sign-clear">
+            <span class="material-icons">close</span>
+        </div>
+        </div>
+        
+	
+        <?php
+        echo "<input " . $this->print_attributes($attributes) . " >";
+        
+        wp_enqueue_style("rm-signature-style", RM_BASE_URL . "public/css/jquery.signature.css");
+        //wp_enqueue_script('rm-jquery-touchpad');
+        //wp_enqueue_script('rm-jquery-signature');
+        wp_enqueue_script('rm-jquery-touchpad', RM_BASE_URL.'public/js/jquery.ui.touch-punch.js',['jquery', 'jquery-ui-core', 'jquery-ui-mouse']);
+        wp_enqueue_script('rm-jquery-signature', RM_BASE_URL.'public/js/jquery.signature.js', ['jquery', 'jquery-ui-core', 'jquery-ui-mouse'], RM_PLUGIN_VERSION, false);
     }
 }

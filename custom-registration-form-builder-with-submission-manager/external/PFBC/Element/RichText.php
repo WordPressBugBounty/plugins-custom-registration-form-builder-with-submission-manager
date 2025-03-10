@@ -49,4 +49,10 @@ class Element_RichText extends Element
             echo '</div>';
     }
 
+    public function add_condition(){
+        if(!is_null($this->_attributes["options"]) && isset($this->_attributes["options"]["data-cond-option"])) {
+            echo '<input type="hidden" class="'.$this->_attributes["options"]["class"].'" data-cond-option="'.$this->_attributes["options"]["data-cond-option"].'" data-cond-value="'.$this->_attributes["options"]["data-cond-value"].'" data-cond-operator="'.$this->_attributes["options"]["data-cond-operator"].'" data-cond-action="'.$this->_attributes["options"]["data-cond-action"].'">';
+        }
+    }
+
 }

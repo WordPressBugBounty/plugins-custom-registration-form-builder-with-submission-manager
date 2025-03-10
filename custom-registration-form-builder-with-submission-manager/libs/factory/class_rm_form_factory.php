@@ -134,6 +134,8 @@ class RM_Form_Factory
                             continue;
                         } else if($field_type=='pgavatar' && !class_exists( 'Profile_Magic' )){
                             continue;
+                        } else if($field_type == 'digitalsign'){
+                            continue;
                         }
 
                         if(isset($field_options->rm_widget) && $field_options->rm_widget==1){ 

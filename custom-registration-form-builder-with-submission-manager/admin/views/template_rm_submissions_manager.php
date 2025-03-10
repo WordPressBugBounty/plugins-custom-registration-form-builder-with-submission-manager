@@ -476,6 +476,18 @@ if(!empty($data->filter->filters['rm_dateupto'])) {
                                                                                             }
                                                                                             elseif ($sub_data[absint($form_field->field_id)]->type == 'Radio' || $sub_data[absint($form_field->field_id)]->type == 'Select') {   
                                                                                                 echo esc_html(RM_Utilities::get_lable_for_option($form_field->field_id, $sub_val));
+                                                                                            }elseif($sub_data[absint($form_field->field_id)]->type  == 'DigitalSign'){
+                                                                                                if(!empty($sub_val)){
+                                                                                                    $sign_url  = RM_BASE_URL . 'plus/signature/signature-access.php?file='.$sub_val;
+                                                
+                                                                                                    ?>
+                                                                                                        <div class="rm-submission-attachment">
+                                                                                                            <img src="<?php echo esc_url($sign_url);?>" style="max-width:100px;width:100px;">
+                                                                                                            <div class="rm-submission-attachment-field"><a href="<?php echo esc_url($sign_url); ?>"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_DOWNLOAD')); ?></a></div>
+                                                                                                        </div>
+
+                                                                                                    <?php
+                                                                                                }
                                                                                             }
                                                                                             else
                                                                                             {
@@ -641,6 +653,9 @@ if(!empty($data->filter->filters['rm_dateupto'])) {
                                         <?php }
                                     }
                                     ?>
+                                    <?php if(defined('REGMAGIC_ADDON') && isset($data->form) && $data->form->form_options->form_is_unique_token) { ?>
+                                        <option value="token" <?php if ($data->filter->filters['rm_field_to_search'] === "token") echo esc_attr("selected"); ?>><?php esc_html_e('Unique Token', 'custom-registration-form-builder-with-submission-manager'); ?></option>
+                                    <?php } ?>
                                      </select>
                                       <div style="margin-top: -1px;">
                                         <input type="text" name="rm_value_to_search" class="rm-form-control rm-rounded-top-left-0 rm-rounded-top-right-0" value="<?php echo esc_attr($data->filter->filters['rm_value_to_search']); ?>">

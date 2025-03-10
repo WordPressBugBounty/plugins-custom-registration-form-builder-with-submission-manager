@@ -23,6 +23,10 @@ class RM_Submission_Controller
         
         $filter = new RM_Submission_Filter($request,$service);
         $form_id = $filter->get_form();
+        if(!empty($form_id)) {
+            $data->form = new RM_Forms();
+            $data->form->load_from_db($form_id);
+        }
         $data->forms = RM_Utilities::get_forms_dropdown($service);
         $data->fields = empty($form_id) ? array() : $service->get_all_form_fields($form_id);
         $data->form_id = $form_id;

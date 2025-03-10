@@ -340,11 +340,16 @@ class RM_Login_Manage_Controller {
         $data= new stdClass();
         if($this->mv_handler->validateForm("login-email-temp")) {
             $params= array();
-            $params['failed_login_err']= $request->req['failed_login_err'];
-            $params['otp_message']= $request->req['otp_message'];
-            $params['pass_reset']= $request->req['pass_reset'];
-            $params['failed_login_err_admin']= $request->req['failed_login_err_admin'];
-            $params['ban_message_admin']= $request->req['ban_message_admin'];
+            $params['failed_login_err_sub'] = $request->req['failed_login_err_sub'];
+            $params['failed_login_err'] = $request->req['failed_login_err'];
+            $params['otp_message_sub'] = $request->req['otp_message_sub'];
+            $params['otp_message'] = $request->req['otp_message'];
+            $params['pass_reset_sub'] = $request->req['pass_reset_sub'];
+            $params['pass_reset'] = $request->req['pass_reset'];
+            $params['failed_login_err_admin_sub'] = $request->req['failed_login_err_admin_sub'];
+            $params['failed_login_err_admin'] = $request->req['failed_login_err_admin'];
+            $params['ban_message_admin_sub'] = $request->req['ban_message_admin_sub'];
+            $params['ban_message_admin'] = $request->req['ban_message_admin'];
             $service->update_template_options($params);
             RM_Utilities::redirect(admin_url('/admin.php?page=rm_login_sett_manage'));
         }

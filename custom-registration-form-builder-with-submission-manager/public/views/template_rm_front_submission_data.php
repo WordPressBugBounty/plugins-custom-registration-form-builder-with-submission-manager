@@ -235,6 +235,18 @@ if ($data->form_type_status == "1" && !empty($data->user)) {
                                 echo '<div class="rateit" id="rateit5" data-rateit-min="0" data-rateit-max="5" data-rateit-value="' . wp_kses_post((string)$sub_data) . '" data-rateit-ispreset="true" data-rateit-readonly="true"></div>';
                             } elseif ($sub->type == 'Radio' || $sub->type == 'Select') {   
                                 echo RM_Utilities::get_lable_for_option($field_id, $sub_data);                                
+                            } elseif($sub->type == 'DigitalSign'){
+                                if(!empty($sub_data)){
+                                    $sign_url  = RM_BASE_URL . 'plus/signature/signature-access.php?file='.$sub_data;
+                                                
+                                    ?>
+                                    <div class="rm-submission-attachment">
+                                        <img src="<?php echo esc_url($sign_url);?>" style="max-width:100px;">
+                                        <div class="rm-submission-attachment-field"><a href="<?php echo esc_url($sign_url); ?>"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_DOWNLOAD')); ?></a></div>
+                                    </div>
+
+                                                <?php
+                                            }
                             } else {
                                 echo wp_kses_post((string)$sub_data);
                             }

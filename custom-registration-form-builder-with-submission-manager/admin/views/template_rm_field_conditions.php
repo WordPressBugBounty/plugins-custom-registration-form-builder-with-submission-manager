@@ -3,7 +3,7 @@ if (!defined('WPINC')) {
     die('Closed');
 }
 if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_rm_field_conditions.php'); else {
-$excluded_fields= array('HTMLP','HTMLH','File','Image','Repeatable','Price','Multi-Dropdown','Time','Divider','Spacing','Shortcode','Rating','Map','Address','RichText','Timer',"Link","YouTubeV","Facebook","Twitter","Instagram","Linked","VKontacte","Skype","SoundCloud","Language");
+$excluded_fields= array('HTMLP','HTMLH','File','Image','Repeatable','Price','Multi-Dropdown','Time','Divider','Spacing','Shortcode','Rating','Map','Address','RichText','Timer',"Link","YouTubeV","Facebook","Twitter","Instagram","Linked","VKontacte","Skype","SoundCloud","Language", 'DigitalSign');
 //$fields_dd_options = addslashes((string)RM_Utilities::get_fields_dropdown(array('form_id' => $data->form_id,'ex_by_type'=>$excluded_fields)));
 wp_enqueue_style('rm_jquery_ui_css', RM_BASE_URL . 'admin/css/jquery-ui.min.css'); 
 ?>

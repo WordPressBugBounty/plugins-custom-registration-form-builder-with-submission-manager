@@ -385,14 +385,14 @@
      if (pass && !skip) {
         if(action == 'hide'){
             $section.addClass('ignore');
-             $section.closest(".rmform-row").addClass('rm-hidden-row');
+             $section.parents(".rmform-row").addClass('rm-hidden-row');
             //$section.val('');
-            $section.closest('.rmform-row :input, .rmform-field :input').each(function(){
+            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
                 if($(this).attr('initial-state')){
                     $(this).removeAttr('required');
                 }
             });
-            $section.closest('.rmform-row, .rmform-field').slideUp();
+            $section.parents('.rmform-row, .rmform-field').slideUp();
              if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
                  $section.parents('.rmform-row').css('margin-bottom',0);
              }
@@ -402,8 +402,8 @@
         }
         else if(action == 'disable'){
             $section.removeClass('ignore');
-            //$section.closest('.rmform-row, .rmform-field').slideDown();
-            $section.closest(".rmform-row").removeClass('rm-hidden-row');
+            //$section.parents('.rmform-row, .rmform-field').slideDown();
+            $section.parents(".rmform-row").removeClass('rm-hidden-row');
             if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
                 var bmargin = $section.parents('.rmform-row').data('bmargin');
                 if(bmargin > 0)
@@ -412,21 +412,21 @@
                     $section.parents('.rmform-row').css('margin-bottom',14);
             }
             $section.prop('disabled',true);
-            $section.closest('.rmform-row :input, .rmform-field :input').each(function(){
+            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
                 if($(this).attr('initial-state')){
                     $(this).removeAttr('required');
                 }
             });
             $.fn.updateConditionalFieldsIds(subject.attr('name'),1);
-            $section.closest('.rmform-row :input, .rmform-field :input').each(function(){
+            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
                 if($(this).prop('initial-state')){
                     $(this).removeAttr('required');
                 }
             });
         }else {
             $section.removeClass('ignore');
-            $section.closest(".rmform-row").removeClass('rm-hidden-row');
-            $section.closest('.rmform-row, .rmform-field').slideDown();
+            $section.parents(".rmform-row").removeClass('rm-hidden-row');
+            $section.parents('.rmform-row, .rmform-field').slideDown();
             if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
                 var bmargin = $section.parents('.rmform-row').data('bmargin');
                 if(bmargin > 0)
@@ -435,13 +435,13 @@
                     $section.parents('.rmform-row').css('margin-bottom',14);
             }
             $section.prop('disabled',false);
-            $section.closest('.rmform-row :input, .rmform-field :input').each(function(){
+            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
                 if($(this).attr('initial-state')){
                     $(this).attr('required','required');
                 }
             });
             $.fn.updateConditionalFieldsIds(subject.attr('name'),1);
-            $section.closest('.rmform-row :input, .rmform-field :input').each(function(){
+            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
                 if($(this).prop('initial-state')){
                     $(this).attr('required');
                 }
@@ -452,8 +452,8 @@
         
         if(action == 'hide'){
             $section.removeClass('ignore');
-            $section.closest(".rmform-row").removeClass('rm-hidden-row');
-            $section.closest('.rmform-row, .rmform-field').slideDown();
+            $section.parents(".rmform-row").removeClass('rm-hidden-row');
+            $section.parents('.rmform-row, .rmform-field').slideDown();
             if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
                 var bmargin = $section.parents('.rmform-row').data('bmargin');
                 if(bmargin > 0)
@@ -462,26 +462,26 @@
                     $section.parents('.rmform-row').css('margin-bottom',14);
             }
             $section.prop('disabled',false);
-            $section.closest('.rmform-row :input, .rmform-field :input').each(function(){
+            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
                 if($(this).attr('initial-state')){
                     $(this).attr('required','required');
                 }
             });
             $.fn.updateConditionalFieldsIds(subject.attr('name'),1);
-            $section.closest('.rmform-row :input, .rmform-field :input').each(function(){
+            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
                 if($(this).prop('initial-state')){
                     $(this).attr('required');
                 }
             });
         } else if(action == 'disable'){
             $section.addClass('ignore');
-            $section.closest(".rmform-row").addClass('rm-hidden-row');
-            $section.closest('.rmform-row :input, .rmform-field :input').each(function(){
+            $section.parents(".rmform-row").addClass('rm-hidden-row');
+            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
                 if($(this).attr('initial-state')){
                     $(this).attr('required');
                 }
             });
-            //$section.closest('.rmform-row, .rmform-field').slideUp();
+            //$section.parents('.rmform-row, .rmform-field').slideUp();
             if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
                  $section.parents('.rmform-row').css('margin-bottom',0);
             }
@@ -489,14 +489,14 @@
             $.fn.updateConditionalFieldsIds(subject.attr('name'),0);
         }else{
             $section.addClass('ignore');
-            $section.closest(".rmform-row").addClass('rm-hidden-row');
+            $section.parents(".rmform-row").addClass('rm-hidden-row');
             //$section.val('');
-            $section.closest('.rmform-row :input, .rmform-field :input').each(function(){
+            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
                 if($(this).attr('initial-state')){
                     $(this).removeAttr('required');
                 }
             });
-            $section.closest('.rmform-row, .rmform-field').slideUp();
+            $section.parents('.rmform-row, .rmform-field').slideUp();
              if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
                  $section.parents('.rmform-row').css('margin-bottom',0);
              }
@@ -546,21 +546,21 @@
         // if setting was chosen, hide everything first...
         
         if(action == 'hide'){
-            $(this).closest('.rmform-row, .rmform-field').show();
+            $(this).parents('.rmform-row, .rmform-field').show();
             $(this).removeClass('ignore');
-             $(this).closest(".rmform-row").removeClass('rm-hidden-row');
+             $(this).parents(".rmform-row").removeClass('rm-hidden-row');
         }else if(action == 'disable'){
-            $(this).closest('.rmform-row, .rmform-field').show();
+            $(this).parents('.rmform-row, .rmform-field').show();
             $(this).addClass('ignore');
-            $(this).closest(".rmform-row").addClass('rm-hidden-row');
+            $(this).parents(".rmform-row").addClass('rm-hidden-row');
         }else{
-            $(this).closest('.rmform-row, .rmform-field').hide();
+            $(this).parents('.rmform-row, .rmform-field').hide();
             $(this).addClass('ignore');
-            $(this).closest(".rmform-row").addClass('rm-hidden-row');
+            $(this).parents(".rmform-row").addClass('rm-hidden-row');
         }
         // commented by devilal
         /*if (settings.hideJS) {
-          $(this).closest('.rmform-row, .rmform-field').hide();
+          $(this).parents('.rmform-row, .rmform-field').hide();
           $(this).addClass('ignore');
             //  $.fn.updateConditionalFieldsIds(subject.attr('name'),0);
 

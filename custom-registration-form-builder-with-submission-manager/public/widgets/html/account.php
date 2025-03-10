@@ -135,6 +135,17 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_PUBLIC_DIR . 'widgets/html/a
                                         elseif ($sub->type == 'Radio' || $sub->type == 'Select')
                                         {   
                                             echo wp_kses_post((string)RM_Utilities::get_lable_for_option($field_id, $meta));
+                                        }elseif($sub->type == 'DigitalSign'){
+                                            if(!empty($sub_data)){
+                                                $sign_url  = RM_BASE_URL . 'plus/signature/signature-access.php?file='.$sub_data;
+                                                
+                                                ?>
+                                                <div class="rm-submission-attachment">
+                                                    <img src="<?php echo esc_url($sign_url);?>" style="max-width:100px;">
+                                                    <div class="rm-submission-attachment-field"><a href="<?php echo esc_url($sign_url); ?>"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_DOWNLOAD')); ?></a></div>
+                                                </div>
+                                            <?php
+                                            }
                                         }
                                         else
                                         echo wp_kses_post((string)$meta);

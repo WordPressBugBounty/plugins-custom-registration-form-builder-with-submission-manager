@@ -1461,13 +1461,13 @@ class RM_UI_Strings {
                 return __('Registration Activity', 'custom-registration-form-builder-with-submission-manager');
 
             case 'MSG_OTP_SUCCESS':
-                return __("Success! an email with one time password (OTP) was sent to your email address.", 'custom-registration-form-builder-with-submission-manager');
+                return __("Success! an email with one-time password (OTP) was sent to your email address.", 'custom-registration-form-builder-with-submission-manager');
 
             case 'LABEL_OTP':
-                return __("One Time Password", 'custom-registration-form-builder-with-submission-manager');
+                return __("One-Time Password", 'custom-registration-form-builder-with-submission-manager');
 
             case 'OTP_MAIL':
-                return __("Your One Time Password is ", 'custom-registration-form-builder-with-submission-manager');
+                return __("Your One-Time Password is ", 'custom-registration-form-builder-with-submission-manager');
 
             case 'MSG_EMAIL_NOT_EXIST':
                 return __("Oops! We could not find this email address in our submissions database.", 'custom-registration-form-builder-with-submission-manager');
@@ -3936,7 +3936,6 @@ class RM_UI_Strings {
             
             case 'HELP_ADD_FORM_NU_EMAIL_SUB':
                 return __("Subject of the email to be sent to the newly created user.", 'custom-registration-form-builder-with-submission-manager');
-            
               
             case 'HELP_ADD_FORM_USER_ACTIVATED_SUB' :
                 return __("Subject of the email to be sent to the activated user.", 'custom-registration-form-builder-with-submission-manager');
@@ -3949,6 +3948,36 @@ class RM_UI_Strings {
                 
             case 'HELP_ADD_FORM_USER_PI_SUB' :
                 return __("Subject for the email with the invoice to be sent to the users.", 'custom-registration-form-builder-with-submission-manager');
+
+            case 'LABEL_FAILED_LOGIN_EMAIL_SUB' :
+                return __("Failed Login Attempt Email Subject", 'custom-registration-form-builder-with-submission-manager');
+
+            case 'LABEL_OTP_MESSAGE_EMAIL_SUB' :
+                return __("One-Time Password Email Subject", 'custom-registration-form-builder-with-submission-manager');
+
+            case 'LABEL_PASS_RESET_EMAIL_SUB' :
+                return __("Password Reset Email Subject", 'custom-registration-form-builder-with-submission-manager');
+
+            case 'LABEL_FAILED_LOGIN_ADMIN_EMAIL_SUB' :
+                return __("Failed Login Attempt Email Subject", 'custom-registration-form-builder-with-submission-manager');
+
+            case 'LABEL_BAN_MESSAGE_ADMIN_EMAIL_SUB' :
+                return __("IP Blocked Email Subject", 'custom-registration-form-builder-with-submission-manager');
+
+            case 'HELP_FAILED_LOGIN_EMAIL_SUB' :
+                return __("Set the subject for the email sent to users when a failed login attempt occurs.", 'custom-registration-form-builder-with-submission-manager');
+
+            case 'HELP_OTP_MESSAGE_EMAIL_SUB' :
+                return __("Set the subject for the email containing a one-time password sent to users.", 'custom-registration-form-builder-with-submission-manager');
+
+            case 'HELP_PASS_RESET_EMAIL_SUB' :
+                return __("Set the subject for the email containing a password reset link sent to users.", 'custom-registration-form-builder-with-submission-manager');
+
+            case 'HELP_FAILED_LOGIN_ADMIN_EMAIL_SUB' :
+                return __("Set the subject for the email sent to admins when a failed login attempt occurs.", 'custom-registration-form-builder-with-submission-manager');
+            
+            case 'HELP_BAN_MESSAGE_ADMIN_EMAIL_SUB' :
+                return __("Set the subject for the email sent to admins when an IP is blocked.", 'custom-registration-form-builder-with-submission-manager');
              
             case 'LABEL_UPLOAD_FORM_TEMPLATE':
                 return __('Upload Form Template','custom-registration-form-builder-with-submission-manager');  
@@ -4733,7 +4762,14 @@ class RM_UI_Strings {
             case 'LABEL_UNBLOCK_IP':
                 return __("Unblock IP", 'custom-registration-form-builder-with-submission-manager');
             case 'STATUS_ACTION_NOTE':
-                return __('Certain actions can be associated when applying Status to a submission. These actions are executed once, when the label is applied. Removing the label does not reverses these actions.', 'custom-registration-form-builder-with-submission-manager');    
+                return __('Certain actions can be associated when applying Status to a submission. These actions are executed once, when the label is applied. Removing the label does not reverses these actions.', 'custom-registration-form-builder-with-submission-manager');  
+            case 'FIELD_HELP_TEXT_DigitalSignature':    
+                return __('A field for capturing a digital signature using mouse or touchscreen.', 'custom-registration-form-builder-with-submission-manager');  
+            case 'FIELD_TYPE_DIGITALSIGNATURE':
+                return __("Digital Signature", 'custom-registration-form-builder-with-submission-manager');
+            case 'FIELD_HELP_TEXT_DigitalSign':
+                return __('A field for capturing a digital signature using mouse or touchscreen.', 'custom-registration-form-builder-with-submission-manager');
+
             default:
                 if(defined('REGMAGIC_ADDON'))
                     return RM_UI_Strings_Addon::get($identifier);

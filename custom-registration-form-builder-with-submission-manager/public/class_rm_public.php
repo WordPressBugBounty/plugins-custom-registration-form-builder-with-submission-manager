@@ -217,6 +217,9 @@ class RM_Public {
             wp_enqueue_script("rm_mask_script", RM_BASE_URL . "public/js/jquery.mask.min.js");
             wp_enqueue_script('rm_jquery_conditionalize');
         }
+        wp_register_script('rm-jquery-touchpad', RM_BASE_URL.'public/js/jquery.ui.touch-punch.js',array('jquery'));
+        wp_register_script('rm-jquery-signature', RM_BASE_URL.'public/js/jquery.signature.js', array('jquery'), RM_PLUGIN_VERSION, false);
+        
     }
 
     public function run_controller($attributes = null, $content = null, $shortcode = null) {

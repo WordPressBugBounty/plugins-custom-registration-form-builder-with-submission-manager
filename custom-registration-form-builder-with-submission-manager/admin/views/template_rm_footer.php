@@ -29,12 +29,12 @@ if(!empty($_GET['rm_form_id'])):
             <div class="rm-box-col-2 rm-text-center rm-mb-5">
                 <img src="<?php echo RM_IMG_URL . 'rm-premium-icon.png'; ?>" width="60px">
             </div>
-            <div class="rm-box-col-4">
+            <div class="rm-box-col-4 rm-px-0">
                 <div class="rm-d-flex rm-box-h-100 rm-align-items-center rm-flex-wrap rm-align-content ">
                     <div class="rm-fs-6 rm-text-dark rm-pb-2 rm-mb-2 rm-fw-bold"><?php esc_html_e("Unlock the most powerful version:", 'custom-registration-form-builder-with-submission-manager'); ?></div>
                     <ul class="rm-text-dark rm-p-0 rm-m-0 rm-mb-3">
-                        <li class="rm-di-flex rm-align-items-center"><span class="rm-mr-1 rm-lh-0"><img src="<?php echo RM_IMG_URL . 'rm-tick-icon.png'; ?>" width="14px" ></span><?php esc_html_e("Access all advanced options and payment gateways.", 'custom-registration-form-builder-with-submission-manager'); ?></li>
-                            <li class="rm-di-flex rm-align-items-center"><span class="rm-mr-1 rm-lh-0"><img src="<?php echo RM_IMG_URL . 'rm-tick-icon.png'; ?>" width="14px" ></span><?php esc_html_e("Even more powerful registration forms and login system.", 'custom-registration-form-builder-with-submission-manager'); ?></li>
+                        <li class="rm-di-flex rm-align-items-center"><span class="rm-mr-1 rm-lh-0"><img src="<?php echo RM_IMG_URL . 'rm-tick-icon.png'; ?>" width="14px" ></span><?php esc_html_e("Access all advanced options & payment gateways.", 'custom-registration-form-builder-with-submission-manager'); ?></li>
+                            <li class="rm-di-flex rm-align-items-center"><span class="rm-mr-1 rm-lh-0"><img src="<?php echo RM_IMG_URL . 'rm-tick-icon.png'; ?>" width="14px" ></span><?php esc_html_e("Even more powerful registration forms & login system.", 'custom-registration-form-builder-with-submission-manager'); ?></li>
                         <li class="rm-di-flex rm-align-items-center"><span class="rm-mr-1 rm-lh-0"><img src="<?php echo RM_IMG_URL . 'rm-tick-icon.png'; ?>" width="14px" ></span><?php esc_html_e("Even more powerful reporting and analysis features.", 'custom-registration-form-builder-with-submission-manager'); ?></li>
                        <!-- <li class="rm-di-flex rm-align-items-center rm-pb-0 rm-mb-0"><span class="rm-mr-1 rm-lh-0"><img src="<?php echo RM_IMG_URL . 'rm-tick-icon.png'; ?>" width="14px" ></span><?php esc_html_e("Even more integrations and payment gateways.", 'custom-registration-form-builder-with-submission-manager'); ?></li>-->
                     </ul>
@@ -47,7 +47,7 @@ if(!empty($_GET['rm_form_id'])):
                                 <?php esc_html_e("Upgrade Now!", 'custom-registration-form-builder-with-submission-manager'); ?>
                             </button>
                         </a>
-                        <div class="rm-text-small rm-text-muted"><?php esc_html_e("It takes less than a minute to upgrade.", 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                        <div class="rm-text-small rm-text-muted rm-pt-2"><?php esc_html_e("It takes less than a minute to upgrade.", 'custom-registration-form-builder-with-submission-manager'); ?></div>
                     </div>
                 </div>
         </div>

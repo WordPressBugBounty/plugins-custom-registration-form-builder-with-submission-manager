@@ -191,7 +191,15 @@ class RM_Login_Service{
             if(empty($options))
                 return array();
             
-            $options['pass_reset']= isset($options['pass_reset']) ? $options['pass_reset'] : '<div class="rm-password-request">Hello,<br><br>Someone has requested a password reset for the following account on {{site_name}}:<br><br>Username: {{username}}<br><br>If this was a mistake, ignore this email and nothing will happen.<br><br><a href="{{password_recovery_link}}">Click here to reset your password</a><br><br>If the above link does not works, you can also paste following code manually:<br><br><div class="rm-security-token">{{security_token}}</div><br>Regards.</div>';
+            $options['pass_reset'] = isset($options['pass_reset']) ? $options['pass_reset'] : '<div class="rm-password-request">Hello,<br><br>Someone has requested a password reset for the following account on {{site_name}}:<br><br>Username: {{username}}<br><br>If this was a mistake, ignore this email and nothing will happen.<br><br><a href="{{password_recovery_link}}">Click here to reset your password</a><br><br>If the above link does not works, you can also paste following code manually:<br><br><div class="rm-security-token">{{security_token}}</div><br>Regards.</div>';
+
+            // Setting email subjects
+            $options['failed_login_err_sub'] = isset($options['failed_login_err_sub']) ? $options['failed_login_err_sub'] : esc_html__("Failed Login Attempt",'custom-registration-form-builder-with-submission-manager');
+            $options['otp_message_sub'] = isset($options['otp_message_sub']) ? $options['otp_message_sub'] : esc_html__('OTP','custom-registration-form-builder-with-submission-manager');
+            $options['pass_reset_sub'] = isset($options['pass_reset_sub']) ? $options['pass_reset_sub'] : esc_html__("Reset Password",'custom-registration-form-builder-with-submission-manager');
+            $options['failed_login_err_admin_sub'] = isset($options['failed_login_err_admin_sub']) ? $options['failed_login_err_admin_sub'] : esc_html__("Failed Login Attempt",'custom-registration-form-builder-with-submission-manager');
+            $options['ban_message_admin_sub'] = isset($options['ban_message_admin_sub']) ? $options['ban_message_admin_sub'] : esc_html__("IP Blocked",'custom-registration-form-builder-with-submission-manager');
+
             return $options;
         }
         return array();

@@ -501,6 +501,23 @@ final class RM_Form_Factory_Revamp {
                                     break;
                             }
                         }
+                    } else if($form->fields[$field_id]->field_type == 'DigitalSign'){
+                        if(defined('REGMAGIC_ADDON') && isset($sub_data[$field_name]) && absint($form->fields[$field_id]->field_options->field_is_required) == 1 && empty($sub_data[$field_name])) {
+                            array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
+                            continue;
+                        }else if(!empty($sub_data[$field_name])){
+                            $attachment_ids = array();
+                            $attachment = new RM_Attachment_Service();
+                            $signature_name = $attachment->save_base64_image($sub_data[$field_name],'rm-signature','png');
+                            
+                            $data_block->label = $form->fields[$field_id]->field_label;
+                            //$data_block->value = $signature_id;
+                            $data_block->value = $signature_name;
+                            $data_block->type = $form->fields[$field_id]->field_type;
+                            $data_block->meta = null;
+                            $db_data[$field_id] = $data_block;
+                        }
+                        
                     } else {
                         if(in_array($form->fields[$field_id]->field_type, array('WCBilling','WCShipping'))) {
                             $field_name = strtolower($field_name);
@@ -761,9 +778,13 @@ final class RM_Form_Factory_Revamp {
                     $insert_data,
                     $insert_format
                 );
-
+                
                 if(empty($wpdb->insert_id)) {
-                    esc_html_e("Could not save submission in database. Please try again.", 'custom-registration-form-builder-with-submission-manager');
+                    if(empty($wpdb->last_error)) {
+                        esc_html_e("Could not save submission in database. Please try again.", 'custom-registration-form-builder-with-submission-manager');
+                    } else {
+                        echo esc_html($wpdb->last_error);
+                    }
                     return false;
                 } else {
                     $sub_id = $wpdb->insert_id;
@@ -777,7 +798,11 @@ final class RM_Form_Factory_Revamp {
                         }
     
                         $user_id = wp_create_user($username, $password, $user_email);
-                        $wp_user = new WP_User($user_id);
+                        if(!is_wp_error($user_id)) {
+                            $wp_user = new WP_User($user_id);
+                        } else {
+                            wp_die($wp_user->get_error_message());
+                        }
                         // Assigning role
                         if(!empty($form->form_options->form_should_user_pick)) {
                             $form->form_user_role = maybe_unserialize($form->form_user_role);
