@@ -6503,12 +6503,7 @@ final class RM_Field_Factory_Revamp {
             'id' => $input_id,
             'aria-labelledby' => $label_id
         );
-        $multiple= get_option('rm_option_allow_multiple_file_uploads');
         
-        if (isset($multiple) && $multiple == "yes") {
-            $attributes['name'] = $field->field_type . '_' . $field->field_id . '[]';
-            $attributes['multiple'] = 'multiple';
-        }
         $main_label_attributes = array(
             'for' => $input_id,
             'id' => $label_id,
