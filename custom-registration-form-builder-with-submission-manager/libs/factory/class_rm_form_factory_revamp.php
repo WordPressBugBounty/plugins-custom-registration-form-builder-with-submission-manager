@@ -3,9 +3,15 @@
 final class RM_Form_Factory_Revamp {
     public function __construct() {}
 
-    private function render_submit_button($form = null, $has_pages = false, $price_fields = 0, $prefilled = false) {
-        if($prefilled) {
-            $form->form_options->form_submit_btn_label = esc_html__('Update', 'custom-registration-form-builder-with-submission-manager');
+    private function render_submit_button($form = null, $has_pages = false, $price_fields = 0, $prefilled = false, $ex_sub_id = 0) {
+        if($prefilled && $ex_sub_id > 0) {
+            $submission = new RM_Submissions();
+            $submission->load_from_db($ex_sub_id);
+            if($submission->is_pending > 0) {
+                $form->form_options->form_submit_btn_label = esc_html__('Submit', 'custom-registration-form-builder-with-submission-manager');
+            } else {
+                $form->form_options->form_submit_btn_label = esc_html__('Update', 'custom-registration-form-builder-with-submission-manager');
+            }
         } else {
             $form->form_options->form_submit_btn_label = empty($form->form_options->form_submit_btn_label) ? esc_html__('Submit', 'custom-registration-form-builder-with-submission-manager') : $form->form_options->form_submit_btn_label;
         }
@@ -29,7 +35,11 @@ final class RM_Form_Factory_Revamp {
             echo "<input type='submit' id='rm-form-submit-btn' value='".wp_kses_post((string)$form->form_options->form_submit_btn_label)."' style='display:none'>";
         } else {
             if(!empty($form->form_options->save_submission_enabled) && defined('RM_SAVE_SUBMISSION_BASENAME')) {
-                echo "<input type='submit' id='rm-form-save-btn' value='".esc_html__('Save & Exit', 'custom-registration-form-builder-with-submission-manager')."'>";
+                if($price_fields > 0) {
+                    echo "<input type='submit' id='rm-form-save-btn' value='".esc_html__('Save & Exit', 'custom-registration-form-builder-with-submission-manager')."' style='display:none'>";
+                } else {
+                    echo "<input type='submit' id='rm-form-save-btn' value='".esc_html__('Save & Exit', 'custom-registration-form-builder-with-submission-manager')."'>";   
+                }
             }
             echo "<input type='submit' id='rm-form-submit-btn' value='".wp_kses_post((string)$form->form_options->form_submit_btn_label)."'>";
         }
@@ -663,8 +673,8 @@ final class RM_Form_Factory_Revamp {
             }
         }
 
-        // Username check
         if(absint($form->form_type) == RM_REG_FORM && !is_user_logged_in()) {
+            // Username check
             if(empty($username)) {
                 if(empty($form->form_options->hide_username)) {
                     array_push($errors, esc_html__('Username is a required field','custom-registration-form-builder-with-submission-manager'));
@@ -673,6 +683,23 @@ final class RM_Form_Factory_Revamp {
                     if($this->is_username_reserved($username)) {
                         array_push($errors, esc_html__('This username is reserved/blacklisted by the admin','custom-registration-form-builder-with-submission-manager'));
                     }
+                }
+            }
+
+            // Check if selected user role is a paid role or not
+            $custom_role_data = get_option('rm_option_user_role_custom_data');
+            if(!empty($form->form_options->form_should_user_pick)) {
+                $form->form_user_role = maybe_unserialize($form->form_user_role);
+                $sub_data['rm_user_role'] = sanitize_text_field($sub_data['rm_user_role']);
+                if(in_array($sub_data['rm_user_role'], $form->form_user_role) && isset($custom_role_data[$sub_data['rm_user_role']])) {
+                    $pricing_details->total_price += floatval($custom_role_data[$sub_data['rm_user_role']]->amount);
+                } else {
+                    esc_html_e("Incorrect user role selected. Please try form submission again.", 'custom-registration-form-builder-with-submission-manager');
+                    return false;
+                }
+            } else {
+                if(isset($custom_role_data[$form->default_user_role])) {
+                    $pricing_details->total_price += floatval($custom_role_data[$form->default_user_role]->amount);
                 }
             }
         }
@@ -705,30 +732,12 @@ final class RM_Form_Factory_Revamp {
         if(!empty($errors)) {
             return $errors;
         }
-
+        
         // Adding tax to total price
         if($pricing_details->total_price > 0) {
             if($has_price && (!isset($sub_data['rm_payment_method']) || empty($sub_data['rm_payment_method']))) {
                 esc_html_e("No payment method selected. Please try form submission again.", 'custom-registration-form-builder-with-submission-manager');
                 return false;
-            }
-            // Check if selected user role is a paid role or not
-            if(absint($form->form_type) == RM_REG_FORM) {
-                $custom_role_data = get_option('rm_option_user_role_custom_data');
-                if(!empty($form->form_options->form_should_user_pick)) {
-                    $form->form_user_role = maybe_unserialize($form->form_user_role);
-                    $sub_data['rm_user_role'] = sanitize_text_field($sub_data['rm_user_role']);
-                    if(in_array($sub_data['rm_user_role'], $form->form_user_role) && isset($custom_role_data[$sub_data['rm_user_role']])) {
-                        $pricing_details->total_price += floatval($custom_role_data[$sub_data['rm_user_role']]->amount);
-                    } else {
-                        esc_html_e("Incorrect user role selected. Please try form submission again.", 'custom-registration-form-builder-with-submission-manager');
-                        return false;
-                    }
-                } else {
-                    if(isset($custom_role_data[$form->default_user_role])) {
-                        $pricing_details->total_price += floatval($custom_role_data[$form->default_user_role]->amount);
-                    }
-                }
             }
             $tax_enabled = get_option('rm_option_enable_tax');
             if(!empty($tax_enabled)) {
@@ -808,7 +817,7 @@ final class RM_Form_Factory_Revamp {
                             $form->form_user_role = maybe_unserialize($form->form_user_role);
                             $sub_data['rm_user_role'] = sanitize_text_field($sub_data['rm_user_role']);
                             if(in_array($sub_data['rm_user_role'], $form->form_user_role)) {
-                                $wp_user->set_role(strtolower($sub_data['rm_user_role']));
+                                $wp_user->set_role($sub_data['rm_user_role']);
                             }
                         } else {
                             $form->default_user_role = empty($form->default_user_role) ? 'subscriber' : strtolower($form->default_user_role);
@@ -1728,22 +1737,47 @@ final class RM_Form_Factory_Revamp {
                     }
                     // Adding user role field
                     if(absint($form->form_type) == RM_REG_FORM && !is_user_logged_in()) {
+                        $custom_role_data = get_option('rm_option_user_role_custom_data');
                         if(!empty($form->form_options->form_should_user_pick)) {
+                            $roles_arr = array();
+                            $paid_role = false;
                             $form->form_user_role = maybe_unserialize($form->form_user_role);
+                            foreach($form->form_user_role as $role) {
+                                if(isset($custom_role_data[$role]) && $custom_role_data[$role]->is_paid) {
+                                    $roles_arr[$role] = $custom_role_data[$role]->amount;
+                                    $paid_role = true;
+                                } else {
+                                    $roles_arr[$role] = "0";
+                                }
+                            }
                             echo "<div class='rmform-row'>";
                             echo "<div class='rmform-col rmform-col-12'>";
                             echo "<div class='rmform-field'>";
                             echo "<label class='rmform-label'>".wp_kses_post((string)$form->form_options->form_user_field_label)."</label>";
-                            echo "<select name='rm_user_role'>";
+                            if($paid_role) {
+                                echo "<select name='rm_user_role' data-rmfieldtype='price' data-rmfieldprice='".esc_html(json_encode($roles_arr))."'>";
+                                $price_fields++;
+                            } else {
+                                echo "<select name='rm_user_role'>";
+                            }
                             foreach($form->form_user_role as $role) {
-                                echo "<option value='".wp_kses_post((string)$role)."'>".wp_kses_post(ucfirst($role))."</option>";
+                                if(isset($custom_role_data[$role]) && $custom_role_data[$role]->is_paid) {
+                                    $curr_pos = get_option('rm_option_currency_symbol_position', 'before');
+                                    $curr_sym = RM_Utilities_Revamp::get_currency_symbol(get_option('rm_option_currency', 'USD'));
+                                    if($curr_pos == 'before') {
+                                        echo "<option value='".wp_kses_post((string)$role)."'>".wp_kses_post(ucfirst($role))." (".wp_kses_post($curr_sym.$custom_role_data[$role]->amount).")</option>";
+                                    } else {
+                                        echo "<option value='".wp_kses_post((string)$role)."'>".wp_kses_post(ucfirst($role))." (".wp_kses_post($custom_role_data[$role]->amount.$curr_sym).")</option>";
+                                    }
+                                } else {
+                                    echo "<option value='".wp_kses_post((string)$role)."'>".wp_kses_post(ucfirst($role))."</option>";
+                                }
                             }
                             echo "</select>";
                             echo "</div>";
                             echo "</div>";
                             echo "</div>";
                         } else {
-                            $custom_role_data = get_option('rm_option_user_role_custom_data');
                             if(!isset($custom_role_data[$form->default_user_role])) {
                                 $form->default_user_role = empty($form->default_user_role) ? 'subscriber' : strtolower($form->default_user_role);
                                 echo "<input type='hidden' name='rm_user_role' value='".wp_kses_post((string)$form->default_user_role)."'>";
@@ -1850,7 +1884,7 @@ final class RM_Form_Factory_Revamp {
                     
                     echo "</div>";
                     // Rendering submit button
-                    $this->render_submit_button($form, $has_pages, $price_fields, $prefilled);
+                    $this->render_submit_button($form, $has_pages, $price_fields, $prefilled, $ex_sub_id);
                 }
                 echo "</form></div></div>";
                 if(isset($pass_match_err)) {

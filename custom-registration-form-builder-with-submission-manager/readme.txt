@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, WooCommerce registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 6.0.4.1
+Stable tag: 6.0.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,7 +28,7 @@ RegistrationMagic tracks all incoming registration form submissions and activiti
 
 There is also a full-fledged [User Management module](https://registrationmagic.com/wordpress-user-management-plugin-guide/) integrated with RegistrationMagic. It goes a step ahead of default WordPress User manager by connecting user registration and payment activities with individual user accounts. User Manager is the central hub for RegistrationMagic's user management system, which provides important information about each user within individual user pages. User management also offers enhanced options like suspending and re-activating users.
 
-RegistrationMagic not only allows you to create [new user roles](https://registrationmagic.com/register-users-specific-role-wordpress-site/) but integrate them with your login and registration system easily. You can even create paid user roles using in-built manager!
+RegistrationMagic not only allows you to create [new user roles](https://registrationmagic.com/register-users-specific-role-wordpress-site/) but also lets you easily integrate these roles with your login and registration systems. You can even create paid user roles using the in-built manager!
 
 Full integration with WordPress' default user-meta system means you can hook your registration fields with existing user-meta keys, or create new ones right from the comfort of your registration form dashboard. Therefore, not only all registration form submissions are visible inside WordPress User pages as table, you can also go ahead and map individual registration form fields to user profile fields (or create new ones from scratch)! This also opens a world of opportunity for integrations with other plugins using WP user-meta. 
 
@@ -398,6 +398,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.0.4.2: March 21, 2025 =
+* Minor bug fixes.
 
 = 6.0.4.1: March 11, 2025 =
 * Minor bug fixes.
@@ -1479,6 +1482,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * New: Aweber Integration.
 
 == Upgrade Notice ==
+
+= 6.0.4.2: March 21, 2025 =
+* Minor bug fixes.
 
 = 6.0.4.1: March 11, 2025 =
 * Minor bug fixes.

@@ -240,6 +240,10 @@
 
 #rm_publish_subs_tabs .rm-publish-user-tabs .rm-section-profile-tabs { text-align: center;}
 
+#rm_publish_subs .rm-section-profile-tabs a{
+    line-height: normal;
+}
+
 .rmagic .rm-click-to-copy-button:hover {
     border-color: #a8bece;
     color: #2e4453;

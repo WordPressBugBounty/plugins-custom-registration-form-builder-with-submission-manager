@@ -741,7 +741,7 @@ class Registration_Magic
         $this->loader->add_filter('wp_authenticate_user', $this, 'authenticate',10,2);
         $this->loader->add_action('rm_ip_unblocked',new RM_Login_Service(),'unblock_ip_from_log');
         $this->loader->add_filter('lostpassword_url',$this, 'lost_password_page',10,2);
-        $this->loader->add_filter('wp_mail_content_type',$this, 'set_html_mail_content_type');
+        //$this->loader->add_filter('wp_mail_content_type',$this, 'set_html_mail_content_type');
         //$this->loader->add_action('wp_mail_failed', $this, 'display_email_error', 10, 1);
         $this->loader->add_action('rm_payment_completed', 'RM_Email_Service', 'notify_payment_invoice_to_user', 10, 3);
     }

@@ -78,7 +78,7 @@ wp_enqueue_script('rm-formflow');
                         <span id="rmsubmissionscode"><?php echo "[RM_Front_Submissions]"; ?></span>
                         <div class="rm-click-to-copy-button" onclick="rm_copy_content(document.getElementById('rmsubmissionscode'), this)"><?php _e('Copy','custom-registration-form-builder-with-submission-manager'); ?></div>
                     </div>
-                     <div class="rm-section-profile-tabs">  <?php printf(__('You can customize user area content from Global Settings. You can <a href="%s" target="_blank">rename and reorder tabs</a>, and <a href="%s" target="_blank">add your own custom content</a>.', 'custom-registration-form-builder-with-submission-manager'),admin_url("?page=rm_options_tabs"),'?page=rm_options_manage_ctabs'); ?>  </div>                     
+                     <div class="rm-section-profile-tabs">  <?php printf(__('You can customize user area content from Global Settings. You can <a href="%s" target="_blank">rename and reorder tabs</a>, and <a href="%s" target="_blank">add your own custom content</a>.', 'custom-registration-form-builder-with-submission-manager'),admin_url("admin.php?page=rm_options_tabs"),'?page=rm_options_manage_ctabs'); ?>  </div>                     
                 </div>
                 <div class="rm-publish-directory-col rm-difl"><img src="<?php echo esc_url(plugin_dir_url(dirname(dirname(__FILE__))) . "images/rm-submissions.gif"); ?>"></div>
             </div>
