@@ -233,7 +233,7 @@ class RM_Email
         add_action('phpmailer_init', array($this,'config_phpmailer'));
         
         if(empty($this->attachments))
-            $return = wp_mail($this->to, $this->subject, $this->body);
+            $return = wp_mail($this->to, $this->subject, $this->body, $this->header_str);
         else
             $return = wp_mail($this->to, $this->subject, $this->body, $this->header_str, $this->attachments);
         
