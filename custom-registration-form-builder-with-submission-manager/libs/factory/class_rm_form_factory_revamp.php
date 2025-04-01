@@ -693,6 +693,7 @@ final class RM_Form_Factory_Revamp {
                 $sub_data['rm_user_role'] = sanitize_text_field($sub_data['rm_user_role']);
                 if(in_array($sub_data['rm_user_role'], $form->form_user_role) && isset($custom_role_data[$sub_data['rm_user_role']])) {
                     $pricing_details->total_price += floatval($custom_role_data[$sub_data['rm_user_role']]->amount);
+                    $pricing_details->billing[] = (object) array('label'=>sprintf(esc_html__('User Role (%s)','custom-registration-form-builder-with-submission-manager'),ucwords($sub_data['rm_user_role'])), 'price'=>floatval($custom_role_data[$sub_data['rm_user_role']]->amount), 'qty' => 1);
                 } else {
                     esc_html_e("Incorrect user role selected. Please try form submission again.", 'custom-registration-form-builder-with-submission-manager');
                     return false;
@@ -700,6 +701,7 @@ final class RM_Form_Factory_Revamp {
             } else {
                 if(isset($custom_role_data[$form->default_user_role])) {
                     $pricing_details->total_price += floatval($custom_role_data[$form->default_user_role]->amount);
+                    $pricing_details->billing[] = (object) array('label'=>sprintf(esc_html__('User Role (%s)','custom-registration-form-builder-with-submission-manager'),ucwords($form->default_user_role)), 'price'=>floatval($custom_role_data[$form->default_user_role]->amount), 'qty' => 1);
                 }
             }
         }
@@ -1817,7 +1819,7 @@ final class RM_Form_Factory_Revamp {
                                 echo "<div id='rm_form_payment_selector' class='rmform-payment-selector'>";
                                 echo "<div class='rm_payment_options'>";
                                 echo "<div class='rmform-payment-option'>";
-                                echo "<input type='hidden' id='rm_gateway_".wp_kses_post((string)$def_proc)."' value='".wp_kses_post((string)$def_proc)."' name='rm_payment_method'>";
+                                echo "<input type='hidden' id='rm_gateway_".esc_html((string)$def_proc)."' value='".esc_html((string)$def_proc)."' name='rm_payment_method'>";
                                 echo "</div>";
                             } else {
                                 $pay_procs_options = array(

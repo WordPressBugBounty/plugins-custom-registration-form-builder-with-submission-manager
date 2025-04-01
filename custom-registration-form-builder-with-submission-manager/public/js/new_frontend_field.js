@@ -15,7 +15,7 @@ jQuery(document).ready(function() {
 
     if(typeof bday_min_max != 'undefined') {
         jQuery('.bdaydatepicker').datepicker({
-            dateFormat: 'mm/dd/yy',
+            dateFormat: jQuery('.bdaydatepicker').data('dateformat'),
             changeMonth: true,
             changeYear: true,
             yearRange: '1900:+50',

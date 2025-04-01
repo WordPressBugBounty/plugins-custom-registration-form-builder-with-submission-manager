@@ -526,7 +526,7 @@ function change_icon_shape(e){
       
         jQuery("#rm_submit_btn").click(
             function (e) {
-                if(jQuery(".rm_field_is_required_range").attr('checked'))
+                if(jQuery(".rm_field_is_required_range").is(":checked"))
                 {
               
                var max_date=new Date(jQuery("#rm_is_required_max_range").val());
