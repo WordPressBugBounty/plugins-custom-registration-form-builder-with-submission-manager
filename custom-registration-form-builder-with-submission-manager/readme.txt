@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, WooCommerce registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 6.0.4.4
+Stable tag: 6.0.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,11 +14,11 @@ Create customized user registration forms, accept payments, track submissions, m
 
 = WordPress User Registration Forms Plugin =
 
-Create custom WordPress registration forms, publish signup and login pages, enable user registrations, approve new users, accept payments, track submissions, manage users, analyze registration data, assign user roles, apply registration status, send bulk emails, automate registration process, launch event registration, integrate WooCommerce, and much more. If you are looking for a powerful WordPress user registration plugin and custom registration form builder, look no further than RegistrationMagic! 
+Create custom WordPress registration forms, publish signup and login pages, enable user registrations, approve new users, accept payments, track submissions, manage users, analyze user registration data, assign user roles, apply registration status, send bulk emails, automate registration form processes, launch event registration forms, integrate WooCommerce, and much more. If you are looking for a powerful WordPress user registration plugin with custom registration form builder, look no further than RegistrationMagic! 
 
 = So, what exactly is RegistrationMagic? =
 
-[RegistrationMagic](https://registrationmagic.com) will let you take TOTAL CONTROL of user registrations on your site, with its powerful building, configuring, publishing, managing, analyzing and automation toolkit. You can create different WordPress Registration Forms for your users with pre-defined form fields using an intuitive drag-and-drop form builder. Choose from ready-to-use forms library to quickly create your forms with a few simple clicks! You can also set up payments for [paid user registrations](https://registrationmagic.com/setup-payments-on-registrationmagic-form-using-products/) and build any type of WordPress payment form. [A Front-End user registration area](https://registrationmagic.com/how-create-custom-user-area-page-in-wordpress/) allows your users to login, reset password, check payment transaction history, download their form submissions, etc.
+[RegistrationMagic](https://registrationmagic.com/) will let you take TOTAL CONTROL of user registration on your WordPress site, with its powerful building, configuring, publishing, managing, analyzing and automation toolkit. You can create different WordPress Registration Forms for your users with pre-defined form fields using an intuitive drag-and-drop registration form builder. Choose from ready-to-use registration forms library to quickly create your forms with a few simple clicks! You can also set up payments for [paid user registrations](https://registrationmagic.com/setup-payments-on-registrationmagic-form-using-products/) and build any type of WordPress payment form. [A Front-End user registration area](https://registrationmagic.com/how-create-custom-user-area-page-in-wordpress/) allows your users to login, reset password, check payment transaction history, download their form submissions, and more.
 
 [Get started with RegistrationMagic using our Starter Guide.](https://registrationmagic.com/create-wordpress-registration-page-starter-guide/)
 
@@ -398,6 +398,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.0.4.5: April 7, 2025 =
+* Minor bug fixes.
 
 = 6.0.4.4: April 1, 2025 =
 * Security improvements.
@@ -1488,6 +1491,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * New: Aweber Integration.
 
 == Upgrade Notice ==
+
+= 6.0.4.5: April 7, 2025 =
+* Minor bug fixes.
 
 = 6.0.4.4: April 1, 2025 =
 * Security improvements.

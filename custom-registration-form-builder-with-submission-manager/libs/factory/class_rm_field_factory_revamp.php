@@ -555,6 +555,11 @@ final class RM_Field_Factory_Revamp {
             if(empty($field->field_options->field_placeholder)) {
                 $tel_params .= "autoPlaceholder:'aggressive',";
             }
+            if(isset($attributes['value']) && !empty($attributes['value'])) {
+                $attributes['aria-invalid'] = "false";
+                $attributes['data-validnumber'] = "1";
+                $attributes['data-fullnumber'] = $attributes['value'];
+            }
             $country_field_name='';
             if(!empty($field->field_options->sync_country) && $field->field_options->country_field!='not_found') {
                 global $wpdb;
@@ -1641,7 +1646,7 @@ final class RM_Field_Factory_Revamp {
         } elseif(isset($field->field_options->field_default_value)) {
             $meta_value = $field->field_options->field_default_value;
         }
-        if(is_user_logged_in() && isset($field->field_options->field_user_profile)) {
+        if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
             if($field->field_options->field_user_profile == 'existing_user_meta') {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
             } elseif($field->field_options->field_user_profile == 'define_new_user_meta') {
@@ -1667,7 +1672,7 @@ final class RM_Field_Factory_Revamp {
         echo $label;
         echo "<select " . $this->print_attributes($attributes) . " >";
         foreach(RM_Utilities_Revamp::get_countries() as $name => $country) {
-            if($meta_value == $country) {
+            if($meta_value == $name) {
                 echo "<option value='$name' selected> $country </option>";
             } else {
                 echo "<option value='$name'> $country </option>";
@@ -3059,7 +3064,7 @@ final class RM_Field_Factory_Revamp {
             'id' => $input_id,
             'data-fieldtype' => $field->field_type,
             'aria-labelledby' => $label_id,
-            'pattern' => '(https:\/\/|http:\/\/)?([a-zA-Z0-9]{2,}\.)?([a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,3})(\.[a-zA-Z0-9]{2,3})?(\/[^\s]{0,})?',
+            //'pattern' => '(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?',
         );
         $main_label_attributes = array(
             'for' => $input_id,
@@ -3112,7 +3117,7 @@ final class RM_Field_Factory_Revamp {
             'id' => $input_id,
             'data-fieldtype' => $field->field_type,
             'aria-labelledby' => $label_id,
-            'pattern' => '?:https?:\/\/)?(?:www\.)?facebook\.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*?(\/)?([\w\-\.]*)'
+            'pattern' => '(?:https?:\/\/)?(?:www\.)?facebook\.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*?(\/)?([\w\-\.]*)'
         );
         $main_label_attributes = array(
             'for' => $input_id,
@@ -3946,7 +3951,12 @@ final class RM_Field_Factory_Revamp {
             }
         }
         $value = maybe_unserialize($value);
+		if(empty($value)) {
+			$value = array('');
+		}
 
+        // conditional attributes
+        $attributes = $this->conditional_attributes($attributes, $field);
         foreach($value as $val) {
             echo "<div class ='appendable_options' >";
             if (isset($field->field_options->field_is_multiline) && $field->field_options->field_is_multiline == 1) {

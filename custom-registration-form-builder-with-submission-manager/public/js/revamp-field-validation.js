@@ -274,8 +274,8 @@ window.addEventListener("load", (event) => {
                                     valid = false;
                                 }
                             } else if(field.dataset.fieldtype == 'Website' || field.dataset.fieldtype == 'URL') {
-                                let validRegex = new RegExp("(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?");
-                                if(field.value.match(validRegex)) {
+                                let validRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/;
+                                if(validRegex.test(field.value)) {
                                     //spanEl.innerText = "";
                                     //valid = true;
                                 } else {

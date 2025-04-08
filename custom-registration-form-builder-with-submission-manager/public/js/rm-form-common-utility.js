@@ -132,6 +132,10 @@ if (jQuery('.rmform-custom-form').attr('data-style') === 'label_left') {
         if ($(this).find('.rmform-field-horizontal-row').length) {
             return;
         }
+
+        if ($(this).find('.rm_field_type_repeatable_container').length) {
+            return;
+        }
         
         var rmFormInput = $(this).find('input.rmform-control, select.rmform-control, textarea.rmform-control');
         var errorMessage = $(this).find('.rmform-error-message');
@@ -427,7 +431,10 @@ function rmInitGoogleApi() {
 }
 
 function rm_append_field(tag, element_id) {
-    jQuery('#' + element_id).append("<" + tag + " class='appendable_options'>" + jQuery('#' + element_id).children(tag + ".appendable_options").html() + "</" + tag + ">");
+    var eleCopy = jQuery("#"+element_id).children(tag).first().clone();
+    eleCopy.children("input").val('');
+    jQuery("#"+element_id).append(eleCopy);
+    //jQuery('#' + element_id).append("<" + tag + " class='appendable_options'>" + jQuery('#' + element_id).children(tag + ".appendable_options").html() + "</" + tag + ">");
 }
 
 function rm_delete_appended_field(element, element_id) {

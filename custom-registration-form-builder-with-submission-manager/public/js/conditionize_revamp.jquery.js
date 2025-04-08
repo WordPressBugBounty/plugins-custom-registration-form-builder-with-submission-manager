@@ -397,7 +397,11 @@
                  $section.parents('.rmform-row').css('margin-bottom',0);
              }
             //console.log($section.parent().parent().parent().siblings().children(':visible'));
-            $section.prop('disabled',true);
+            if($section.attr('name').startsWith('Repeatable')) {
+                $section.parents(".rmform-row").find('input').prop('disabled',true);
+            } else {
+                $section.prop('disabled',true);
+            }
             $.fn.updateConditionalFieldsIds(subject.attr('name'),0);
         }
         else if(action == 'disable'){
@@ -411,7 +415,11 @@
                 else
                     $section.parents('.rmform-row').css('margin-bottom',14);
             }
-            $section.prop('disabled',true);
+            if($section.attr('name').startsWith('Repeatable')) {
+                $section.parents(".rmform-row").find('input').prop('disabled',true);
+            } else {
+                $section.prop('disabled',true);
+            }
             $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
                 if($(this).attr('initial-state')){
                     $(this).removeAttr('required');
@@ -434,7 +442,11 @@
                 else
                     $section.parents('.rmform-row').css('margin-bottom',14);
             }
-            $section.prop('disabled',false);
+            if($section.attr('name').startsWith('Repeatable')) {
+                $section.parents(".rmform-row").find('input').prop('disabled',false);
+            } else {
+                $section.prop('disabled',false);
+            }
             $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
                 if($(this).attr('initial-state')){
                     $(this).attr('required','required');
@@ -461,7 +473,11 @@
                 else
                     $section.parents('.rmform-row').css('margin-bottom',14);
             }
-            $section.prop('disabled',false);
+            if($section.attr('name').startsWith('Repeatable')) {
+                $section.parents(".rmform-row").find('input').prop('disabled',false);
+            } else {
+                $section.prop('disabled',false);
+            }
             $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
                 if($(this).attr('initial-state')){
                     $(this).attr('required','required');
@@ -485,7 +501,11 @@
             if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
                  $section.parents('.rmform-row').css('margin-bottom',0);
             }
-            $section.prop('disabled',false);
+            if($section.attr('name').startsWith('Repeatable')) {
+                $section.parents(".rmform-row").find('input').prop('disabled',false);
+            } else {
+                $section.prop('disabled',false);
+            }
             $.fn.updateConditionalFieldsIds(subject.attr('name'),0);
         }else{
             $section.addClass('ignore');
@@ -501,7 +521,11 @@
                  $section.parents('.rmform-row').css('margin-bottom',0);
              }
             //console.log($section.parent().parent().parent().siblings().children(':visible'));
-            $section.prop('disabled',true);
+            if($section.attr('name').startsWith('Repeatable')) {
+                $section.parents(".rmform-row").find('input').prop('disabled',true);
+            } else {
+                $section.prop('disabled',true);
+            }
             $.fn.updateConditionalFieldsIds(subject.attr('name'),0);
         }
     }

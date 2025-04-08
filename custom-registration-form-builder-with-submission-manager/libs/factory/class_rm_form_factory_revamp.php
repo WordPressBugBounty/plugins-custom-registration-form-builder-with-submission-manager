@@ -571,7 +571,7 @@ final class RM_Form_Factory_Revamp {
                             // Validating Website and URL fields
                             if($form->fields[$field_id]->field_type == 'URL' || $form->fields[$field_id]->field_type == 'Website') {
                                 if(!empty($sub_data[$field_name])) {
-                                    if(!preg_match("/(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?/", $sub_data[$field_name])) {
+                                    if(!preg_match('/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/', $sub_data[$field_name])) {
                                         array_push($errors, sprintf(esc_html__('Incorrect Website/URL format provided for %s field', 'custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
                                     }
                                 }
