@@ -556,12 +556,14 @@ final class RM_Form_Factory_Revamp {
                             // Validating custom field
                             if($form->fields[$field_id]->field_type == 'Custom') {
                                 if(!empty($sub_data[$field_name])) {
+                                    $sub_data[$field_name] = sanitize_text_field(stripslashes($sub_data[$field_name]));
                                     if($form->fields[$field_id]->field_options->field_validation == 'custom') {
-                                        if(!preg_match('/'.$form->fields[$field_id]->field_options->custom_validation.'/', $sub_data[$field_name])) {
+                                        if(preg_match('/'.$form->fields[$field_id]->field_options->custom_validation.'/', $sub_data[$field_name]) == 0) {
                                             array_push($errors, sprintf(esc_html__('Incorrect format provided for %s field', 'custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
                                         }
                                     } else {
-                                        if(!preg_match('/'.$form->fields[$field_id]->field_options->field_validation.'/', $sub_data[$field_name])) {
+                                        $valid_ex = empty($form->fields[$field_id]->field_options->field_validation) ? '/^[\p{L}0-9 \'".,():\/&!?-]+$/u' : '/'.$form->fields[$field_id]->field_options->field_validation.'/';
+                                        if(preg_match($valid_ex, $sub_data[$field_name]) == 0) {
                                             array_push($errors, sprintf(esc_html__('Incorrect format provided for %s field', 'custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
                                         }
                                     }

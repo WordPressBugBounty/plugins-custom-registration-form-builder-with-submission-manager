@@ -355,8 +355,13 @@ window.addEventListener("load", (event) => {
                                     valid = false;
                                 }
                             } else if(field.dataset.fieldtype == 'Custom') {
-                                let validRegex = new RegExp(field.getAttribute('pattern'));
-                                if(field.value.match(validRegex)) {
+                                let validRegex = "";
+                                if(field.getAttribute('pattern')) {
+                                    validRegex = new RegExp(field.getAttribute('pattern'));
+                                } else {
+                                    validRegex = /^[\p{L}0-9 `'".,():\/&!?-]+$/u;
+                                }
+                                if(validRegex.test(field.value)) {
                                     //spanEl.innerText = "";
                                     //valid = true;
                                 } else {

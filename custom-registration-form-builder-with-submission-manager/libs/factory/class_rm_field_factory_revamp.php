@@ -2781,14 +2781,14 @@ final class RM_Field_Factory_Revamp {
         echo "<input " . $this->print_attributes($attributes) . " >";
     }
 
-    public function create_Privacy_field($field = null, $ex_sub_id = 0) {
+    public function create_privacy_field($field = null, $ex_sub_id = 0) {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
 
         $attributes = array(
             'type' => 'checkbox',
             'name' => $field->field_type . '_' . $field->field_id,
-            'class' => 'rmform-control',
+            'class' => 'rmform-control '.strtolower($field->field_type) . '_' . $field->field_id,
             'aria-describedby'=>'rm-note-'.$field->field_id,
             'id' => $input_id,
             'value' => 'on',
@@ -4767,7 +4767,7 @@ final class RM_Field_Factory_Revamp {
             } else {
                 $custom_validation = $field->field_options->field_validation;
             }
-           $attributes['Pattern'] = $custom_validation;
+           $attributes['pattern'] = $custom_validation;
         }
 
         // conditional attributes
