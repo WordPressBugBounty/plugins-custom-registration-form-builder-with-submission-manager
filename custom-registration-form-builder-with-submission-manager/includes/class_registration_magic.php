@@ -84,10 +84,10 @@ class Registration_Magic
         $this->loader = new RM_Loader();
         $this->set_locale();
         add_action( 'init', array($this,'set_toolbar') );
+        add_action( 'init', 'registration_magic_include_external_libs' );
+        add_action( 'init', 'RM_Extender::init' );
         $this->define_global_hooks();
-            
         $this->xml_loader = registration_magic_is_addon_enabled() ? RM_XML_Loader::getInstance(plugin_dir_path(__FILE__) . 'rm_config_addon.xml') : RM_XML_Loader::getInstance(plugin_dir_path(__FILE__) . 'rm_config.xml');
-        
         $request = new RM_Request($this->xml_loader);
         $params = array('request' => $request, 'xml_loader' => $this->xml_loader);
         $this->controller = new RM_Main_Controller($params);
@@ -274,11 +274,12 @@ class Registration_Magic
    }
    
     public function define_gutenberg_hooks() {
+        require_once RM_BLOCKS_DIR . 'class-reg-magic-block.php';
         $plugin_block = new Reg_Magic_Block($this->get_plugin_name(), $this->get_version());
         $this->loader->add_action( 'init', $plugin_block, 'reg_magic_block_register' );
         $this->loader->add_action( 'rest_api_init', $plugin_block, 'reg_magic_register_rest_route' );
         $this->loader->add_action( 'block_categories_all', $plugin_block, 'reg_magic_block_categories_all' );
-        $this->loader->add_action( 'enqueue_block_editor_assets',$plugin_block, 'enqueue_block_editor_assets',50);
+        $this->loader->add_action( 'enqueue_block_editor_assets', $plugin_block, 'enqueue_block_editor_assets', 50 );
     }
    
    function register_rm_plugin_exporter( $exporters ) {//echo 'yyyy'.plugin_basename( __FILE__ );die;

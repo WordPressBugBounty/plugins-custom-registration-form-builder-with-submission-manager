@@ -58,13 +58,13 @@ class RM_Forms extends RM_Base_Model {
                 $this->form_options->$valid_option = 'default';
             
             if($valid_option=='form_admin_ns_notification_sub'){
-                $this->form_options->$valid_option = $this->form_name . " " . RM_UI_Strings::get('LABEL_NEWFORM_NOTIFICATION') . " ";
+                $this->form_options->$valid_option = $this->form_name . " " . "New Form Notification" . " ";
             } else if($valid_option=='form_nu_notification_sub'){
-                 $this->form_options->$valid_option = RM_UI_Strings::get('MAIL_NEW_USER_DEF_SUB');
+                 $this->form_options->$valid_option = 'New User Registration';
             } else if($valid_option=='form_activate_user_notification_sub'){
-                $this->form_options->$valid_option = RM_UI_Strings::get('MAIL_ACTIVATE_USER_DEF_SUB');
+                $this->form_options->$valid_option = "Activate User";
             } else if($valid_option=='form_user_activated_notification_sub'){
-                $this->form_options->$valid_option = RM_UI_Strings::get('MAIL_ACOOUNT_ACTIVATED_DEF_SUB');
+                $this->form_options->$valid_option = 'Account Activated';
             } else if($valid_option=='act_link_sub'){
                 $this->form_options->$valid_option = 'Email Verification';
             } else if($valid_option=='form_user_payment_invoice_sub'){

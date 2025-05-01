@@ -24,8 +24,11 @@ class RM_Services {
     public function __construct($model = null) {
         $this->model = $model;
 
-        if ($this->get_setting('enable_mailchimp') == 'yes')
+        //if($this->get_setting('enable_mailchimp') == 'yes') {
+        if(get_option('rm_option_enable_mailchimp', 'no') == 'yes') {
+            require_once RM_EXTERNAL_DIR . 'mailchimp/class_rm_mailchimp.php';
             $this->mailchimpService = new RM_MailChimp_Service();
+        }
     }
 
     public function get_fields_highest_order($form_id, $form_page_no) {
@@ -89,6 +92,7 @@ class RM_Services {
 
     public function add_default_crons($form_id) {
         //Creating automation tasks
+        require_once RM_BASE_DIR."plus/chronos/chronos.php";
         $chronos_service = new RM_Chronos_Service();
         $task_params = array();
         $task_params[] = array(

@@ -1278,6 +1278,7 @@ final class RM_Form_Factory_Revamp {
     public function render_form($form_id = null, $theme = null, $prefilled = false, $ex_sub_id = 0) {
         // Enqueuing important syles and scripts
         wp_enqueue_style(RM_PLUGIN_BASENAME, RM_BASE_URL . 'public/css/style_rm_front_end.css', array(), RM_PLUGIN_VERSION, 'all');
+        wp_enqueue_style('rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.css', array(), RM_PLUGIN_VERSION, 'all');
         if(defined('REGMAGIC_ADDON')) {
             wp_enqueue_style(RM_PLUGIN_BASENAME . '_addon', RM_ADDON_BASE_URL . 'public/css/style_rm_front_end.css', array(), RM_PLUGIN_VERSION, 'all');
             wp_register_style('rm_stripe_checkout_style', RM_ADDON_BASE_URL . 'public/css/rm_stripe_checkout.css', array(), RM_PLUGIN_VERSION, 'all');

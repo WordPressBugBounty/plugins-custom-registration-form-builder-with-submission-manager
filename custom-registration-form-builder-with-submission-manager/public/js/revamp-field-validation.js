@@ -412,7 +412,9 @@ window.addEventListener("load", (event) => {
                     if(fieldErrors.length == 0) {
                         spanEl.innerText = "";
                         field.setAttribute("aria-invalid", "false");
-                        field.closest("div.rmform-field").classList.remove('rmform-has-error');
+                        if(field.closest("div.rmform-field")) {
+                            field.closest("div.rmform-field").classList.remove('rmform-has-error');
+                        }
                     } else {
                         let spanText = "";
                         for(i = 0; i < fieldErrors.length; i++) {
@@ -420,7 +422,9 @@ window.addEventListener("load", (event) => {
                         }
                         spanEl.innerHTML = spanText;
                         field.setAttribute("aria-invalid", "true");
-                        field.closest("div.rmform-field").classList.add('rmform-has-error');
+                        if(field.closest("div.rmform-field")) {
+                            field.closest("div.rmform-field").classList.add('rmform-has-error');
+                        }
                     }
                 }
             }

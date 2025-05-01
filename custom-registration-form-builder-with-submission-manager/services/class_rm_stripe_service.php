@@ -16,8 +16,9 @@ class RM_Stripe_Service implements RM_Gateway_Service
     }
     
     function __construct() {
-        $this->options= new RM_Options();
-        $this->currency = $this->options->get_value_of('currency');
+        //$this->options = new RM_Options();
+        //$this->currency = $this->options->get_value_of('currency');
+        $this->currency = get_option('rm_option_currency', 'USD');
     }
 
 

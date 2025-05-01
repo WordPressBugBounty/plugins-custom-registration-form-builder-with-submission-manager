@@ -397,7 +397,7 @@
                  $section.parents('.rmform-row').css('margin-bottom',0);
              }
             //console.log($section.parent().parent().parent().siblings().children(':visible'));
-            if($section.attr('name').startsWith('Repeatable')) {
+            if(typeof $section.attr('name') !== 'undefined' && $section.attr('name').startsWith('Repeatable')) {
                 $section.parents(".rmform-row").find('input').prop('disabled',true);
             } else {
                 $section.prop('disabled',true);
@@ -415,7 +415,7 @@
                 else
                     $section.parents('.rmform-row').css('margin-bottom',14);
             }
-            if($section.attr('name').startsWith('Repeatable')) {
+            if(typeof $section.attr('name') !== 'undefined' && $section.attr('name').startsWith('Repeatable')) {
                 $section.parents(".rmform-row").find('input').prop('disabled',true);
             } else {
                 $section.prop('disabled',true);
@@ -442,7 +442,7 @@
                 else
                     $section.parents('.rmform-row').css('margin-bottom',14);
             }
-            if($section.attr('name').startsWith('Repeatable')) {
+            if(typeof $section.attr('name') !== 'undefined' && $section.attr('name').startsWith('Repeatable')) {
                 $section.parents(".rmform-row").find('input').prop('disabled',false);
             } else {
                 $section.prop('disabled',false);
@@ -473,7 +473,7 @@
                 else
                     $section.parents('.rmform-row').css('margin-bottom',14);
             }
-            if($section.attr('name').startsWith('Repeatable')) {
+            if(typeof $section.attr('name') !== 'undefined' && $section.attr('name').startsWith('Repeatable')) {
                 $section.parents(".rmform-row").find('input').prop('disabled',false);
             } else {
                 $section.prop('disabled',false);
@@ -501,7 +501,7 @@
             if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
                  $section.parents('.rmform-row').css('margin-bottom',0);
             }
-            if($section.attr('name').startsWith('Repeatable')) {
+            if(typeof $section.attr('name') !== 'undefined' && $section.attr('name').startsWith('Repeatable')) {
                 $section.parents(".rmform-row").find('input').prop('disabled',false);
             } else {
                 $section.prop('disabled',false);
@@ -521,7 +521,7 @@
                  $section.parents('.rmform-row').css('margin-bottom',0);
              }
             //console.log($section.parent().parent().parent().siblings().children(':visible'));
-            if($section.attr('name').startsWith('Repeatable')) {
+            if(typeof $section.attr('name') !== 'undefined' && $section.attr('name').startsWith('Repeatable')) {
                 $section.parents(".rmform-row").find('input').prop('disabled',true);
             } else {
                 $section.prop('disabled',true);

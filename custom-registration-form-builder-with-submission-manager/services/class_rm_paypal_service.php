@@ -21,14 +21,20 @@ class RM_Paypal_Service implements RM_Gateway_Service
     }
     
     function __construct() {
-        $this->options= new RM_Options();
-
+        require_once RM_EXTERNAL_DIR . 'PayPal/paypal.php';
+        /* $this->options= new RM_Options();
         $sandbox =  $this->options->get_value_of('paypal_test_mode');
         $this->paypal_email = $this->options->get_value_of('paypal_email');
         $this->currency = $this->options->get_value_of('currency');
         $this->paypal_page_style = $this->options->get_value_of('paypal_page_style');
         $this->paypal_client_id = $this->options->get_value_of('paypal_client_id');
-        $this->paypal_modern_method = $this->options->get_value_of('paypal_modern_enable');
+        $this->paypal_modern_method = $this->options->get_value_of('paypal_modern_enable'); */
+        $sandbox = get_option('rm_option_paypal_test_mode');
+        $this->paypal_email = get_option('rm_option_paypal_email');
+        $this->currency = get_option('rm_option_currency', 'USD');
+        $this->paypal_page_style = get_option('rm_option_paypal_page_style');
+        $this->paypal_client_id = get_option('rm_option_paypal_client_id');
+        $this->paypal_modern_method = get_option('rm_option_paypal_modern_enable');
         $this->paypal = new rm_paypal_class();
         
         if ($sandbox == 'yes')
@@ -484,7 +490,7 @@ class RM_Paypal_Service implements RM_Gateway_Service
         $user_id = isset($data->user_id) ? $data->user_id : 0;
         $data=array();
         // POST it to paypal
-        $btn_color = $this->options->get_value_of('paypal_btn_color') ? $this->options->get_value_of('paypal_btn_color') : 'gold';
+        $btn_color = $gopts->get_value_of('paypal_btn_color') ? $gopts->get_value_of('paypal_btn_color') : 'gold';
         $data['html']= $this->paypal->popup_modal_paypal_post($order_details, $pricing_details, $submission_id, $log_entry_id ,$this->currency, $user_id, $btn_color);
         $data['status']='do_not_redirect';
         ob_end_clean();
