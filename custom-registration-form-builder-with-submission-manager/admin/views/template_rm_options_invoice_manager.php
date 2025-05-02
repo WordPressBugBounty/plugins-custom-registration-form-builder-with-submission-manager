@@ -27,7 +27,7 @@ if(defined('REGMAGIC_ADDON') && class_exists('RM_Payments_Controller_Addon')) in
                           
                       </div>
                       <div class="rmnotecontent"><?php esc_html_e('Enable invoice downloadable by the users and the admins.', 'custom-registration-form-builder-with-submission-manager') ?></div>
-                         <span class="rm_buy_pro_inline"><?php printf(esc_html__('To unlock this feature (and many more), please upgrade. <a href="%s" target="blank">Click here</a>', 'custom-registration-form-builder-with-submission-manager'), RM_Utilities::comparison_page_link()); ?> </span>
+                         <span class="rm_buy_pro_inline"><?php echo wp_kses_post(RM_UI_Strings::get('MSG_BUY_PRO_INLINE')); ?> </span>
                   </div>
                       
               </div>
