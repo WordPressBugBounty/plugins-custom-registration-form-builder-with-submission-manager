@@ -304,7 +304,7 @@ if (!defined('WPINC')) {
                     </div>
                 </a>
             </div>
-                      
+            <?php endif; ?>
             <?php if(defined('REGMAGIC_ADDON')) { ?>
             <div title="<?php echo wp_kses_post((string)RM_UI_Strings::get("FIELD_HELP_TEXT_File")); ?>" data-category="rm_special_fields_tab" class="rm_button_like_links" onclick="add_new_field_to_page('File')">
             <?php } else { ?>
@@ -550,11 +550,6 @@ if (!defined('WPINC')) {
                         </div>
                     </a>
             </div>
-                      
-                      
-            <?php endif; ?>
-       
-        
         <!--Special Field End--->
  
             <!----Profile Tab ----->

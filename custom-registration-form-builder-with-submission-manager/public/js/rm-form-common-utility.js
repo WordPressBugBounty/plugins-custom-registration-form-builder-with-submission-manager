@@ -504,6 +504,44 @@ function scroll_down_end(element) {
     }
 }
 
+function rm_get_state(el, url, data) {
+    jQuery.post(url, data, function(response) {
+        var name = jQuery('#'+data.state_field_id).attr('data-name');
+        var placeholder = jQuery('#'+data.state_field_id).attr('data-placeholder');
+        var class_val = jQuery.trim(jQuery('#'+data.state_field_id).attr('data-class'));
+        var style = jQuery('#'+data.state_field_id).attr('data-style');
+        var required = jQuery('#'+data.state_field_id).attr('data-required');
+        var required_attr = '';
+        if(required != '') {
+            required_attr = 'required="required"';
+        }
+        var value = jQuery('#'+data.state_field_id).attr('data-value');
+        var conditions = '';
+        var condData = {};
+        jQuery.each(jQuery(el).data(), function(key, value) {
+            if(key.startsWith('cond')) {
+                condData[key] = value;
+            }
+        });
+        jQuery.each(condData, function(key, value) {
+            let dashedKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+            conditions += ` data-${dashedKey}="${value}"`;
+        });
+        if(conditions != '') {
+            if(class_val != '')
+                class_val += ' data-conditional';
+            else
+                class_val += 'data-conditional';
+        }
+        if(response != '' && response != 0) {
+            jQuery('#'+data.state_field_id).children().first().replaceWith('<select name="'+name+'" style="'+style+'" class="'+class_val+'" placeholder="'+placeholder+'" '+required_attr+' '+conditions+'>'+response+'</select>');
+        } else {
+            jQuery('#'+data.state_field_id).children().first().replaceWith('<input type="text" name="'+name+'" style="'+style+'" placeholder="'+placeholder+'" class="'+class_val+'" value="'+value+'" '+required_attr+' '+conditions+'>');
+        }
+        jQuery('#'+data.state_field_id).children().first().conditionizeRevamp({});
+    });
+}
+
 //Radio and checkbox field Field JS
 document.addEventListener("DOMContentLoaded", function() {
   const rmFormFieldSelector = document.querySelectorAll('.rmform-field-vertical-row');

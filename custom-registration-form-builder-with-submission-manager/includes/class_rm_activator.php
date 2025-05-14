@@ -38,7 +38,7 @@ class RM_Activator
         self::migrate($network_wide);
         self::setup_login_options($network_wide);
         update_site_option('rm_option_last_activation_time', time());
-        update_site_option('rm_redirect_after_activation', 1);
+        update_option('rm_redirect_after_activation', 1);
         
         if (method_exists('RM_Chronos_Service', 'insert_cron_on_activate_plugin')){
             $cron_service = new RM_Chronos_Service;

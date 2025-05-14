@@ -5303,7 +5303,6 @@ final class RM_Field_Factory_Revamp {
 
             // state
             echo "<div class='rmform-col rmform-col-6'>";
-            echo "<div class='rmform-field'>";
             $label_id = 'label_id_state_' . $field->field_id;
             $input_id = 'input_id_state_' . $field->field_id;
             $attributes['id'] = $input_id;
@@ -5325,6 +5324,10 @@ final class RM_Field_Factory_Revamp {
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
             }
+            $def_state = $attributes['value'] ?? '';
+            $required = $attributes['required'] ?? '';
+            $style = $attributes['style'] ?? '';
+            echo "<div class='rmform-field' id='wcbilling_".esc_attr($field->field_id)."_state' data-name='".esc_attr($attributes['name'])."' data-class='".esc_attr($attributes['class'])."' data-value='".esc_attr($def_state)."' data-placeholder='' data-style='".esc_attr($style)."' data-required='".esc_attr($required)."'>";
             echo "<input " . $this->print_attributes($attributes) . " >";
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_state_label";
@@ -5391,7 +5394,6 @@ final class RM_Field_Factory_Revamp {
                 echo "<div class='rmform-row'>";
                 echo "<div class='rmform-row-field-wrap'>";
                 echo "<div class='rmform-col rmform-col-12'>";
-                echo "<div class='rmform-field'>";
                 $label_id = 'label_id_state_' . $field->field_id;
                 $input_id = 'input_id_state_' . $field->field_id;
                 $attributes['id'] = $input_id;
@@ -5413,6 +5415,10 @@ final class RM_Field_Factory_Revamp {
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
                 }
+                $def_state = $attributes['value'] ?? '';
+                $required = $attributes['required'] ?? '';
+                $style = $attributes['style'] ?? '';
+                echo "<div class='rmform-field' id='wcbilling_".esc_attr($field->field_id)."_state' data-name='".esc_attr($attributes['name'])."' data-class='".esc_attr($attributes['class'])."' data-value='".esc_attr($def_state)."' data-placeholder='' data-style='".esc_attr($style)."' data-required='".esc_attr($required)."'>";
                 echo "<input " . $this->print_attributes($attributes) . " >";
 
                 $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_state_label";
@@ -5716,6 +5722,32 @@ final class RM_Field_Factory_Revamp {
         if (get_option('rm_option_form_layout', 'label_top') == "label_left") {
             echo "</div>";
         }
+
+        // Adding state change script
+        echo "<script>
+        jQuery(document).ready(function () {
+            if(jQuery(\"[name='wcbilling_".esc_js((string)$field->field_id)."[country]']\").length && jQuery(\"[name='wcbilling_".esc_js((string)$field->field_id)."[state]']\").length) {
+                jQuery(\"[name='wcbilling_".esc_js((string)$field->field_id)."[country]']\").change(function () {
+                    if(jQuery(this).val() != '') {
+                        jQuery('#wcbilling_".esc_js((string)$field->field_id)."_state').children().first().replaceWith('<div>".esc_html__('Loading States...', 'custom-registration-form-builder-with-submission-manager')."</div>');
+                        var data = {
+                            'action': 'rm_get_state',
+                            'rm_sec_nonce': '".wp_create_nonce('rm_ajax_secure')."',
+                            'rm_slug': 'rm_get_state',
+                            'country': jQuery(this).val(),
+                            'def_state': '".esc_js((string)$def_state)."',
+                            'attr': 'data-rm-state-val',
+                            'form_id': '".esc_js((string)$field->form_id)."',
+                            'state_field_id': 'wcbilling_".esc_js((string)$field->field_id).'_state'."',
+                            'type': 'billing'
+                        };
+                        rm_get_state(this, '".admin_url('admin-ajax.php')."', data);
+                    }
+                });
+                jQuery(\"[name='wcbilling_".esc_js((string)$field->field_id)."[country]']\").trigger('change');
+            }
+        });
+        </script>";
     }
 
     public function create_wcshipping_field($field = null, $ex_sub_id = 0) {
@@ -6110,7 +6142,6 @@ final class RM_Field_Factory_Revamp {
 
             // state
             echo "<div class='rmform-col rmform-col-6'>";
-            echo "<div class='rmform-field'>";
             $label_id = 'label_id_state_' . $field->field_id;
             $input_id = 'input_id_state_' . $field->field_id;
             $attributes['id'] = $input_id;
@@ -6132,6 +6163,10 @@ final class RM_Field_Factory_Revamp {
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
             }
+            $def_state = $attributes['value'] ?? '';
+            $required = $attributes['required'] ?? '';
+            $style = $attributes['style'] ?? '';
+            echo "<div class='rmform-field' id='wcshipping_".esc_attr($field->field_id)."_state' data-name='".esc_attr($attributes['name'])."' data-class='".esc_attr($attributes['class'])."' data-value='".esc_attr($def_state)."' data-placeholder='' data-style='".esc_attr($style)."' data-required='".esc_attr($required)."'>";
             echo "<input " . $this->print_attributes($attributes) . " >";
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcs_state_label";
@@ -6194,7 +6229,6 @@ final class RM_Field_Factory_Revamp {
                 echo "<div class='rmform-row'>";
                 echo "<div class='rmform-row-field-wrap'>";
                 echo "<div class='rmform-col rmform-col-12'>";
-                echo "<div class='rmform-field'>";
                 $label_id = 'label_id_state_' . $field->field_id;
                 $input_id = 'input_id_state_' . $field->field_id;
                 $attributes['id'] = $input_id;
@@ -6216,6 +6250,10 @@ final class RM_Field_Factory_Revamp {
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
                 }
+                $def_state = $attributes['value'] ?? '';
+                $required = $attributes['required'] ?? '';
+                $style = $attributes['style'] ?? '';
+                echo "<div class='rmform-field' id='wcshipping_".esc_attr($field->field_id)."_state' data-name='".esc_attr($attributes['name'])."' data-class='".esc_attr($attributes['class'])."' data-value='".esc_attr($def_state)."' data-placeholder='' data-style='".esc_attr($style)."' data-required='".esc_attr($required)."'>";
                 echo "<input " . $this->print_attributes($attributes) . " >";
 
                 $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcs_state_label";
@@ -6432,6 +6470,32 @@ final class RM_Field_Factory_Revamp {
         if (get_option('rm_option_form_layout', 'label_top') == "label_left") {
             echo "</div>";
         }
+
+        // Adding state change script
+        echo "<script>
+        jQuery(document).ready(function () {
+            if(jQuery(\"[name='wcshipping_".esc_js((string)$field->field_id)."[country]']\").length && jQuery(\"[name='wcshipping_".esc_js((string)$field->field_id)."[state]']\").length) {
+                jQuery(\"[name='wcshipping_".esc_js((string)$field->field_id)."[country]']\").change(function () {
+                    if(jQuery(this).val() != '') {
+                        jQuery('#wcshipping_".esc_js((string)$field->field_id)."_state').children().first().replaceWith('<div>".esc_html__('Loading States...', 'custom-registration-form-builder-with-submission-manager')."</div>');
+                        var data = {
+                            'action': 'rm_get_state',
+                            'rm_sec_nonce': '".wp_create_nonce('rm_ajax_secure')."',
+                            'rm_slug': 'rm_get_state',
+                            'country': jQuery(this).val(),
+                            'def_state': '".esc_js((string)$def_state)."',
+                            'attr': 'data-rm-state-val',
+                            'form_id': '".esc_js((string)$field->form_id)."',
+                            'state_field_id': 'wcshipping_".esc_js((string)$field->field_id).'_state'."',
+                            'type': 'shipping'
+                        };
+                        rm_get_state(this, '".admin_url('admin-ajax.php')."', data);
+                    }
+                });
+                jQuery(\"[name='wcshipping_".esc_js((string)$field->field_id)."[country]']\").trigger('change');
+            }
+        });
+        </script>";
     }
 
     public function create_wcbillingphone_field($field = null, $ex_sub_id = 0) {

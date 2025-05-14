@@ -174,7 +174,8 @@ class Registration_Magic
         $this->loader->add_filter('plugin_action_links', $this, 'add_plugin_link', 10, 5);
         $this->loader->add_action('media_buttons', $rm_admin, 'add_new_form_editor_button');
         $this->loader->add_action('media_buttons', $rm_admin, 'add_field_autoresponder');
-        $this->loader->add_action('plugins_loaded', 'RM_Utilities', 'safe_login', 10);
+        //$this->loader->add_action('plugins_loaded', 'RM_Utilities', 'safe_login', 10);
+        $this->loader->add_action('init', 'RM_Utilities', 'safe_login', 10);
         $this->loader->add_action('wp_ajax_rm_save_fab_settings', $this->controller, 'run');
         //$this->loader->add_action('wp_ajax_import_data', 'RM_Services', 'import_form');
         $this->loader->add_action('wp_ajax_rm_admin_js_data', 'RM_Utilities', 'load_admin_js_data');
