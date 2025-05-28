@@ -25,7 +25,7 @@ class Element_Rating extends Element
       );
       } */
 
-    public function __construct($label, $name, array $properties = null)
+    public function __construct($label, $name, $properties = null)
     {
         parent::__construct($label, $name, $properties);
         $this->_attributes['id'] = $name;

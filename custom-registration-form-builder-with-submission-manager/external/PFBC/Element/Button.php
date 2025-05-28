@@ -6,7 +6,7 @@ class Element_Button extends Element
     public $_attributes = array("type" => "submit", "value" => "Submit");
     public $icon;
 
-    public function __construct($label = "Submit", $type = "", array $properties = null)
+    public function __construct($label = "Submit", $type = "", $properties = null)
     {
         if (!is_array($properties))
             $properties = array();

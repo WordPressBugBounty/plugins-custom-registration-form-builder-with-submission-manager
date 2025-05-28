@@ -2,7 +2,7 @@
 abstract class ErrorView extends Base {
 	public $_form;
 
-	public function __construct(array $properties = null) {
+	public function __construct($properties = null) {
 		$this->configure($properties);
 	}
 

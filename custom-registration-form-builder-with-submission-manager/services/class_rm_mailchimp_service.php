@@ -12,15 +12,13 @@ class RM_MailChimp_Service {
     public $mailchimp;
 
     public function __construct() {
+        require_once RM_EXTERNAL_DIR . 'mailchimp/class_rm_mailchimp.php';
         $this->mailChimp_id = get_option('rm_option_mailchimp_key');
-         try
-       {
-   $this->mailchimp = new RM_MailChimp($this->mailChimp_id);
-       }
-        catch(Exception $e)
-             {
-                 $this->mailchimp=null;
-             } 
+        try {
+            $this->mailchimp = new RM_MailChimp($this->mailChimp_id);
+        } catch(Exception $e) {
+            $this->mailchimp = null;
+        } 
     }
 
     /*

@@ -395,7 +395,10 @@ window.addEventListener("load", (event) => {
 
                         // Validating number fields by min/max
                         if(field.hasAttribute("min") && field.getAttribute("min") != '') {
-                            if(field.value != '' && field.value < field.getAttribute("min")) {
+                            if(field.value == '') {
+                                field.value = field.getAttribute("min");
+                                field.dispatchEvent(new Event('change'));
+                            } else if(field.value < field.getAttribute("min")) {
                                 fieldErrors.push(rmValidationJS.texts.minnum.replace('%s', field.getAttribute("min")));
                                 valid = false;
                             }
@@ -409,23 +412,40 @@ window.addEventListener("load", (event) => {
                         }
                     }
 
-                    if(fieldErrors.length == 0) {
+                    if (fieldErrors.length == 0) {
                         spanEl.innerText = "";
                         field.setAttribute("aria-invalid", "false");
-                        if(field.closest("div.rmform-field")) {
-                            field.closest("div.rmform-field").classList.remove('rmform-has-error');
+
+                        const parentField = field.closest("div.rmform-field");
+
+                        if (parentField && !parentField.querySelector(".rmform-pricefield")) {
+                            parentField.classList.remove("rmform-has-error");
                         }
+
+                        if (field.closest(".rmform-pricefield")) {
+                            field.closest(".rmform-pricefield").classList.remove("rmform-has-error");
+                        }
+
                     } else {
                         let spanText = "";
-                        for(i = 0; i < fieldErrors.length; i++) {
+                        for (let i = 0; i < fieldErrors.length; i++) {
                             spanText += fieldErrors[i] + "<br>";
                         }
                         spanEl.innerHTML = spanText;
                         field.setAttribute("aria-invalid", "true");
-                        if(field.closest("div.rmform-field")) {
-                            field.closest("div.rmform-field").classList.add('rmform-has-error');
+
+                        const parentField = field.closest("div.rmform-field");
+
+                        if (parentField && !parentField.querySelector(".rmform-pricefield")) {
+                            parentField.classList.add("rmform-has-error");
+                        }
+
+                        if (field.closest(".rmform-pricefield")) {
+                            field.closest(".rmform-pricefield").classList.add("rmform-has-error");
                         }
                     }
+
+
                 }
             }
 

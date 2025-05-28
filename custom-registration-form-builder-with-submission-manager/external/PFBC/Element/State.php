@@ -1,6 +1,6 @@
 <?php
 class Element_State extends Element_Select {
-	public function __construct($label, $name, array $properties = null) {
+	public function __construct($label, $name, $properties = null) {
 		$options = array(
                   "" =>__("--Select State--",'custom-registration-form-builder-with-submission-manager'),
                   "AL" =>__("Alabama",'custom-registration-form-builder-with-submission-manager'),

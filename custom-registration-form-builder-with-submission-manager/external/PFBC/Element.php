@@ -13,7 +13,7 @@ abstract class Element extends Base {
                                         'exclass_input' => '', //This class will be added along with rminput.
                                         'sub_element' => null); //A child element nested within.
         
-	public function __construct($label, $name, array $properties = null, array $advance_opts = null) {
+	public function __construct($label, $name, $properties = null, $advance_opts = null) {
 		$configuration = array(
 			"label" => $label,
 			"name" => $name

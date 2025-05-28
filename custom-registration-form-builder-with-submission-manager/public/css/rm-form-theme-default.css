@@ -137,7 +137,10 @@
     box-shadow: none;
 }
 
-.rmform-ui .rmform-row .rmform-field.rmform-has-error .rmform-error-message{
+.rmform-ui .rmform-row .rmform-field.rmform-has-error .rmform-error-message,
+.rmformui .rmform-row .rmform-pricefield.rmform-has-error .rmform-multiselect-price-checkbox .rmform-error-message,
+.rmformui .rmform-row .rmform-field .rm-select-price-field.rmform-has-error .rmform-error-message,
+.rmformui .rmform-row .rmform-field .rm-fixed-price-field.rmform-has-error .rmform-error-message{
     background-color: #F9E4E8;
     color: #A65665;
     font-size: 12px;
@@ -170,6 +173,8 @@
 .rmformui .rmform-custom-form .rmform-row .rmform-field .rmform-check input[type="radio"], 
 .rmformui .rmform-custom-form .rmform-row .rmform-field .rmform-check input[type="checkbox"] {
     margin-top: 4px;
+    height: 14px;
+    width: 14px;
 }
 
 

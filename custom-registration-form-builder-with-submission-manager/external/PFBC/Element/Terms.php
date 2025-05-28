@@ -16,7 +16,7 @@ class Element_Terms extends Element {
     public $_attributes = array("rows" => "5");
     public $required_scroll;
 
-    public function __construct($label, $name, $terms_text, array $properties = null) {
+    public function __construct($label, $name, $terms_text, $properties = null) {
         $configuration = array(
             "label" => $label,
             "name" => $name

@@ -51,7 +51,7 @@
 .rm-task-setting-footer .rm-previous label{ 
     margin-right: 20px;
     transition: .3s;
-    color: #0087be;
+    color: #2371b1;
     font-size: 13px;
 }
 
@@ -61,10 +61,9 @@
     border-radius: 3px;
     outline: 0;
     cursor: pointer;
-    font-size: 14px;
     color: #FFF;
-    border-color: #0087be;
-    background: #00aadc;
+    border-color: #2371b1;
+    background: #2371b1;
     vertical-align: top;
     padding: 0 10px 1px;
     font-size: 13px;
@@ -77,12 +76,12 @@
 /* Next and previous Button Hover  */
 
 .rm-task-setting-footer .rm-previous label:hover{    
-    color: #00a0d2;
+    color: #135e96;
 }
 
 .rm-task-setting-footer .rm-next label:hover{ 
-    background: #007eb1;
-    border-color: #00435d;
+    background: #135e96;
+    border-color: #135e96;
     
 }
 

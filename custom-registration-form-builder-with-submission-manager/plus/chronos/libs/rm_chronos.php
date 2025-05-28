@@ -88,7 +88,8 @@ class RM_Chronos {
         add_action("rm_per_site_tables_created", "RM_Chronos::create_tables");
         add_action("rm_migration_finished", "RM_Chronos::db_migrate");
         add_action("registrationmagic_deactivated", "RM_Chronos::deactivate");
-        add_action("plugins_loaded", "RM_Chronos::hooked_init");
+        //add_action("plugins_loaded", "RM_Chronos::hooked_init");
+        add_action("init", "RM_Chronos::hooked_init");
         add_filter('cron_schedules', 'RM_Chronos::add_cron_interval');
         add_action('rm_chronos_task_exe_hook', 'RM_Chronos::run_tasks');
         add_action('wp_ajax_rm_chronos_ajax', 'RM_Chronos::handle_ajax_req');

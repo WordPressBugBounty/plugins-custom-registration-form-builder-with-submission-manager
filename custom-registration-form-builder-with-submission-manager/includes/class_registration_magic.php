@@ -86,6 +86,7 @@ class Registration_Magic
         add_action( 'init', array($this,'set_toolbar') );
         add_action( 'init', 'registration_magic_include_external_libs' );
         add_action( 'init', 'RM_Extender::init' );
+        require_once RM_BASE_DIR."plus/chronos/chronos.php";
         $this->define_global_hooks();
         $this->xml_loader = registration_magic_is_addon_enabled() ? RM_XML_Loader::getInstance(plugin_dir_path(__FILE__) . 'rm_config_addon.xml') : RM_XML_Loader::getInstance(plugin_dir_path(__FILE__) . 'rm_config.xml');
         $request = new RM_Request($this->xml_loader);

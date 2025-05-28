@@ -17,7 +17,7 @@ class Element_WCAddress extends Element {
     public $properties = array();
     public $field_type;
 
-    public function __construct($label, $name, $field_type, array $properties = null) {
+    public function __construct($label, $name, $field_type, $properties = null) {
         parent::__construct($label, $name, $properties);
         $this->field_type = $field_type;
     }

@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, WooCommerce registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 6.8
-Stable tag: 6.0.4.9
+Stable tag: 6.0.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -398,6 +398,13 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.0.5.0: May 28, 2025 =
+* Fixed: Scheduled automation tasks.
+* Fixed: MailChimp integration.
+* Fixed: Form design issue on mobile view.
+* Fixed: Product quantity validation.
+* Other minor bug fixes.
 
 = 6.0.4.9: May 14, 2025 =
 * Minor bug fixes.
@@ -1504,6 +1511,13 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * New: Aweber Integration.
 
 == Upgrade Notice ==
+
+= 6.0.5.0: May 28, 2025 =
+* Fixed: Scheduled automation tasks.
+* Fixed: MailChimp integration.
+* Fixed: Form design issue on mobile view.
+* Fixed: Product quantity validation.
+* Other minor bug fixes.
 
 = 6.0.4.9: May 14, 2025 =
 * Minor bug fixes.

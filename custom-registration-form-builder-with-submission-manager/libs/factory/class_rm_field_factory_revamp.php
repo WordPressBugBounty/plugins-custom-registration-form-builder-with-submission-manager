@@ -783,6 +783,7 @@ final class RM_Field_Factory_Revamp {
         $label .= "</label>";
         echo $label;
         echo "<div class='rmform-pricefield rm-fixed-price-field'>";
+        echo "<div class='rm-fixed-price-field-wrap'>";
         echo "<input ".$this->print_attributes($attributes)." >";
 
         if (isset($price_field->extra_options) && $price_field->extra_options['allow_quantity'] == "yes") {
@@ -800,6 +801,8 @@ final class RM_Field_Factory_Revamp {
                 $fixed_qnt_attributes['value'] = 0;
             }
             echo "<input ".$this->print_attributes($fixed_qnt_attributes).">";
+            echo "</div>";
+            echo "<span class='rmform-error-message' id='rmform-" . strtolower($fixed_qnt_attributes['name']) . "-error'></span>";
         }
         echo "</div>";
         echo "<span class='rmform-error-message' id='rmform-" . $attributes['name'] . "-error'></span>";
@@ -881,6 +884,7 @@ final class RM_Field_Factory_Revamp {
             $price_options_label_attributes['id'] = $attributes['aria-labelledby'];
 
             echo "<label ".$this->print_attributes($secondary_label_attributes).">";
+            echo "<div class='rm-multiselect-price-wrap'>";
             echo "<input ".$this->print_attributes($attributes).">";
             echo "<span ".$this->print_attributes($price_options_label_attributes)." > $price_drop </span>";    
             if (isset($price_field->extra_options) && $price_field->extra_options['allow_quantity'] == "yes") {
@@ -898,6 +902,8 @@ final class RM_Field_Factory_Revamp {
                     $multiselect_qnt_attributes['value'] = 0;
                 }
                 echo "<input ".$this->print_attributes($multiselect_qnt_attributes).">";
+                echo "</div>";
+                echo "<span class='rmform-error-message' id='rmform-" . strtolower(str_replace(['[', ']'], '', $multiselect_qnt_attributes['name'])) . "-error'></span>";
             }
             echo "</label>";
             echo "</div>";
@@ -965,7 +971,8 @@ final class RM_Field_Factory_Revamp {
         $label .= "</label>";
         echo $label;
 
-        echo "<div class='rmform-pricefield'>";
+        echo "<div class='rmform-pricefield rm-select-price-field'>";
+        echo "<div class='rm-select-price-wrap rm-d-flex'>";
         echo "<select ".$this->print_attributes($attributes)." >";
         echo "<option value=''>".RM_UI_Strings::get('SELECT_FIELD_FIRST_OPTION')."</option>";
         for ($x = 0; $x < count($price_field->option_label); $x++) {
@@ -996,6 +1003,8 @@ final class RM_Field_Factory_Revamp {
                 $qnt_attributes['value'] = 0;
             }
             echo "<input ".$this->print_attributes($qnt_attributes).">";
+            echo "</div>";
+            echo "<span class='rmform-error-message' id='rmform-" . strtolower($qnt_attributes['name']) . "-error'></span>";
         }
         echo "</div>";
 

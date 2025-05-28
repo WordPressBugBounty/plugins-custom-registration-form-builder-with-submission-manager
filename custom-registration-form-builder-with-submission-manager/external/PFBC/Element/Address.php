@@ -38,7 +38,7 @@ class Element_Address extends Element
        } 
     }  
 
-    public function __construct($label, $name, $api_key, array $properties = null)
+    public function __construct($label, $name, $api_key, $properties = null)
     {
        
         parent::__construct($label, $name, $properties);

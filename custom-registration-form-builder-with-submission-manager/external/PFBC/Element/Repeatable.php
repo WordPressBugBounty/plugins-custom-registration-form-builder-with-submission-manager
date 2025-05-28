@@ -21,7 +21,7 @@ class Element_Repeatable extends Element
     public $prepend;
     public $append;
 
-    public function __construct($label, $name, array $properties = null) {
+    public function __construct($label, $name, $properties = null) {
 		
                 $configuration = array(
 			"label" => $label,

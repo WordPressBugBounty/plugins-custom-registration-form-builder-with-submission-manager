@@ -1,6 +1,6 @@
 <?php
 abstract class Base {
-	public function configure(array $properties = null) {
+	public function configure($properties = null) {
         if(!empty($properties)) {
 			$class = get_class($this);
                            

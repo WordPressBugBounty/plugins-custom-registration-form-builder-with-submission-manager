@@ -21,7 +21,7 @@ class Element_Textboxsortable extends Element
     public $append;
     public $others;
 
-    public function __construct($label, $name, array $properties = null, array $others = array())
+    public function __construct($label, $name, $properties = null, array $others = array())
     {
         $configuration = array(
             "label" => $label,

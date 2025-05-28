@@ -613,7 +613,7 @@ final class RM_Form_Factory_Revamp {
                             $db_data[$field_id] = $data_block;
 
                             // Checking unique value
-                            if(isset($form->fields[$field_id]->field_options->field_is_unique) && $form->fields[$field_id]->field_options->field_is_unique == 1) {
+                            if(isset($form->fields[$field_id]->field_options->field_is_unique) && $form->fields[$field_id]->field_options->field_is_unique == 1 && $data_block->value != '') {
                                 $past_field_values = $wpdb->get_results($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE field_id = %d", $field_id));
                                 if(!empty($past_field_values)) {
                                     foreach($past_field_values as $pval) {
@@ -2477,7 +2477,8 @@ final class RM_Form_Factory_Revamp {
         }
         
         foreach($unord_rows as $unord_row) {
-            array_push($ord_rows[absint($unord_row->page_no)-1],$unord_row);
+            if(isset($ord_rows[absint($unord_row->page_no)-1]))
+                array_push($ord_rows[absint($unord_row->page_no)-1],$unord_row);
         }
 
         return $ord_rows;

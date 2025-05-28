@@ -9,7 +9,7 @@ class Element_jQueryUIDate extends Element_Textbox {
 	);
 	public $jQueryOptions="";
         
-        public function __construct($label, $name, array $properties = null)
+        public function __construct($label, $name, $properties = null)
         {
             parent::__construct($label, $name, $properties);
             

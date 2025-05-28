@@ -361,7 +361,10 @@ ul#rmagic-progressbar li .rm-form-page-name {
 .rmformui .rmform-row .rmform-field.rmform-has-error input[type="email"],
 .rmformui .rmform-row .rmform-field.rmform-has-error input[type="url"],
 .rmformui .rmform-row .rmform-field.rmform-has-error input[type="file"],
-.rmformui .rmform-row .rmform-field.rmform-has-error input[type="number"]{
+.rmformui .rmform-row .rmform-field.rmform-has-error input[type="number"],
+.rmformui .rmform-row .rmform-pricefield.rmform-has-error .rmform-multiselect-price-checkbox input[type="number"],
+.rmformui .rmform-row .rmform-field .rmform-pricefield.rm-select-price-field.rmform-has-error input[type="number"],
+.rmformui .rmform-row .rmform-field .rmform-pricefield.rm-fixed-price-field.rmform-has-error input[type="number"]{
     border-color: rgba(var(--rm-error-input-border-color), 1);
     background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="%23cc0029"%3E%3Cpath d="M0 0h24v24H0z" fill="none"/%3E%3Cpath d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/%3E%3C/svg%3E');
     background-repeat: no-repeat;
@@ -595,6 +598,28 @@ ul#rmagic-progressbar li .rm-form-page-name {
     width: 100%;
 }
 
+.rmformui .rmform-row .rmform-field .rmform-pricefield.rm-select-price-field{
+    display: inline-block;
+    width: 100%;
+}
+
+.rmformui .rmform-row .rmform-field .rmform-pricefield.rm-fixed-price-field{
+    display: inline-block;
+    width: 100%;
+}
+
+.rmformui .rmform-row .rmform-field .rmform-pricefield.rm-fixed-price-field .rm-fixed-price-field-wrap{
+    display: flex;
+    align-items: center;
+    width: 100%;   
+}
+
+.rmformui .rmform-row .rmform-field .rmform-pricefield .rm-select-price-wrap{
+    display: flex;
+    align-items: center;
+    width: 100%; 
+}
+
 .rmformui .rmform-row .rmform-field .rmform-pricefield.rm-fixed-price-field input[type="text"]:read-only{
     opacity: 1;
     color: inherit;
@@ -611,11 +636,20 @@ ul#rmagic-progressbar li .rm-form-page-name {
 }
 
 .rmformui .rmform-row .rmform-field .rmform-pricefield .rmform-multiselect-price-checkbox {
-    display: flex;
-    align-items: center;
+    display: inline-block;
     margin-bottom: 14px;
     vertical-align: top;
     width: 100%;
+    padding-left: 1.5em;
+}
+
+.rmformui .rmform-row .rmform-field .rmform-pricefield .rmform-multiselect-price-checkbox .rm-multiselect-price-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.rmformui .rmform-row .rmform-field .rmform-pricefield .rmform-multiselect-price-checkbox .rmform-error-message:empty{
+    display: none;
 }
 
 /*-- Form Data---*/

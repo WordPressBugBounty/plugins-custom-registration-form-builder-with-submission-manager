@@ -2,7 +2,7 @@
 class Element_File extends Element_FileNative {
 	public $_attributes = array("type" => "file");
         
-   public function __construct($label, $name, array $properties = null) {
+   public function __construct($label, $name, $properties = null) {
        parent::__construct($label, $name, $properties);
        if($this->isRequired())
             $this->validation[] = new Validation_File("", true);

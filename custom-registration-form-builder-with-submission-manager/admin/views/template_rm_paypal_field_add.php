@@ -99,8 +99,17 @@ $form->render();
     
     
     jQuery('input#id_paypal_field_min_quantity').change(function(e) {
+        if(jQuery(this).val() == "") {
+            jQuery(this).val(0);
+        }
         var maxVal = jQuery('input#id_paypal_field_max_quantity');
         maxVal.attr('min', jQuery(this).val());
+    });
+
+    jQuery('input#id_paypal_field_max_quantity').change(function(e) {
+        if(jQuery(this).val() == "") {
+            jQuery(this).val(jQuery(this).attr('min'));
+        }
     });
 </script>
 <?php }

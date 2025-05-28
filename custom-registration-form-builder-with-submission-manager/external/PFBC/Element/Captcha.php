@@ -6,7 +6,7 @@ class Element_Captcha extends Element {
     public $publicKey = "";
     public $version=2;
 
-    public function __construct($label = "", array $properties = null) {
+    public function __construct($label = "", $properties = null) {
         $this->load_keys();
         parent::__construct($label, "recaptcha_response_field", $properties);
         $this->validation[] = new Validation_Captcha($this->privateKey,'',$this->version);

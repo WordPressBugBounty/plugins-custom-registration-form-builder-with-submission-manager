@@ -3,7 +3,7 @@ class Element_Select extends OptionElement {
 	public $_attributes = array();
 	public $frontend = false;
 
-	public function __construct($label, $name, array $options, array $properties = null, array $advance_opts = null, $frontend = false) {
+	public function __construct($label, $name, array $options, $properties = null, $advance_opts = null, $frontend = false) {
 		$this->frontend = $frontend;
 		parent::__construct($label, $name, $options, $properties, $advance_opts);
 	}

@@ -19,7 +19,7 @@ class Element_TinyMCEWP extends Element {
     public $settings;    
     
     
-    public function __construct($label,$content,$editor_id,$settings=array(), array $properties = null)
+    public function __construct($label,$content,$editor_id,$settings=array(), $properties = null)
     {
         $this->content = $content;
         $this->editor_id = $editor_id;
