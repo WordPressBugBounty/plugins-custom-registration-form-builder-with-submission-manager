@@ -398,14 +398,14 @@ window.addEventListener("load", (event) => {
                             if(field.value == '') {
                                 field.value = field.getAttribute("min");
                                 field.dispatchEvent(new Event('change'));
-                            } else if(field.value < field.getAttribute("min")) {
+                            } else if(parseFloat(field.value) < field.getAttribute("min")) {
                                 fieldErrors.push(rmValidationJS.texts.minnum.replace('%s', field.getAttribute("min")));
                                 valid = false;
                             }
                         }
 
                         if(field.hasAttribute("max") && field.getAttribute("max") != '') {
-                            if(field.value > field.getAttribute("max")) {
+                            if(parseFloat(field.value) > field.getAttribute("max")) {
                                 fieldErrors.push(rmValidationJS.texts.maxnum.replace('%s', field.getAttribute("max")));
                                 valid = false;
                             }

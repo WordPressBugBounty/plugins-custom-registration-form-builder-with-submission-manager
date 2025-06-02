@@ -803,6 +803,8 @@ final class RM_Field_Factory_Revamp {
             echo "<input ".$this->print_attributes($fixed_qnt_attributes).">";
             echo "</div>";
             echo "<span class='rmform-error-message' id='rmform-" . strtolower($fixed_qnt_attributes['name']) . "-error'></span>";
+        } else {
+            echo "</div>";
         }
         echo "</div>";
         echo "<span class='rmform-error-message' id='rmform-" . $attributes['name'] . "-error'></span>";
@@ -904,6 +906,8 @@ final class RM_Field_Factory_Revamp {
                 echo "<input ".$this->print_attributes($multiselect_qnt_attributes).">";
                 echo "</div>";
                 echo "<span class='rmform-error-message' id='rmform-" . strtolower(str_replace(['[', ']'], '', $multiselect_qnt_attributes['name'])) . "-error'></span>";
+            } else {
+                echo "</div>";
             }
             echo "</label>";
             echo "</div>";
@@ -1005,6 +1009,8 @@ final class RM_Field_Factory_Revamp {
             echo "<input ".$this->print_attributes($qnt_attributes).">";
             echo "</div>";
             echo "<span class='rmform-error-message' id='rmform-" . strtolower($qnt_attributes['name']) . "-error'></span>";
+        } else {
+            echo "</div>";
         }
         echo "</div>";
 
