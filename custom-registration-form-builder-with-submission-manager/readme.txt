@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, WooCommerce registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 6.8
-Stable tag: 6.0.5.1
+Stable tag: 6.0.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -398,6 +398,10 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.0.5.2: June 16, 2025 =
+* Fixed: Conditions on the Mobile Number field.
+* Other minor bug fixes.
 
 = 6.0.5.1: June 2, 2025 =
 * Fixed: "Next" button on multi-page forms. (Premium only)
@@ -1514,6 +1518,10 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * New: Aweber Integration.
 
 == Upgrade Notice ==
+
+= 6.0.5.2: June 16, 2025 =
+* Fixed: Conditions on the Mobile Number field.
+* Other minor bug fixes.
 
 = 6.0.5.1: June 2, 2025 =
 * Fixed: "Next" button on multi-page forms. (Premium only)

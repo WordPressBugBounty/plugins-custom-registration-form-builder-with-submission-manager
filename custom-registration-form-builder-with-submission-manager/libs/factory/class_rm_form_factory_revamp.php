@@ -414,7 +414,7 @@ final class RM_Form_Factory_Revamp {
                         $data_block->meta = null;
                         $db_data[$field_id] = $data_block;
 
-                        if($form->fields[$field_id]->field_type == 'PGAvatar') {
+                        if($form->fields[$field_id]->field_type == 'PGAvatar' && isset($data_block->value[0])) {
                             $user_meta_fields[$profile_meta_arr[$form->fields[$field_id]->field_type]] = $data_block->value[0];
                         }
                     } // Handling price fields

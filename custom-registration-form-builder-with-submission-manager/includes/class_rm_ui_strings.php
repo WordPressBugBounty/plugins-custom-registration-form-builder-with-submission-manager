@@ -114,7 +114,7 @@ class RM_UI_Strings {
                 return __('Note Text', 'custom-registration-form-builder-with-submission-manager');
 
             case 'LABEL_ADD_OTHER':
-                return sprintf(__("Allow users to input custom value. ", 'custom-registration-form-builder-with-submission-manager'),'https://registrationmagic.com/knowledgebase/new-field/#htoptions');
+                return __("Allow users to input custom value. ", 'custom-registration-form-builder-with-submission-manager');
 
             case 'MAIL_REGISTRAR_DEF_SUB':
                 return __('Your Submission', 'custom-registration-form-builder-with-submission-manager');
@@ -1575,7 +1575,7 @@ class RM_UI_Strings {
                 return sprintf(__("User will see this message when accessing the form. <a target='_blank' class='rm-more' href='%s'>More</a>", 'custom-registration-form-builder-with-submission-manager'),'https://registrationmagic.com/knowledgebase/limits/#htlimitaction');
 
             case 'HELP_ADD_FIELD_SELECT_TYPE':
-                return __("Select  or change type of the field if not already selected.", 'custom-registration-form-builder-with-submission-manager');
+                return __("Select or change type of the field if not already selected.", 'custom-registration-form-builder-with-submission-manager');
 
             case 'HELP_ADD_FIELD_LABEL':
                 return sprintf(__("Label of the field as it appears on forms and inside user accounts. This does not apply to fields without labels like Shortcode field. <a target='_blank' class='rm-more' href='%s'>More</a>", 'custom-registration-form-builder-with-submission-manager'),'https://registrationmagic.com/knowledgebase/new-field/#htlabel');
@@ -1674,7 +1674,7 @@ class RM_UI_Strings {
                 return sprintf(__("Required to make reCAPTCHA  work. You can generate site key from <a target='blank' class='rm_help_link' href='%s'>here</a>", 'custom-registration-form-builder-with-submission-manager'),'https://www.google.com/recaptcha/');
 
             case 'HELP_OPTIONS_ASPM_SECRET_KEY':
-                return __("Required to make reCAPTCHA  work. It will be provided when you generate site key.", 'custom-registration-form-builder-with-submission-manager');
+                return __("Required to make reCAPTCHA work. It will be provided when you generate site key.", 'custom-registration-form-builder-with-submission-manager');
 
             case 'HELP_OPTIONS_USER_AUTOGEN':
                 return sprintf(__("Creates and sends the users random password instead of allowing them to set one on the form. After selecting this, password field will not appear on the forms. %s", 'custom-registration-form-builder-with-submission-manager'),"<a target='_blank' class='rm-more' href='https://registrationmagic.com/knowledgebase/user-accounts-2/#htautogenpass'>More</a>");
@@ -2609,7 +2609,7 @@ class RM_UI_Strings {
                 return __('Adds product to the form. Products are separately defined in &quot;Products&quot; section of RegistrationMagic. This field type allows you to insert one of the products defined there.', 'custom-registration-form-builder-with-submission-manager');
 
             case 'FIELD_HELP_TEXT_Repeatable':
-                return __('Allows user to add extra text field boxes to the form for submitting different values. Useful where a field requires multiple user input  values. ', 'custom-registration-form-builder-with-submission-manager');
+                return __('Allows user to add extra text field boxes to the form for submitting different values. Useful where a field requires multiple user input values. ', 'custom-registration-form-builder-with-submission-manager');
 
             case 'FIELD_HELP_TEXT_Map':
                 return __('Displays a Map on the form with ability to search and mark an address.', 'custom-registration-form-builder-with-submission-manager');
@@ -2773,13 +2773,13 @@ class RM_UI_Strings {
                 return __("Upload the backup form XML file you had exported earlier, to import all contained data.", 'custom-registration-form-builder-with-submission-manager');
 
             case 'CC_ERROR':
-                return __("<div class='rmnotice'>Oops!! Something went wrong.<ul><li>Possible causes:-</li><li>Couldn't access your  constant contact account with the details you have provided in Gloabal settings->External Integrations.</li><li>You have not created any list in your constant contact account.</li></ul></div>", 'custom-registration-form-builder-with-submission-manager');
+                return __("<div class='rmnotice'>Oops!! Something went wrong.<ul><li>Possible causes:</li><li>Couldn't access your constant contact account with the details you have provided in Global Settings -> External Integrations.</li><li>You have not created any list in your constant contact account.</li></ul></div>", 'custom-registration-form-builder-with-submission-manager');
 
             case 'AW_ERROR':
-                return __("<div class='rmnotice'>Oops!! Something went wrong.<ul><li>Possible causes:-</li><li>Couldn't access your  aweber account with the details you have provided in Gloabal settings->External Integrations.</li><li>You have not created any list in your aweber account.</li></ul></div>", 'custom-registration-form-builder-with-submission-manager');
+                return __("<div class='rmnotice'>Oops!! Something went wrong.<ul><li>Possible causes:</li><li>Couldn't access your aweber account with the details you have provided in Gloabal Settings -> External Integrations.</li><li>You have not created any list in your aweber account.</li></ul></div>", 'custom-registration-form-builder-with-submission-manager');
 
             case 'MC_ERROR':
-                return __("<div class='rmnotice'>Oops!! Something went wrong.<ul><li>Possible causes:-</li><li>Couldn't access your  mailchimp account with the details you have provided in Gloabal settings->External Integrations.</li><li>You have not created any list in your mailchimp account.</li></ul></div>", 'custom-registration-form-builder-with-submission-manager');
+                return __("<div class='rmnotice'>Oops!! Something went wrong.<ul><li>Possible causes:</li><li>Couldn't access your mailchimp account with the details you have provided in Gloabal Settings -> External Integrations.</li><li>You have not created any list in your mailchimp account.</li></ul></div>", 'custom-registration-form-builder-with-submission-manager');
 
             case 'RM_ERROR_EXTENSION_CURL_CC':
                 return __("PHP extension CURL is not enabled on server.So Constant Contact will not work.", 'custom-registration-form-builder-with-submission-manager');
@@ -3048,7 +3048,7 @@ class RM_UI_Strings {
                 return __("You've reached <span class='rm-submission-mark'>%d</span> submissions...", 'custom-registration-form-builder-with-submission-manager');
 
             case 'USER_MESSAGE':
-                return __("You've reached <span class='rm-submission-mark'>%d</span>  users on your website...", 'custom-registration-form-builder-with-submission-manager');
+                return __("You've reached <span class='rm-submission-mark'>%d</span> users on your website...", 'custom-registration-form-builder-with-submission-manager');
 
             case 'REVIEW_MESSAGE_EVENT1':
                 return __("You've reached <span class='rm-submission-mark'>10</span> submissions...", 'custom-registration-form-builder-with-submission-manager');

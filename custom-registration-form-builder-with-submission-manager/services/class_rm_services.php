@@ -1762,7 +1762,7 @@ class RM_Services {
             throw new InvalidArgumentException("Invalid Submission ID '$sub_id'.");
     }
 
-    public function get_submissions_to_export(RM_Submission_Filter $filter=null, $sub_ids = array(), $form_id = null) {
+    public function get_submissions_to_export(RM_Submission_Filter $filter, $sub_ids = array(), $form_id = null) {
         $export_data = array();
         $is_payment = false;
         $option = new RM_Options;

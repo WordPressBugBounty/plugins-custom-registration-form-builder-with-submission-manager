@@ -435,6 +435,10 @@ ul#rmagic-progressbar li:before {
     display: none !important;
 }
 
+.admin_page_rm_form_preview #wpbody-content #dolly{
+    display: none;
+}
+
 .admin_page_rm_form_preview .rm-field-row-wrap .rmagic:before{
     display: none;
 }

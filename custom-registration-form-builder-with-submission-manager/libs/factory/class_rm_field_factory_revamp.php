@@ -540,6 +540,9 @@ final class RM_Field_Factory_Revamp {
             }
         }
 
+        // conditional attributes
+        $attributes = $this->conditional_attributes($attributes, $field);
+
         $icon = isset($field->field_options->icon) && $field->field_options->icon->codepoint ? $this->field_icon($field->field_options->icon) : "";
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
