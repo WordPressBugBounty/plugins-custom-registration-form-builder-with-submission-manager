@@ -4769,7 +4769,15 @@ class RM_UI_Strings {
                 return __("Digital Signature", 'custom-registration-form-builder-with-submission-manager');
             case 'FIELD_HELP_TEXT_DigitalSign':
                 return __('A field for capturing a digital signature using mouse or touchscreen.', 'custom-registration-form-builder-with-submission-manager');
-
+            case 'DEFAULT_ACC_ACT_VALUE':
+                return __('You have successfully verified your email. Your account is now active. You can login below.
+','custom-registration-form-builder-with-submission-manager');
+            case 'DEFAULT_INVALID_ACC_ACT_CODE_VALUE':
+                 return __('Looks like the activation code is broken or incorrect. You can try pasting the activation code from your mail in input box below and manually verify it.' ,'custom-registration-form-builder-with-submission-manager');
+            case 'DEFAULT_ACC_ACT_LINK_NOTICE_VALUE':
+                 return __('Sorry, the verification link has expired. Click here to resend the link {{SEND_VERIFICATION_EMAIL}}.','custom-registration-form-builder-with-submission-manager');
+            case 'DEFAULT_LOGIN_ERR_MSG_VALUE':
+                 return __('Your account has not been activated yet. Please follow the link we sent to your registered email to activate your account. If you have not received it, click here to resend the link {{SEND_VERIFICATION_EMAIL}}.','custom-registration-form-builder-with-submission-manager');
             default:
                 if(defined('REGMAGIC_ADDON'))
                     return RM_UI_Strings_Addon::get($identifier);

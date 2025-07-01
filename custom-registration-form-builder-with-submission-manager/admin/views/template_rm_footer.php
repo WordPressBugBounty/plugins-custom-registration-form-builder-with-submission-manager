@@ -95,7 +95,7 @@ if($dismiss_icon == 0) { ?>
 
 
 
-<div class="wrap">
+<div class="wrap rm-footer-promotion-main">
     
     <div class="rm-footer-promotion rm-w-100 rm-box-w-100 rm-d-flex rm-justify-content-center">
     <div class="rm-text-center"> <a href="https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/" target="_blank" class="rm-text-decoration-none rm-di-flex rm-footer-notice-icon-wrap"> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368" class="rm-mr-1"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M15 4v7H5.17l-.59.59-.58.58V4h11m1-2H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm5 4h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1z"/></svg> <?php esc_html_e('Have a question?', 'custom-registration-form-builder-with-submission-manager'); ?> </a></div>
@@ -113,9 +113,32 @@ if($dismiss_icon == 0) { ?>
 <?php } ?>
 <style>
     
-    .rm-footer-promotion{
+    .rm-footer-promotion-main{
+        clear: left;
+    }
+    
+    .rmagic.rmagic-premium-banner{
+        clear: left;
+    }
+    
+    .registrationmagic_page_rm_support_forum .rm-customize-banner-main{
+        max-width: 100%;
+        margin: 0px;
+    }
+    
+  .rmagic.rmagic-premium-banner ~ .wrap .rm-footer-promotion{
         max-width: 1120px;
          margin: 5px 10% 0 5%;
+    }
+    
+ .registrationmagic_page_rm_submission_manage .rmagic.rmagic-premium-banner ~ .wrap .rm-footer-promotion,
+ .registrationmagic_page_rm_user_manage .rmagic.rmagic-premium-banner ~ .wrap .rm-footer-promotion,
+ .registrationmagic_page_rm_support_forum .rmagic.rmagic-premium-banner ~ .wrap .rm-footer-promotion,
+ .registrationmagic_page_rm_support_premium_page .rmagic.rmagic-premium-banner ~ .wrap .rm-footer-promotion,
+ .admin_page_rm_form_sett_manage .rmagic.rmagic-premium-banner ~ .wrap .rm-footer-promotion,
+ .admin_page_rm_licensing .rmagic.rmagic-premium-banner ~ .wrap .rm-footer-promotion {
+        max-width: 100%;
+        margin:0px;
     }
     
     .rm-footer-notice{

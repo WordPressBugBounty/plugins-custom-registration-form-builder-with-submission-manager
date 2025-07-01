@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RegistrationMagic Basic v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2025-06-11 17:15+0530\n"
+"POT-Creation-Date: 2025-06-27 19:21+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: RegistrationMagic Support <support@registrationmagic.com>\n"
@@ -17650,7 +17650,32 @@ msgstr ""
 msgid "Digital Signature"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4777
+#: includes/class_rm_ui_strings.php:4773
+msgid ""
+"You have successfully verified your email. Your account is now active. You "
+"can login below.\n"
+msgstr ""
+
+#: includes/class_rm_ui_strings.php:4776
+msgid ""
+"Looks like the activation code is broken or incorrect. You can try pasting "
+"the activation code from your mail in input box below and manually verify it."
+msgstr ""
+
+#: includes/class_rm_ui_strings.php:4778
+msgid ""
+"Sorry, the verification link has expired. Click here to resend the link "
+"{{SEND_VERIFICATION_EMAIL}}."
+msgstr ""
+
+#: includes/class_rm_ui_strings.php:4780
+msgid ""
+"Your account has not been activated yet. Please follow the link we sent to "
+"your registered email to activate your account. If you have not received it, "
+"click here to resend the link {{SEND_VERIFICATION_EMAIL}}."
+msgstr ""
+
+#: includes/class_rm_ui_strings.php:4785
 msgid "NO STRING FOUND"
 msgstr ""
 

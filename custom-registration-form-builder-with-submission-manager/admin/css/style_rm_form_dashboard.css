@@ -521,8 +521,7 @@ input.rm-toggle-round-flat + label:after {
 }
 
 input.rm-toggle-round-flat:checked + label {
-    background-color: #11a0d2;
-    background-color: rgb(17, 160, 210);
+    background-color: #2271b1;
     border: 9px solid transparent;
 }
 

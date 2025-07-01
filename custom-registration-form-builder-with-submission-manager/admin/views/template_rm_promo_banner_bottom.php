@@ -38,6 +38,7 @@ if(defined('REGMAGIC_ADDON') && $dismiss_banner == 0) { ?>
 .rm-customize-banner-main{
     width: 100%;
     float: left;
+    clear: left
 }
     
 .rm-customize-banner-wrap {
@@ -94,6 +95,27 @@ if(defined('REGMAGIC_ADDON') && $dismiss_banner == 0) { ?>
     display: flex;
     justify-content: center;
 }
+
+ .rmagic.rm-customize-banner-main ~ .wrap .rm-footer-promotion{
+        max-width: 1120px;
+        margin: 5px 10% 0 5%;
+    }
+    
+.registrationmagic_page_rm_submission_manage .rmagic.rm-customize-banner-main ~ .wrap .rm-footer-promotion,
+ .registrationmagic_page_rm_user_manage .rmagic.rmagic.rm-customize-banner-main ~ .wrap .rm-footer-promotion,
+ .registrationmagic_page_rm_support_forum .rmagic.rmagic.rm-customize-banner-main ~ .wrap .rm-footer-promotion,
+ .registrationmagic_page_rm_support_premium_page .rmagic.rmagic.rm-customize-banner-main ~ .wrap .rm-footer-promotion,
+ .admin_page_rm_form_sett_manage .rmagic.rmagic.rm-customize-banner-main ~ .wrap .rm-footer-promotion,
+ .admin_page_rm_licensing .rmagic.rm-customize-banner-main ~ .wrap .rm-footer-promotion,
+.toplevel_page_rm_form_manage .rmagic.rm-customize-banner-main ~ .wrap .rm-footer-promotion{
+        max-width: 100%;
+        margin:0px;
+    }
+    
+    .registrationmagic_page_rm_ex_chronos_manage_tasks .wrap .rm-footer-promotion{
+        max-width: 1120px;
+        margin: 5px 10% 0 5%;
+    }
 
 </style>
 <pre class="rm-pre-wrapper-for-script-tags">
