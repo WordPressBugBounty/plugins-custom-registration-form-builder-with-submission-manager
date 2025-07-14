@@ -385,16 +385,17 @@ class RM_Public {
     }
     
     public function register_otp_widget() {
+        include_once RM_PUBLIC_DIR . 'widgets/class_rm_otp_widget.php';
         register_widget('RM_OTP_Widget');
     }
     
-    public function register_login_btn_widget()
-    {  
+    public function register_login_btn_widget() {
+        include_once RM_PUBLIC_DIR . 'widgets/class_rm_login_btn_widget.php';
         register_widget('RM_Login_Btn_Widget');
     }
     
-    public function register_form_widget()
-    {
+    public function register_form_widget() {
+        include_once RM_PUBLIC_DIR . 'widgets/class_rm_form_widget.php';
         register_widget('RM_Form_Widget');
     }
     

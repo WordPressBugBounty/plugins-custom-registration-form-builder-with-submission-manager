@@ -659,11 +659,6 @@ final class RM_Form_Factory_Revamp {
                                 $user_meta_fields[$form->fields[$field_id]->field_options->field_meta_add] = $data_block->value;
                             }
 
-                            // Adding WC user meta
-                            if(class_exists('WooCommerce')) {
-                                $service->save_wc_meta($form_id, $db_data, (string)$user_email);
-                            }
-
                             if(!$save_submission) {
                                 if(absint($form->fields[$field_id]->field_options->field_is_required) == 1 && (!isset($sub_data[$field_name]) || empty($sub_data[$field_name]))) {
                                     array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
@@ -833,6 +828,11 @@ final class RM_Form_Factory_Revamp {
                             foreach($user_meta_fields as $meta_key => $meta_value) {
                                 update_user_meta($user_id,$meta_key,$meta_value);
                             }
+                        }
+
+                        // Adding WC user meta
+                        if(class_exists('WooCommerce')) {
+                            $service->save_wc_meta($form_id, $db_data, (string)$user_email);
                         }
     
                         if(get_option('rm_option_send_password') == 'yes') {
@@ -1245,6 +1245,11 @@ final class RM_Form_Factory_Revamp {
                         foreach($user_meta_fields as $meta_key => $meta_value) {
                             update_user_meta($old_user->ID, $meta_key,$meta_value);
                         }
+                    }
+
+                    // Adding WC user meta
+                    if(class_exists('WooCommerce')) {
+                        $service->save_wc_meta($form_id, $db_data, (string)$user_email);
                     }
 
                     $user_form_id = get_user_meta($old_user->ID,'RM_UMETA_FORM_ID', true);
