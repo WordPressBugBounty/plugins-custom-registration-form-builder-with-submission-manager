@@ -917,6 +917,17 @@ $(".rm-upgrade-notice-info .rm-promo-notice-dismiss").click(function(){
     
     $.post(ajaxurl, dismiss_data, function(response) {});
 });
+
+$("button.rm-sale-banner-close").click(function() {
+    $("div.rm-admin-sale-banner").slideUp();
+    
+    var dismiss_data = {
+        'action': 'rm_dismiss_sale_banner',
+        'rm_sec_nonce': rm_admin_vars.nonce
+    };
+    
+    $.post(ajaxurl, dismiss_data, function(response) {});
+});
 });
 
 

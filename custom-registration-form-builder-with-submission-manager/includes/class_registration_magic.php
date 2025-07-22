@@ -214,6 +214,7 @@ class Registration_Magic
         $this->loader->add_action('admin_init', $this, 'redirect_after_activation');
         $this->loader->add_action('admin_init', $rm_admin, 'rm_editor_style');
         $this->loader->add_action('wp_ajax_rm_dismiss_upgrade_notice', $this, 'dismiss_upgrade_notice');
+        $this->loader->add_action('wp_ajax_rm_dismiss_sale_banner', $this, 'dismiss_sale_banner');
         $this->loader->add_action('wp_ajax_rm_dismiss_customize_banner', $this, 'dismiss_customize_banner');
         $this->loader->add_action('wp_ajax_rm_dismiss_floating_banner', $this, 'dismiss_floating_banner');
         $this->loader->add_action('wp_ajax_rm_load_payment_status_admin_js_data', 'RM_Utilities', 'load_payment_status_admin_js_data');
@@ -1235,6 +1236,15 @@ class Registration_Magic
     public function dismiss_upgrade_notice() {
         if(check_ajax_referer('rm_ajax_secure','rm_sec_nonce')) {
             update_option('rm_dismiss_upgrade_notice', 1);
+        }
+	}
+
+    public function dismiss_sale_banner() {
+        if(check_ajax_referer('rm_ajax_secure','rm_sec_nonce')) {
+            if (isset($_SESSION['rm_dismiss_sale_banner']) && $_SESSION['rm_dismiss_sale_banner'] == 1) {
+                return;
+            }
+            $_SESSION['rm_dismiss_sale_banner'] = 1;
         }
 	}
 
