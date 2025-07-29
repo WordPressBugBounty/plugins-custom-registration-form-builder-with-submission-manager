@@ -851,7 +851,7 @@ class RM_Activator
             update_site_option('rm_option_install_date', time());
             update_site_option('rm_option_install_type', 'basic');
             update_site_option('rm_option_theme', 'default');
-            update_site_option('rm_forms_view_roll_back', 1);
+            update_site_option('rm_forms_view_roll_back', 0);
         }
         else
         {

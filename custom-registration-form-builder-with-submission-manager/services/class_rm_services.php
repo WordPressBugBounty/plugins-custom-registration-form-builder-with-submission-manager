@@ -1480,7 +1480,7 @@ class RM_Services {
                     $field_model = new RM_Fields;
                     $field_model->load_from_db($new);
 
-                    if(isset($field_model->field_options->conditions)) {
+                    if(isset($field_model->field_options->conditions['rules']) && !empty($field_model->field_options->conditions['rules'])) {
                         foreach($field_model->field_options->conditions['rules'] as $rule_k => $rule_v) {
                             $rule_key_arr = explode("_", $rule_k);
                             if(isset($field_map[absint($rule_key_arr[1])])) {
@@ -1509,7 +1509,7 @@ class RM_Services {
                 $field_model = new RM_Fields;
                 $field_model->load_from_db($new);
 
-                if(isset($field_model->field_options->conditions)) {
+                if(isset($field_model->field_options->conditions['rules']) && !empty($field_model->field_options->conditions['rules'])) {
                     foreach($field_model->field_options->conditions['rules'] as $rule_k => $rule_v) {
                         $rule_key_arr = explode("_", $rule_k);
                         if(isset($field_map[absint($rule_key_arr[1])])) {
@@ -1554,7 +1554,7 @@ class RM_Services {
                         $field_model = new RM_Fields;
                         $field_model->load_from_db($new);
 
-                        if(isset($field_model->field_options->conditions)) {
+                        if(isset($field_model->field_options->conditions['rules']) && !empty($field_model->field_options->conditions['rules'])) {
                             foreach($field_model->field_options->conditions['rules'] as $rule_k => $rule_v) {
                                 $rule_key_arr = explode("_", $rule_k);
                                 if(isset($field_map[absint($rule_key_arr[1])])) {
@@ -1597,7 +1597,7 @@ class RM_Services {
                     $field_model = new RM_Fields;
                     $field_model->load_from_db($new);
 
-                    if(isset($field_model->field_options->conditions)) {
+                    if(isset($field_model->field_options->conditions['rules']) && !empty($field_model->field_options->conditions['rules'])) {
                         foreach($field_model->field_options->conditions['rules'] as $rule_k => $rule_v) {
                             $rule_key_arr = explode("_", $rule_k);
                             if(isset($field_map[absint($rule_key_arr[1])])) {

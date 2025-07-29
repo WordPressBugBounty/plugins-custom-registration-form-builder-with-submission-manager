@@ -13,7 +13,7 @@ if(isset($data->reg_template)){
     foreach ($data->reg_template as $key => $template) {
         $reg_icon='';
         if($template['create_user']){
-            $reg_icon .= '<span class="material-icons">person</span>';
+            $reg_icon .= '<span class="material-icons">how_to_reg</span>';
         }
         if($template['multipage']){
             $reg_icon .= '<span class="material-icons">auto_stories</span>';
@@ -57,7 +57,7 @@ $template_filter = '<div class="rm-template-filter">
                     </div>
                     <div class="rm-temp-filter-suggestion">
                         <ul>
-                            <li><span class="material-icons">person</span><label> '.__('= Creates User Accounts','custom-registration-form-builder-with-submission-manager').'</label></li>
+                            <li><span class="material-icons">how_to_reg</span><label> '.__('= Creates User Accounts','custom-registration-form-builder-with-submission-manager').'</label></li>
                             '.$tem_type.'
                         </ul>
                     </div>
@@ -88,7 +88,7 @@ $form = new RM_PFBC_Form("rm_form_setup");
         $form->addElement(new Element_HTML('<div class="rm-form-wizard-step-main">'));
 
         //Step 0
-        $form->addElement(new Element_HTML('<div class="rm-form-wizard-step-wrap rm-form-wizard-step-0" id="step-0"><div class="rm-form-wizard-header"><span class="material-icons"> auto_fix_high </span><div class="rm-form-wizard-head">'.__('Start Blank or With a Readymade Template?', 'custom-registration-form-builder-with-submission-manager').'</div></div>'));
+        $form->addElement(new Element_HTML('<div class="rm-form-wizard-step-wrap rm-form-wizard-step-0" id="step-0"><div class="rm-form-wizard-header"><span class="material-icons"> auto_fix_high </span><div class="rm-form-wizard-head">'.__('Start Blank or With a Ready-made Template?', 'custom-registration-form-builder-with-submission-manager').'</div></div>'));
         $form->addElement(new Element_HTML('<div class="rm-templates_list">'));
         $form->addElement(new Element_HTML($template_filter));
         $form->addElement(new Element_HTML('<div class="rm-registration-form-template" id="regForm">'));

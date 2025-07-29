@@ -130,6 +130,9 @@
 .rm-rounded-1{
     border-radius:  var(--rm-border-radius-sm)
 }
+.rm-rounded-2{
+    border-radius:  var(--rm-border-radius-lg)
+}
 
 .rm-rounded-5{
     border-radius:  var(--rm-border-radius-2xl)

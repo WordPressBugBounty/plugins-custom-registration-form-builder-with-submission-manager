@@ -29,22 +29,22 @@ class RM_Options
         //Initialize default values.
         $this->default['currency'] = 'USD';
         $this->default['admin_order'] = array(
-            array("rm_form_manage",__('All Forms','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_dashboard_widget_dashboard",__('Overview','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"hidden","false"),
-            array("rm_submission_manage",__('Inbox','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_sent_emails_manage",__('Outbox','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"hidden","false"),
-            array("rm_attachment_manage",__('Attachments','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_analytics_show_form",__('Form Analytics','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_analytics_show_field",__('Field Analytics','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_form_manage_cstatus",__('Custom Status','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_ex_chronos_manage_tasks",__('Automation','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_invitations_manage",__('Bulk Email','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_user_manage",__('User Manager','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_user_role_manage",__('User Roles','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_paypal_field_manage",__('Products','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_payments_manage",__('Payments','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
-            array("rm_reports_dashboard",__('Reports','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"hidden","false"),
-            array("rm_options_manage",__('Global Settings','custom-registration-form-builder-with-submission-manager'),array("administrator") ,"visible","false"),
+            array("rm_form_manage",'All Forms',array("administrator") ,"visible","false"),
+            array("rm_dashboard_widget_dashboard",'Overview',array("administrator") ,"hidden","false"),
+            array("rm_submission_manage",'Inbox',array("administrator") ,"visible","false"),
+            array("rm_sent_emails_manage",'Outbox',array("administrator") ,"hidden","false"),
+            array("rm_attachment_manage",'Attachments',array("administrator") ,"visible","false"),
+            array("rm_analytics_show_form",'Form Analytics',array("administrator") ,"visible","false"),
+            array("rm_analytics_show_field",'Field Analytics',array("administrator") ,"visible","false"),
+            array("rm_form_manage_cstatus",'Custom Status',array("administrator") ,"visible","false"),
+            array("rm_ex_chronos_manage_tasks",'Automation',array("administrator") ,"visible","false"),
+            array("rm_invitations_manage",'Bulk Email',array("administrator") ,"visible","false"),
+            array("rm_user_manage",'User Manager',array("administrator") ,"visible","false"),
+            array("rm_user_role_manage",'User Roles',array("administrator") ,"visible","false"),
+            array("rm_paypal_field_manage",'Products',array("administrator") ,"visible","false"),
+            array("rm_payments_manage",'Payments',array("administrator") ,"visible","false"),
+            array("rm_reports_dashboard",'Reports',array("administrator") ,"hidden","false"),
+            array("rm_options_manage",'Global Settings',array("administrator") ,"visible","false"),
         );
         $this->default['enable_admin_order'] = 'no';
         $this->default['num_hidden_menus'] = 0;
@@ -58,7 +58,7 @@ class RM_Options
         $this->default['tax_type'] = 'fixed';
         $this->default['tax_fixed'] = 0;
         $this->default['tax_percentage'] = 0;
-        $this->default['tax_rename'] = __('Tax','custom-registration-form-builder-with-submission-manager');
+        $this->default['tax_rename'] = 'Tax';
         $this->default['enable_captcha'] = 'no';
         $this->default['sub_limit_antispam'] = 20;
         $this->default['edd_notice'] = '1';
@@ -135,10 +135,10 @@ class RM_Options
         $this->default['mailpoet_notice'] = '1';
         $this->default['acc_act_link_expiry'] = '';
         $this->default['submission_pdf_font'] = 'times';
-        $this->default['acc_act_notice'] = RM_UI_Strings::get('DEFAULT_ACC_ACT_VALUE');
-        $this->default['acc_invalid_act_code'] = RM_UI_Strings::get('DEFAULT_INVALID_ACC_ACT_CODE_VALUE');
-        $this->default['acc_act_link_exp_notice'] = RM_UI_Strings::get('DEFAULT_ACC_ACT_LINK_NOTICE_VALUE');
-        $this->default['login_error_message'] = RM_UI_Strings::get('DEFAULT_LOGIN_ERR_MSG_VALUE');
+        $this->default['acc_act_notice'] = 'You have successfully verified your email. Your account is now active. You can login below.';
+        $this->default['acc_invalid_act_code'] = 'Looks like the activation code is broken or incorrect. You can try pasting the activation code from your mail in input box below and manually verify it.';
+        $this->default['acc_act_link_exp_notice'] = 'Sorry, the verification link has expired. Click here to resend the link {{SEND_VERIFICATION_EMAIL}}.';
+        $this->default['login_error_message'] = 'Your account has not been activated yet. Please follow the link we sent to your registered email to activate your account. If you have not received it, click here to resend the link {{SEND_VERIFICATION_EMAIL}}.';
         $this->default['prov_act_acc'] = '';
         $this->default['prov_acc_act_criteria'] = '';
         $this->default['enable_gplus'] = 'no';

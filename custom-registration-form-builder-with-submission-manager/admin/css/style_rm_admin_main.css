@@ -12065,3 +12065,62 @@ span.rm-license-validity-notice{
 .rmagic #rm-field-selector .rm-modal-titlebar .rm-modal-close{
     text-align: center;
 }
+
+/*-- Sale Banner----*/
+
+.rm-admin-sale-banner {
+    position: relative;
+}
+
+.rm-sale-banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.rm-sale-banner-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.rm-sale-banner-text {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.rm-sale-banner-code {
+    font-weight: bold;
+    background: #ffffff;
+    color: #090909;
+    border-radius: 3px;
+    margin-left: 4px;
+    border: dashed 1px #000000;
+    padding: 4px 6px;
+}
+
+.rm-sale-banner-btn {
+    background-color: #2371b1;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.rm-sale-banner-btn:hover {
+
+}
+
+.rm-sale-banner-close {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: auto;
+    flex-shrink: 0;
+    position: absolute;
+    right: 12px;
+    top: 10px;
+}

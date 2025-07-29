@@ -1410,6 +1410,10 @@ final class RM_Field_Factory_Revamp {
                 'id' => $field->field_type . '_' . $field->field_id."_other",
                 'onchange' => 'rmToggleOtherText(this)'
             );
+            if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
+                $other_radio_attributes['required'] = 'required';
+                $other_radio_attributes['aria-required'] = 'true';
+            }
             echo "<label class='rmform-check' for='checkbox_$count'>";
             echo "<input ".$this->print_attributes($other_radio_attributes).">";
             $secondary_label_attributes['id'] = 'label_id_'.$field->field_id.'_'.$count;
@@ -4922,7 +4926,7 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        $error_span_id = strtolower($field->field_type)."_{$field->field_id}-error";
+        $error_span_id = strtolower($field->field_type)."_{$field->field_id}";
         if(!empty($ex_sub_id)) {
             global $wpdb;
             $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
@@ -5006,7 +5010,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}firstname-error'></span>";
             echo "</div>";
             echo "</div>";
 
@@ -5046,7 +5050,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}lastname-error'></span>";
             echo "</div>";
             echo "</div>";
 
@@ -5091,7 +5095,7 @@ final class RM_Field_Factory_Revamp {
                 }
                 $label .= "</label>";
                 echo $label;
-                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}firstname-error'></span>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -5135,7 +5139,7 @@ final class RM_Field_Factory_Revamp {
                 }
                 $label .= "</label>";
                 echo $label;
-                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}lastname-error'></span>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -5181,7 +5185,7 @@ final class RM_Field_Factory_Revamp {
             }
             $label .= "</label>";
             echo $label;
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}company-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -5225,7 +5229,7 @@ final class RM_Field_Factory_Revamp {
             }
             $label .= "</label>";
             echo $label;
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}add1-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -5269,7 +5273,7 @@ final class RM_Field_Factory_Revamp {
             }
             $label .= "</label>";
             echo $label;
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}add2-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -5315,7 +5319,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}city-error'></span>";
             echo "</div>";
             echo "</div>";
 
@@ -5357,7 +5361,7 @@ final class RM_Field_Factory_Revamp {
             }
             $label .= "</label>";
             echo $label;
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}state-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -5401,7 +5405,7 @@ final class RM_Field_Factory_Revamp {
                 }
                 $label .= "</label>";
                 echo $label;
-                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}city-error'></span>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -5448,7 +5452,7 @@ final class RM_Field_Factory_Revamp {
                 }
                 $label .= "</label>";
                 echo $label;
-                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}state-error'></span>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -5505,7 +5509,7 @@ final class RM_Field_Factory_Revamp {
             }
             $label .= "</label>";
             echo $label;
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}country-error'></span>";
             echo "</div>";
             echo "</div>";
             
@@ -5542,7 +5546,7 @@ final class RM_Field_Factory_Revamp {
             }
             $label .= "</label>";
             echo $label;
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}zip-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -5596,7 +5600,7 @@ final class RM_Field_Factory_Revamp {
                 $label .= "</label>";
                 echo $label;
 
-                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}country-error'></span>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -5637,7 +5641,7 @@ final class RM_Field_Factory_Revamp {
                 }
                 $label .= "</label>";
                 echo $label;
-                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}zip-error'></span>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -5681,7 +5685,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}phone-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -5724,7 +5728,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}email-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -5783,7 +5787,7 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)) {
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        $error_span_id = strtolower($field->field_type)."_{$field->field_id}-error";
+        $error_span_id = strtolower($field->field_type)."_{$field->field_id}";
         
         if(!empty($ex_sub_id)) {
             global $wpdb;
@@ -5861,7 +5865,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}firstname-error'></span>";
             echo "</div>";
             echo "</div>";
 
@@ -5898,7 +5902,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}lastname-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -5940,7 +5944,7 @@ final class RM_Field_Factory_Revamp {
                 $label .= "</label>";
                 echo $label;
 
-                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}firstname-error'></span>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -5982,7 +5986,7 @@ final class RM_Field_Factory_Revamp {
                 $label .= "</label>";
                 echo $label;
 
-                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}lastname-error'></span>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -6026,7 +6030,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}company-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -6068,7 +6072,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}add1-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -6110,7 +6114,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}add2-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -6154,7 +6158,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}city-error'></span>";
             echo "</div>";
             echo "</div>";
 
@@ -6194,7 +6198,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}state-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -6236,7 +6240,7 @@ final class RM_Field_Factory_Revamp {
                 $label .= "</label>";
                 echo $label;
 
-                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}city-error'></span>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -6281,7 +6285,7 @@ final class RM_Field_Factory_Revamp {
                 $label .= "</label>";
                 echo $label;
 
-                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}state-error'></span>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -6338,7 +6342,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}country-error'></span>";
             echo "</div>";
             echo "</div>";
             // zip
@@ -6375,7 +6379,7 @@ final class RM_Field_Factory_Revamp {
             $label .= "</label>";
             echo $label;
 
-            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+            echo "<span class='rmform-error-message' id='rmform-{$error_span_id}zip-error'></span>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -6429,7 +6433,7 @@ final class RM_Field_Factory_Revamp {
                 $label .= "</label>";
                 echo $label;
 
-                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}country-error'></span>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -6472,7 +6476,7 @@ final class RM_Field_Factory_Revamp {
                 $label .= "</label>";
                 echo $label;
 
-                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}'></span>";
+                echo "<span class='rmform-error-message' id='rmform-{$error_span_id}zip-error'></span>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";

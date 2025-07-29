@@ -14,9 +14,7 @@
    /* display: none;*/
 }
 
-.rmagic-cards .rmcard:hover .rm-form-links {
-    display: block;
-}
+
 
 .rmagic-cards .rmcard .rm-form-links .rm-form-row:hover{
     background-color: #2271b1;

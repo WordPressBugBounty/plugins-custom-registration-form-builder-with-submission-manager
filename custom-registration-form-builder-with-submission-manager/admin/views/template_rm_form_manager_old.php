@@ -72,7 +72,6 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
         <li data-class="rm-form-settings"><?php _e('Each form has its own dashboard or operations area, that is accessible by clicking the <b>Settings</b> button on the respective form card.', 'custom-registration-form-builder-with-submission-manager'); ?></li>
         <li data-class="rm-form-fields" data-options="tipAdjustmentX:-12"><?php _e('Any form once created is empty. Form fields need to be added manually. This is where <b>Custom Fields Manager</b> comes in. Clicking it will take you to a separate section, where you can add all sorts of fields and pages to your form.', 'custom-registration-form-builder-with-submission-manager'); ?></li>
         <li data-id="rm-tour-title" data-options="tipLocation:top;nubPosition:hide;tipAdjustmentX:200;tipAdjustmentY:230" data-button="Done"><?php printf(__('This ends our tour of Forms Manager. Feel free to explore other sections of RegistrationMagic. We would recommend visiting the form Dashboard first. If anything does not works as expected, please write to us <a href="%s"><u>here</u></a> and we will help you sort it out asap.', 'custom-registration-form-builder-with-submission-manager'),'https://registrationmagic.com/help-support'); ?></li>
-
     </ol>
   <!-- Joyride Magic ends -->
 
@@ -80,33 +79,62 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
     <form name="rm_form_manager" id="rm_form_manager_operartionbar" class="rm_static_forms" method="post" action="">
         
         <input type="hidden" name="rm_slug" value="" id="rm_slug_input_field">
-        <div class="operationsbar" id="rmbar">
-            <div class="rmtitle" id="rm-tour-title"><?php echo wp_kses_post((string)RM_UI_Strings::get('TITLE_FORM_MANAGER'));?></div>
-            <div class="icons" id="rm-ob-icons">
-                <a href="?page=rm_options_manage"><img alt="" src="<?php echo esc_url(plugin_dir_url(dirname(dirname(__FILE__))) . 'images/general-settings.png'); ?>"></a>
-            </div>
-            <div class="nav" id="rm-ob-nav">
-                <ul>
-                    <li id="rm-ob-new"><a href="#rm_add_new_form_popup" onclick="CallModalBox(this)"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_ADD_NEW'));?></a></li>
-                <!--<li id="rm-ob-new"><a href="<?php echo admin_url("admin.php?page=rm_form_setup");?>"><?php echo wp_kses_post((string)RM_UI_Strings::get('ADMIN_MENU_SETUP'));?></a></li>-->
-                    
-                    <li id="rm-ob-duplicate" class="rm_deactivated" onclick="jQuery.rm_do_action('rm_form_manager_operartionbar','rm_form_duplicate')"><a href="javascript:void(0)"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_DUPLICATE')); ?></a></li>
-                    <li id="rm-ob-delete" class="rm_deactivated" onclick="jQuery.rm_do_action_with_alert('<?php echo wp_kses_post((string)RM_UI_Strings::get('ALERT_DELETE_FORM')); ?>','rm_form_manager_operartionbar','rm_form_remove')"><a href="javascript:void(0)"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_REMOVE')); ?></a></li>
-                    <?php $localized_str_exportall = RM_UI_Strings::get('LABEL_EXPORT')." <span class='rm-export-count'>(".RM_UI_Strings::get('LABEL_ALL').")</span>"; $localized_str_exportselected = RM_UI_Strings::get('LABEL_EXPORT'); ?>
-                    <li id="rm-ob-export" data-rmlocalstrall="<?php echo wp_kses_post((string)$localized_str_exportall); ?>" data-rmlocalstrselected="<?php echo esc_attr($localized_str_exportselected); ?>" onclick="jQuery.rm_do_action('rm_form_manager_operartionbar','rm_form_export')"><a href="javascript:void(0)"><?php echo wp_kses_post((string)$localized_str_exportall); ?></a></li>
-                    <li id="rm-ob-import"><a href="admin.php?page=rm_form_import"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_IMPORT')); ?></a></li>
-                    <li><a href="javascript:void(0)" onclick="rm_start_joyride()"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_TOUR')); ?></a></li>
-                    <li id="rm-ob-demo" class="rm-starter-guide"><a target="_blank" href="https://registrationmagic.com/create-wordpress-registration-page-starter-guide/"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_STARTER_GUIDE')); ?></a></li> 
-                    <!-- <li id="rm-ob-demo"><a target="_blank" href="http://demo.registrationmagic.com/"><?php //echo RM_UI_Strings::get('LABEL_DEMO'); ?></a></li> -->
-                    <li class="rm-form-toggle" id="rm-ob-sort"><?php _e('Sort Forms', 'custom-registration-form-builder-with-submission-manager'); ?><select onchange="rm_sort_forms(this,'<?php echo esc_js($data->curr_page);?>')">
-                            <option value=null><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_SELECT')); ?></option>
-                            <option value="form_name"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_NAME')); ?></option>
-                            <option value="form_id"><?php echo wp_kses_post((string)RM_UI_Strings::get('FIELD_TYPE_DATE')); ?></option>
-                            <option value="form_submissions"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_SUBMISSIONS')); ?></option>
-                        </select></li>
-                </ul>
-            </div>
-        </div>
+        
+      <div class="rm-box-head-row rm-box-row">
+          <div class="rm-box-col-12">         
+              <div class="rm-box-border rm-rounded-2 rm-box-white-bg rm-p-3">
+                  <div class="rm-box-row rm-box-mb-25 rm-box-center">
+                      <div class="rm-box-col-10">
+                          <div class="rm-box-title rm-mb-0" id="rm-tour-title">
+                          All Forms
+                          </div>
+                      </div>
+                      <div class="rm-box-col-2 rm-box-setting-icon-col rm-box-text-right">
+                          <a href="?page=rm_options_manage" id="rm-ob-icons">
+                              <img alt="" src="<?php echo esc_url(plugin_dir_url(dirname(dirname(__FILE__))) . 'images/general-settings.png'); ?>" width="30px">
+                          </a> 
+                      </div>
+                  </div>
+                  
+                  <div class="rm-box-row  rm-box-center">
+                      <div class="rm-box-col-8 rm-box-col-md-6">
+                          <div class="rm-box-head-nav" id="rm-ob-nav">
+                              <ul class="rm-d-flex ">
+                               <li id="rm-ob-new"><a href="#rm_add_new_form_popup" onclick="CallModalBox(this)"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_ADD_NEW'));?></a></li>
+                                <!--<li id="rm-ob-new"><a href="<?php echo admin_url("admin.php?page=rm_form_setup");?>"><?php echo wp_kses_post((string)RM_UI_Strings::get('ADMIN_MENU_SETUP'));?></a></li>-->
+                                    <li id="rm-ob-duplicate" class="rm_deactivated" onclick="jQuery.rm_do_action('rm_form_manager_operartionbar','rm_form_duplicate')"><a href="javascript:void(0)"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_DUPLICATE')); ?></a></li>
+                                    <li id="rm-ob-delete" class="rm_deactivated" onclick="jQuery.rm_do_action_with_alert('<?php echo wp_kses_post((string)RM_UI_Strings::get('ALERT_DELETE_FORM')); ?>','rm_form_manager_operartionbar','rm_form_remove')"><a href="javascript:void(0)"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_REMOVE')); ?></a></li>
+                                    <?php $localized_str_exportall = RM_UI_Strings::get('LABEL_EXPORT')." <span class='rm-export-count'>(".RM_UI_Strings::get('LABEL_ALL').")</span>"; $localized_str_exportselected = RM_UI_Strings::get('LABEL_EXPORT'); ?>
+                                    <li id="rm-ob-export" data-rmlocalstrall="<?php echo wp_kses_post((string)$localized_str_exportall); ?>" data-rmlocalstrselected="<?php echo esc_attr($localized_str_exportselected); ?>" onclick="jQuery.rm_do_action('rm_form_manager_operartionbar','rm_form_export')"><a href="javascript:void(0)"><?php echo wp_kses_post((string)$localized_str_exportall); ?></a></li>
+                                    <li id="rm-ob-import"><a href="admin.php?page=rm_form_import"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_IMPORT')); ?></a></li>
+                                    <li><a href="javascript:void(0)" onclick="rm_start_joyride()"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_TOUR')); ?></a></li>
+                                    <li id="rm-ob-demo" class="rm-starter-guide"><a target="_blank" href="https://registrationmagic.com/create-wordpress-registration-page-starter-guide/"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_STARTER_GUIDE')); ?></a></li> 
+                                </ul>
+                          </div>
+                      </div>
+                      
+                      <div class="rm-box-col-4 rm-box-head-ext-nav">
+                          <ul class="rm-d-flex rm-justify-content-end rm-p-0 rm-m-0"> 
+                                <li class="rm-d-flex rm-align-items-center rm-justify-content-end" id="rm-ob-sort">
+                                    <span class="rm-pr-2"> <?php _e('Sort Forms', 'custom-registration-form-builder-with-submission-manager'); ?></span>
+                                    <select onchange="rm_sort_forms(this,'<?php echo esc_js($data->curr_page);?>')">
+                                        <option value=null><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_SELECT')); ?></option>
+                                        <option value="form_name"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_NAME')); ?></option>
+                                        <option value="form_id"><?php echo wp_kses_post((string)RM_UI_Strings::get('FIELD_TYPE_DATE')); ?></option>
+                                        <option value="form_submissions"><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_SUBMISSIONS')); ?></option>
+                                    </select>
+                                </li>
+                            </ul>
+                      </div>
+                  
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+        
+    
         <input type="hidden" name="rm_selected" value="">
         <?php wp_nonce_field('rm_form_manager_template'); ?>
         <input type="hidden" name="req_source" value="form_manager">
@@ -116,39 +144,51 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
 
     <!--  ****Content area Starts****  -->
 
-    <div class="rmagic-cards" id="rm-card-area">
-        
-        <!-- Quick Form card
-        <div class="rmcard" id="rm-new-form">
-            <?php /*
-            $form = new RM_PFBC_Form("rm_form_quick_add");
-            $form->configure(array(
-                "prevent" => array("bootstrap", "jQuery"),
-                "action" => ""
-            ));
-            $form->addElement(new Element_HTML('<div class="rm-new-form">'));
-            $form->addElement(new Element_Hidden("rm_slug",'rm_form_quick_add'));
-            $form->addElement(new Element_Textbox('', "form_name", array("id" => "rm_form_name", "required" => 1)));
-            $form->addElement(new Element_Button(RM_UI_Strings::get('LABEL_CREATE_FORM'), "submit", array("id" => "rm_submit_btn", "onClick" => "jQuery.prevent_quick_add_form(event)", "class" => "rm_btn", "name" => "submit")));
-            $form->addElement(new Element_HTML('</div>'));
-            $form->render(); */
-            ?> 
-            </div> -->
-   
-                <div id="login_form" class="rmcard">
+    <div class="rmagic-cards rm-box-row" id="rm-card-area">
+        <div class="rm-box-col rm-box-col-md-3 rm-box-mt-10">
+           <div id="login_form" class="rmcard rm-border">
                 <div class="cardtitle">
                     <input class="rm_checkbox" type="checkbox" disabled="disabled"><?php _e('Login Form', 'custom-registration-form-builder-with-submission-manager'); ?></div>                       
                 <div class="rm-form-shortcode"><b>[RM_Login]</b></div>
-                
                 <div class="rm-form-links">
-                    <div class="rm-form-row rm-formcard-dashboard">
-                        <a class="rm-form-settings" href="admin.php?page=rm_login_sett_manage">
-                            <?php _e('Dashboard', 'custom-registration-form-builder-with-submission-manager'); ?></a>
-                    </div>   
-                    <div class="rm-form-row rm-formcard-setup"><a class="rm-form-fields" href="admin.php?page=rm_login_field_manage"><?php _e('Fields', 'custom-registration-form-builder-with-submission-manager'); ?></a></div> 
+                    <div class="rm-btn-pill-wrap rm-d-flex">
+                        <div class="rm-box-card-setting-item">
+                            <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Dashboard', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                            <a  href="admin.php?page=rm_login_sett_manage" class="rm-form-settings rm-d-flex rm-align-items-center rm-justify-content-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#1f1f1f"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                            </a>
+                        </div>
+                        <div class="rm-box-card-setting-item">
+                            <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Field Manager', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                            <a class="rm-form-settings rm-d-flex rm-align-items-center rm-justify-content-center" href="admin.php?page=rm_login_field_manage">
+                              <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#1f1f1f"><rect fill="none" height="24" width="24"/><path d="M3,14h4v-4H3V14z M3,19h4v-4H3V19z M3,9h4V5H3V9z M8,14h13v-4H8V14z M8,19h13v-4H8V19z M8,5v4h13V5H8z"/></svg>
+                            </a>
+                        </div>
+                          <div class="rm-box-card-setting-item">
+                              <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Login Analytics', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                                <a class="rm-form-settings rm-d-flex rm-align-items-center rm-justify-content-center" href="<?php echo esc_url(admin_url('admin.php?page=rm_login_analytics')); ?>">
+                                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#1f1f1f"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"/></svg>
+                                </a>
+                        </div>
+                           <div class="rm-box-card-setting-item rm-login-validation">
+                            <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Validation & Security', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                            <a class="rm-form-settings rm-d-flex rm-align-items-center rm-justify-content-center" href="<?php echo esc_url(admin_url('admin.php?page=rm_login_val_sec')); ?>">
+                              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#2271b1"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"></path></svg>
+                            </a>
+                        </div>
+                        
+                        <div class="rm-box-card-setting-item rm-login-password-recovery">
+                            <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Password Recovery', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                            <a class="rm-form-settings rm-d-flex rm-align-items-center rm-justify-content-center" href="<?php echo esc_url(admin_url('admin.php?page=rm_login_val_sec')); ?>">
+                              <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="24px" viewBox="0 0 20 20" width="24px" fill="#2271b1"><g><rect fill="none" height="20" width="20"></rect></g><g><path d="M17.5,8.5h-6.75C10.11,6.48,8.24,5,6,5c-2.76,0-5,2.24-5,5s2.24,5,5,5c2.24,0,4.11-1.48,4.75-3.5h0.75L13,13l1.5-1.5L16,13 l3-3L17.5,8.5z M6,12.5c-1.38,0-2.5-1.12-2.5-2.5S4.62,7.5,6,7.5S8.5,8.62,8.5,10S7.38,12.5,6,12.5z"></path></g></svg>
+                            </a>
+                        </div>
+                    
+                    </div>
 
                 </div>
               </div>
+        </div>
             
         <?php
         $last_form_id= 0;
@@ -174,13 +214,14 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                 if($index==0){
                     $last_form_id= $entry->form_id;
                 }
-                
+
                 //Check if it is a newly added form
                 if($data->new_added_form == $entry->form_id || (isset($_GET['last_form_id']) && $_GET['last_form_id']<$entry->form_id))
                     $ex_form_card_class .= " rm_new_added_form";
                 ?>
 
-       <div id="<?php echo esc_attr($entry->form_id); ?>" class="rmcard rm-card-tour  <?php echo esc_attr($ex_form_card_class); ?>">    
+        <div id="<?php echo esc_attr($entry->form_id); ?>" class="rm-box-col rm-box-col-md-3 rm-box-mt-10">
+             <div class="rmcard rm-border rm-card-tour  <?php echo esc_attr($ex_form_card_class); ?>">    
                 <?php if($entry->count > 0): ?>
                 <div class='unread-box'>
                     <a href="?page=rm_submission_manage&rm_form_id=<?php echo esc_attr($entry->form_id); ?>&rm_interval=<?php echo esc_attr($data->submission_type); ?>"><?php echo esc_html($entry->count); ?></a>
@@ -190,28 +231,46 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                         <input class="rm_checkbox rm-checkbox-tour" type="checkbox" onclick="rm_on_form_selection_change()" name="rm_selected_forms[]" value="<?php echo esc_attr($entry->form_id); ?>"><span class="rm_form_name rm_formcard_menu_icon" style="float: none; transform: none; margin: 0px;" data-menu-panel="#fcm_<?php echo esc_attr($entry->form_id); ?>"><?php echo esc_html($entry->form_name); ?></span>
                     </div>
                     <span class="rm_formcard_menu_icon" data-menu-panel="#fcm_<?php echo esc_attr($entry->form_id); ?>"><i class="material-icons">&#xE5D3;</i></span>
-                    <div class="rm-last-submission">
-                          <b><?php if($subcount_display)
-                              printf(RM_UI_Strings::get('RM_SUB_LEFT_CAPTION'),$subcount_display);
-                              ?></b></div>
-                            
-                    <?php
-                    if ($entry->count > 0)
-                    {
-                        foreach ($entry->submissions as $submission)
-                        {
-                            ?>
-                            <div class="rm-last-submission">
-
-                                <?php
-                                echo wp_kses_post((string)$submission->gravatar . ' ' . RM_Utilities::localize_time($submission->submitted_on));
-                                ?>
-                            </div>
-                            <?php
-                        }
-                    } else
-                        echo '<div class="rm-last-submission"></div>';
-                    ?>
+                    <?php if($entry->form_type == RM_REG_FORM): ?>
+                    <div class="rm-form-type">
+                        <i class="material-icons rm-form-type__icon">how_to_reg</i>
+                        <span class="rm-form-type__label"><?php esc_html_e('Registration Form', 'custom-registration-form-builder-with-submission-manager'); ?></span>
+                    </div>
+                    <?php elseif($entry->form_type == RM_CONTACT_FORM): ?>
+                    <div class="rm-form-type">
+                        <i class="material-icons rm-form-type__icon"> person </i>
+                        <span class="rm-form-type__label"><?php esc_html_e('Contact Form', 'custom-registration-form-builder-with-submission-manager'); ?></span>
+                    </div>
+                    <?php endif; ?>
+                            <?php if ($entry->count > 0): ?>
+                                <div class="rm-last-submission-wrap rm-mt-2">
+                                    <div class="rm-latest-submission-title rm-mb-2"><?php esc_html_e('Latest Submissions', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                                    <?php foreach ($entry->submissions as $submission): ?>
+                                        
+                                           <?php echo wp_kses_post(
+                                                '<div class="rm-last-submission-item">' .
+                                                    (string) $submission->gravatar .
+                                                    ' <span class="rm-submission-time">' . RM_Utilities::localize_time($submission->submitted_on) . '</span>' .
+                                                '</div>'
+                                            ); ?>
+                                                                                    
+                                        
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php else: ?>
+                                <div class="rm-last-submission-wrap">
+                                    <div class="rm-last-submission"></div>
+                                </div>
+                            <?php endif; ?>
+                    
+                                <div class="rm-limit-info rm-my-2">
+                                    <?php
+                                        if ($subcount_display)
+                                            printf(RM_UI_Strings::get('RM_SUB_LEFT_CAPTION'), $subcount_display);
+                                        ?>
+                                    
+                                </div>
+                    
                     <?php
                     if(!empty($entry->expiry_details) && $entry->expiry_details->state == 'expired')
                         echo "<div class='rm-form-expiry-info'>".wp_kses_post((string)RM_UI_Strings::get('LABEL_FORM_EXPIRED'))."</div>";
@@ -225,35 +284,75 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                            echo "<div class='rm-form-expiry-info'>".wp_kses_post((string)RM_UI_Strings::get('LABEL_FORM_EXPIRES_ON'))." {$exp_date}</div>";
                         }
                     }
-                     
+ 
                     ?><div class="rm-form-shortcode">
                         <?php if($data->def_form_id == $entry->form_id && $entry->form_type == 1) { ?>
-                    <i class="material-icons rm_def_form_star rm_def_star_tour" onclick="make_me_a_star(this)" id="rm-star_<?php echo esc_attr($entry->form_id); ?>">&#xe838</i>
+                   <!-- <i class="material-icons rm_def_form_star rm_def_star_tour" onclick="make_me_a_star(this)" id="rm-star_<?php echo esc_attr($entry->form_id); ?>">dd</i> -->
+                    <span class = "rm-default-badge" id = "rm-star_12" onclick = "make_me_a_star(this)">
+                                <i class = "material-icons">check_circle</i> Default Form
+                            </span>
                         <?php } 
                         else { 
                                 if($entry->form_type == 1){ ?>
-                            <i class="material-icons rm_not_def_form_star rm_def_star_tour" onclick="make_me_a_star(this)" id="rm-star_<?php echo esc_attr($entry->form_id); ?>">&#xe838</i>
+                            <i class="material-icons rm_not_def_form_star rm_def_star_tour" onclick="make_me_a_star(this)" id="rm-star_<?php echo esc_attr($entry->form_id); ?>"></i>
                             
                               <?php  }
                               else { ?>
-                            <i class="material-icons rm_not_def_form_star rm_def_star_tour" id="rm-star_<?php echo esc_attr($entry->form_id); ?>">&#xe838</i>
+                            <i class="material-icons rm_not_def_form_star rm_def_star_tour" id="rm-star_<?php echo esc_attr($entry->form_id); ?>"></i>
                             <span class="rm-star-tip"><?php echo wp_kses_post((string)RM_UI_Strings::get('NOTE_DEFAULT_FORM')); ?></span>
                                 <?php }
                          } ?>
                     <span class="rm-shortcode-tour rm-shortcode-copy">[RM_Forms id='<?php echo esc_html($entry->form_id); ?>']</span></div>
                     <div class="rm-form-links">
-                                <div class="rm-form-row rm-formcard-dashboard"><a class="rm-form-settings" href="admin.php?page=rm_form_sett_manage&rm_form_id=<?php echo esc_attr($entry->form_id); ?>"><?php _e('Dashboard', 'custom-registration-form-builder-with-submission-manager') ?></a>
-                                </div>  
-                                <div class="rm-form-row rm-formcard-setup"><a class="rm-form-fields" href="admin.php?page=rm_field_manage&rm_form_id=<?php echo esc_attr($entry->form_id); ?>"><?php _e('Fields', 'custom-registration-form-builder-with-submission-manager') ?></a></div> 
-                     </div>
-                    <?php include RM_ADMIN_DIR."views/template_rm_formcard_menu.php";?>                </div>
+                        <div class="rm-btn-pill-wrap rm-d-flex">
+                              <div class="rm-box-card-setting-item">
+                                 <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Dashboard', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                                <a class="rm-form-settings" href="admin.php?page=rm_form_sett_manage&rm_form_id=<?php echo $entry->form_id; ?>" class="rm-form-settings rm-d-flex rm-align-items-center rm-justify-content-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#1f1f1f"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                                </a>
+                            </div>   
+                            
+                            <div class="rm-box-card-setting-item">
+                                <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Fields Manager', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                                <a class="rm-form-fields" href="admin.php?page=rm_field_manage&rm_form_id=<?php echo $entry->form_id; ?>">
+                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#1f1f1f"><rect fill="none" height="24" width="24"/><path d="M3,14h4v-4H3V14z M3,19h4v-4H3V19z M3,9h4V5H3V9z M8,14h13v-4H8V14z M8,19h13v-4H8V19z M8,5v4h13V5H8z"/></svg>
+                                </a>
+                            </div> 
+                             
+                            <div class="rm-box-card-setting-item">
+                                <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Form Analytics', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                                <a href="?page=rm_analytics_show_form&rm_form_id=<?php echo esc_attr($entry->form_id); ?>" class="rm-form-fields rm-d-flex rm-align-items-center rm-justify-content-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#2271b1"><rect fill="none" height="24" width="24"/><g><path d="M7.5,21H2V9h5.5V21z M14.75,3h-5.5v18h5.5V3z M22,11h-5.5v10H22V11z"/></g></svg>
+                                </a>
+                            </div>
+                             
+                            
+                            <div class="rm-box-card-setting-item">
+                                 <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Custom Status', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                                <a href="?page=rm_form_manage_cstatus&rm_form_id=<?php echo esc_attr($entry->form_id); ?>" class="rm-form-fields rm-d-flex rm-align-items-center rm-justify-content-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#2271b1"><path d="M0 0h24v24H0z" fill="none"></path><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"></path></svg>                                
+                                </a>
+                            </div>
+                             
+                            <div class="rm-box-card-setting-item">
+                                <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Automation', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+                                <a href="?page=rm_ex_chronos_manage_tasks&rm_form_id=<?php echo esc_attr($entry->form_id); ?>" class="rm-form-fields rm-d-flex rm-align-items-center rm-justify-content-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#2271b1"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>
+                                </a>
+                            </div>
+                            
+                        </div>
+                            </div>
+                    <?php include RM_ADMIN_DIR."views/template_rm_formcard_menu.php";?>                
+                    </div>
+                    </div>
                 <?php
             } else
             echo "<h4>" . wp_kses_post((string)RM_UI_Strings::get('LABEL_NO_FORMS')) . "</h4>";
         ?>
     </div>
     <?php if ($data->total_pages > 1): ?>
-        <ul class="rmpagination">
+        <ul class="rmpagination rm-d-flex rm-justify-content-center">
             <?php if ($data->curr_page > 1): ?>
                 <li><a href="?page=<?php echo esc_attr($data->rm_slug) ?>&rm_reqpage=<?php echo esc_attr($data->curr_page - 1);
         if ($data->sort_by) echo'&rm_sortby=' . esc_attr($data->sort_by);if (!$data->descending) echo'&rm_descending=' . esc_attr($data->descending); ?>">«</a></li>
@@ -299,20 +398,15 @@ if($data->should_show_fb_footer) {
 /** FOOTER ENDS **/
  
 
-    
   ?> 
     
-        
 
-
-    
     <?php $new_form_pop_up_style = (isset($_GET['create_new_form'])) ? 'style="display:block"' : 'style="display:none"';?>
     <!-- Add New Form popup -->
    <div id="rm_add_new_form_popup" class="rm-modal-view rm-create-from-card" <?php echo wp_kses_post($new_form_pop_up_style);?>>
         <div class="rm-modal-overlay rm-form-popup-overlay-fade-in"></div>
 
         <div class="rm_add_new_form_wrap rm-create-new-from rm-form-popup-out">
-            
             <div class="rm-box-row rm-box-center rm-box-secondary-bg">
                     <div class="rm-box-col-6 rm-box-white-bg rm-form-box">                       
                         <div class="rm-modal-titlebar rm-new-form-popup-header">
@@ -388,10 +482,6 @@ if($data->should_show_fb_footer) {
 </div>
 
 
-
-
- 
-     
    <div class="rm-side-banner">
         <div class="rm-sidebanner-image">
             <img src="<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . 'images/rm-support-banner.png'; ?>">
@@ -490,7 +580,22 @@ if($data->should_show_fb_footer) {
         jQuery('#rm-form-preview-modal').css('display', 'none');
         }
     });
+    
+    rmLastSubmisson();
+    
     });
+    
+    
+    
+    function rmLastSubmisson() {
+    jQuery(".rm-last-submission-wrap .rm-last-submission-item").each(function () {
+        var img = jQuery(this);
+        setTimeout(function(){
+        jQuery(img).addClass("rm_img_roll");  
+        }, 800);
+    });
+}
+    
 
     jQuery(document).ready(function(){
        //Configure joyride
@@ -869,14 +974,11 @@ jQuery("#rm_rateit_banner").bind('rated', function (event, value) {
         border-bottom: 1px solid #efefef;
     }
     
-        .rm-newsletter-banner.rm-newsletter-notice{
-            width: 100%;
-            max-width: 1085px;
-            margin: 22px 20px 14px 5%;
-        }
+      
       
   </style>
   
   
   </pre>
 <?php } ?>
+ 
