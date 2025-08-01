@@ -127,6 +127,23 @@ if($data->descending == true) {
     <div class="alignleft actions rm-starter-guide-btn">
      <a  href="https://registrationmagic.com/create-wordpress-registration-page-starter-guide" target="_blank"  class=" button action"><?php esc_html_e('Starter Guide', 'custom-registration-form-builder-with-submission-manager'); ?></a>
     </div>
+    <div class="alignright rm-rm-view-toggle-wrap rm-mb-2 rm-mr-2 rm-di-flex rm-align-items-center">
+         <div class="rm-view-toggle btn-group " role="group">
+  <button type="button" class="rm-view-btn rm-view-btn-left" onclick="rm_forms_roll_back()" title="Card View">
+    <!-- Material Icon: grid_view -->
+    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+      <path d="M160-520v-280h280v280H160Zm0 320v-280h280v280H160Zm360-320v-280h280v280H520Zm0 320v-280h280v280H520Z"/>
+    </svg>
+    <div class="rm-view-toggle-tooltip" style="display: none"> <?php _e('Card view', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+  </button>
+  <button type="button" class="rm-view-btn rm-view-btn-right rm-view-btn-active" onclick="rm_forms_roll_back()" title="List View">
+    <!-- Material Icon: list -->
+    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+      <path d="M160-200v-80h640v80H160Zm0-240v-80h640v80H160Zm0-240v-80h640v80H160Z"/>
+    </svg>
+    <div class="rm-view-toggle-tooltip" style="display: none"> <?php _e('List view', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+  </button>
+</div>
     <form action="<?php echo esc_url(admin_url("admin.php")); ?>" method="get" id="rm_pagination_input_form">
     <input type="hidden" name="page" value="rm_form_manage">
     <input type="hidden" name="rm_form_filter" value="<?php echo esc_attr($data->url_params["rm_form_filter"]); ?>">
@@ -160,6 +177,7 @@ if($data->descending == true) {
             <?php } ?>
     </div>
     <?php } ?>
+    </div>
 </div>
 
     <table class="rm-all-forms-table wp-list-table widefat striped table-view-list rm-position-relative" id="rm-card-area">
@@ -513,10 +531,10 @@ if($data->descending == true) {
         <input type="button" id="rm-form-bulk-action-bottom" onclick="rm_apply_bulk_action(this)" class="button action" value="Apply">
         <?php if(defined('REGMAGIC_ADDON')) {
             if(version_compare(RM_ADDON_PLUGIN_VERSION, '5.3.0.0') >= 0) { ?>
-            <div class="rm-rollback-link rm-mt-2 rm-text-underline"><a href="javascript:void(0)" onclick="rm_forms_roll_back()" class="rm-text-decoration-underline"><?php esc_html_e('Switch to Cards View', 'custom-registration-form-builder-with-submission-manager'); ?> </a></div>
+           <!-- <div class="rm-rollback-link rm-mt-2 rm-text-underline"><a href="javascript:void(0)" onclick="rm_forms_roll_back()" class="rm-text-decoration-underline"><?php esc_html_e('Switch to Cards View', 'custom-registration-form-builder-with-submission-manager'); ?> </a></div>-->
             <?php }
         } else { ?>
-            <div class="rm-rollback-link rm-mt-2 rm-text-underline"><a href="javascript:void(0)" onclick="rm_forms_roll_back()" class="rm-text-decoration-underline"><?php esc_html_e('Switch to Cards View', 'custom-registration-form-builder-with-submission-manager'); ?></a></div>
+            <!--<div class="rm-rollback-link rm-mt-2 rm-text-underline"><a href="javascript:void(0)" onclick="rm_forms_roll_back()" class="rm-text-decoration-underline"><?php esc_html_e('Switch to Cards View', 'custom-registration-form-builder-with-submission-manager'); ?></a></div-->
         <?php } ?>
     </div>
         

@@ -36,7 +36,7 @@ class RM_Sanitizer
                         $request[$key] = $this->sanitized_array($value);
                         continue;
                     }
-                    if ($_SERVER['REQUEST_METHOD'] === 'GET' && !isset($_REQUEST['page'])) {
+                    if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET' && !isset($_REQUEST['page'])) {
                         $request[$key] = $this->sanitize_query_elements($value);
                     } else {
                         if(isset($request['rm_slug']) && $request['rm_slug'] == 'rm_login_form' && ($key == 'username' || $key == 'pwd'))

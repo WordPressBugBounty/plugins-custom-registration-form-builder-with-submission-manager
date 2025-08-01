@@ -1585,7 +1585,7 @@ final class RM_Field_Factory_Revamp {
             'class' => 'rmform-control',
             'aria-describedby'=>'rm-note-'.$field->field_id,
             'value' =>"",
-            'min' => '0',
+            //'min' => '0',
             'id' => $input_id,
             'aria-labelledby' => $label_id
         );
@@ -4997,7 +4997,14 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_firstname_req) && $field->field_options->field_wcb_firstname_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
-            } 
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
+            }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_firstname_label";
@@ -5037,6 +5044,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_lastname_req) && $field->field_options->field_wcb_lastname_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -5083,6 +5097,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcb_firstname_req) && $field->field_options->field_wcb_firstname_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
+                } else {
+                    if (isset($attributes['required'])) {
+                        unset($attributes['required']);
+                    }
+                    if (isset($attributes['aria-required'])) {
+                        unset($attributes['aria-required']);
+                    }
                 }
                 echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -5127,7 +5148,14 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcb_lastname_req) && $field->field_options->field_wcb_lastname_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
-                } 
+                } else {
+                    if (isset($attributes['required'])) {
+                        unset($attributes['required']);
+                    }
+                    if (isset($attributes['aria-required'])) {
+                        unset($attributes['aria-required']);
+                    }
+                }
                 echo "<input " . $this->print_attributes($attributes) . " >";
 
                 $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_lastname_label";
@@ -5173,6 +5201,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_company_req) && $field->field_options->field_wcb_company_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -5217,7 +5252,14 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_address1_req) && $field->field_options->field_wcb_address1_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
-            } 
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
+            }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_address1_label";
@@ -5261,6 +5303,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_address2_req) && $field->field_options->field_wcb_address2_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -5306,7 +5355,14 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_city_req) && $field->field_options->field_wcb_city_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
-            } 
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
+            }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_city_label";
@@ -5345,6 +5401,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_state_req) && $field->field_options->field_wcb_state_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             $def_state = $attributes['value'] ?? '';
             $required = $attributes['required'] ?? '';
@@ -5393,6 +5456,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcb_city_req) && $field->field_options->field_wcb_city_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
+                } else {
+                    if (isset($attributes['required'])) {
+                        unset($attributes['required']);
+                    }
+                    if (isset($attributes['aria-required'])) {
+                        unset($attributes['aria-required']);
+                    }
                 }
                 echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -5436,6 +5506,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcb_state_req) && $field->field_options->field_wcb_state_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
+                } else {
+                    if (isset($attributes['required'])) {
+                        unset($attributes['required']);
+                    }
+                    if (isset($attributes['aria-required'])) {
+                        unset($attributes['aria-required']);
+                    }
                 }
                 $def_state = $attributes['value'] ?? '';
                 $required = $attributes['required'] ?? '';
@@ -5489,6 +5566,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_country_req) && $field->field_options->field_wcb_country_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
 
             if(isset($attributes['value']))
@@ -5537,6 +5621,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_zip_req) && $field->field_options->field_wcb_zip_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -5580,6 +5671,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcb_country_req) && $field->field_options->field_wcb_country_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
+                } else {
+                    if (isset($attributes['required'])) {
+                        unset($attributes['required']);
+                    }
+                    if (isset($attributes['aria-required'])) {
+                        unset($attributes['aria-required']);
+                    }
                 }
                 if(isset($attributes['value']))
                     unset($attributes['value']);
@@ -5632,6 +5730,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcb_zip_req) && $field->field_options->field_wcb_zip_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
+                } else {
+                    if (isset($attributes['required'])) {
+                        unset($attributes['required']);
+                    }
+                    if (isset($attributes['aria-required'])) {
+                        unset($attributes['aria-required']);
+                    }
                 }
                 echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -5675,6 +5780,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_phone_req) && $field->field_options->field_wcb_phone_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -5718,6 +5830,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcb_email_req) && $field->field_options->field_wcb_email_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -5855,6 +5974,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_firstname_req) && $field->field_options->field_wcs_firstname_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -5892,7 +6018,14 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_lastname_req) && $field->field_options->field_wcs_lastname_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
-            } 
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
+            }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcs_lastname_label";
@@ -5934,6 +6067,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcs_firstname_req) && $field->field_options->field_wcs_firstname_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
+                } else {
+                    if (isset($attributes['required'])) {
+                        unset($attributes['required']);
+                    }
+                    if (isset($attributes['aria-required'])) {
+                        unset($attributes['aria-required']);
+                    }
                 }
                 echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -5976,6 +6116,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcs_lastname_req) && $field->field_options->field_wcs_lastname_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
+                } else {
+                    if (isset($attributes['required'])) {
+                        unset($attributes['required']);
+                    }
+                    if (isset($attributes['aria-required'])) {
+                        unset($attributes['aria-required']);
+                    }
                 }
                 echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -6020,6 +6167,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_company_req) && $field->field_options->field_wcs_company_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -6062,6 +6216,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_address1_req) && $field->field_options->field_wcs_address1_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -6104,6 +6265,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_address2_req) && $field->field_options->field_wcs_address2_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -6148,6 +6316,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_city_req) && $field->field_options->field_wcs_city_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -6184,6 +6359,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_state_req) && $field->field_options->field_wcs_state_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             $def_state = $attributes['value'] ?? '';
             $required = $attributes['required'] ?? '';
@@ -6230,6 +6412,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcs_city_req) && $field->field_options->field_wcs_city_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
+                } else {
+                    if (isset($attributes['required'])) {
+                        unset($attributes['required']);
+                    }
+                    if (isset($attributes['aria-required'])) {
+                        unset($attributes['aria-required']);
+                    }
                 }
                 echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -6271,6 +6460,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcs_state_req) && $field->field_options->field_wcs_state_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
+                } else {
+                    if (isset($attributes['required'])) {
+                        unset($attributes['required']);
+                    }
+                    if (isset($attributes['aria-required'])) {
+                        unset($attributes['aria-required']);
+                    }
                 }
                 $def_state = $attributes['value'] ?? '';
                 $required = $attributes['required'] ?? '';
@@ -6322,6 +6518,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_country_req) && $field->field_options->field_wcs_country_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             if(isset($attributes['value']))
                 unset($attributes['value']);
@@ -6369,6 +6572,13 @@ final class RM_Field_Factory_Revamp {
             if (isset($field->field_options->field_wcs_zip_req) && $field->field_options->field_wcs_zip_req == 1){
                 $attributes['required'] = 'required';
                 $attributes['aria-required'] = 'true';
+            } else {
+                if (isset($attributes['required'])) {
+                    unset($attributes['required']);
+                }
+                if (isset($attributes['aria-required'])) {
+                    unset($attributes['aria-required']);
+                }
             }
             echo "<input " . $this->print_attributes($attributes) . " >";
 
@@ -6413,6 +6623,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcs_country_req) && $field->field_options->field_wcs_country_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
+                } else {
+                    if (isset($attributes['required'])) {
+                        unset($attributes['required']);
+                    }
+                    if (isset($attributes['aria-required'])) {
+                        unset($attributes['aria-required']);
+                    }
                 }
                 if(isset($attributes['value']))
                     unset($attributes['value']);
@@ -6466,6 +6683,13 @@ final class RM_Field_Factory_Revamp {
                 if (isset($field->field_options->field_wcs_zip_req) && $field->field_options->field_wcs_zip_req == 1){
                     $attributes['required'] = 'required';
                     $attributes['aria-required'] = 'true';
+                } else {
+                    if (isset($attributes['required'])) {
+                        unset($attributes['required']);
+                    }
+                    if (isset($attributes['aria-required'])) {
+                        unset($attributes['aria-required']);
+                    }
                 }
                 echo "<input " . $this->print_attributes($attributes) . " >";
 

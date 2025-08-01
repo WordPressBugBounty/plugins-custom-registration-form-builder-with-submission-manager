@@ -33,10 +33,53 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
 <div class="rmagic rm-all-forms">
     <?php if(defined('REGMAGIC_ADDON')) {
         if(version_compare(RM_ADDON_PLUGIN_VERSION, '5.3.0.0') >= 0) { ?>
-        <div class="rm-new-forms-view-link rm-mb-2 rm-position-absolute"><a href="javascript:void(0)" onclick="rm_forms_roll_back()"><?php esc_html_e('Switch to List View', 'custom-registration-form-builder-with-submission-manager'); ?> </a></div>
+    <!--
+        <div class="rm-new-forms-view-link rm-mb-2 rm-position-absolute">
+            <a href="javascript:void(0)" onclick="rm_forms_roll_back()">
+                <?php esc_html_e('Switch to List View', 'custom-registration-form-builder-with-submission-manager'); ?> 
+            </a>
+        </div>
+    -->
+    
+        <div class="rm-view-toggle btn-group rm-mb-2" role="group">
+  <button type="button" class="rm-view-btn rm-view-btn-left rm-view-btn-active" onclick="rm_forms_roll_back()" title="Card View">
+    <!-- Material Icon: grid_view -->
+    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+      <path d="M160-520v-280h280v280H160Zm0 320v-280h280v280H160Zm360-320v-280h280v280H520Zm0 320v-280h280v280H520Z"/>
+    </svg>
+    <div class="rm-view-toggle-tooltip" style="display: none"> <?php _e('Card view', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+  </button>
+  <button type="button" class="rm-view-btn rm-view-btn-right" onclick="rm_forms_roll_back()" title="List View">
+    <!-- Material Icon: list -->
+    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+      <path d="M160-200v-80h640v80H160Zm0-240v-80h640v80H160Zm0-240v-80h640v80H160Z"/>
+    </svg>
+     <div class="rm-view-toggle-tooltip" style="display: none"><?php _e('List view', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+  </button>
+</div>
+
+    
+    
+    
+    
         <?php }
     } else { ?>
-        <div class="rm-new-forms-view-link rm-mb-2 rm-position-absolute"><a href="javascript:void(0)" onclick="rm_forms_roll_back()"><?php esc_html_e('Switch to List View', 'custom-registration-form-builder-with-submission-manager'); ?></a></div>
+            <div class="rm-view-toggle btn-group rm-mb-2" role="group">
+  <button type="button" class="rm-view-btn rm-view-btn-left rm-view-btn-active" onclick="rm_forms_roll_back()" title="Card View">
+    <!-- Material Icon: grid_view -->
+    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+      <path d="M160-520v-280h280v280H160Zm0 320v-280h280v280H160Zm360-320v-280h280v280H520Zm0 320v-280h280v280H520Z"/>
+    </svg>
+    <div class="rm-view-toggle-tooltip" style="display: none"> <?php _e('Card view', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+  </button>
+  <button type="button" class="rm-view-btn rm-view-btn-right" onclick="rm_forms_roll_back()" title="List View">
+    <!-- Material Icon: list -->
+    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+      <path d="M160-200v-80h640v80H160Zm0-240v-80h640v80H160Zm0-240v-80h640v80H160Z"/>
+    </svg>
+     <div class="rm-view-toggle-tooltip" style="display: none"><?php _e('List view', 'custom-registration-form-builder-with-submission-manager'); ?></div>
+  </button>
+</div>
     <?php } ?>
     <!-- Joyride Magic begins -->
     <ol id="rm-form-man-joytips" style="display:none">
@@ -486,9 +529,7 @@ if($data->should_show_fb_footer) {
         <div class="rm-sidebanner-image">
             <img src="<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . 'images/rm-support-banner.png'; ?>">
         </div>
-        <div class="rm-sidebanner-mg-logo">
-            <img src="<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . 'images/mg-logo.png'; ?>">
-        </div>
+
         <div class="sidebanner-content-wrapper">
             <div class="sidebanner-text-content">
                 <div class="sidebanner-text"> <?php esc_html_e('Something not working?','custom-registration-form-builder-with-submission-manager'); ?></div>
