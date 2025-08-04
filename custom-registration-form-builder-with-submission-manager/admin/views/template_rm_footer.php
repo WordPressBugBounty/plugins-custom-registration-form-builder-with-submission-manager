@@ -22,7 +22,7 @@ if(!empty($_GET['rm_form_id'])):
                 <div class="rm-box-col-12">
                     
                     <div class="rm-box-row rm-align-items-center">
-                        <div class="rm-box-col-9">
+                        <div class="rm-box-col">
                             <div class="rm-box-row">
                                 <div class="rm-box-col">
                                     <div class="rm-d-flex rm-align-items-center">
@@ -91,7 +91,8 @@ if(!empty($_GET['rm_form_id'])):
                             </div>
                             <div class="rm-box-row">
                                 <div class="rm-box-col-12">
-                                        <div class=" rm-d-flex rm-align-items-center rm-flex-wrap rm-align-content rm-mt-2">
+                                    <div class="rm-upgrade-banner-wrap">
+                                        <div class="rm-d-flex rm-align-items-center rm-flex-wrap rm-align-content rm-mt-2">
                                             <div class="rm-fs-5 rm-text-dark rm-box-premium-head">
                                                     <?php
                                                     printf(
@@ -104,13 +105,14 @@ if(!empty($_GET['rm_form_id'])):
 
                                         </div>
                                         <div class="rm-text-dark rm-upgrade-banner-text"><?php esc_html_e("Upgrade to professional-grade tools built to convert, streamline, and scale your registration process.", 'custom-registration-form-builder-with-submission-manager'); ?></div>
-                                    </div> 
+                                    </div>
+                                    </div>
                             </div>
                         </div>
-                        <div class="rm-box-col">
-                    <div class="rm-text-end">
-                        <a href="https://registrationmagic.com/comparison/?utm_source=wp_admin&utm_medium=premium_banner_footer&utm_campaign=admin_upgrade_premium" target="_blabk" class="rm-d-inline-block">
-                            <button class="button button-primary rm-upgrade-button rm-px-4 rm-py-1">
+                        <div class="rm-box-col rm-upgrade-banner-btn-col">
+                    <div class="rm-text-center">
+                        <a href="https://registrationmagic.com/comparison/?utm_source=wp_admin&utm_medium=premium_banner_footer&utm_campaign=admin_upgrade_premium" target="_blabk" class="rm-d-inline-block rm-box-w-100">
+                            <button class="button button-primary rm-upgrade-button rm-px-4 rm-py-1 rm-box-w-100">
                                 <?php esc_html_e("Upgrade Now!", 'custom-registration-form-builder-with-submission-manager'); ?>
                             </button>
                         </a>
@@ -191,6 +193,7 @@ if($dismiss_icon == 0) { ?>
     
     .rmagic.rmagic-premium-banner{
         clear: left;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     }
     
     .registrationmagic_page_rm_support_forum .rm-customize-banner-main{
@@ -210,6 +213,10 @@ if($dismiss_icon == 0) { ?>
         border-color: #0260ff;
         border-radius: 8px;
         font-weight: 500;
+    }
+    
+    .rmagic.rmagic-premium-banner .rm-upgrade-button:focus{
+        box-shadow: none;
     }
     
     .rmagic.rmagic-premium-banner .rm-upgrade-banner-text{
@@ -260,6 +267,14 @@ if($dismiss_icon == 0) { ?>
     .rmagic.rmagic-premium-banner {
         float: none;
         display: flex;
+    }
+    
+    .rm-upgrade-banner-wrap {
+        margin-left: -1px;
+    }
+    
+    .rm-upgrade-banner-btn-col {
+        max-width: 246px;
     }
     
    .rm-floating-flyout {
