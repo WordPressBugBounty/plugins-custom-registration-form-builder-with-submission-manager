@@ -209,6 +209,18 @@ class RM_Login_Controller{
             if($request->req['rm_form_sub_id']=='rm_recovery_form') {
                 $user = get_user_by('email',$request->req['user_email']);
                 $data->valid_email= empty($user) ? 0 : 1;
+                if (get_option('rm_option_enable_captcha') == "yes") {
+                    if (!isset($_POST["g-recaptcha-response"])) {
+                        echo RM_UI_Strings::get('ERROR_INVALID_RECAPTCHA');
+                        return;
+                    }
+                    require_once(RM_EXTERNAL_DIR . "PFBC/Resources/recaptchalib.php");
+                    $recaptcha_response = rm_recaptcha_check_answer(get_option('rm_option_recaptcha_v') === 'v2' ? get_option('rm_option_private_key') : get_option('rm_option_private_key3'), $_SERVER["REMOTE_ADDR"], sanitize_text_field($_POST["g-recaptcha-response"]));
+                    if (!$recaptcha_response->is_valid) {
+                        echo $recaptcha_response->error;
+                        return;
+                    }
+                }
                 if(!empty($data->valid_email)) {
                     $email_sent= RM_Email_Service::notify_lost_password_token($user);
                 }

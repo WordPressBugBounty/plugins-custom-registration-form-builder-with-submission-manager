@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, WooCommerce registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 6.8
-Stable tag: 6.0.5.7
+Stable tag: 6.0.5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -399,8 +399,12 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 
 == Changelog ==
 
+= 6.0.5.8: August 11, 2025 =
+* Enhancements: reCAPTCHA verification added to password recovery page.
+* Minor UI improvements & bug fixes.
+
 = 6.0.5.7: August 1, 2025 =
-* Minor UI updates & bug fixes.
+* Enhancements: Minor design adjustments for better UI consistency and user experience.
 
 = 6.0.5.6: July 29, 2025 =
 * Improved: All Forms card view with new UI elements and more modern design language.
@@ -1536,8 +1540,12 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 
 == Upgrade Notice ==
 
+= 6.0.5.8: August 11, 2025 =
+* Enhancements: reCAPTCHA verification added to password recovery page.
+* Minor UI improvements & bug fixes.
+
 = 6.0.5.7: August 1, 2025 =
-* Minor UI updates & bug fixes.
+* Enhancements: Minor design adjustments for better UI consistency and user experience.
 
 = 6.0.5.6: July 29, 2025 =
 * Improved: All Forms card view with new UI elements and more modern design language.

@@ -43,6 +43,8 @@ if($data->form_type=='rm_recovery_form'){
             $form->addElement(new Element_HTML('<div class="rm-response-message rm-alert rm-alert-error rm-alret-box-wrap"><span class="close">&times;</span>'.$data->options['rec_email_not_found_msg'].'</div>'));
         }
         $form->addElement(new Element_Email($data->options['rec_email_label'], "user_email", array("required" => "1","class"=>'', "placeholder" => '','style'=>isset($data->design['style_textfield'])?$data->design['style_textfield']:null)));
+        if (get_option('rm_option_enable_captcha') == "yes")
+            $form->addElement(new Element_Captcha());
 
         $btn_label= !empty($data->options['rec_btn_label'])?$data->options['rec_btn_label']:__('Reset Password', 'custom-registration-form-builder-with-submission-manager');
         $form->addElement(new Element_Button($btn_label, "submit", array("id" => "rm_submit_btn", "class" => "rm_btn", "name" => "submit",'style'=>isset($data->design['style_btnfield'])?$data->design['style_btnfield']:null)));

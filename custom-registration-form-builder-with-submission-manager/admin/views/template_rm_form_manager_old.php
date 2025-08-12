@@ -40,46 +40,60 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
             </a>
         </div>
     -->
-    
+    <div class="rm-view-toggle-wrap rm-text-right">
         <div class="rm-view-toggle btn-group rm-mb-2" role="group">
   <button type="button" class="rm-view-btn rm-view-btn-left rm-view-btn-active" onclick="rm_forms_roll_back()" title="Card View">
     <!-- Material Icon: grid_view -->
+    <?php _e('Card view', 'custom-registration-form-builder-with-submission-manager'); ?>
+    <!--
     <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
       <path d="M160-520v-280h280v280H160Zm0 320v-280h280v280H160Zm360-320v-280h280v280H520Zm0 320v-280h280v280H520Z"/>
     </svg>
+    -->
     <div class="rm-view-toggle-tooltip" style="display: none"> <?php _e('Card view', 'custom-registration-form-builder-with-submission-manager'); ?></div>
   </button>
   <button type="button" class="rm-view-btn rm-view-btn-right" onclick="rm_forms_roll_back()" title="List View">
     <!-- Material Icon: list -->
+      <?php _e('List view', 'custom-registration-form-builder-with-submission-manager'); ?>
+    <!--
     <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
       <path d="M160-200v-80h640v80H160Zm0-240v-80h640v80H160Zm0-240v-80h640v80H160Z"/>
     </svg>
+    -->
      <div class="rm-view-toggle-tooltip" style="display: none"><?php _e('List view', 'custom-registration-form-builder-with-submission-manager'); ?></div>
   </button>
 </div>
-
+    </div>
     
     
     
     
         <?php }
     } else { ?>
+     <div class="rm-view-toggle-wrap rm-text-right">
             <div class="rm-view-toggle btn-group rm-mb-2" role="group">
   <button type="button" class="rm-view-btn rm-view-btn-left rm-view-btn-active" onclick="rm_forms_roll_back()" title="Card View">
-    <!-- Material Icon: grid_view -->
+   <!-- Material Icon: grid_view -->
+    Card View
+    <!--
     <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
       <path d="M160-520v-280h280v280H160Zm0 320v-280h280v280H160Zm360-320v-280h280v280H520Zm0 320v-280h280v280H520Z"/>
     </svg>
+    -->
     <div class="rm-view-toggle-tooltip" style="display: none"> <?php _e('Card view', 'custom-registration-form-builder-with-submission-manager'); ?></div>
   </button>
   <button type="button" class="rm-view-btn rm-view-btn-right" onclick="rm_forms_roll_back()" title="List View">
-    <!-- Material Icon: list -->
+ <!-- Material Icon: list -->
+      List View
+    <!--
     <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
       <path d="M160-200v-80h640v80H160Zm0-240v-80h640v80H160Zm0-240v-80h640v80H160Z"/>
     </svg>
+    -->
      <div class="rm-view-toggle-tooltip" style="display: none"><?php _e('List view', 'custom-registration-form-builder-with-submission-manager'); ?></div>
   </button>
 </div>
+     </div>
     <?php } ?>
     <!-- Joyride Magic begins -->
     <ol id="rm-form-man-joytips" style="display:none">
@@ -213,19 +227,24 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#1f1f1f"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"/></svg>
                                 </a>
                         </div>
+                        
+                        <!--
                            <div class="rm-box-card-setting-item rm-login-validation">
                             <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Validation & Security', 'custom-registration-form-builder-with-submission-manager'); ?></div>
                             <a class="rm-form-settings rm-d-flex rm-align-items-center rm-justify-content-center" href="<?php echo esc_url(admin_url('admin.php?page=rm_login_val_sec')); ?>">
                               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#2271b1"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"></path></svg>
                             </a>
                         </div>
-                        
+                        -->
+                        <!--
                         <div class="rm-box-card-setting-item rm-login-password-recovery">
                             <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Password Recovery', 'custom-registration-form-builder-with-submission-manager'); ?></div>
                             <a class="rm-form-settings rm-d-flex rm-align-items-center rm-justify-content-center" href="<?php echo esc_url(admin_url('admin.php?page=rm_login_val_sec')); ?>">
                               <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="24px" viewBox="0 0 20 20" width="24px" fill="#2271b1"><g><rect fill="none" height="20" width="20"></rect></g><g><path d="M17.5,8.5h-6.75C10.11,6.48,8.24,5,6,5c-2.76,0-5,2.24-5,5s2.24,5,5,5c2.24,0,4.11-1.48,4.75-3.5h0.75L13,13l1.5-1.5L16,13 l3-3L17.5,8.5z M6,12.5c-1.38,0-2.5-1.12-2.5-2.5S4.62,7.5,6,7.5S8.5,8.62,8.5,10S7.38,12.5,6,12.5z"></path></g></svg>
                             </a>
                         </div>
+                        
+                        -->
                     
                     </div>
 
@@ -369,20 +388,23 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                                 </a>
                             </div>
                              
-                            
+                            <!--
                             <div class="rm-box-card-setting-item">
                                  <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Custom Status', 'custom-registration-form-builder-with-submission-manager'); ?></div>
                                 <a href="?page=rm_form_manage_cstatus&rm_form_id=<?php echo esc_attr($entry->form_id); ?>" class="rm-form-fields rm-d-flex rm-align-items-center rm-justify-content-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#2271b1"><path d="M0 0h24v24H0z" fill="none"></path><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"></path></svg>                                
                                 </a>
                             </div>
-                             
+                            
+                            -->
+                             <!--
                             <div class="rm-box-card-setting-item">
                                 <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Automation', 'custom-registration-form-builder-with-submission-manager'); ?></div>
                                 <a href="?page=rm_ex_chronos_manage_tasks&rm_form_id=<?php echo esc_attr($entry->form_id); ?>" class="rm-form-fields rm-d-flex rm-align-items-center rm-justify-content-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#2271b1"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>
                                 </a>
                             </div>
+                             -->
                             
                         </div>
                             </div>
@@ -527,23 +549,27 @@ if($data->should_show_fb_footer) {
 
    <div class="rm-side-banner">
         <div class="rm-sidebanner-image">
-            <img src="<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . 'images/rm-support-banner.png'; ?>">
+          <!--  <img src="<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . 'images/svg/rm-support-banner-icon.svg'; ?>"> -->
         </div>
 
         <div class="sidebanner-content-wrapper">
             <div class="sidebanner-text-content">
-                <div class="sidebanner-text"> <?php esc_html_e('Something not working?','custom-registration-form-builder-with-submission-manager'); ?></div>
-                <div class="sidebanner-help-text"> <?php esc_html_e('We want to help!','custom-registration-form-builder-with-submission-manager'); ?></div>
+          
+                    <div class="sidebanner-help-text">
+                        <!--<span><?php esc_html_e('Need Help', 'custom-registration-form-builder-with-submission-manager'); ?></span>-->
+                        <?php esc_html_e('Getting Started?', 'custom-registration-form-builder-with-submission-manager'); ?>
+                    </div>
 
-                <p><?php esc_html_e('If you face any issues with our plugin, or have questions, we\'re here to help!','custom-registration-form-builder-with-submission-manager'); ?></p>			
+                <p><?php esc_html_e('Looking for quick answers? Check our Starter Guide or reach out to us directly.','custom-registration-form-builder-with-submission-manager'); ?></p>			
             </div>
             <div class="rm-sidebanner-buttons">
-                <div class="rm-sidebanner-button">
-                    <a target="_blank" href="https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/"><?php esc_html_e('Create Support Ticket','custom-registration-form-builder-with-submission-manager'); ?></a>			
+                <div class="rm-sidebanner-button rm-sidebanner-stater-guide">
+                     <a target="_blank" href="https://registrationmagic.com/create-wordpress-registration-page-starter-guide/?utm_source=plugin&utm_medium=helpbox" class="button button-primary"> <?php esc_html_e('Starter Guide','custom-registration-form-builder-with-submission-manager'); ?></a>
+                    			
                 </div>
 
-                <div class="rm-sidebanner-button">
-                    <a target="_blank" href="https://registrationmagic.com/create-wordpress-registration-page-starter-guide/" class="button"> <?php esc_html_e('Starter Guide','custom-registration-form-builder-with-submission-manager'); ?></a>
+                <div class="rm-sidebanner-button ">
+                   <a target="_blank" href="https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/" class="button"><?php esc_html_e('Create Support Ticket','custom-registration-form-builder-with-submission-manager'); ?></a>
                 </div>			
             </div>
 
@@ -974,10 +1000,24 @@ jQuery("#rm_rateit_banner").bind('rated', function (event, value) {
         jQuery("#rm-form-preview-modal").show();
     }
     
+        document.addEventListener("DOMContentLoaded", function() {
+        let link = document.querySelector("#rm-ob-new a");
+        link.classList.add("rm-gradient-animate");
+
+        // Remove gradient after animation finishes (1s * 5 loops = 5s)
+        setTimeout(() => {
+            link.classList.remove("rm-gradient-animate");
+        }, 25000);
+    });
+    
     
   </script>
   
   <style>
+      
+      .rmagic.rm-all-forms::before{
+          opacity: 0;
+      }
       
     #rm-form-preview-modal iframe#rm-form-preview-frame{
         width: 100%;
