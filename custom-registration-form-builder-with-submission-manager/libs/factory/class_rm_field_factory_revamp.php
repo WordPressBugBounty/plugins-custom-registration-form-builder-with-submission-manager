@@ -563,18 +563,22 @@ final class RM_Field_Factory_Revamp {
                 $attributes['data-validnumber'] = "1";
                 $attributes['data-fullnumber'] = $attributes['value'];
             }
-            $country_field_name='';
+            $country_field_id='';
             if(!empty($field->field_options->sync_country) && $field->field_options->country_field!='not_found') {
                 global $wpdb;
                 $unique_id_name = RM_Table_Tech::get_unique_id_name('FIELDS');        
                 $table_name = RM_Table_Tech::get_table_name_for('FIELDS');
                 $rm_country_field = $wpdb->get_row($wpdb->prepare("SELECT * from `$table_name` where $unique_id_name = %d", $field->field_options->country_field));
-                $country_field_name= $rm_country_field->field_type.'_'.$field->field_options->country_field;
-
-
+                if($rm_country_field->field_type === 'Address') {
+                    $country_field_id = 'input_id_country_label_' . $field->field_options->country_field;
+                } else {
+                    $country_field_id = 'input_id_Country_' . $field->field_options->country_field;
+                }
+                
                 $force_match_js= '';
                 if(!empty($field->field_options->country_match)) {
-                    $force_match_js= "document.getElementById('$input_id').closest('.rminput,.rmwc-input').find('.selected-flag').classList.add('disable-flag');";
+                    $force_match_js= "document.getElementById('$input_id').closest('.rmform-field').find('.selected-flag').classList.add('disable-flag');";
+                    $tel_params .= 'allowDropdown: false,';
                 }
 
                 $preferred_countries='';
@@ -602,10 +606,10 @@ final class RM_Field_Factory_Revamp {
             } else {
                 if($embed){
                 } else {
-                    if(empty($country_field_name)) {
+                    if(empty($country_field_id)) {
                         wp_add_inline_script('rm_mobile_script',"window.addEventListener('load', (event) => { if (typeof telDuplicate_" . $field->field_id . " === 'undefined') { telDuplicate_" . $field->field_id . " = true; const rmMobileEl = document.getElementById('$input_id'); var iti_" . $field->field_id . " = window.intlTelInput(rmMobileEl, {$tel_params}); rmMobileEl.addEventListener('keyup', (event) => { const check = iti_" . $field->field_id . ".isValidNumber() ? 1 : 0; rmMobileEl.dataset.validnumber = check; rmMobileEl.dataset.fullnumber = iti_" . $field->field_id . ".getNumber(intlTelInputUtils.numberFormat.E164); }); } });");
                     } else {
-                        wp_add_inline_script('rm_mobile_script',"window.addEventListener('load', (event) => { if (typeof telDuplicate_" . $field->field_id . " === 'undefined') { telDuplicate_" . $field->field_id . " = true; const rmMobileEl = document.getElementById('$input_id'); var iti_" . $field->field_id . " = window.intlTelInput(rmMobileEl, {$tel_params}); rmMobileEl.addEventListener('keyup', (event) => { const check = iti_" . $field->field_id . ".isValidNumber() ? 1 : 0; rmMobileEl.dataset.validnumber = check; rmMobileEl.dataset.fullnumber = iti_" . $field->field_id . ".getNumber(intlTelInputUtils.numberFormat.E164); }); } document.querySelector('select[name=".$country_field_name."]').onchange = function() { var selected_value = this.value; var index= selected_value.search(/\[[A-Z]{2}\]/i); if(index>=0) { var country = selected_value.substr(index+1,2).toLowerCase(); iti_" . $field->field_id . ".setCountry(country); ".$force_match_js."} } });");
+                        wp_add_inline_script('rm_mobile_script',"window.addEventListener('load', (event) => { if (typeof telDuplicate_" . $field->field_id . " === 'undefined') { telDuplicate_" . $field->field_id . " = true; const rmMobileEl = document.getElementById('$input_id'); var iti_" . $field->field_id . " = window.intlTelInput(rmMobileEl, {$tel_params}); rmMobileEl.addEventListener('keyup', (event) => { const check = iti_" . $field->field_id . ".isValidNumber() ? 1 : 0; rmMobileEl.dataset.validnumber = check; rmMobileEl.dataset.fullnumber = iti_" . $field->field_id . ".getNumber(intlTelInputUtils.numberFormat.E164); }); } document.getElementById('" . $country_field_id . "').onchange = function() { var code = this.querySelector('option[value=' + this.value + ']').dataset.code; var selected_value = this.value; if(code) { iti_" . $field->field_id . ".setCountry(code); ".$force_match_js."} } });");
                     }
                 }
             }
@@ -1694,10 +1698,11 @@ final class RM_Field_Factory_Revamp {
         echo $label;
         echo "<select " . $this->print_attributes($attributes) . " >";
         foreach(RM_Utilities_Revamp::get_countries() as $name => $country) {
-            if($meta_value == $name) {
-                echo "<option value='$name' selected> $country </option>";
+            $code = strtolower(preg_replace('/.*\[(.*)\].*/', '$1', $name));
+            if($meta_value == $name || $meta_value == $country) {
+                echo "<option value='".esc_attr($country)."' selected>".esc_html($country)."</option>";
             } else {
-                echo "<option value='$name'> $country </option>";
+                echo "<option value='".esc_attr($country)."' data-code='".esc_attr($code)."'>".esc_html($country)."</option>";
             }
         }        
         echo "</select>";
@@ -2279,13 +2284,14 @@ final class RM_Field_Factory_Revamp {
                     }
                     echo "<select " . $this->print_attributes($attributes) . " >";
                     foreach(RM_Utilities_Revamp::get_countries() as $ccode => $country) {
+                        $ccode = strtolower(preg_replace('/.*\[(.*)\].*/', '$1', $ccode));
                         if (isset($meta_value['country']) && $meta_value['country'] == $country) {
                             $attributes['checked'] = 'checked';
                         }
                         if(empty($ccode)) {
                             echo "<option value=\"\">".esc_html($country)."</option>";
                         } else {
-                            echo "<option value=\"".esc_attr($country)."\">".esc_html($country)."</option>";
+                            echo "<option value=\"".esc_attr($country)."\" data-code=\"".esc_attr($ccode)."\">".esc_html($country)."</option>";
                         }
                     }
                     echo "</select>";
@@ -2406,10 +2412,11 @@ final class RM_Field_Factory_Revamp {
                         }
                         echo "<select " . $this->print_attributes($attributes) . " >";
                         foreach(RM_Utilities_Revamp::get_countries() as $code => $country) {
+                            $ccode = strtolower(preg_replace('/.*\[(.*)\].*/', '$1', $code));
                             if(empty($code)) {
                                 echo "<option value=\"\">".esc_html($country)."</option>";
                             } else {
-                                echo "<option value=\"".esc_attr($country)."\">".esc_html($country)."</option>";
+                                echo "<option value=\"".esc_attr($country)."\" data-code=\"".esc_attr($ccode)."\">".esc_html($country)."</option>";
                             }
                         }
                         echo "</select>";
@@ -5579,10 +5586,11 @@ final class RM_Field_Factory_Revamp {
                 unset($attributes['value']);
             echo "<select " . $this->print_attributes($attributes) . " >";
             foreach(RM_Utilities_Revamp::get_countries() as $name => $country) {
+                $ccode = strtolower(preg_replace('/.*\[(.*)\].*/', '$1', $name));
                 if($name == $country_val || strpos($name, "[$country_val]")) {
-                    echo "<option value=\"".esc_attr($name)."\" selected>".esc_html($country)."</option>";
+                    echo "<option value=\"".esc_attr($name)."\" data-code=\"".esc_attr($ccode)."\" selected>".esc_html($country)."</option>";
                 } else {
-                    echo "<option value=\"".esc_attr($name)."\">".esc_html($country)."</option>";
+                    echo "<option value=\"".esc_attr($name)."\" data-code=\"".esc_attr($ccode)."\">".esc_html($country)."</option>";
                 }
             }
             echo "</select>";
@@ -5683,10 +5691,11 @@ final class RM_Field_Factory_Revamp {
                     unset($attributes['value']);
                 echo "<select " . $this->print_attributes($attributes) . " >";
                 foreach(RM_Utilities_Revamp::get_countries() as $name => $country) {
+                    $ccode = strtolower(preg_replace('/.*\[(.*)\].*/', '$1', $name));
                     if($name == $country_val || strpos($name, "[$country_val]")) {
-                        echo "<option value=\"".esc_attr($name)."\" selected>".esc_html($country)."</option>";
+                        echo "<option value=\"".esc_attr($name)."\" data-code=\"".esc_attr($ccode)."\" selected>".esc_html($country)."</option>";
                     } else {
-                        echo "<option value=\"".esc_attr($name)."\">".esc_html($country)."</option>";
+                        echo "<option value=\"".esc_attr($name)."\" data-code=\"".esc_attr($ccode)."\">".esc_html($country)."</option>";
                     }
                 }
                 echo "</select>";
@@ -6530,10 +6539,11 @@ final class RM_Field_Factory_Revamp {
                 unset($attributes['value']);
             echo "<select " . $this->print_attributes($attributes) . " >";
             foreach(RM_Utilities_Revamp::get_countries() as $name => $country) {
+                $ccode = strtolower(preg_replace('/.*\[(.*)\].*/', '$1', $name));
                 if($name == $country_val || strpos($name, "[$country_val]")) {
-                    echo "<option value=\"".esc_attr($name)."\" selected>".esc_html($country)."</option>";
+                    echo "<option value=\"".esc_attr($name)."\" data-code=\"".esc_attr($ccode)."\" selected>".esc_html($country)."</option>";
                 } else {
-                    echo "<option value=\"".esc_attr($name)."\">".esc_html($country)."</option>";
+                    echo "<option value=\"".esc_attr($name)."\" data-code=\"".esc_attr($ccode)."\">".esc_html($country)."</option>";
                 }
             }        
             echo "</select>";
@@ -6635,10 +6645,11 @@ final class RM_Field_Factory_Revamp {
                     unset($attributes['value']);
                 echo "<select " . $this->print_attributes($attributes) . " >";
                 foreach(RM_Utilities_Revamp::get_countries() as $name => $country) {
+                    $ccode = strtolower(preg_replace('/.*\[(.*)\].*/', '$1', $name));
                     if($name == $country_val || strpos($name, "[$country_val]")) {
-                        echo "<option value=\"".esc_attr($name)."\" selected>".esc_html($country)."</option>";
+                        echo "<option value=\"".esc_attr($name)."\" data-code=\"".esc_attr($ccode)."\" selected>".esc_html($country)."</option>";
                     } else {
-                        echo "<option value=\"".esc_attr($name)."\">".esc_html($country)."</option>";
+                        echo "<option value=\"".esc_attr($name)."\" data-code=\"".esc_attr($ccode)."\">".esc_html($country)."</option>";
                     }
                 }        
                 echo "</select>";

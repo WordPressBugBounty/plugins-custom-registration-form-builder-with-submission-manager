@@ -295,10 +295,7 @@ class Reg_Magic_Block {
         } else {
             echo '<div class="rm-gutenberg-empty-content">' . esc_html__('Please Select Form', 'custom-registration-form-builder-with-submission-manager') . '</div>';
         }
-
-        $html = ob_get_contents();
-        ob_end_clean();
-        return $html;
+        return ob_get_clean();
     }
 
     public function regmagic_submissions($atts) {

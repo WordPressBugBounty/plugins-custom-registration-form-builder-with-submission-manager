@@ -370,16 +370,14 @@ class RM_Public {
         ob_start();
         $form_factory = new RM_Form_Factory_Revamp();
         $form_factory->render_form($form_id, $theme);
-        $output = ob_get_contents();
-        if(ob_get_length())
-            ob_clean();
+        $output = ob_get_clean();
         return $output;
     }
-    
-      // Disable cache 
+
+    // Disable cache
     public function disable_cache()
-    { 
-        //Diable caches
+    {
+        //Disable caches
         if(!defined('DONOTCACHEPAGE'))
             define( 'DONOTCACHEPAGE', true );
     }

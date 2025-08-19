@@ -545,8 +545,6 @@ class RM_Forms extends RM_Base_Model {
 
         $row_data_spec[] = '%s';
 
-        var_dump($row_data);
-
         //$result = RM_DBManager::update_row('FORMS', $form_id, $row_data, $row_data_spec);
 
         if (!$result) {

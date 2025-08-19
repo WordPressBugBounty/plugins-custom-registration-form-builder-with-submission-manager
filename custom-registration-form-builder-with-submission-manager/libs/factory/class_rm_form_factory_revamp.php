@@ -414,8 +414,22 @@ final class RM_Form_Factory_Revamp {
                         $data_block->meta = null;
                         $db_data[$field_id] = $data_block;
 
-                        if($form->fields[$field_id]->field_type == 'PGAvatar' && isset($data_block->value[0])) {
-                            $user_meta_fields[$profile_meta_arr[$form->fields[$field_id]->field_type]] = $data_block->value[0];
+                        if(isset($data_block->value[0])) {
+                            if($form->fields[$field_id]->field_type == 'PGAvatar') {
+                                $user_meta_fields[$profile_meta_arr[$form->fields[$field_id]->field_type]] = $data_block->value[0];
+                            } else {
+                                $file_meta_key = $form->fields[$field_id]->field_options->field_user_profile == 'existing_user_meta' ? $form->fields[$field_id]->field_options->existing_user_meta_key : ($form->fields[$field_id]->field_options->field_user_profile == 'define_new_user_meta' ? $form->fields[$field_id]->field_options->field_meta_add : null);
+                                if(!empty($file_meta_key)) {
+                                    if(count($data_block->value) > 2) {
+                                        foreach($data_block->value as $key => $value) {
+                                            if($key !== 'rm_field_type')
+                                                $user_meta_fields[$file_meta_key][] = wp_get_attachment_url($value);
+                                        }
+                                    } else {
+                                        $user_meta_fields[$file_meta_key] = wp_get_attachment_url($data_block->value[0]);
+                                    }
+                                }
+                            }
                         }
                     } // Handling price fields
                     else if($form->fields[$field_id]->field_type == 'Price') {
