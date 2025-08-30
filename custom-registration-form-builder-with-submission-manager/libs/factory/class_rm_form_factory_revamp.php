@@ -702,9 +702,11 @@ final class RM_Form_Factory_Revamp {
             if(!empty($form->form_options->form_should_user_pick)) {
                 $form->form_user_role = maybe_unserialize($form->form_user_role);
                 $sub_data['rm_user_role'] = sanitize_text_field($sub_data['rm_user_role']);
-                if(in_array($sub_data['rm_user_role'], $form->form_user_role) && isset($custom_role_data[$sub_data['rm_user_role']])) {
-                    $pricing_details->total_price += floatval($custom_role_data[$sub_data['rm_user_role']]->amount);
-                    $pricing_details->billing[] = (object) array('label'=>sprintf(esc_html__('User Role (%s)','custom-registration-form-builder-with-submission-manager'),ucwords($sub_data['rm_user_role'])), 'price'=>floatval($custom_role_data[$sub_data['rm_user_role']]->amount), 'qty' => 1);
+                if(in_array($sub_data['rm_user_role'], $form->form_user_role)) {
+                    if(isset($custom_role_data[$sub_data['rm_user_role']])) {
+                        $pricing_details->total_price += floatval($custom_role_data[$sub_data['rm_user_role']]->amount);
+                        $pricing_details->billing[] = (object) array('label'=>sprintf(esc_html__('User Role (%s)','custom-registration-form-builder-with-submission-manager'),ucwords($sub_data['rm_user_role'])), 'price'=>floatval($custom_role_data[$sub_data['rm_user_role']]->amount), 'qty' => 1);
+                    }
                 } else {
                     esc_html_e("Incorrect user role selected. Please try form submission again.", 'custom-registration-form-builder-with-submission-manager');
                     return false;
@@ -2391,20 +2393,26 @@ final class RM_Form_Factory_Revamp {
             echo '<style>'.str_replace("}:-", '} #form_' . wp_kses_post((string)$form->form_id) . "_" . wp_kses_post((string)$form_number) .' ::-', wp_kses_post((string)$p_css)).'</style>';
         }
         echo '<style>';
-        if($form->form_options->style_btnfield)
-            echo '.rmformui #rmform-module-' . wp_kses_post((string)$form->form_id) .' #rm_form_submit_button input[type="submit"] {'.wp_kses_post((string)$form->form_options->style_btnfield).wp_kses_post((string)$important).'}';
-        if($form->form_options->btn_hover_color)
-            echo '.rmformui #rmform-module-' . wp_kses_post((string)$form->form_id) .' #rm_form_submit_button input[type="submit"]:hover{ background-color:'.wp_kses_post((string)$form->form_options->btn_hover_color).wp_kses_post((string)$important).';}';
-        if($form->form_options->style_textfield)
+        if($form->form_options->style_btnfield) {
+            echo '.rmformui #rmform-module-' . wp_kses_post((string)$form->form_id) .' #rm_form_submit_button input[type="submit"], #rm-form-container #rm_form_submit_button input[type=\'button\'] {'.wp_kses_post((string)$form->form_options->style_btnfield).wp_kses_post((string)$important).'}';
+        }
+        if($form->form_options->btn_hover_color) {
+            echo '.rmformui #rmform-module-' . wp_kses_post((string)$form->form_id) .' #rm_form_submit_button input[type="submit"]:hover, #rm-form-container #rm_form_submit_button input[type=\'button\']:hover { background-color:'.wp_kses_post((string)$form->form_options->btn_hover_color).wp_kses_post((string)$important).';}';
+        }
+        if($form->form_options->style_textfield) {
             echo '.rmformui #rmform-module-' . wp_kses_post((string)$form->form_id) . ' ' . wp_kses_post((string)$row_class) . ' input,.rmformui #rmform-module-'.wp_kses_post((string)$form->form_id) . wp_kses_post((string)$row_class) . ' select,.rmformui #rmform-module-'.wp_kses_post((string)$form->form_id) . wp_kses_post((string)$row_class) . ' textarea { '.wp_kses_post((string)$form->form_options->style_textfield).'}';
-        if($form->form_options->style_label)
+        }
+        if($form->form_options->style_label) {
             echo '.rmformui #rmform-module-' . wp_kses_post((string)$form->form_id) . ' ' . wp_kses_post((string)$row_class) . ' .rmform-field'. ' > '. '.rmform-label { '.wp_kses_post((string)$form->form_options->style_label).'}';
-        if($form->form_options->field_bg_focus_color || $form->form_options->text_focus_color){
+        }
+        if($form->form_options->field_bg_focus_color || $form->form_options->text_focus_color) {
             echo '.rmformui #rmform-module-' . wp_kses_post((string)$form->form_id) . ' ' . wp_kses_post((string)$row_class) . ' input:focus,.rmformui #rmform-module-'.wp_kses_post((string)$form->form_id) . wp_kses_post((string)$row_class) . ' select:focus,.rmformui #rmform-module-'.wp_kses_post((string)$form->form_id) . wp_kses_post((string)$row_class) . ' textarea:focus{';
-        if($form->form_options->field_bg_focus_color)
-            echo 'background-color:'.wp_kses_post((string)$form->form_options->field_bg_focus_color).wp_kses_post((string)$important).';';
-        if($form->form_options->text_focus_color)
-            echo 'color:'.wp_kses_post((string)$form->form_options->text_focus_color).wp_kses_post((string)$important).';';
+            if($form->form_options->field_bg_focus_color) {
+                echo 'background-color:'.wp_kses_post((string)$form->form_options->field_bg_focus_color).wp_kses_post((string)$important).';';
+            }
+            if($form->form_options->text_focus_color) {
+                echo 'color:'.wp_kses_post((string)$form->form_options->text_focus_color).wp_kses_post((string)$important).';';
+            }
             echo '}';
         }
         echo '</style>';

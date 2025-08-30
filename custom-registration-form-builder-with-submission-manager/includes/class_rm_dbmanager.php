@@ -3153,15 +3153,18 @@ class RM_DBManager
         return $results;
     }
     
-    
     public static function get_total_revenue_by_user_email($email){
         global $wpdb;
         $table_name = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
         $payments_table_name = RM_Table_Tech::get_table_name_for('PAYPAL_LOGS');
         $qry = "SELECT SUM($payments_table_name.total_amount) as total_revenue FROM $table_name INNER JOIN `$payments_table_name` ON $table_name.submission_id = $payments_table_name.submission_id WHERE $table_name.user_email = '$email' AND $payments_table_name.status in('Completed','succeeded','Succeeded')";
-        return $wpdb->get_var($qry);
-        
+        $result = $wpdb->get_var($qry);
+        if (empty($result))
+            return 0;
+        $result = round(floatval($result), 2);
+        return $result;
     }
+
     public static function get_recents_payments_by_formid($form_id, $current_submission_id){
         global $wpdb;
         $table_name = RM_Table_Tech::get_table_name_for('SUBMISSIONS');

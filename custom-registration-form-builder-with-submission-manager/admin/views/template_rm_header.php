@@ -39,7 +39,10 @@ if(!isset($_SESSION['rm_dismiss_sale_banner']) || empty($_SESSION['rm_dismiss_sa
 <?php } } elseif (empty(get_site_option('rm_dismiss_upgrade_notice', false))) { ?>
 <div class="rm-upgrade-notice-info is-dismissible rm-text-dark rm-border-bottom">
     <?php esc_html_e('Unlock even more powerful features by upgrading to RegistrationMagic ', 'custom-registration-form-builder-with-submission-manager'); ?>
+    <!--
     <a href="https://registrationmagic.com/comparison/?utm_source=wp_admin&utm_medium=top_alert&utm_campaign=admin_upgrade_premium" target="_blank" class="rm-premium-text">
+    -->
+    <a href="admin.php?page=rm_support_premium_page" class="rm-premium-text">
         <?php esc_html_e('Premium', 'custom-registration-form-builder-with-submission-manager'); ?>
     </a>
     <button class="button-link rm-promo-notice-dismiss rm-bg-light rm-text-dark rm-rounded-circle material-icons">close <span class="screen-reader-text">

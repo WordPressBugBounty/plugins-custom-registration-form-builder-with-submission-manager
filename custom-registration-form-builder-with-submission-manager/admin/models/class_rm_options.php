@@ -348,6 +348,11 @@ class RM_Options
             'rm_turnstile_theme'=> '',
             'rm_turnstile_size'=>'',
             'rm_turnstile_message' => '',
+            'openai_api_key' =>'',
+            'response_length'=>'',
+            'openai_api_limit'=>'',
+            'gpt_model'=> '',
+            'openai_api_reset_limit'=> '',
         );
     }
 

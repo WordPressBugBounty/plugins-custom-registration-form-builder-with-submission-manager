@@ -77,16 +77,19 @@ $curr_arr = array(
         $form->addElement(new Element_Checkbox(RM_UI_Strings::get('LABEL_PAYMENT_PROCESSOR'), "payment_gateway", $data['pay_procs_options'], array("value" => $data['payment_gateway'], "longDesc" => RM_UI_Strings::get('HELP_OPTIONS_PYMNT_PROCESSOR')), array('exclass_row'=>'rm_pricefield_checkbox','sub_element'=>$config_field)));
         ////////////////// Payment Processor configuration popup /////////////////
         $form->addElement(new Element_HTML('<div id="rm_pproc_config_parent_backdrop" style="display:none" class="rm_config_pop_wrap">'));
-        $form->addElement(new Element_HTML('<div class="rm_pproc_config_overlay"  onclick="hide_payment_config_modal();"></div>'));
+        $form->addElement(new Element_HTML('<div class="rm_pproc_config_overlay"></div>'));
         $form->addElement(new Element_HTML('<div id="rm_pproc_config_parent" style="display:block" class="rm_config_pop">'));
         foreach($data['pay_procs_configs'] as $pproc_name => $form_elems):
             $form->addElement(new Element_HTML('<div class="rm_pproc_config_single" id="rm_pproc_config_'.$pproc_name.'" style="display:none">'));
-                $form->addElement(new Element_HTML("<div class='rm_pproc_config_single_titlebar'><div class='rm_pproc_title'>{$data['pay_procs_options'][$pproc_name]}</div><span onclick='hide_payment_config_modal();' class='rm-popup-close'>&times;</span></div>"));
+                $form->addElement(new Element_HTML("<div class='rm_pproc_config_single_titlebar'><div class='rm_pproc_title'>{$data['pay_procs_options'][$pproc_name]}</div><span onclick='hide_payment_config_modal(\"{$pproc_name}\");' class='rm-popup-close'>&times;</span></div>"));
                 $form->addElement(new Element_HTML('<div class="rm_pproc_config_single_elems">'));
             foreach($form_elems as $elem):
                 $form->addElement($elem);
             endforeach;
                 $form->addElement(new Element_HTML('</div>'));
+                if($pproc_name == 'paypal'):
+                    $form->addElement(new Element_Button(RM_UI_Strings::get('LABEL_SAVE'), "button", array("id" => "rm_pproc_config_{$pproc_name}_save","class" => "button button-primary", "onclick" => "save_payment_config_modal('{$pproc_name}')")));
+                endif;
             $form->addElement(new Element_HTML('</div>'));
         endforeach;
         
@@ -189,26 +192,55 @@ $curr_arr = array(
     }
     function enable_paypal_modern_popup(element){
         var modernContainer = document.getElementById('rm_pp_modern_enable_childfieldsrow');
-        if(element.checked){
+        if(element.checked) {
+            jQuery('span#rm_pp_email_error_msg').hide();
             modernContainer.style.display = 'block';
-        }else{
+        } else {
+            if(jQuery("input#rm_pp_email_tb").val().trim() == '') {
+                jQuery("input#rm_pp_email_tb").focus();
+                jQuery('span#rm_pp_email_error_msg').show();
+                var rmErrorMsg = jQuery('span#rm_pp_email_error_msg');
+                rmErrorMsg.insertAfter('#rm_pp_email_tb');
+            }
             modernContainer.style.display = 'none';
         }
     }
-    function hide_payment_config_modal(element) {
-        if(
-            jQuery("div#rm_pproc_config_parent_backdrop").is(':visible')
-            && jQuery("input#rm_pp_modern_enable-0").is(':checked')
-            && jQuery("input#rm_pp_modern_client_id").val().trim() == ''
-        ) {
-            jQuery("input#rm_pp_modern_client_id").focus();
-            jQuery('span#rm_pp_modern_client_error_msg').show();
-            
-            var rmErrorMsg = jQuery('span#rm_pp_modern_client_error_msg');
-            rmErrorMsg.insertAfter('#rm_pp_modern_client_id');
-            
-            return;
+    function save_payment_config_modal(pproc) {
+        var pgws_jqel = jQuery("input[name='payment_gateway[]']");
+        pgws_jqel.each(function(){
+            if(jQuery(this).val() === pproc) {
+                jQuery(this).prop('checked', true);
+            }
+        });
+        if(jQuery("div#rm_pproc_config_parent_backdrop").is(':visible')) {
+            if(jQuery("input#rm_pp_modern_enable-0").is(':checked')) {
+                if(jQuery("input#rm_pp_modern_client_id").val().trim() == '') {
+                    jQuery("input#rm_pp_modern_client_id").focus();
+                    jQuery('span#rm_pp_modern_client_error_msg').show();
+
+                    var rmErrorMsg = jQuery('span#rm_pp_modern_client_error_msg');
+                    rmErrorMsg.insertAfter('#rm_pp_modern_client_id');
+                    return;
+                }
+            } else if (jQuery("input#rm_pp_email_tb").val().trim() == '') {
+                jQuery("input#rm_pp_email_tb").focus();
+                jQuery('span#rm_pp_email_error_msg').show();
+
+                var rmErrorMsg = jQuery('span#rm_pp_email_error_msg');
+                rmErrorMsg.insertAfter('#rm_pp_email_tb');
+                return;
+            }
         }
+        jQuery("#rm_pproc_config_parent_backdrop").hide();
+    }
+    function hide_payment_config_modal(pproc) {
+        var pgws_jqel = jQuery("input[name='payment_gateway[]']");
+        pgws_jqel.each(function(){
+            if(jQuery(this).val() === pproc) {
+                jQuery(this).prop('checked', false);
+                jQuery(this).parents("li").children('.rmrow').addClass("rm_deactivated");
+            }
+        });
         jQuery("#rm_pproc_config_parent_backdrop").hide();
     }
     jQuery(document).mouseup(function (e) {
@@ -230,20 +262,25 @@ $curr_arr = array(
         
         pgws_jqel.each(function(){
             var cbox_jqel = jQuery(this);
-            if(cbox_jqel.prop('checked'))
+            if(cbox_jqel.prop('checked')) {
                 cbox_jqel.parents("li").children('.rmrow').removeClass("rm_deactivated");
-            else
+            } else {
                 cbox_jqel.parents("li").children('.rmrow').addClass("rm_deactivated");
+            }
         });
         
         pgws_jqel.change(function(){
             var cbox_jqel = jQuery(this);
             var pproc_name = cbox_jqel.val(); 
             if(pproc_name == 'paypal'){
-                if(cbox_jqel.prop('checked'))
+                if(cbox_jqel.prop('checked')) {
+                    jQuery("#rm_pproc_config_parent").children().hide();
+                    jQuery("#rm_pproc_config_parent").children("#rm_pproc_config_"+pproc_name).show();
+                    jQuery("#rm_pproc_config_parent_backdrop").show();
                     cbox_jqel.parents("li").children('.rmrow').removeClass("rm_deactivated");
-                else
+                } else {
                     cbox_jqel.parents("li").children('.rmrow').addClass("rm_deactivated");
+                }
             } else {
                 cbox_jqel.prop('checked',false);
                 jQuery("#rm_pproc_config_parent").children().hide();
@@ -258,6 +295,12 @@ $curr_arr = array(
         jQuery("input#rm_pp_modern_client_id").on('keyup', function() {
             if(jQuery(this).val() != '') {
                 jQuery('span#rm_pp_modern_client_error_msg').hide();
+            }
+        });
+
+        jQuery("input#rm_pp_email_tb").on('keyup', function() {
+            if(jQuery(this).val() != '') {
+                jQuery('span#rm_pp_email_error_msg').hide();
             }
         });
     });

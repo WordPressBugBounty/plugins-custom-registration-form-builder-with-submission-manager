@@ -2181,7 +2181,10 @@ class RM_Admin {
 
             <div class="rm_admin_notice_banner rm-notice-banner notice notice-warning is-dismissible rm-py-2 rm-my-2">
 
-                <p><?php printf(__( 'Unlock all RegistrationMagic features by upgrading to Premium. It takes less than 5 minutes! <a href="%s" target="_blank">Click here</a> to start.','custom-registration-form-builder-with-submission-manager'),'https://registrationmagic.com/comparison/'); ?> </p>
+                <p><?php
+                //printf(__( 'Unlock all RegistrationMagic features by upgrading to Premium. It takes less than 5 minutes! <a href="%s" target="_blank">Click here</a> to start.','custom-registration-form-builder-with-submission-manager'),'https://registrationmagic.com/comparison/');
+                printf(__( 'Unlock all RegistrationMagic features by upgrading to Premium. It takes less than 5 minutes! <a href="%s">Click here</a> to start.','custom-registration-form-builder-with-submission-manager'),'admin.php?page=rm_support_premium_page');
+                ?> </p>
                 <a type="button" class="notice-dismiss rm-text-decoration-none" href="<?php echo esc_url($query_string).'rm_disable_premium_notice=1' ?>"><span class="screen-reader-text">Dismiss this notice.</span></a>
             </div>
 

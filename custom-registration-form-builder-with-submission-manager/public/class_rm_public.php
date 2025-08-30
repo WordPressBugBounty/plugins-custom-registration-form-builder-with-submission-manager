@@ -328,6 +328,12 @@ class RM_Public {
         if(isset($attribute['id'])) {
             RM_DBManager::add_form_published_pages(absint($attribute['id']),get_the_ID());
         }
+        $attribute = apply_filters('rm_before_form_render', $attribute);
+        if ( isset($attribute['block']) && !empty($attribute['block']) ) {
+            ob_start();
+            echo isset($attribute['block_message']) ? wp_kses_post($attribute['block_message']) : '';
+            return ob_get_clean();
+        }
         if(defined('REGMAGIC_ADDON')) {
             $addon_public = new RM_Public_Addon();
             return $addon_public->rm_user_form_render($attribute,$this);
@@ -368,8 +374,13 @@ class RM_Public {
             self::$form_counter++;
         }
         ob_start();
-        $form_factory = new RM_Form_Factory_Revamp();
-        $form_factory->render_form($form_id, $theme);
+        $attribute = apply_filters('rm_before_form_render', $attribute);
+        if ( isset($attribute['block']) && !empty($attribute['block']) ) {
+            echo isset($attribute['block_message']) ? wp_kses_post($attribute['block_message']) : '';
+        } else {
+            $form_factory = new RM_Form_Factory_Revamp();
+            $form_factory->render_form($form_id, $theme);
+        }
         $output = ob_get_clean();
         return $output;
     }
@@ -444,15 +455,16 @@ class RM_Public {
         if(get_option('rm_option_display_floating_action_btn') === 'yes') {
             $this->enqueue_styles();
             $this->enqueue_scripts();
+
+            $xml_loader = defined('REGMAGIC_ADDON') ? RM_XML_Loader::getInstance(RM_ADDON_INCLUDES_DIR . 'rm_config.xml'): RM_XML_Loader::getInstance(plugin_dir_path(__FILE__) . 'rm_config.xml');
+
+            $request = new RM_Request($xml_loader);
+            $request->setReqSlug('rm_front_fab', true);
+
+            $params = array('request' => $request, 'xml_loader' => $xml_loader);
+            $this->controller = new RM_Main_Controller($params);
+            return $this->controller->run();
         }
-        $xml_loader = defined('REGMAGIC_ADDON') ? RM_XML_Loader::getInstance(RM_ADDON_INCLUDES_DIR . 'rm_config.xml'): RM_XML_Loader::getInstance(plugin_dir_path(__FILE__) . 'rm_config.xml');
-
-        $request = new RM_Request($xml_loader);
-        $request->setReqSlug('rm_front_fab', true);
-
-        $params = array('request' => $request, 'xml_loader' => $xml_loader);
-        $this->controller = new RM_Main_Controller($params);
-        return $this->controller->run();
     }
     
     public function rm_user_list($attribute){

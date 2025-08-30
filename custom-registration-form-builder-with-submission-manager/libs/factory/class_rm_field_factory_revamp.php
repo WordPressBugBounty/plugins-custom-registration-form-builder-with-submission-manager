@@ -1021,7 +1021,7 @@ final class RM_Field_Factory_Revamp {
         }
         echo "</div>";
 
-        echo "<span class='rmform-error-message' id='rmform-" . $attributes['name'] . "-error'></span>";
+        echo "<span class='rmform-error-message' id='rmform-" . strtolower($attributes['name']) . "-error'></span>";
 
         echo "<div id='rm-note-".wp_kses_post((string)$field->field_id)."' class='rmform-note' style='display: none;'>".wp_kses_post((string)$field->field_options->help_text)."</div>";
     }
@@ -4262,8 +4262,19 @@ final class RM_Field_Factory_Revamp {
         }
 
         if (isset($field->field_options->field_is_required_range)) {
-            $attributes['required_max_range'] = isset($field->field_options->field_is_required_max_range) ? $field->field_options->field_is_required_max_range : date("m/d/yy");
-            $attributes['required_min_range'] = isset($field->field_options->field_is_required_min_range) ? $field->field_options->field_is_required_min_range : '';
+            $format = str_replace(
+                ['dd','mm','yy'],
+                ['d','m','Y'],
+                $attributes['data-dateformat']
+            );
+            if($field->field_options->field_is_required_max_range) {
+                $max_date = DateTime::createFromFormat('m/d/Y', $field->field_options->field_is_required_max_range);
+                $attributes['required_max_range'] = $max_date->format($format);
+            }
+            if($field->field_options->field_is_required_min_range) {
+                $min_date = DateTime::createFromFormat('m/d/Y', $field->field_options->field_is_required_min_range);
+                $attributes['required_min_range'] = $min_date->format($format);
+            }
         }
 
         if(isset($old_value)) {
@@ -4296,13 +4307,13 @@ final class RM_Field_Factory_Revamp {
 
         wp_enqueue_style( 'jquery-ui-bday', 'https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css' ); 
 
-        $bday_min_max= array(
+        $bday_min_max = array(
             'max' => $attributes['required_max_range'] == "" ? date("m/d/Y") : $attributes['required_max_range'],
             'min' => $attributes['required_min_range'],
         );
 
         wp_enqueue_script('rm-new-frontend-field', RM_BASE_URL.'public/js/new_frontend_field.js', array('jquery','jquery-ui-datepicker'));
-        wp_localize_script('rm-new-frontend-field','bday_min_max',$bday_min_max);
+        wp_localize_script('rm-new-frontend-field','bday_min_max', $bday_min_max);
     }
 
     public function create_gender_field($field = null, $ex_sub_id = 0) {
@@ -4876,9 +4887,6 @@ final class RM_Field_Factory_Revamp {
     }
 
     public function create_pgavatar_field($field = null, $ex_sub_id = 0){
-        if (!defined('REGMAGIC_ADDON')) {
-            return;
-        }
         if (class_exists("Profile_Magic")){
             $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
             $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;

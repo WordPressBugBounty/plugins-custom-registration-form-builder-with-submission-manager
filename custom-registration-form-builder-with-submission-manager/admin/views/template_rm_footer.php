@@ -111,7 +111,10 @@ if(!empty($_GET['rm_form_id'])):
                         </div>
                         <div class="rm-box-col rm-upgrade-banner-btn-col">
                     <div class="rm-text-center">
-                        <a href="https://registrationmagic.com/comparison/?utm_source=wp_admin&utm_medium=premium_banner_footer&utm_campaign=admin_upgrade_premium" target="_blabk" class="rm-d-inline-block rm-box-w-100">
+                        <!--
+                        <a href="https://registrationmagic.com/comparison/?utm_source=wp_admin&utm_medium=premium_banner_footer&utm_campaign=admin_upgrade_premium" target="_blank" class="rm-d-inline-block rm-box-w-100">
+                        -->
+                        <a href="admin.php?page=rm_support_premium_page" class="rm-d-inline-block rm-box-w-100">
                             <button class="button button-primary rm-upgrade-button rm-px-4 rm-py-1 rm-box-w-100">
                                 <?php esc_html_e("Upgrade Now!", 'custom-registration-form-builder-with-submission-manager'); ?>
                             </button>
@@ -151,7 +154,15 @@ if($dismiss_icon == 0) { ?>
             </div>
             
             <?php if(!defined('REGMAGIC_ADDON')) { ?>
-            <div class="rm-floating-item"><a href="https://registrationmagic.com/comparison/?utm_source=wp_admin&utm_medium=floating_button&utm_campaign=admin_upgrade_premium" target="_blank" class="rm-d-flex rm-align-items-center rm-text-decoration-none rm-fw-bold rm-text-dark rm-px-3 rm-py-2"><span class="material-icons rm-pr-2">workspace_premium</span><?php esc_html_e("Upgrade to Premium", 'custom-registration-form-builder-with-submission-manager'); ?></a></div>
+            <div class="rm-floating-item">
+                <!--
+                <a href="https://registrationmagic.com/comparison/?utm_source=wp_admin&utm_medium=floating_button&utm_campaign=admin_upgrade_premium" target="_blank" class="rm-d-flex rm-align-items-center rm-text-decoration-none rm-fw-bold rm-text-dark rm-px-3 rm-py-2">
+                -->
+                <a href="admin.php?page=rm_support_premium_page" class="rm-d-flex rm-align-items-center rm-text-decoration-none rm-fw-bold rm-text-dark rm-px-3 rm-py-2">
+                    <span class="material-icons rm-pr-2">workspace_premium</span>
+                    <?php esc_html_e("Upgrade to Premium", 'custom-registration-form-builder-with-submission-manager'); ?>
+                </a>
+            </div>
             <?php }else{ ?>
               <div class="rm-floating-item"><a href="https://registrationmagic.com/customizations/?utm_source=wp_admin&utm_medium=floating_button&utm_campaign=admin_customizations" target="_blank" class="rm-d-flex rm-align-items-center rm-text-decoration-none rm-fw-bold rm-text-dark rm-px-3 rm-py-2"><span class="material-icons rm-pr-2">design_services</span><?php esc_html_e("Customize RegistrationMagic", 'custom-registration-form-builder-with-submission-manager'); ?></a></div>  
            <?php }

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RegistrationMagic Basic v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2025-08-11 18:02+0530\n"
+"POT-Creation-Date: 2025-08-29 16:21+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: RegistrationMagic Support <support@registrationmagic.com>\n"
@@ -303,28 +303,28 @@ msgid ""
 "href=\"%s\">Click here</a> to try now!"
 msgstr ""
 
-#: admin/class_rm_admin.php:2184
+#: admin/class_rm_admin.php:2186
 #, php-format
 msgid ""
 "Unlock all RegistrationMagic features by upgrading to Premium. It takes less "
-"than 5 minutes! <a href=\"%s\" target=\"_blank\">Click here</a> to start."
+"than 5 minutes! <a href=\"%s\">Click here</a> to start."
 msgstr ""
 
-#: admin/class_rm_admin.php:2197
+#: admin/class_rm_admin.php:2200
 #, php-format
 msgid ""
 "Upgrade to RegistrationMagic Premium+ by paying the difference! <a "
 "href=\"%s\">Click here </a>to upgrade."
 msgstr ""
 
-#: admin/class_rm_admin.php:2210
+#: admin/class_rm_admin.php:2213
 #, php-format
 msgid ""
 "RegistrationMagic Premium license key is missing. <a href=\"%s\" "
 "class=\"button action\">Activate License </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2223
+#: admin/class_rm_admin.php:2226
 #, php-format
 msgid ""
 "Unlicensed version of RegistrationMagic Premium. Auto-updates are disabled. "
@@ -332,7 +332,7 @@ msgid ""
 "to get your license key."
 msgstr ""
 
-#: admin/class_rm_admin.php:2238
+#: admin/class_rm_admin.php:2241
 #, php-format
 msgid ""
 "Your RegistrationMagic Premium license key has expired. Renew now or upgrade "
@@ -340,7 +340,7 @@ msgid ""
 "\"_blank\">Click here</a> to proceed."
 msgstr ""
 
-#: admin/class_rm_admin.php:2253
+#: admin/class_rm_admin.php:2256
 #, php-format
 msgid ""
 "Your RegistrationMagic Premium license key has expired. Auto-updates are "
@@ -348,7 +348,7 @@ msgid ""
 "href=\"%s\" target=\"_blank\">Click here</a> to proceed."
 msgstr ""
 
-#: admin/class_rm_admin.php:2342
+#: admin/class_rm_admin.php:2345
 msgid ""
 "It seems you are using now obsolete version of PHP. Please note that "
 "RegistrationMagic works best with PHP 5.6 or later versions. You may want to "
@@ -356,7 +356,7 @@ msgid ""
 "message may not display again once dismissed."
 msgstr ""
 
-#: admin/class_rm_admin.php:2368
+#: admin/class_rm_admin.php:2371
 #, php-format
 msgid ""
 "Using Easy Digital Downloads? <a target=\"__blank\" href=\"%s\">Learn how to</"
@@ -364,11 +364,11 @@ msgid ""
 "which display customer order history and details with the form submission."
 msgstr ""
 
-#: admin/class_rm_admin.php:2368 admin/class_rm_admin.php:2380
+#: admin/class_rm_admin.php:2371 admin/class_rm_admin.php:2383
 msgid "Dismiss"
 msgstr ""
 
-#: admin/class_rm_admin.php:2380
+#: admin/class_rm_admin.php:2383
 #, php-format
 msgid ""
 "Using WooCommerce? <a target=\"__blank\" href=\"%s\">Learn how to</a> create "
@@ -376,33 +376,33 @@ msgid ""
 "display customer order history with the form submission."
 msgstr ""
 
-#: admin/class_rm_admin.php:2423 admin/views/template_rm_dashboard.php:502
+#: admin/class_rm_admin.php:2426 admin/views/template_rm_dashboard.php:502
 msgid "User Area Layout"
 msgstr ""
 
-#: admin/class_rm_admin.php:2425
+#: admin/class_rm_admin.php:2428
 msgid "Set user area tabs order and visibility."
 msgstr ""
 
-#: admin/class_rm_admin.php:2439
+#: admin/class_rm_admin.php:2442
 #: admin/views/template_rm_options_ctabs_manager.php:21
 #: includes/class_rm_ui_strings.php:804
 msgid "Customize User Area Tab"
 msgstr ""
 
-#: admin/class_rm_admin.php:2441
+#: admin/class_rm_admin.php:2444
 msgid "Add customized tabs to the user area"
 msgstr ""
 
-#: admin/class_rm_admin.php:2455
+#: admin/class_rm_admin.php:2458
 msgid "Invoice Setting"
 msgstr ""
 
-#: admin/class_rm_admin.php:2457
+#: admin/class_rm_admin.php:2460
 msgid "Setup Invoice options"
 msgstr ""
 
-#: admin/class_rm_admin.php:2586 admin/class_rm_admin.php:2612
+#: admin/class_rm_admin.php:2589 admin/class_rm_admin.php:2615
 #: admin/controllers/class_rm_form_controller.php:335
 #: admin/controllers/class_rm_options_controller.php:120
 #: admin/controllers/class_rm_user_controller.php:51
@@ -413,7 +413,7 @@ msgstr ""
 msgid "Failed security check"
 msgstr ""
 
-#: admin/class_rm_admin.php:2603
+#: admin/class_rm_admin.php:2606
 msgid "Security check failed. Please refresh the page and try again later."
 msgstr ""
 
@@ -432,8 +432,12 @@ msgstr ""
 msgid "You must define text for the link."
 msgstr ""
 
-#: admin/controllers/class_rm_options_controller.php:502
-msgid "Please fill the required field"
+#: admin/controllers/class_rm_options_controller.php:498
+msgid "PayPal account email is required"
+msgstr ""
+
+#: admin/controllers/class_rm_options_controller.php:503
+msgid "PayPal Client ID is required"
 msgstr ""
 
 #: admin/controllers/class_rm_payments_controller.php:105
@@ -655,8 +659,8 @@ msgstr ""
 #: admin/views/html/wc_shipping_field.php:220
 #: includes/class_rm_utilities.php:2293
 #: includes/class_rm_utilities_revamp.php:505
-#: libs/factory/class_rm_field_factory_revamp.php:2311
-#: libs/factory/class_rm_field_factory_revamp.php:2431
+#: libs/factory/class_rm_field_factory_revamp.php:2317
+#: libs/factory/class_rm_field_factory_revamp.php:2438
 msgid "United States"
 msgstr ""
 
@@ -665,8 +669,8 @@ msgstr ""
 #: admin/views/html/wc_shipping_field.php:220
 #: includes/class_rm_utilities.php:2099
 #: includes/class_rm_utilities_revamp.php:311
-#: libs/factory/class_rm_field_factory_revamp.php:2312
-#: libs/factory/class_rm_field_factory_revamp.php:2432
+#: libs/factory/class_rm_field_factory_revamp.php:2318
+#: libs/factory/class_rm_field_factory_revamp.php:2439
 msgid "Canada"
 msgstr ""
 
@@ -926,7 +930,7 @@ msgstr ""
 #: admin/views/template_rm_options_default_pages.php:31
 #: admin/views/template_rm_options_fab.php:82
 #: admin/views/template_rm_options_general.php:110
-#: admin/views/template_rm_options_payment.php:114
+#: admin/views/template_rm_options_payment.php:117
 #: admin/views/template_rm_options_security.php:55
 #: admin/views/template_rm_options_tabs.php:68
 #: admin/views/template_rm_options_thirdparty.php:55
@@ -1118,7 +1122,7 @@ msgstr ""
 #: admin/views/template_rm_field_picker.php:529
 #: admin/views/template_rm_field_picker.php:548
 #: admin/views/template_rm_field_picker.php:625
-#: admin/views/template_rm_header.php:43 includes/class_rm_ui_strings.php:3455
+#: admin/views/template_rm_header.php:46 includes/class_rm_ui_strings.php:3455
 msgid "Premium"
 msgstr ""
 
@@ -2261,7 +2265,7 @@ msgstr ""
 #: admin/views/template_rm_field_picker.php:302
 #: includes/class_rm_utilities.php:190
 #: libs/factory/class_rm_field_factory.php:1016
-#: libs/factory/class_rm_field_factory_revamp.php:2840
+#: libs/factory/class_rm_field_factory_revamp.php:2847
 msgid "Privacy Policy"
 msgstr ""
 
@@ -2429,52 +2433,52 @@ msgid ""
 "your registration process."
 msgstr ""
 
-#: admin/views/template_rm_footer.php:116
+#: admin/views/template_rm_footer.php:119
 msgid "Upgrade Now!"
 msgstr ""
 
-#: admin/views/template_rm_footer.php:119
+#: admin/views/template_rm_footer.php:122
 msgid "It takes less than a minute to upgrade."
 msgstr ""
 
-#: admin/views/template_rm_footer.php:146
+#: admin/views/template_rm_footer.php:149
 #: admin/views/template_rm_form_manager.php:587
 #: admin/views/template_rm_form_manager_old.php:572
 msgid "Create Support Ticket"
 msgstr ""
 
-#: admin/views/template_rm_footer.php:150
+#: admin/views/template_rm_footer.php:153
 msgid "Follow Us on Facebook"
 msgstr ""
 
-#: admin/views/template_rm_footer.php:154
+#: admin/views/template_rm_footer.php:163
 msgid "Upgrade to Premium"
 msgstr ""
 
-#: admin/views/template_rm_footer.php:156
+#: admin/views/template_rm_footer.php:167
 #: admin/views/template_rm_promo_banner_bottom.php:21
 msgid "Customize RegistrationMagic"
 msgstr ""
 
-#: admin/views/template_rm_footer.php:159
+#: admin/views/template_rm_footer.php:170
 msgid "Hide this"
 msgstr ""
 
-#: admin/views/template_rm_footer.php:164
+#: admin/views/template_rm_footer.php:175
 msgid "See Quick Links"
 msgstr ""
 
-#: admin/views/template_rm_footer.php:175 admin/views/template_rm_footer.php:180
+#: admin/views/template_rm_footer.php:186 admin/views/template_rm_footer.php:191
 #: admin/views/template_rm_formflow_main.php:123
 msgid "Have a question?"
 msgstr ""
 
-#: admin/views/template_rm_footer.php:182
+#: admin/views/template_rm_footer.php:193
 #: admin/views/template_rm_formflow_main.php:125
 msgid "Reach out to the RegistrationMagic Community for help "
 msgstr ""
 
-#: admin/views/template_rm_footer.php:182
+#: admin/views/template_rm_footer.php:193
 #: admin/views/template_rm_form_settings.php:121
 #: admin/views/template_rm_formflow_main.php:125
 msgid "here"
@@ -2615,7 +2619,7 @@ msgid "RegistrationMagic Premium"
 msgstr ""
 
 #: admin/views/template_rm_form_manager.php:41
-#: admin/views/template_rm_header.php:46
+#: admin/views/template_rm_header.php:49
 msgid "Dismiss notice"
 msgstr ""
 
@@ -3223,65 +3227,65 @@ msgid "This is required field."
 msgstr ""
 
 #: admin/views/template_rm_form_post_sub_sett.php:35
-#: libs/factory/class_rm_form_factory_revamp.php:1112
 #: libs/factory/class_rm_form_factory_revamp.php:1128
+#: libs/factory/class_rm_form_factory_revamp.php:1144
 #, php-format
 msgid "%s Submitted"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:14
-#: libs/factory/class_rm_form_factory_revamp.php:1314
+#: libs/factory/class_rm_form_factory_revamp.php:1330
 #: public/class_rm_public.php:171
 msgid "No Results Found"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:15
-#: libs/factory/class_rm_form_factory_revamp.php:1315
+#: libs/factory/class_rm_form_factory_revamp.php:1331
 #: public/class_rm_public.php:172
 msgid "Invalid Zip Code"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:16
-#: libs/factory/class_rm_form_factory_revamp.php:1316
+#: libs/factory/class_rm_form_factory_revamp.php:1332
 #: public/class_rm_public.php:173
 msgid "Please wait..."
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:17
-#: libs/factory/class_rm_form_factory_revamp.php:1317
+#: libs/factory/class_rm_form_factory_revamp.php:1333
 #: public/class_rm_public.php:174
 msgid "Hours"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:18
-#: libs/factory/class_rm_form_factory_revamp.php:1318
+#: libs/factory/class_rm_form_factory_revamp.php:1334
 #: public/class_rm_public.php:175
 msgid "Minutes"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:19
-#: libs/factory/class_rm_form_factory_revamp.php:1319
+#: libs/factory/class_rm_form_factory_revamp.php:1335
 #: public/class_rm_public.php:176
 msgid "Seconds"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:20
 #: includes/class_rm_ui_strings.php:4392
-#: libs/factory/class_rm_form_factory_revamp.php:1320
+#: libs/factory/class_rm_form_factory_revamp.php:1336
 #: public/class_rm_public.php:177
 msgid "Days"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:21
 #: includes/class_rm_ui_strings.php:4396
-#: libs/factory/class_rm_form_factory_revamp.php:1321
+#: libs/factory/class_rm_form_factory_revamp.php:1337
 #: public/class_rm_public.php:178
 msgid "Months"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:22
 #: includes/class_rm_ui_strings.php:4398
-#: libs/factory/class_rm_form_factory_revamp.php:1322
+#: libs/factory/class_rm_form_factory_revamp.php:1338
 #: public/class_rm_public.php:179
 msgid "Years"
 msgstr ""
@@ -4916,7 +4920,7 @@ msgstr ""
 
 #: admin/views/template_rm_license.php:255
 #: admin/views/template_rm_license.php:269
-#: admin/views/template_rm_new_form_templates.php:115
+#: admin/views/template_rm_new_form_templates.php:119
 #: includes/class_rm_licensing.php:131 includes/class_rm_licensing.php:142
 #: includes/class_rm_licensing.php:281
 msgid "Upgrade"
@@ -6386,11 +6390,11 @@ msgstr ""
 msgid "Omani Riyal"
 msgstr ""
 
-#: admin/views/template_rm_options_payment.php:100
+#: admin/views/template_rm_options_payment.php:103
 msgid "Before amount (Eg.: $10)"
 msgstr ""
 
-#: admin/views/template_rm_options_payment.php:100
+#: admin/views/template_rm_options_payment.php:103
 msgid "After amount (Eg.: 10$)"
 msgstr ""
 
@@ -11211,16 +11215,16 @@ msgstr ""
 msgid "RegistrationMagic Eraser"
 msgstr ""
 
-#: includes/class_registration_magic.php:1166
+#: includes/class_registration_magic.php:1167
 #: includes/class_rm_ui_strings.php:4343
 msgid "Your account has not been activated yet."
 msgstr ""
 
-#: includes/class_registration_magic.php:1337
+#: includes/class_registration_magic.php:1338
 msgid "This username is already taken"
 msgstr ""
 
-#: includes/class_registration_magic.php:1355
+#: includes/class_registration_magic.php:1356
 msgid "Security check failed"
 msgstr ""
 
@@ -11615,9 +11619,9 @@ msgid "Payment Status"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:240
-#: libs/factory/class_rm_form_factory_revamp.php:2557
-#: libs/factory/class_rm_form_factory_revamp.php:2574
-#: libs/factory/class_rm_form_factory_revamp.php:2590
+#: libs/factory/class_rm_form_factory_revamp.php:2579
+#: libs/factory/class_rm_form_factory_revamp.php:2596
+#: libs/factory/class_rm_form_factory_revamp.php:2612
 msgid "Subscribe for emails"
 msgstr ""
 
@@ -12088,7 +12092,7 @@ msgid ""
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:718
-#: libs/factory/class_rm_form_factory_revamp.php:1332
+#: libs/factory/class_rm_form_factory_revamp.php:1348
 msgid "No form selected"
 msgstr ""
 
@@ -12800,7 +12804,7 @@ msgid "Field Analytics"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1362
-#: libs/factory/class_rm_form_factory_revamp.php:1461
+#: libs/factory/class_rm_form_factory_revamp.php:1477
 msgid ""
 "To fight spam admin has fixed the maximum number of submissions for this form "
 "from a single device. You can resubmit after 24 hours or you can contact the "
@@ -12896,7 +12900,7 @@ msgid "Display Price"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1437
-#: libs/factory/class_rm_form_factory_revamp.php:2088
+#: libs/factory/class_rm_form_factory_revamp.php:2104
 msgid "Redirecting you to"
 msgstr ""
 
@@ -13743,7 +13747,7 @@ msgid ""
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1918
-#: libs/factory/class_rm_form_factory_revamp.php:1841
+#: libs/factory/class_rm_form_factory_revamp.php:1857
 msgid "Select a payment method"
 msgstr ""
 
@@ -14540,7 +14544,7 @@ msgid ""
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:2460
-#: libs/factory/class_rm_form_factory_revamp.php:2214
+#: libs/factory/class_rm_form_factory_revamp.php:2230
 msgid "Sorry, you are not authorised to access this content."
 msgstr ""
 
@@ -15876,8 +15880,8 @@ msgid "Has Attachment(s)"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:3434
-#: libs/factory/class_rm_field_factory_revamp.php:6799
-#: libs/factory/class_rm_form_factory_revamp.php:1857
+#: libs/factory/class_rm_field_factory_revamp.php:6818
+#: libs/factory/class_rm_form_factory_revamp.php:1873
 #, php-format
 msgid "Total Price: %s"
 msgstr ""
@@ -16963,7 +16967,7 @@ msgid "Submission PDF Font"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:4355
-#: libs/factory/class_rm_form_factory_revamp.php:2122
+#: libs/factory/class_rm_form_factory_revamp.php:2138
 msgid "Please wait while we are logging into the system."
 msgstr ""
 
@@ -18882,18 +18886,18 @@ msgid "Here is your updated password: "
 msgstr ""
 
 #: libs/factory/class_rm_field_factory.php:1042
-#: libs/factory/class_rm_form_factory_revamp.php:2499
+#: libs/factory/class_rm_form_factory_revamp.php:2521
 #: public/views/template_rm_reset_password.php:75
 msgid "This field is required"
 msgstr ""
 
-#: libs/factory/class_rm_field_factory_revamp.php:728
 #: libs/factory/class_rm_field_factory_revamp.php:732
+#: libs/factory/class_rm_field_factory_revamp.php:736
 msgid "Invalid price field"
 msgstr ""
 
-#: libs/factory/class_rm_field_factory_revamp.php:5873
-#: libs/factory/class_rm_field_factory_revamp.php:6726
+#: libs/factory/class_rm_field_factory_revamp.php:5890
+#: libs/factory/class_rm_field_factory_revamp.php:6745
 msgid "Loading States..."
 msgstr ""
 
@@ -18925,7 +18929,7 @@ msgid "You have reached your form submission limit"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:186
-#: libs/factory/class_rm_form_factory_revamp.php:1355
+#: libs/factory/class_rm_form_factory_revamp.php:1371
 msgid "You are banned from submitting the form."
 msgstr ""
 
@@ -18938,7 +18942,7 @@ msgid "A user with this username already exists"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:236
-#: libs/factory/class_rm_form_factory_revamp.php:681
+#: libs/factory/class_rm_form_factory_revamp.php:695
 msgid "This username is reserved/blacklisted by the admin"
 msgstr ""
 
@@ -18952,28 +18956,28 @@ msgid "Password confirmation does not match"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:268
-#: libs/factory/class_rm_form_factory_revamp.php:2502
+#: libs/factory/class_rm_form_factory_revamp.php:2524
 msgid "Password must contain an uppercase letter"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:273
-#: libs/factory/class_rm_form_factory_revamp.php:2503
+#: libs/factory/class_rm_form_factory_revamp.php:2525
 msgid "Password must contain a number"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:278
-#: libs/factory/class_rm_form_factory_revamp.php:2504
+#: libs/factory/class_rm_form_factory_revamp.php:2526
 msgid "Password must contain a special character"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:283
-#: libs/factory/class_rm_form_factory_revamp.php:2505
+#: libs/factory/class_rm_form_factory_revamp.php:2527
 #, php-format
 msgid "Password must be at least %s characters long"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:288
-#: libs/factory/class_rm_form_factory_revamp.php:2506
+#: libs/factory/class_rm_form_factory_revamp.php:2528
 #, php-format
 msgid "Password must not be longer than %s characters"
 msgstr ""
@@ -18985,8 +18989,8 @@ msgstr ""
 #: libs/factory/class_rm_form_factory_revamp.php:305
 #: libs/factory/class_rm_form_factory_revamp.php:326
 #: libs/factory/class_rm_form_factory_revamp.php:369
-#: libs/factory/class_rm_form_factory_revamp.php:516
-#: libs/factory/class_rm_form_factory_revamp.php:664
+#: libs/factory/class_rm_form_factory_revamp.php:530
+#: libs/factory/class_rm_form_factory_revamp.php:678
 #, php-format
 msgid "%s is a required field"
 msgstr ""
@@ -19002,229 +19006,229 @@ msgstr ""
 msgid "Invalid file upload."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:541
-#: libs/factory/class_rm_form_factory_revamp.php:562
-#: libs/factory/class_rm_form_factory_revamp.php:567
+#: libs/factory/class_rm_form_factory_revamp.php:555
+#: libs/factory/class_rm_form_factory_revamp.php:576
+#: libs/factory/class_rm_form_factory_revamp.php:581
 #, php-format
 msgid "Incorrect format provided for %s field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:551
+#: libs/factory/class_rm_form_factory_revamp.php:565
 #, php-format
 msgid "%s must be a number"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:577
+#: libs/factory/class_rm_form_factory_revamp.php:591
 #, php-format
 msgid "Incorrect Website/URL format provided for %s field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:622
-#: libs/factory/class_rm_form_factory_revamp.php:628
+#: libs/factory/class_rm_form_factory_revamp.php:636
+#: libs/factory/class_rm_form_factory_revamp.php:642
 #, php-format
 msgid "%s should have a unique value. Please try form submission again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:640
+#: libs/factory/class_rm_form_factory_revamp.php:654
 #, php-format
 msgid "%s should have more than %s characters"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:648
+#: libs/factory/class_rm_form_factory_revamp.php:662
 #, php-format
 msgid "%s should have less than %s characters"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:677
+#: libs/factory/class_rm_form_factory_revamp.php:691
 msgid "Username is a required field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:693
-#: libs/factory/class_rm_form_factory_revamp.php:701
+#: libs/factory/class_rm_form_factory_revamp.php:708
+#: libs/factory/class_rm_form_factory_revamp.php:717
 #, php-format
 msgid "User Role (%s)"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:695
+#: libs/factory/class_rm_form_factory_revamp.php:711
 msgid "Incorrect user role selected. Please try form submission again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:711
-#: libs/factory/class_rm_form_factory_revamp.php:722
+#: libs/factory/class_rm_form_factory_revamp.php:727
+#: libs/factory/class_rm_form_factory_revamp.php:738
 msgid "reCAPTCHA check failed"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:738
+#: libs/factory/class_rm_form_factory_revamp.php:754
 msgid "No payment method selected. Please try form submission again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:792
+#: libs/factory/class_rm_form_factory_revamp.php:808
 msgid "Could not save submission in database. Please try again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1110
 #: libs/factory/class_rm_form_factory_revamp.php:1126
+#: libs/factory/class_rm_form_factory_revamp.php:1142
 msgid "Form Submission Saved"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1118
 #: libs/factory/class_rm_form_factory_revamp.php:1134
+#: libs/factory/class_rm_form_factory_revamp.php:1150
 #, php-format
 msgid "Submission Token: %s"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1156
-#: libs/factory/class_rm_form_factory_revamp.php:1160
+#: libs/factory/class_rm_form_factory_revamp.php:1172
+#: libs/factory/class_rm_form_factory_revamp.php:1176
 #, php-format
 msgid "Redirecting you to %s"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1169
+#: libs/factory/class_rm_form_factory_revamp.php:1185
 msgid "User email not provided. Please try submission again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1270
+#: libs/factory/class_rm_form_factory_revamp.php:1286
 msgid "Submission edited succesfully"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1273
+#: libs/factory/class_rm_form_factory_revamp.php:1289
 msgid "Redirecting you back to the submission details"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1276
+#: libs/factory/class_rm_form_factory_revamp.php:1292
 msgid "Invalid submission edit."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1337
+#: libs/factory/class_rm_form_factory_revamp.php:1353
 msgid "Auto login successful"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1347
-#: libs/factory/class_rm_form_factory_revamp.php:1366
+#: libs/factory/class_rm_form_factory_revamp.php:1363
+#: libs/factory/class_rm_form_factory_revamp.php:1382
 msgid "Form doesn't exist in the database"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1378
+#: libs/factory/class_rm_form_factory_revamp.php:1394
 msgid "This form has expired."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1439
+#: libs/factory/class_rm_form_factory_revamp.php:1455
 msgid "Please enter the details to complete the payment:"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1440
+#: libs/factory/class_rm_form_factory_revamp.php:1456
 msgid "Pay"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1507
+#: libs/factory/class_rm_form_factory_revamp.php:1523
 msgid "Invalid submission edit"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1838
+#: libs/factory/class_rm_form_factory_revamp.php:1854
 msgid "Offline"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1913
+#: libs/factory/class_rm_form_factory_revamp.php:1929
 msgid "Invalid form access"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2084
-#: public/class_rm_public.php:742 services/class_rm_front_form_service.php:556
+#: libs/factory/class_rm_form_factory_revamp.php:2100
+#: public/class_rm_public.php:752 services/class_rm_front_form_service.php:556
 #: services/class_rm_paypal_service.php:379
 msgid "Submitted"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2094
-#: public/class_rm_public.php:755 services/class_rm_front_form_service.php:572
+#: libs/factory/class_rm_form_factory_revamp.php:2110
+#: public/class_rm_public.php:765 services/class_rm_front_form_service.php:572
 #: services/class_rm_paypal_service.php:392
 msgid "(No Title)"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2240
+#: libs/factory/class_rm_form_factory_revamp.php:2256
 msgid "You need to login to access this form"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2500
+#: libs/factory/class_rm_form_factory_revamp.php:2522
 msgid "Password does not match"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2501
+#: libs/factory/class_rm_form_factory_revamp.php:2523
 msgid "Email does not match"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2507
+#: libs/factory/class_rm_form_factory_revamp.php:2529
 msgid "A user with this email already exists"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2508
+#: libs/factory/class_rm_form_factory_revamp.php:2530
 msgid "Incorrect email format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2509
+#: libs/factory/class_rm_form_factory_revamp.php:2531
 msgid "Incorrect website/URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2510
+#: libs/factory/class_rm_form_factory_revamp.php:2532
 msgid "Incorrect Facebook URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2511
+#: libs/factory/class_rm_form_factory_revamp.php:2533
 msgid "Incorrect Twitter URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2512
+#: libs/factory/class_rm_form_factory_revamp.php:2534
 msgid "Incorrect Instagram URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2513
+#: libs/factory/class_rm_form_factory_revamp.php:2535
 msgid "Incorrect LinkedIn URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2514
+#: libs/factory/class_rm_form_factory_revamp.php:2536
 msgid "Incorrect YouTube URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2515
+#: libs/factory/class_rm_form_factory_revamp.php:2537
 msgid "Incorrect VKontacte URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2516
+#: libs/factory/class_rm_form_factory_revamp.php:2538
 msgid "Incorrect Skype format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2517
+#: libs/factory/class_rm_form_factory_revamp.php:2539
 msgid "Incorrect SoundCloud URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2518
+#: libs/factory/class_rm_form_factory_revamp.php:2540
 msgid "Incorrect format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2519
+#: libs/factory/class_rm_form_factory_revamp.php:2541
 msgid "Incorrect mobile number format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2520
+#: libs/factory/class_rm_form_factory_revamp.php:2542
 #, php-format
 msgid "Value cannot be less than %s characters"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2521
+#: libs/factory/class_rm_form_factory_revamp.php:2543
 #, php-format
 msgid "Value cannot be more than %s characters"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2522
+#: libs/factory/class_rm_form_factory_revamp.php:2544
 #, php-format
 msgid "Value cannot be less than %s"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2523
+#: libs/factory/class_rm_form_factory_revamp.php:2545
 #, php-format
 msgid "Value cannot be more than %s"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2524
+#: libs/factory/class_rm_form_factory_revamp.php:2546
 msgid "Please provide reCaptcha verification"
 msgstr ""
 
@@ -19601,21 +19605,21 @@ msgid ""
 "manage landing pages."
 msgstr ""
 
-#: public/class_rm_public.php:558 public/class_rm_public.php:565
+#: public/class_rm_public.php:568 public/class_rm_public.php:575
 msgid "No such user exists"
 msgstr ""
 
-#: public/class_rm_public.php:571
+#: public/class_rm_public.php:581
 msgid ""
 "Verification link has been sent on your registered email account. Please "
 "check."
 msgstr ""
 
-#: public/class_rm_public.php:576
+#: public/class_rm_public.php:586
 msgid "Incorrect security token. Please try after some time."
 msgstr ""
 
-#: public/class_rm_public.php:605
+#: public/class_rm_public.php:615
 msgid "Go to RegistrationMagic account"
 msgstr ""
 

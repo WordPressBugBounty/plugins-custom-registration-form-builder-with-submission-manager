@@ -748,6 +748,7 @@ class Registration_Magic
         //$this->loader->add_filter('wp_mail_content_type',$this, 'set_html_mail_content_type');
         //$this->loader->add_action('wp_mail_failed', $this, 'display_email_error', 10, 1);
         $this->loader->add_action('rm_payment_completed', 'RM_Email_Service', 'notify_payment_invoice_to_user', 10, 3);
+        $this->loader->add_action('user_register', $this, 'verify_user', 10, 2);
     }
 
     /**
@@ -1374,6 +1375,18 @@ class Registration_Magic
             die;
         }
 	}
+
+    public function verify_user($user_id, $user_data) {
+        $user_approval = get_option('rm_option_user_auto_approval', false);
+        if ($user_approval === 'verify' && defined('REGMAGIC_ADDON')) {
+            update_user_meta($user_id, 'rm_user_status', 1);
+            do_action('rm_user_deactivated', $user_id);
+
+            RM_Email_Service::send_activation_link($user_id);
+            return;
+        }
+    }
+
     public function design_premium_menu_link() {
         echo '<script type="text/javascript">
         jQuery(document).ready(function(){

@@ -459,10 +459,10 @@ $form_type_status = $data->form_type_status;
                                         <td><?php 
                                             if(is_array($log) || is_object($log)):?>
                                             <table class="table-logs-<?php echo $key;?>">
-                                            <?php foreach($log as $ky => $log_a):?>
+                                            <?php foreach($log as $ky => $log_a): ?>
                                                 <tr>
-                                                    <td><?php echo wp_kses_post((string)$ky);?></td>
-                                                    <td><?php echo esc_html($log_a);?></td>
+                                                    <td><?php echo wp_kses_post((string)$ky); ?></td>
+                                                    <td><?php echo is_array($log_a) ? implode(', ', array_map('esc_html', $log_a)) : esc_html($log_a); ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
                                             </table>

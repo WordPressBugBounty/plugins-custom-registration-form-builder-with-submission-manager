@@ -6337,6 +6337,11 @@ div[class^="rm-grid-sidebar"] a.rm_deactivated {
     background: rgba(0, 0, 0, 0.5);
 }
 
+#rm_pproc_config_parent_backdrop #rm_pproc_config_parent{
+    height: 100%;
+    max-height: fit-content;
+}
+
 #rm_pproc_config_parent_backdrop.rm_config_pop_wrap .rm_pproc_config_overlay{
     position: fixed;
     width: 100%;
@@ -6455,7 +6460,7 @@ div[class^="rm-grid-sidebar"] a.rm_deactivated {
     width: 100%;
 }
 
-.rmagic span.rm_pp_modern_client_error_msg {
+.rmagic span.rm_pproc_error_msg {
     width: 100%;
     display: inline-block;
     color: #ff0000;
@@ -8282,6 +8287,12 @@ li.rm-show-divider a{
     .rmagic .rmagic-table form#rm_submission_manager_form {
         width:80%;
         float:left;
+    }
+    
+    .rmagic .rm-global-settings .settings-icon-area .rm-settings-box{
+        width: 100%;
+        margin: 0px 0px 18px 0px;
+        min-height: auto;
     }
 
 }

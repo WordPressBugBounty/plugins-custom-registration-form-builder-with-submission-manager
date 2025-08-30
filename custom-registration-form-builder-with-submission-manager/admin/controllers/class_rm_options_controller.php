@@ -495,11 +495,12 @@ class RM_Options_Controller
             $pay_procs_configs = array("paypal" => array(
                                             new Element_Checkbox(RM_UI_Strings::get('LABEL_TEST_MODE'), "paypal_test_mode", array("yes" => ''), $options_pp_test_cb),
                                             new Element_Email(RM_UI_Strings::get('LABEL_PAYPAL_EMAIL'), "paypal_email", $options_pp_email),
+                                            new Element_HTML("<span id='rm_pp_email_error_msg' class='rm_pproc_error_msg' style='display:none;'>".esc_html__('PayPal account email is required', 'custom-registration-form-builder-with-submission-manager')."</span>"),
                                             new Element_Textbox(RM_UI_Strings::get('LABEL_PAYPAL_STYLE'), "paypal_page_style", $options_pp_pstyle),
                                             new Element_Checkbox(RM_UI_Strings::get('LABEL_PAYPAL_MODERN_ENABLE'), "paypal_modern_enable", array("yes" => ''), $options_pp_modern_enable),
                                             new Element_HTML('<div class="childfieldsrow" id="rm_pp_modern_enable_childfieldsrow" style="'.$enable_modern_paypal.'">'),
                                             new Element_Textbox(RM_UI_Strings::get('LABEL_PAYPAL_CLIENT_ID'), "paypal_client_id", $options_pp_client_id),
-                                            new Element_HTML("<span id='rm_pp_modern_client_error_msg' class='rm_pp_modern_client_error_msg' style='display:none;'>".__('Please fill the required field', 'custom-registration-form-builder-with-submission-manager')."</span>"),
+                                            new Element_HTML("<span id='rm_pp_modern_client_error_msg' class='rm_pproc_error_msg' style='display:none;'>".esc_html__('PayPal Client ID is required', 'custom-registration-form-builder-with-submission-manager')."</span>"),
                                             new Element_HTML($paypal_btn_colorhtml),
                                             new Element_HTML('</div>')
                                             ),
