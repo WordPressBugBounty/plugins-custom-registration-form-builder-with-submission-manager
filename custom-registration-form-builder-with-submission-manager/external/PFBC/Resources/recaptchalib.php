@@ -134,7 +134,7 @@ function rm_recaptcha_check_answer($privkey, $remoteip, $response, $extra_params
         if ($response == null || strlen($response) == 0) {
                 $recaptcha_response = new RM_ReCaptchaResponse();
                 $recaptcha_response->is_valid = false;
-                $recaptcha_response->error = __('Captcha validated failed. Please try again.', 'custom-registration-form-builder-with-submission-manager');
+                $recaptcha_response->error = esc_html__('reCAPTCHA response missing. Please try again.', 'custom-registration-form-builder-with-submission-manager');
                 return $recaptcha_response;
         }
         $response = _rm_recaptcha_http_get(
@@ -153,7 +153,7 @@ function rm_recaptcha_check_answer($privkey, $remoteip, $response, $extra_params
         }
         else {
                 $recaptcha_response->is_valid = false;
-                $recaptcha_response->error = __('Captcha validated failed. Please try again.', 'custom-registration-form-builder-with-submission-manager');
+                $recaptcha_response->error = esc_html__('reCAPTCHA validation failed. Please try again.', 'custom-registration-form-builder-with-submission-manager');
         }
         return $recaptcha_response;
 

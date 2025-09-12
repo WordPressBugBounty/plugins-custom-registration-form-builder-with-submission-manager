@@ -93,7 +93,7 @@
     <tbody>
         <tr>
             <td>1</td>
-            <td><a href="https://geoiptool.com/?ip=94.100.79.26">94.100.79.26</a></td>
+            <td><a href="https://iplocation.io/ip/94.100.79.26">94.100.79.26</a></td>
             <td>&nbsp;
                 <img class='rmsubmitted_icon' src='<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . "images/right.png"; ?>'>
             </td>
@@ -104,7 +104,7 @@
         
         <tr>
             <td>2</td>
-            <td><a href="https://geoiptool.com/?ip=194.36.195.89">194.36.195.89</a></td>
+            <td><a href="https://iplocation.io/ip/194.36.195.89">194.36.195.89</a></td>
             <td>&nbsp;
                 <img class='rmsubmitted_icon' src='<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . "images/right.png"; ?>'>
             </td>
@@ -115,7 +115,7 @@
         
         <tr>
             <td>3</td>
-                        <td><a href="https://geoiptool.com/?ip=170.253.33.116">170.253.33.116</a></td>
+                        <td><a href="https://iplocation.io/ip/170.253.33.116">170.253.33.116</a></td>
                         <td>&nbsp;
                             </td>
             <td>19 Jul 2023, 11:19am</td>
@@ -125,7 +125,7 @@
         
         <tr>
             <td>4</td>
-            <td><a href="https://geoiptool.com/?ip=107.130.247.189">107.130.247.189</a></td>
+            <td><a href="https://iplocation.io/ip/107.130.247.189">107.130.247.189</a></td>
             <td>&nbsp;
                 <img class='rmsubmitted_icon' src='<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . "images/right.png"; ?>'>
             </td>
@@ -136,7 +136,7 @@
         
         <tr>
             <td>5</td>
-                        <td><a href="https://geoiptool.com/?ip=84.106.222.114">84.106.222.114</a></td>
+                        <td><a href="https://iplocation.io/ip/84.106.222.114">84.106.222.114</a></td>
                         <td>&nbsp;
                             </td>
             <td>17 Jul 2023, 03:30pm</td>
@@ -146,7 +146,7 @@
         
         <tr>
             <td>6</td>
-            <td><a href="https://geoiptool.com/?ip=174.192.8.95">174.192.8.95</a></td>
+            <td><a href="https://iplocation.io/ip/174.192.8.95">174.192.8.95</a></td>
             <td>&nbsp;
             </td>
             <td>17 Jul 2023, 12:33pm</td>
@@ -156,7 +156,7 @@
         
         <tr>
             <td>7</td>
-            <td><a href="https://geoiptool.com/?ip=203.219.186.30">203.219.186.30</a></td>
+            <td><a href="https://iplocation.io/ip/203.219.186.30">203.219.186.30</a></td>
             <td>&nbsp;
                 <img class='rmsubmitted_icon' src='<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . "images/right.png"; ?>'>
             </td>
@@ -167,7 +167,7 @@
         
         <tr>
             <td>8</td>
-            <td><a href="https://geoiptool.com/?ip=2.101.177.106">2.101.177.106</a></td>
+            <td><a href="https://iplocation.io/ip/2.101.177.106">2.101.177.106</a></td>
             <td>&nbsp;
                 <img class='rmsubmitted_icon' src='<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . "images/right.png"; ?>'>
             </td>
@@ -178,7 +178,7 @@
         
         <tr>
             <td>9</td>
-            <td><a href="https://geoiptool.com/?ip=170.253.33.116">170.253.33.116</a></td>
+            <td><a href="https://iplocation.io/ip/170.253.33.116">170.253.33.116</a></td>
             <td>&nbsp;
                 <img class='rmsubmitted_icon' src='<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . "images/right.png"; ?>'>
             </td>
@@ -189,7 +189,7 @@
         
         <tr>
             <td>10</td>
-            <td><a href="https://geoiptool.com/?ip=170.253.33.116">170.253.33.116</a></td>
+            <td><a href="https://iplocation.io/ip/170.253.33.116">170.253.33.116</a></td>
             <td>&nbsp;
                 <img class='rmsubmitted_icon' src='<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . "images/right.png"; ?>'>
             </td>

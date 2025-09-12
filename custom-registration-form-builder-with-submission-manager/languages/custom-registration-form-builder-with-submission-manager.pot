@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RegistrationMagic Basic v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2025-08-29 16:21+0530\n"
+"POT-Creation-Date: 2025-09-11 11:07+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: RegistrationMagic Support <support@registrationmagic.com>\n"
@@ -65,7 +65,7 @@ msgstr ""
 #: admin/views/template_rm_formflow_publish.php:99
 #: admin/views/template_rm_formflow_publish.php:103
 #: admin/views/template_rm_formflow_publish.php:159
-#: includes/class_rm_ui_strings.php:3192
+#: includes/class_rm_ui_strings.php:3195
 msgid "Copy"
 msgstr ""
 
@@ -130,8 +130,8 @@ msgstr ""
 #: admin/class_rm_admin.php:696 admin/class_rm_admin.php:1009
 #: admin/class_rm_admin.php:1411 admin/views/template_rm_login_email_temp.php:12
 #: admin/views/template_rm_login_sett_manage.php:137
-#: includes/class_rm_ui_strings.php:3507 includes/class_rm_ui_strings.php:3531
-#: includes/class_rm_ui_strings.php:3534
+#: includes/class_rm_ui_strings.php:3510 includes/class_rm_ui_strings.php:3534
+#: includes/class_rm_ui_strings.php:3537
 msgid "Email Templates"
 msgstr ""
 
@@ -432,11 +432,11 @@ msgstr ""
 msgid "You must define text for the link."
 msgstr ""
 
-#: admin/controllers/class_rm_options_controller.php:498
+#: admin/controllers/class_rm_options_controller.php:499
 msgid "PayPal account email is required"
 msgstr ""
 
-#: admin/controllers/class_rm_options_controller.php:503
+#: admin/controllers/class_rm_options_controller.php:504
 msgid "PayPal Client ID is required"
 msgstr ""
 
@@ -759,7 +759,7 @@ msgid "Preferred Countries"
 msgstr ""
 
 #: admin/views/html/mobile_field.php:24 admin/views/html/mobile_field.php:54
-#: admin/views/html/mobile_field.php:55 includes/class_rm_ui_strings.php:4226
+#: admin/views/html/mobile_field.php:55 includes/class_rm_ui_strings.php:4229
 msgid "Selected"
 msgstr ""
 
@@ -928,7 +928,7 @@ msgstr ""
 #: admin/views/template_rm_options_advance.php:22
 #: admin/views/template_rm_options_autoresponder.php:103
 #: admin/views/template_rm_options_default_pages.php:31
-#: admin/views/template_rm_options_fab.php:82
+#: admin/views/template_rm_options_fab.php:70
 #: admin/views/template_rm_options_general.php:110
 #: admin/views/template_rm_options_payment.php:117
 #: admin/views/template_rm_options_security.php:55
@@ -1041,7 +1041,7 @@ msgid "Register Forms"
 msgstr ""
 
 #: admin/views/template_rm_dashboard.php:370
-#: includes/class_rm_ui_strings.php:3636
+#: includes/class_rm_ui_strings.php:3639
 msgid "User Directory"
 msgstr ""
 
@@ -1050,7 +1050,7 @@ msgid "User Directory Form Specific"
 msgstr ""
 
 #: admin/views/template_rm_dashboard.php:378
-#: includes/class_rm_ui_strings.php:3639
+#: includes/class_rm_ui_strings.php:3642
 msgid "User Area"
 msgstr ""
 
@@ -1065,7 +1065,7 @@ msgstr ""
 #: admin/views/template_rm_dashboard.php:475
 #: admin/views/template_rm_form_cust_sett.php:28
 #: includes/class_rm_ui_strings.php:794 includes/class_rm_ui_strings.php:1804
-#: includes/class_rm_ui_strings.php:2099 includes/class_rm_ui_strings.php:4416
+#: includes/class_rm_ui_strings.php:2099 includes/class_rm_ui_strings.php:4422
 msgid "General Settings"
 msgstr ""
 
@@ -1080,7 +1080,7 @@ msgid "Privacy"
 msgstr ""
 
 #: admin/views/template_rm_dashboard.php:495
-#: includes/class_rm_ui_strings.php:822 includes/class_rm_ui_strings.php:4424
+#: includes/class_rm_ui_strings.php:822 includes/class_rm_ui_strings.php:4430
 msgid "Email Configuration"
 msgstr ""
 
@@ -1122,7 +1122,7 @@ msgstr ""
 #: admin/views/template_rm_field_picker.php:529
 #: admin/views/template_rm_field_picker.php:548
 #: admin/views/template_rm_field_picker.php:625
-#: admin/views/template_rm_header.php:46 includes/class_rm_ui_strings.php:3455
+#: admin/views/template_rm_header.php:46 includes/class_rm_ui_strings.php:3458
 msgid "Premium"
 msgstr ""
 
@@ -1776,7 +1776,7 @@ msgid "Action"
 msgstr ""
 
 #: admin/views/template_rm_field_conditions.php:228
-#: includes/class_rm_ui_strings.php:3669
+#: includes/class_rm_ui_strings.php:3672
 msgid "Conditions"
 msgstr ""
 
@@ -1816,7 +1816,7 @@ msgstr ""
 #: admin/views/template_rm_field_manager.php:61
 #: admin/views/template_rm_formflow_main.php:60
 #: admin/views/template_rm_login_field_manager.php:97
-#: includes/class_rm_ui_strings.php:2699 includes/class_rm_ui_strings.php:3147
+#: includes/class_rm_ui_strings.php:2699 includes/class_rm_ui_strings.php:3150
 msgid "Design"
 msgstr ""
 
@@ -1828,7 +1828,7 @@ msgstr ""
 #: admin/views/template_rm_login_field_manager.php:99
 #: admin/views/template_rm_reports_login.php:88
 #: admin/views/template_rm_reports_submissions.php:84
-#: includes/class_rm_ui_strings.php:3150
+#: includes/class_rm_ui_strings.php:3153
 msgid "Preview"
 msgstr ""
 
@@ -1958,7 +1958,7 @@ msgstr ""
 #: admin/views/template_rm_field_manager_new.php:19
 #: admin/views/template_rm_form_manager_old.php:378
 #: admin/views/template_rm_login_field_manager.php:85
-#: includes/class_rm_ui_strings.php:618 includes/class_rm_ui_strings.php:3153
+#: includes/class_rm_ui_strings.php:618 includes/class_rm_ui_strings.php:3156
 msgid "Fields Manager"
 msgstr ""
 
@@ -1971,7 +1971,7 @@ msgid "Recent Forms"
 msgstr ""
 
 #: admin/views/template_rm_field_manager_new.php:76
-#: includes/class_rm_ui_strings.php:4380
+#: includes/class_rm_ui_strings.php:4386
 msgid "Popular Forms"
 msgstr ""
 
@@ -2332,7 +2332,7 @@ msgstr ""
 
 #: admin/views/template_rm_field_picker.php:1003
 #: admin/views/template_rm_field_picker.php:1010
-#: includes/class_rm_ui_strings.php:4013
+#: includes/class_rm_ui_strings.php:4016
 msgid ""
 "If you have set form limits, you can display the limit status using this "
 "widget"
@@ -2366,7 +2366,7 @@ msgstr ""
 #: admin/views/template_rm_field_picker.php:1031
 #: admin/views/template_rm_login_field_manager.php:526
 #: admin/views/template_rm_widget_picker.php:97
-#: includes/class_rm_ui_strings.php:4037 includes/class_rm_utilities.php:185
+#: includes/class_rm_ui_strings.php:4040 includes/class_rm_utilities.php:185
 msgid "Form Data Chart"
 msgstr ""
 
@@ -2397,7 +2397,7 @@ msgstr ""
 #: admin/views/template_rm_field_picker.php:1053
 #: admin/views/template_rm_login_field_manager.php:560
 #: admin/views/template_rm_widget_picker.php:111
-#: includes/class_rm_ui_strings.php:4079 includes/class_rm_utilities.php:187
+#: includes/class_rm_ui_strings.php:4082 includes/class_rm_utilities.php:187
 msgid "Registration Feed"
 msgstr ""
 
@@ -2717,7 +2717,7 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:534
 #: admin/views/template_rm_submissions_manager.php:89
 #: admin/views/template_rm_submissions_manager.php:575
-#: includes/class_rm_ui_strings.php:2767 includes/class_rm_ui_strings.php:4434
+#: includes/class_rm_ui_strings.php:2767 includes/class_rm_ui_strings.php:4440
 msgid "Export"
 msgstr ""
 
@@ -2727,7 +2727,7 @@ msgstr ""
 
 #: admin/views/template_rm_form_manager.php:128
 #: admin/views/template_rm_form_manager_old.php:567
-#: admin/views/template_rm_support.php:98 includes/class_rm_ui_strings.php:3540
+#: admin/views/template_rm_support.php:98 includes/class_rm_ui_strings.php:3543
 msgid "Starter Guide"
 msgstr ""
 
@@ -2795,15 +2795,15 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:210
 #: admin/views/template_rm_form_manager.php:466
 #: admin/views/template_rm_form_setup.php:172
-#: includes/class_rm_ui_strings.php:4067
+#: includes/class_rm_ui_strings.php:4070
 msgid "Form Name"
 msgstr ""
 
 #: admin/views/template_rm_form_manager.php:217
 #: admin/views/template_rm_form_manager.php:360
 #: admin/views/template_rm_form_manager.php:473
-#: includes/class_rm_ui_strings.php:2252 includes/class_rm_ui_strings.php:3189
-#: includes/class_rm_ui_strings.php:3627 includes/class_rm_utilities.php:176
+#: includes/class_rm_ui_strings.php:2252 includes/class_rm_ui_strings.php:3192
+#: includes/class_rm_ui_strings.php:3630 includes/class_rm_utilities.php:176
 msgid "Shortcode"
 msgstr ""
 
@@ -2813,7 +2813,7 @@ msgstr ""
 #: admin/views/template_rm_formcard_menu.php:42
 #: admin/views/template_rm_user_manager.php:233
 #: admin/views/template_rm_user_manager.php:422 blocks/index.js:236
-#: includes/class_rm_ui_strings.php:494 includes/class_rm_ui_strings.php:4436
+#: includes/class_rm_ui_strings.php:494 includes/class_rm_ui_strings.php:4442
 #: includes/class_rm_utilities.php:468
 msgid "Submissions"
 msgstr ""
@@ -2853,9 +2853,9 @@ msgstr ""
 
 #: admin/views/template_rm_form_manager.php:283
 #: admin/views/template_rm_form_manager.php:350
-#: includes/class_rm_ui_strings.php:509 includes/class_rm_ui_strings.php:3314
-#: includes/class_rm_ui_strings.php:3591 includes/class_rm_ui_strings.php:4232
-#: includes/class_rm_ui_strings.php:4444
+#: includes/class_rm_ui_strings.php:509 includes/class_rm_ui_strings.php:3317
+#: includes/class_rm_ui_strings.php:3594 includes/class_rm_ui_strings.php:4235
+#: includes/class_rm_ui_strings.php:4450
 msgid "Fields"
 msgstr ""
 
@@ -2863,7 +2863,7 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:351
 #: admin/views/template_rm_form_manager_old.php:213
 #: admin/views/template_rm_form_manager_old.php:371
-#: includes/class_rm_ui_strings.php:4446
+#: includes/class_rm_ui_strings.php:4452
 msgid "Dashboard"
 msgstr ""
 
@@ -2912,13 +2912,13 @@ msgstr ""
 
 #: admin/views/template_rm_form_manager.php:426
 #: admin/views/template_rm_form_manager_old.php:393
-#: includes/class_rm_ui_strings.php:4677
+#: includes/class_rm_ui_strings.php:4683
 msgid "Custom Status"
 msgstr ""
 
 #: admin/views/template_rm_form_manager.php:427
 #: admin/views/template_rm_form_manager_old.php:402
-#: includes/class_rm_ui_strings.php:4428 plus/chronos/common/ui_strings.php:10
+#: includes/class_rm_ui_strings.php:4434 plus/chronos/common/ui_strings.php:10
 #: plus/chronos/common/ui_strings.php:22 plus/chronos/libs/rm_chronos.php:123
 #: plus/chronos/libs/rm_chronos.php:134
 msgid "Automation"
@@ -2958,7 +2958,7 @@ msgstr ""
 #: admin/views/template_rm_form_settings.php:970
 #: admin/views/template_rm_formcard_menu.php:40
 #: admin/views/template_rm_login_sett_manage.php:407
-#: includes/class_rm_ui_strings.php:3606 includes/class_rm_ui_strings.php:3624
+#: includes/class_rm_ui_strings.php:3609 includes/class_rm_ui_strings.php:3627
 msgid "Publish"
 msgstr ""
 
@@ -3196,6 +3196,7 @@ msgid "Field Manager"
 msgstr ""
 
 #: admin/views/template_rm_form_manager_old.php:299 blocks/index.js:149
+#: includes/class_rm_ui_strings.php:3081
 msgid "Registration Form"
 msgstr ""
 
@@ -3204,7 +3205,7 @@ msgid "Contact Form"
 msgstr ""
 
 #: admin/views/template_rm_form_manager_old.php:309
-#: includes/class_rm_ui_strings.php:3329
+#: includes/class_rm_ui_strings.php:3332
 msgid "Latest Submissions"
 msgstr ""
 
@@ -3227,65 +3228,65 @@ msgid "This is required field."
 msgstr ""
 
 #: admin/views/template_rm_form_post_sub_sett.php:35
-#: libs/factory/class_rm_form_factory_revamp.php:1128
-#: libs/factory/class_rm_form_factory_revamp.php:1144
+#: libs/factory/class_rm_form_factory_revamp.php:1130
+#: libs/factory/class_rm_form_factory_revamp.php:1146
 #, php-format
 msgid "%s Submitted"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:14
-#: libs/factory/class_rm_form_factory_revamp.php:1330
+#: libs/factory/class_rm_form_factory_revamp.php:1332
 #: public/class_rm_public.php:171
 msgid "No Results Found"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:15
-#: libs/factory/class_rm_form_factory_revamp.php:1331
+#: libs/factory/class_rm_form_factory_revamp.php:1333
 #: public/class_rm_public.php:172
 msgid "Invalid Zip Code"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:16
-#: libs/factory/class_rm_form_factory_revamp.php:1332
+#: libs/factory/class_rm_form_factory_revamp.php:1334
 #: public/class_rm_public.php:173
 msgid "Please wait..."
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:17
-#: libs/factory/class_rm_form_factory_revamp.php:1333
+#: libs/factory/class_rm_form_factory_revamp.php:1335
 #: public/class_rm_public.php:174
 msgid "Hours"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:18
-#: libs/factory/class_rm_form_factory_revamp.php:1334
+#: libs/factory/class_rm_form_factory_revamp.php:1336
 #: public/class_rm_public.php:175
 msgid "Minutes"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:19
-#: libs/factory/class_rm_form_factory_revamp.php:1335
+#: libs/factory/class_rm_form_factory_revamp.php:1337
 #: public/class_rm_public.php:176
 msgid "Seconds"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:20
-#: includes/class_rm_ui_strings.php:4392
-#: libs/factory/class_rm_form_factory_revamp.php:1336
+#: includes/class_rm_ui_strings.php:4398
+#: libs/factory/class_rm_form_factory_revamp.php:1338
 #: public/class_rm_public.php:177
 msgid "Days"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:21
-#: includes/class_rm_ui_strings.php:4396
-#: libs/factory/class_rm_form_factory_revamp.php:1337
+#: includes/class_rm_ui_strings.php:4402
+#: libs/factory/class_rm_form_factory_revamp.php:1339
 #: public/class_rm_public.php:178
 msgid "Months"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:22
-#: includes/class_rm_ui_strings.php:4398
-#: libs/factory/class_rm_form_factory_revamp.php:1338
+#: includes/class_rm_ui_strings.php:4404
+#: libs/factory/class_rm_form_factory_revamp.php:1340
 #: public/class_rm_public.php:179
 msgid "Years"
 msgstr ""
@@ -3746,7 +3747,7 @@ msgid "Admin Notification Settings"
 msgstr ""
 
 #: admin/views/template_rm_form_settings.php:717
-#: includes/class_rm_ui_strings.php:1819 includes/class_rm_ui_strings.php:4418
+#: includes/class_rm_ui_strings.php:1819 includes/class_rm_ui_strings.php:4424
 msgid "Payment Settings"
 msgstr ""
 
@@ -3816,7 +3817,7 @@ msgstr ""
 
 #: admin/views/template_rm_form_setup.php:116
 #: admin/views/template_rm_form_setup.php:173
-#: includes/class_rm_ui_strings.php:4070
+#: includes/class_rm_ui_strings.php:4073
 msgid "Form Description"
 msgstr ""
 
@@ -3898,7 +3899,7 @@ msgid ""
 msgstr ""
 
 #: admin/views/template_rm_form_setup.php:149
-#: admin/views/template_rm_options_fab.php:61 admin/views/widgets/imagev.php:55
+#: admin/views/template_rm_options_fab.php:55 admin/views/widgets/imagev.php:55
 #: admin/views/widgets/link.php:29 includes/class_rm_ui_strings.php:422
 #: includes/class_rm_ui_strings.php:672 includes/class_rm_ui_strings.php:1888
 #: includes/class_rm_utilities.php:141
@@ -3934,8 +3935,8 @@ msgstr ""
 #: admin/views/template_rm_login_analytics.php:204
 #: admin/views/template_rm_user_manager.php:527
 #: admin/views/template_rm_user_view.php:366
-#: includes/class_rm_ui_strings.php:428 includes/class_rm_ui_strings.php:3344
-#: includes/class_rm_ui_strings.php:4735
+#: includes/class_rm_ui_strings.php:428 includes/class_rm_ui_strings.php:3347
+#: includes/class_rm_ui_strings.php:4741
 #: plus/chronos/templates/edit_task.php:397
 msgid "Subject"
 msgstr ""
@@ -4072,22 +4073,22 @@ msgid "Text Field Selector"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:128
-#: includes/class_rm_ui_strings.php:4280
+#: includes/class_rm_ui_strings.php:4283
 msgid "Label Color"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:132
-#: includes/class_rm_ui_strings.php:4283
+#: includes/class_rm_ui_strings.php:4286
 msgid "Text Color"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:136
-#: includes/class_rm_ui_strings.php:4286
+#: includes/class_rm_ui_strings.php:4289
 msgid "Placeholder Color"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:141
-#: includes/class_rm_ui_strings.php:4289
+#: includes/class_rm_ui_strings.php:4292
 msgid "Outline Color"
 msgstr ""
 
@@ -4096,32 +4097,32 @@ msgid "Color on Focus"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:151
-#: includes/class_rm_ui_strings.php:4295
+#: includes/class_rm_ui_strings.php:4298
 msgid "Background on Focus"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:158
-#: includes/class_rm_ui_strings.php:4298
+#: includes/class_rm_ui_strings.php:4301
 msgid "Form Padding"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:165
-#: includes/class_rm_ui_strings.php:4208 includes/class_rm_ui_strings.php:4310
+#: includes/class_rm_ui_strings.php:4211 includes/class_rm_ui_strings.php:4313
 msgid "Border Color"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:169
-#: includes/class_rm_ui_strings.php:4211 includes/class_rm_ui_strings.php:4313
+#: includes/class_rm_ui_strings.php:4214 includes/class_rm_ui_strings.php:4316
 msgid "Border Width"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:173
-#: includes/class_rm_ui_strings.php:4316
+#: includes/class_rm_ui_strings.php:4319
 msgid "Border Radius"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:177
-#: includes/class_rm_ui_strings.php:4319
+#: includes/class_rm_ui_strings.php:4322
 msgid "Border Style"
 msgstr ""
 
@@ -4190,7 +4191,7 @@ msgid "ridge"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:196
-#: includes/class_rm_ui_strings.php:4322
+#: includes/class_rm_ui_strings.php:4325
 msgid "Background Image"
 msgstr ""
 
@@ -4199,7 +4200,7 @@ msgid "Upload"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:201
-#: includes/class_rm_ui_strings.php:4325
+#: includes/class_rm_ui_strings.php:4328
 msgid "Image Repeat"
 msgstr ""
 
@@ -4235,22 +4236,22 @@ msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:216
 #: admin/views/template_rm_login_recovery.php:32
-#: includes/class_rm_ui_strings.php:4328
+#: includes/class_rm_ui_strings.php:4331
 msgid "Button Label"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:220
-#: includes/class_rm_ui_strings.php:4331
+#: includes/class_rm_ui_strings.php:4334
 msgid "Font Color"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:226
-#: includes/class_rm_ui_strings.php:4334
+#: includes/class_rm_ui_strings.php:4337
 msgid "Hover Color"
 msgstr ""
 
 #: admin/views/template_rm_form_view_sett.php:232
-#: includes/class_rm_ui_strings.php:4337
+#: includes/class_rm_ui_strings.php:4340
 msgid "Background Color"
 msgstr ""
 
@@ -4267,39 +4268,39 @@ msgstr ""
 
 #: admin/views/template_rm_formcard_menu.php:35
 #: admin/views/template_rm_payments_view.php:337
-#: includes/class_rm_ui_strings.php:624 includes/class_rm_ui_strings.php:4438
+#: includes/class_rm_ui_strings.php:624 includes/class_rm_ui_strings.php:4444
 #: services/class_rm_payments_service.php:32
 msgid "Form"
 msgstr ""
 
 #: admin/views/template_rm_formcard_menu.php:37
-#: includes/class_rm_ui_strings.php:3597
+#: includes/class_rm_ui_strings.php:3600
 msgid "Build"
 msgstr ""
 
 #: admin/views/template_rm_formcard_menu.php:38
-#: includes/class_rm_ui_strings.php:3600
+#: includes/class_rm_ui_strings.php:3603
 msgid "Configure"
 msgstr ""
 
 #: admin/views/template_rm_formcard_menu.php:39
-#: includes/class_rm_ui_strings.php:3603
+#: includes/class_rm_ui_strings.php:3606
 msgid "Integrate"
 msgstr ""
 
 #: admin/views/template_rm_formcard_menu.php:44
-#: includes/class_rm_ui_strings.php:3609
+#: includes/class_rm_ui_strings.php:3612
 msgid "Manage"
 msgstr ""
 
 #: admin/views/template_rm_formcard_menu.php:45
 #: admin/views/template_rm_login_sett_manage.php:233
-#: includes/class_rm_ui_strings.php:3612
+#: includes/class_rm_ui_strings.php:3615
 msgid "Analyze"
 msgstr ""
 
 #: admin/views/template_rm_formcard_menu.php:46
-#: includes/class_rm_ui_strings.php:3615
+#: includes/class_rm_ui_strings.php:3618
 msgid "Automate"
 msgstr ""
 
@@ -4309,7 +4310,7 @@ msgstr ""
 #: admin/views/template_rm_formcard_menu.php:312
 #: admin/views/template_rm_formcard_menu.php:345
 #: admin/views/template_rm_formcard_menu.php:361
-#: includes/class_rm_ui_strings.php:3258 includes/class_rm_ui_strings.php:4442
+#: includes/class_rm_ui_strings.php:3261 includes/class_rm_ui_strings.php:4448
 #: plus/chronos/templates/edit_task.php:34
 #: plus/chronos/templates/edit_task.php:47
 #: plus/chronos/templates/edit_task.php:69
@@ -4708,7 +4709,7 @@ msgid "Active Queues"
 msgstr ""
 
 #: admin/views/template_rm_invitations.php:23
-#: includes/class_rm_ui_strings.php:3332 includes/class_rm_ui_strings.php:3657
+#: includes/class_rm_ui_strings.php:3335 includes/class_rm_ui_strings.php:3660
 msgid "Outbox"
 msgstr ""
 
@@ -5063,8 +5064,8 @@ msgstr ""
 #: admin/views/template_rm_reports_submissions.php:92
 #: admin/views/template_rm_submissions_manager.php:247
 #: admin/views/template_rm_user_manager.php:284
-#: includes/class_rm_ui_strings.php:788 includes/class_rm_ui_strings.php:4669
-#: includes/class_rm_ui_strings.php:4747
+#: includes/class_rm_ui_strings.php:788 includes/class_rm_ui_strings.php:4675
+#: includes/class_rm_ui_strings.php:4753
 msgid "View"
 msgstr ""
 
@@ -5103,7 +5104,7 @@ msgstr ""
 #: admin/views/template_rm_login_advanced.php:233
 #: admin/views/template_rm_login_analytics.php:203
 #: admin/views/template_rm_user_manager.php:513
-#: includes/class_rm_ui_strings.php:3341
+#: includes/class_rm_ui_strings.php:3344
 msgid "To"
 msgstr ""
 
@@ -5140,7 +5141,7 @@ msgstr ""
 
 #: admin/views/template_rm_login_advanced.php:270
 #: admin/views/template_rm_login_analytics.php:241
-#: includes/class_rm_ui_strings.php:4675
+#: includes/class_rm_ui_strings.php:4681
 msgid "Unable to process your request. Please try again."
 msgstr ""
 
@@ -5414,7 +5415,7 @@ msgid "Divider for separating fields."
 msgstr ""
 
 #: admin/views/template_rm_login_field_manager.php:382
-#: includes/class_rm_ui_strings.php:2254 includes/class_rm_ui_strings.php:3708
+#: includes/class_rm_ui_strings.php:2254 includes/class_rm_ui_strings.php:3711
 #: includes/class_rm_utilities.php:204
 msgid "Divider"
 msgstr ""
@@ -5425,35 +5426,35 @@ msgid "Useful for adding space between fields"
 msgstr ""
 
 #: admin/views/template_rm_login_field_manager.php:396
-#: includes/class_rm_ui_strings.php:2256 includes/class_rm_ui_strings.php:3711
+#: includes/class_rm_ui_strings.php:2256 includes/class_rm_ui_strings.php:3714
 #: includes/class_rm_utilities.php:205
 msgid "Spacing"
 msgstr ""
 
 #: admin/views/template_rm_login_field_manager.php:404
 #: admin/views/template_rm_login_field_manager.php:420
-#: includes/class_rm_ui_strings.php:3717 includes/class_rm_ui_strings.php:3729
+#: includes/class_rm_ui_strings.php:3720 includes/class_rm_ui_strings.php:3732
 msgid "Allows you to display richly formatted text inside your form."
 msgstr ""
 
 #: admin/views/template_rm_login_field_manager.php:408
-#: includes/class_rm_ui_strings.php:3699 includes/class_rm_utilities.php:203
+#: includes/class_rm_ui_strings.php:3702 includes/class_rm_utilities.php:203
 msgid "Rich Text"
 msgstr ""
 
 #: admin/views/template_rm_login_field_manager.php:424
-#: includes/class_rm_ui_strings.php:3857 includes/class_rm_utilities.php:202
+#: includes/class_rm_ui_strings.php:3860 includes/class_rm_utilities.php:202
 msgid "Timer"
 msgstr ""
 
 #: admin/views/template_rm_login_field_manager.php:432
-#: includes/class_rm_ui_strings.php:3726
+#: includes/class_rm_ui_strings.php:3729
 msgid "Display link inside your form."
 msgstr ""
 
 #: admin/views/template_rm_login_field_manager.php:442
-#: includes/class_rm_ui_strings.php:3723 includes/class_rm_ui_strings.php:3750
-#: includes/class_rm_ui_strings.php:3995 includes/class_rm_utilities.php:208
+#: includes/class_rm_ui_strings.php:3726 includes/class_rm_ui_strings.php:3753
+#: includes/class_rm_ui_strings.php:3998 includes/class_rm_utilities.php:208
 msgid "Link"
 msgstr ""
 
@@ -5714,7 +5715,7 @@ msgid "Logged In View"
 msgstr ""
 
 #: admin/views/template_rm_login_sett_manage.php:163
-#: includes/class_rm_ui_strings.php:3651
+#: includes/class_rm_ui_strings.php:3654
 msgid "Login Box"
 msgstr ""
 
@@ -5724,7 +5725,7 @@ msgid "Login Button"
 msgstr ""
 
 #: admin/views/template_rm_login_sett_manage.php:179
-#: includes/class_rm_ui_strings.php:3654
+#: includes/class_rm_ui_strings.php:3657
 msgid "OTP Login"
 msgstr ""
 
@@ -5760,7 +5761,7 @@ msgid ""
 msgstr ""
 
 #: admin/views/template_rm_login_sett_redirections.php:25
-#: includes/class_rm_ui_strings.php:3660
+#: includes/class_rm_ui_strings.php:3663
 msgid "Always redirect admin users to dashboard"
 msgstr ""
 
@@ -5789,7 +5790,7 @@ msgstr ""
 
 #: admin/views/template_rm_login_sett_redirections.php:29
 #: admin/views/template_rm_login_sett_redirections.php:39
-#: includes/class_rm_ui_strings.php:3395
+#: includes/class_rm_ui_strings.php:3398
 msgid "After Logout Redirect User to"
 msgstr ""
 
@@ -6111,30 +6112,34 @@ msgstr ""
 msgid "Learn what you can do with EventPrime integration"
 msgstr ""
 
-#: admin/views/template_rm_options_fab.php:48
+#: admin/views/template_rm_options_fab.php:25
+msgid "-- Select a form --"
+msgstr ""
+
+#: admin/views/template_rm_options_fab.php:43
 msgid "Hide MagicPopup"
 msgstr ""
 
-#: admin/views/template_rm_options_fab.php:61 admin/views/widgets/imagev.php:55
+#: admin/views/template_rm_options_fab.php:55 admin/views/widgets/imagev.php:55
 #: admin/views/widgets/link.php:29 includes/class_rm_ui_strings.php:419
 msgid "Page"
 msgstr ""
 
-#: admin/views/template_rm_options_fab.php:65
+#: admin/views/template_rm_options_fab.php:57
 msgid "Everyone"
 msgstr ""
 
-#: admin/views/template_rm_options_fab.php:65
+#: admin/views/template_rm_options_fab.php:57
 msgid "Unregistered"
 msgstr ""
 
-#: admin/views/template_rm_options_fab.php:65
+#: admin/views/template_rm_options_fab.php:57
 msgid "All Registered"
 msgstr ""
 
 #: admin/views/template_rm_options_general.php:59
-#: includes/class_rm_ui_strings.php:2803 includes/class_rm_ui_strings.php:4537
-#: includes/class_rm_ui_strings.php:4539
+#: includes/class_rm_ui_strings.php:2803 includes/class_rm_ui_strings.php:4543
+#: includes/class_rm_ui_strings.php:4545
 msgid "Default"
 msgstr ""
 
@@ -6192,12 +6197,12 @@ msgstr ""
 
 #: admin/views/template_rm_options_invoice_manager.php:14
 #: admin/views/template_rm_payments_view.php:175
-#: includes/class_rm_ui_strings.php:4588
+#: includes/class_rm_ui_strings.php:4594
 msgid "Enable Invoice"
 msgstr ""
 
 #: admin/views/template_rm_options_invoice_manager.php:29
-#: includes/class_rm_ui_strings.php:4590
+#: includes/class_rm_ui_strings.php:4596
 msgid "Enable invoice downloadable by the users and the admins."
 msgstr ""
 
@@ -6552,7 +6557,7 @@ msgid "LIFETIME REVENUE: "
 msgstr ""
 
 #: admin/views/template_rm_payments_view.php:169
-#: includes/class_rm_ui_strings.php:3516 includes/class_rm_ui_strings.php:4641
+#: includes/class_rm_ui_strings.php:3519 includes/class_rm_ui_strings.php:4647
 #: services/class_rm_payments_service.php:35
 msgid "Invoice"
 msgstr ""
@@ -6634,7 +6639,7 @@ msgstr ""
 #: admin/views/template_rm_reports_submissions.php:50
 #: admin/views/template_rm_reports_submissions.php:89
 #: includes/class_rm_ui_strings.php:663 includes/class_rm_ui_strings.php:666
-#: includes/class_rm_ui_strings.php:4578 includes/class_rm_utilities.php:139
+#: includes/class_rm_ui_strings.php:4584 includes/class_rm_utilities.php:139
 #: services/class_rm_payments_service.php:31
 msgid "Date"
 msgstr ""
@@ -6658,8 +6663,8 @@ msgstr ""
 #: admin/views/template_rm_payments_view.php:539
 #: admin/views/template_rm_reports_login.php:60
 #: includes/class_registration_magic.php:420
-#: includes/class_rm_ui_strings.php:733 includes/class_rm_ui_strings.php:3240
-#: includes/class_rm_ui_strings.php:4576
+#: includes/class_rm_ui_strings.php:733 includes/class_rm_ui_strings.php:3243
+#: includes/class_rm_ui_strings.php:4582
 #: services/class_rm_payments_service.php:36
 msgid "Status"
 msgstr ""
@@ -6670,7 +6675,7 @@ msgstr ""
 #: admin/views/template_rm_submissions_manager.php:363
 #: admin/views/template_rm_submissions_manager.php:365
 #: admin/views/template_rm_view_submission.php:269
-#: includes/class_rm_ui_strings.php:4580
+#: includes/class_rm_ui_strings.php:4586
 #: plus/chronos/templates/edit_task.php:285
 #: public/views/template_rm_front_registration.php:40
 #: public/views/template_rm_front_submission_data.php:134
@@ -7459,7 +7464,7 @@ msgstr ""
 #: admin/views/template_rm_submissions_manager.php:361
 #: admin/views/template_rm_view_submission.php:265
 #: includes/class_rm_dbmanager.php:2330 includes/class_rm_ui_strings.php:1149
-#: includes/class_rm_ui_strings.php:4582
+#: includes/class_rm_ui_strings.php:4588
 #: plus/chronos/templates/edit_task.php:293
 msgid "Pending"
 msgstr ""
@@ -7468,7 +7473,7 @@ msgstr ""
 #: admin/views/template_rm_submissions_manager.php:351
 #: admin/views/template_rm_submissions_manager.php:353
 #: admin/views/template_rm_view_submission.php:272
-#: includes/class_rm_ui_strings.php:4584
+#: includes/class_rm_ui_strings.php:4590
 #: plus/chronos/templates/edit_task.php:301
 msgid "Canceled"
 msgstr ""
@@ -7477,7 +7482,7 @@ msgstr ""
 #: admin/views/template_rm_submissions_manager.php:355
 #: admin/views/template_rm_submissions_manager.php:357
 #: admin/views/template_rm_view_submission.php:275
-#: includes/class_rm_ui_strings.php:4586
+#: includes/class_rm_ui_strings.php:4592
 msgid "Refunded"
 msgstr ""
 
@@ -7591,7 +7596,7 @@ msgstr ""
 
 #: admin/views/template_rm_reports_dashboard.php:102
 #: includes/class_rm_ui_strings.php:834 includes/class_rm_ui_strings.php:837
-#: includes/class_rm_ui_strings.php:4566 includes/class_rm_ui_strings.php:4655
+#: includes/class_rm_ui_strings.php:4572 includes/class_rm_ui_strings.php:4661
 msgid "Payments"
 msgstr ""
 
@@ -7669,7 +7674,7 @@ msgid "Form Submissions Report"
 msgstr ""
 
 #: admin/views/template_rm_reports_submissions.php:58 blocks/index.js:206
-#: blocks/index.js:381 includes/class_rm_ui_strings.php:4481
+#: blocks/index.js:381 includes/class_rm_ui_strings.php:4487
 msgid "Select Form"
 msgstr ""
 
@@ -7806,7 +7811,7 @@ msgid "Has Note"
 msgstr ""
 
 #: admin/views/template_rm_submissions_manager.php:710
-#: includes/class_rm_ui_strings.php:3422
+#: includes/class_rm_ui_strings.php:3425
 msgid "User Blocked"
 msgstr ""
 
@@ -7823,7 +7828,7 @@ msgid "Payment Received"
 msgstr ""
 
 #: admin/views/template_rm_submissions_manager.php:729
-#: includes/class_rm_ui_strings.php:3416
+#: includes/class_rm_ui_strings.php:3419
 msgid "Payment Pending"
 msgstr ""
 
@@ -7961,7 +7966,7 @@ msgstr ""
 msgid "Build your first WordPress registration page"
 msgstr ""
 
-#: admin/views/template_rm_support.php:103 includes/class_rm_ui_strings.php:3908
+#: admin/views/template_rm_support.php:103 includes/class_rm_ui_strings.php:3911
 msgid "Payments Guide"
 msgstr ""
 
@@ -8180,7 +8185,7 @@ msgstr ""
 #: admin/views/template_rm_user_manager.php:231
 #: admin/views/template_rm_user_manager.php:420
 #: includes/class_rm_ui_strings.php:736 includes/class_rm_ui_strings.php:843
-#: includes/class_rm_ui_strings.php:3555 includes/class_rm_ui_strings.php:4509
+#: includes/class_rm_ui_strings.php:3558 includes/class_rm_ui_strings.php:4515
 msgid "Name"
 msgstr ""
 
@@ -8210,7 +8215,7 @@ msgid "— Inactive"
 msgstr ""
 
 #: admin/views/template_rm_user_manager.php:299
-#: includes/class_rm_ui_strings.php:4761
+#: includes/class_rm_ui_strings.php:4767
 msgid "Unblock Email"
 msgstr ""
 
@@ -8286,7 +8291,7 @@ msgid ""
 "Send Message options by upgrading"
 msgstr ""
 
-#: admin/views/widgets/form_chart.php:30 includes/class_rm_ui_strings.php:3292
+#: admin/views/widgets/form_chart.php:30 includes/class_rm_ui_strings.php:3295
 msgid "Submissions over time"
 msgstr ""
 
@@ -8302,12 +8307,12 @@ msgstr ""
 msgid "Browser wise conversion"
 msgstr ""
 
-#: admin/views/widgets/form_chart.php:33 includes/class_rm_ui_strings.php:3295
+#: admin/views/widgets/form_chart.php:33 includes/class_rm_ui_strings.php:3298
 #, php-format
 msgid "Last %d days"
 msgstr ""
 
-#: admin/views/widgets/formdata.php:61 includes/class_rm_ui_strings.php:4073
+#: admin/views/widgets/formdata.php:61 includes/class_rm_ui_strings.php:4076
 msgid "Date to go"
 msgstr ""
 
@@ -11072,8 +11077,12 @@ msgid "YYYY-Www (e.g. "
 msgstr ""
 
 #: external/PFBC/Resources/recaptchalib.php:137
+msgid "reCAPTCHA response missing. Please try again."
+msgstr ""
+
 #: external/PFBC/Resources/recaptchalib.php:156
-msgid "Captcha validated failed. Please try again."
+#: libs/factory/class_rm_form_factory_revamp.php:740
+msgid "reCAPTCHA validation failed. Please try again."
 msgstr ""
 
 #: external/PFBC/Validation/AlphaNumeric.php:6
@@ -11100,7 +11109,7 @@ msgid "Error: %element%  should be unique."
 msgstr ""
 
 #: external/PFBC/Validation/UserEmail.php:9
-#: includes/class_rm_ui_strings.php:3863
+#: includes/class_rm_ui_strings.php:3866
 msgid "User email already exists."
 msgstr ""
 
@@ -11216,7 +11225,7 @@ msgid "RegistrationMagic Eraser"
 msgstr ""
 
 #: includes/class_registration_magic.php:1167
-#: includes/class_rm_ui_strings.php:4343
+#: includes/class_rm_ui_strings.php:4346
 msgid "Your account has not been activated yet."
 msgstr ""
 
@@ -11428,7 +11437,7 @@ msgid "New Product"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:102 includes/class_rm_ui_strings.php:320
-#: includes/class_rm_ui_strings.php:1777 includes/class_rm_ui_strings.php:3138
+#: includes/class_rm_ui_strings.php:1777 includes/class_rm_ui_strings.php:3141
 msgid "Inbox"
 msgstr ""
 
@@ -11613,15 +11622,15 @@ msgstr ""
 msgid "Select options"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:237 includes/class_rm_ui_strings.php:4489
+#: includes/class_rm_ui_strings.php:237 includes/class_rm_ui_strings.php:4495
 #: plus/chronos/templates/edit_task.php:274
 msgid "Payment Status"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:240
-#: libs/factory/class_rm_form_factory_revamp.php:2579
-#: libs/factory/class_rm_form_factory_revamp.php:2596
-#: libs/factory/class_rm_form_factory_revamp.php:2612
+#: libs/factory/class_rm_form_factory_revamp.php:2581
+#: libs/factory/class_rm_form_factory_revamp.php:2598
+#: libs/factory/class_rm_form_factory_revamp.php:2614
 msgid "Subscribe for emails"
 msgstr ""
 
@@ -11833,7 +11842,7 @@ msgstr ""
 msgid "Auto-Reply the User"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:431 includes/class_rm_ui_strings.php:4733
+#: includes/class_rm_ui_strings.php:431 includes/class_rm_ui_strings.php:4739
 msgid "Body"
 msgstr ""
 
@@ -11884,7 +11893,7 @@ msgstr ""
 msgid "Form Templates"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:488 includes/class_rm_ui_strings.php:4568
+#: includes/class_rm_ui_strings.php:488 includes/class_rm_ui_strings.php:4574
 msgid "Filters"
 msgstr ""
 
@@ -12092,7 +12101,7 @@ msgid ""
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:718
-#: libs/factory/class_rm_form_factory_revamp.php:1348
+#: libs/factory/class_rm_form_factory_revamp.php:1350
 msgid "No form selected"
 msgstr ""
 
@@ -12182,8 +12191,8 @@ msgstr ""
 msgid "Currency, Symbol Position, Checkout Page, Tax etc."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:849 includes/class_rm_ui_strings.php:3594
-#: includes/class_rm_ui_strings.php:4452
+#: includes/class_rm_ui_strings.php:849 includes/class_rm_ui_strings.php:3597
+#: includes/class_rm_ui_strings.php:4458
 msgid "Settings"
 msgstr ""
 
@@ -12341,7 +12350,7 @@ msgstr ""
 msgid "From Email"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:966 includes/class_rm_ui_strings.php:3866
+#: includes/class_rm_ui_strings.php:966 includes/class_rm_ui_strings.php:3869
 msgid "Sender's Name"
 msgstr ""
 
@@ -12513,8 +12522,8 @@ msgid "is a required field."
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1113
-#: libs/factory/class_rm_form_factory_revamp.php:343
-#: libs/factory/class_rm_form_factory_revamp.php:386
+#: libs/factory/class_rm_form_factory_revamp.php:344
+#: libs/factory/class_rm_form_factory_revamp.php:388
 #, php-format
 msgid "%s exceeds the file size limit of %d kBs"
 msgstr ""
@@ -12693,7 +12702,7 @@ msgid "Please select a mailchimp list."
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1265 includes/class_rm_ui_strings.php:1786
-#: includes/class_rm_ui_strings.php:4432
+#: includes/class_rm_ui_strings.php:4438
 msgid "Products"
 msgstr ""
 
@@ -12711,7 +12720,7 @@ msgstr ""
 msgid "Submission"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:1280 includes/class_rm_ui_strings.php:4100
+#: includes/class_rm_ui_strings.php:1280 includes/class_rm_ui_strings.php:4103
 msgid "Submitted on"
 msgstr ""
 
@@ -12804,7 +12813,7 @@ msgid "Field Analytics"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1362
-#: libs/factory/class_rm_form_factory_revamp.php:1477
+#: libs/factory/class_rm_form_factory_revamp.php:1479
 msgid ""
 "To fight spam admin has fixed the maximum number of submissions for this form "
 "from a single device. You can resubmit after 24 hours or you can contact the "
@@ -12900,7 +12909,7 @@ msgid "Display Price"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1437
-#: libs/factory/class_rm_form_factory_revamp.php:2104
+#: libs/factory/class_rm_form_factory_revamp.php:2106
 msgid "Redirecting you to"
 msgstr ""
 
@@ -13227,7 +13236,7 @@ msgid ""
 "more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:1605 includes/class_rm_ui_strings.php:3714
+#: includes/class_rm_ui_strings.php:1605 includes/class_rm_ui_strings.php:3717
 msgid "The text you want the user to see."
 msgstr ""
 
@@ -13747,7 +13756,7 @@ msgid ""
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1918
-#: libs/factory/class_rm_form_factory_revamp.php:1857
+#: libs/factory/class_rm_form_factory_revamp.php:1859
 msgid "Select a payment method"
 msgstr ""
 
@@ -14544,7 +14553,7 @@ msgid ""
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:2460
-#: libs/factory/class_rm_form_factory_revamp.php:2230
+#: libs/factory/class_rm_form_factory_revamp.php:2232
 msgid "Sorry, you are not authorised to access this content."
 msgstr ""
 
@@ -15105,7 +15114,7 @@ msgstr ""
 msgid "Middle Name"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:2851 includes/class_rm_ui_strings.php:4592
+#: includes/class_rm_ui_strings.php:2851 includes/class_rm_ui_strings.php:4598
 msgid "Company Name"
 msgstr ""
 
@@ -15141,7 +15150,7 @@ msgstr ""
 msgid "Magic Popup Button Setting"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:2881 includes/class_rm_ui_strings.php:4420
+#: includes/class_rm_ui_strings.php:2881 includes/class_rm_ui_strings.php:4426
 msgid "Magic Popup Button"
 msgstr ""
 
@@ -15436,15 +15445,15 @@ msgstr ""
 msgid "Show Payment Tab"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3081
+#: includes/class_rm_ui_strings.php:3084
 msgid "Show Registrations Tab"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3084
+#: includes/class_rm_ui_strings.php:3087
 msgid "Show My Details Tab"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3087
+#: includes/class_rm_ui_strings.php:3090
 #, php-format
 msgid ""
 "Add Submissions tab to MagicPopup Menu. Users can check their form "
@@ -15452,25 +15461,25 @@ msgid ""
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3090
+#: includes/class_rm_ui_strings.php:3093
 #, php-format
 msgid ""
 "Add Payments tab to MagicPopup Menu. Users can check their form payments by "
 "clicking on it. <a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3093
+#: includes/class_rm_ui_strings.php:3096
 #, php-format
 msgid ""
 "Add User details tab to MagicPopup Menu. Users can check their user account "
 "page by clicking on it. <a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3096
+#: includes/class_rm_ui_strings.php:3099
 msgid "Visits"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3099
+#: includes/class_rm_ui_strings.php:3102
 #, php-format
 msgid ""
 "More information about Google Client ID <a target='blank' "
@@ -15478,22 +15487,22 @@ msgid ""
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3102
+#: includes/class_rm_ui_strings.php:3105
 msgid "Enable LinkedIn Login"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3105
+#: includes/class_rm_ui_strings.php:3108
 #, php-format
 msgid ""
 "Adds 'Login Using LinkedIn' button to the login form. <a target='_blank' "
 "class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3108
+#: includes/class_rm_ui_strings.php:3111
 msgid "LinkedIn API Key"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3111
+#: includes/class_rm_ui_strings.php:3114
 #, php-format
 msgid ""
 "More information about LinkedIn Client ID/ API Key <a target='blank' "
@@ -15501,22 +15510,22 @@ msgid ""
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3114
+#: includes/class_rm_ui_strings.php:3117
 msgid "Enable Microsoft Live Login"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3117
+#: includes/class_rm_ui_strings.php:3120
 #, php-format
 msgid ""
 "Adds 'Login Using Microsoft' button to the login form. <a target='_blank' "
 "class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3120
+#: includes/class_rm_ui_strings.php:3123
 msgid "Microsoft App/ Client ID"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3123
+#: includes/class_rm_ui_strings.php:3126
 #, php-format
 msgid ""
 "More information about Microsoft App/ Client ID <a target='blank' "
@@ -15524,169 +15533,169 @@ msgid ""
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3126 includes/class_rm_ui_strings.php:4408
+#: includes/class_rm_ui_strings.php:3129 includes/class_rm_ui_strings.php:4414
 msgid "Add New"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3129
+#: includes/class_rm_ui_strings.php:3132
 msgid "Switch Form"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3132
+#: includes/class_rm_ui_strings.php:3135
 msgid "Permalink"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3135
+#: includes/class_rm_ui_strings.php:3138
 msgid "How's your form <b>doing?</b>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3141
+#: includes/class_rm_ui_strings.php:3144
 msgid "Not Installed"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3144
+#: includes/class_rm_ui_strings.php:3147
 msgid "<b>Look and Feel</b> of your form"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3156
+#: includes/class_rm_ui_strings.php:3159
 msgid "<b>Things you can do</b> with form data"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3159
+#: includes/class_rm_ui_strings.php:3162
 msgid "<b>Fine Tune</b> Your Form"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3162 includes/class_rm_ui_strings.php:3252
+#: includes/class_rm_ui_strings.php:3165 includes/class_rm_ui_strings.php:3255
 msgid "Limited"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3165 includes/class_rm_ui_strings.php:3301
+#: includes/class_rm_ui_strings.php:3168 includes/class_rm_ui_strings.php:3304
 msgid "Global Overrides"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3168
+#: includes/class_rm_ui_strings.php:3171
 msgid "Multi-Step Forms"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3171
+#: includes/class_rm_ui_strings.php:3174
 msgid "Coming Soon"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3174
+#: includes/class_rm_ui_strings.php:3177
 msgid "<b>Add Apps</b> To Your Form"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3177
+#: includes/class_rm_ui_strings.php:3180
 msgid "Constant Contact"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3180
+#: includes/class_rm_ui_strings.php:3183
 msgid "WooCommerce"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3183
+#: includes/class_rm_ui_strings.php:3186
 #: plus/lmsupport/templates/frontend_primer.php:8
 msgid "New"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3186
+#: includes/class_rm_ui_strings.php:3189
 msgid "View All"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3195
+#: includes/class_rm_ui_strings.php:3198
 msgid "Visibility"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3198
+#: includes/class_rm_ui_strings.php:3201
 msgid "Created On"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3201
+#: includes/class_rm_ui_strings.php:3204
 msgid "Pages"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3204
+#: includes/class_rm_ui_strings.php:3207
 msgid "Submit Label"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3207
+#: includes/class_rm_ui_strings.php:3210
 msgid "Visitors"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3210
+#: includes/class_rm_ui_strings.php:3213
 msgid "Download Records"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3213
+#: includes/class_rm_ui_strings.php:3216
 msgid "Avg. Time"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3216
+#: includes/class_rm_ui_strings.php:3219
 msgid "Auto-Responder"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3219
+#: includes/class_rm_ui_strings.php:3222
 msgid "WP Registrations"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3222
+#: includes/class_rm_ui_strings.php:3225
 #, php-format
 msgid "Redirection. <a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3225
+#: includes/class_rm_ui_strings.php:3228
 msgid "Auto Approval"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3228
+#: includes/class_rm_ui_strings.php:3231
 msgid "Issue Token No"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3231
+#: includes/class_rm_ui_strings.php:3234
 msgid "reCAPTCHA"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3234
+#: includes/class_rm_ui_strings.php:3237
 msgid "Select a Form"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3237
+#: includes/class_rm_ui_strings.php:3240
 msgid "Stats"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3243 includes/class_rm_ui_strings.php:3347
-#: includes/class_rm_ui_strings.php:3705
+#: includes/class_rm_ui_strings.php:3246 includes/class_rm_ui_strings.php:3350
+#: includes/class_rm_ui_strings.php:3708
 msgid "Content"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3246
+#: includes/class_rm_ui_strings.php:3249
 msgid "Quick Toggles"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3249
+#: includes/class_rm_ui_strings.php:3252
 msgid "Public"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3255
+#: includes/class_rm_ui_strings.php:3258
 msgid "Allow User to Login using Twitter:"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3261
+#: includes/class_rm_ui_strings.php:3264
 #, php-format
 msgid ""
 "Adds 'Login Using Twitter' button to the login form. <a target='_blank' "
 "class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3264
+#: includes/class_rm_ui_strings.php:3267
 msgid "Twitter Consumer Key"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3267
+#: includes/class_rm_ui_strings.php:3270
 msgid "Twitter Consumer Secret"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3270
+#: includes/class_rm_ui_strings.php:3273
 #, php-format
 msgid ""
 "More information about Twitter Consumer Key <a target='blank' "
@@ -15694,7 +15703,7 @@ msgid ""
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3273
+#: includes/class_rm_ui_strings.php:3276
 #, php-format
 msgid ""
 "More information about Twitter Consumer Secret <a target='blank' "
@@ -15702,253 +15711,253 @@ msgid ""
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3277
+#: includes/class_rm_ui_strings.php:3280
 msgid "Allow Users to Login using Instagram"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3280
+#: includes/class_rm_ui_strings.php:3283
 #, php-format
 msgid ""
 "Adds 'Login Using Instagram' button to the login form. <a target='_blank' "
 "class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3283
+#: includes/class_rm_ui_strings.php:3286
 msgid "Instagram Client ID"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3286
+#: includes/class_rm_ui_strings.php:3289
 #, php-format
 msgid ""
 "To make Instagram login work, you&#39;ll need a Client ID. More information "
 "<a target='blank' class='rm_help_link' href='%s'>here</a>."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3289
+#: includes/class_rm_ui_strings.php:3292
 msgid "Mark all read"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3298
+#: includes/class_rm_ui_strings.php:3301
 msgid "Show data for"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3304
+#: includes/class_rm_ui_strings.php:3307
 msgid ""
 "No Submissions for this form yet.<br>Once submissions start coming, this area "
 "will show the latest submissions."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3307
+#: includes/class_rm_ui_strings.php:3310
 msgid "Add Default Form"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3310
+#: includes/class_rm_ui_strings.php:3313
 msgid "Change Default Form"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3317
+#: includes/class_rm_ui_strings.php:3320
 msgid ""
 "Global Overrides provide an easy way for power users to override default "
 "Global Settings on individual forms. Once you have turned on the override, "
 "corresponding Global Setting values will have no effect on this form. "
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3320
+#: includes/class_rm_ui_strings.php:3323
 msgid "Embed Code not available."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3323
+#: includes/class_rm_ui_strings.php:3326
 msgid "<b>Standard Edition Dashboard</b>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3326
+#: includes/class_rm_ui_strings.php:3329
 #, php-format
 msgid ""
 "To toggle this setting you need to configure it first. <a href='%s'>Click "
 "here </a>to configure now.</span>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3335
+#: includes/class_rm_ui_strings.php:3338
 msgid "No sent emails yet."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3338
+#: includes/class_rm_ui_strings.php:3341
 msgid "No email has been sent to this user yet."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3350
+#: includes/class_rm_ui_strings.php:3353
 msgid "Sent on"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3353 includes/class_rm_ui_strings.php:3356
+#: includes/class_rm_ui_strings.php:3356 includes/class_rm_ui_strings.php:3359
 msgid "Sent Emails"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3359
+#: includes/class_rm_ui_strings.php:3362
 msgid "Invalid sent email id"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3362
+#: includes/class_rm_ui_strings.php:3365
 msgid "Send a new email"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3365
+#: includes/class_rm_ui_strings.php:3368
 msgid "No Users are registered yet."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3368
+#: includes/class_rm_ui_strings.php:3371
 msgid "No email sent yet"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3371
+#: includes/class_rm_ui_strings.php:3374
 msgid "No sent email matched your search."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3374
+#: includes/class_rm_ui_strings.php:3377
 msgid "No email sent during the period."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3377
+#: includes/class_rm_ui_strings.php:3380
 #, php-format
 msgid "%s submission slots remain"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3380
+#: includes/class_rm_ui_strings.php:3383
 msgid "Tour"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3383
+#: includes/class_rm_ui_strings.php:3386
 msgid "Please enter no more than {0} characters."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3386
+#: includes/class_rm_ui_strings.php:3389
 msgid "Please enter at least {0} characters."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3389
+#: includes/class_rm_ui_strings.php:3392
 msgid "Please enter a value less than or equal to {0}."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3392
+#: includes/class_rm_ui_strings.php:3395
 msgid "Please enter a value greater than or equal to {0}."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3398
+#: includes/class_rm_ui_strings.php:3401
 #, php-format
 msgid ""
 "User will be redirected to this page after logging out. <a target='_blank' "
 "class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3401
+#: includes/class_rm_ui_strings.php:3404
 #, php-format
 msgid "%1$d out of %2$d filled and %3$d days to go"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3404
+#: includes/class_rm_ui_strings.php:3407
 #, php-format
 msgid "%1$d out of %2$d filled"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3407
+#: includes/class_rm_ui_strings.php:3410
 #, php-format
 msgid "%d days to go"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3410
+#: includes/class_rm_ui_strings.php:3413
 msgid "Transaction log"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3413
+#: includes/class_rm_ui_strings.php:3416
 msgid "Legend"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3419
+#: includes/class_rm_ui_strings.php:3422
 msgid "Payment Completed"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3425
+#: includes/class_rm_ui_strings.php:3428
 msgid "Has Notes"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3428
+#: includes/class_rm_ui_strings.php:3431
 msgid "Messaged"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3431
+#: includes/class_rm_ui_strings.php:3434
 msgid "Has Attachment(s)"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3434
-#: libs/factory/class_rm_field_factory_revamp.php:6818
-#: libs/factory/class_rm_form_factory_revamp.php:1873
+#: includes/class_rm_ui_strings.php:3437
+#: libs/factory/class_rm_field_factory_revamp.php:6825
+#: libs/factory/class_rm_form_factory_revamp.php:1875
 #, php-format
 msgid "Total Price: %s"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3437
+#: includes/class_rm_ui_strings.php:3440
 msgid "Show total price on the form"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3440
+#: includes/class_rm_ui_strings.php:3443
 msgid "Enable users to save form submissions"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3443
+#: includes/class_rm_ui_strings.php:3446
 #, php-format
 msgid ""
 "Enables a real-time display of total amount when you have multiple products "
 "added to the form. <a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3446
+#: includes/class_rm_ui_strings.php:3449
 #, php-format
 msgid ""
 "Enable this option to allow users to save their form data temporarily instead "
 "of submitting it. <a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3449
+#: includes/class_rm_ui_strings.php:3452
 msgid "Date format"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3452
+#: includes/class_rm_ui_strings.php:3455
 #, php-format
 msgid "For a list of supported types please click <a %s>here</a>."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3458
+#: includes/class_rm_ui_strings.php:3461
 msgid "Allow Users to Specify Quantity"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3461
+#: includes/class_rm_ui_strings.php:3464
 msgid "Minimum Quantity"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3464
+#: includes/class_rm_ui_strings.php:3467
 msgid "Maximum Quantity"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3467
+#: includes/class_rm_ui_strings.php:3470
 #, php-format
 msgid ""
 "A quantity box will appear on the form allowing users to purchase more than "
 "one item. <a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3470
+#: includes/class_rm_ui_strings.php:3473
 msgid "Set the minimum quantity of this product that the user can select."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3473
+#: includes/class_rm_ui_strings.php:3476
 msgid "Set the maximum quantity of this product that the user can select."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3476
+#: includes/class_rm_ui_strings.php:3479
 msgid "New User Email Body"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3479
+#: includes/class_rm_ui_strings.php:3482
 #, php-format
 msgid ""
 "Content of the email to be sent to the newly created user. You can use rich "
@@ -15957,7 +15966,7 @@ msgid ""
 "this email itself. <a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3482
+#: includes/class_rm_ui_strings.php:3485
 #, php-format
 msgid ""
 "Content of the email to be sent to the activated user. You can use rich text "
@@ -15965,7 +15974,7 @@ msgid ""
 "target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3485
+#: includes/class_rm_ui_strings.php:3488
 #, php-format
 msgid ""
 "Content of the email to be sent to admin with activation link. You can use "
@@ -15975,23 +15984,23 @@ msgid ""
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3488
+#: includes/class_rm_ui_strings.php:3491
 msgid "User Activation Email Body"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3491
+#: includes/class_rm_ui_strings.php:3494
 msgid "Active User Email Body (To Admin)"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3494
+#: includes/class_rm_ui_strings.php:3497
 msgid "New Submission Email Body (To Admin)"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3497
+#: includes/class_rm_ui_strings.php:3500
 msgid "Payment Invoice Email Body"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3500
+#: includes/class_rm_ui_strings.php:3503
 #, php-format
 msgid ""
 "Content of the email to be sent to admin on new submission. You can use rich "
@@ -16008,67 +16017,67 @@ msgid ""
 "to the submitted content."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3504
+#: includes/class_rm_ui_strings.php:3507
 msgid ""
 "Contents of the email with the invoice to be sent to the users. Mail merge "
 "and HTML supported."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3510
+#: includes/class_rm_ui_strings.php:3513
 #, php-format
 msgid ""
 "An email notification will be sent to recipients of this form for every "
 "submission. <a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3513
+#: includes/class_rm_ui_strings.php:3516
 msgid "Send Notification To:"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3519
+#: includes/class_rm_ui_strings.php:3522
 msgid "Payment Refunded"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3522
+#: includes/class_rm_ui_strings.php:3525
 msgid "Payment Canceled"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3525
+#: includes/class_rm_ui_strings.php:3528
 msgid "Payment Details"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3528
+#: includes/class_rm_ui_strings.php:3531
 msgid "Following error(s) were found:"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3537
+#: includes/class_rm_ui_strings.php:3540
 msgid "No role assigned"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3543
+#: includes/class_rm_ui_strings.php:3546
 msgid "Demo"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3546
+#: includes/class_rm_ui_strings.php:3549
 #, php-format
 msgid ""
 "Wordpress cron is disabled. This feature will not work. <a target=\"__blank\" "
 "href=\"%s\">More info.</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3549
+#: includes/class_rm_ui_strings.php:3552
 msgid "Add to Form"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3552
+#: includes/class_rm_ui_strings.php:3555
 msgid "Product Pricing Type"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3558
+#: includes/class_rm_ui_strings.php:3561
 msgid "Toggle Form &rarr;"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3561
+#: includes/class_rm_ui_strings.php:3564
 #, php-format
 msgid ""
 "Displays price on the form while user fills it. If turned off, user will be "
@@ -16076,15 +16085,15 @@ msgid ""
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3564
+#: includes/class_rm_ui_strings.php:3567
 msgid "Standard hidden type html field."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3567 includes/class_rm_utilities.php:181
+#: includes/class_rm_ui_strings.php:3570 includes/class_rm_utilities.php:181
 msgid "Hidden Field"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3570
+#: includes/class_rm_ui_strings.php:3573
 #, php-format
 msgid ""
 "Mark this field as unique. No two users can submit same value for this field. "
@@ -16092,38 +16101,38 @@ msgid ""
 "message. <a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3573
+#: includes/class_rm_ui_strings.php:3576
 msgid "Accept Only Unique Values"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3576
+#: includes/class_rm_ui_strings.php:3579
 msgid "Limit Submissions from a Single User"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3579
+#: includes/class_rm_ui_strings.php:3582
 #, php-format
 msgid ""
 "Limits how many times a form can be submitted by same user. Set it to zero(0) "
 "to disable this feature. <a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3582
+#: includes/class_rm_ui_strings.php:3585
 msgid "Advanced Settings"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3585
+#: includes/class_rm_ui_strings.php:3588
 msgid "Icon Settings"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3588
+#: includes/class_rm_ui_strings.php:3591
 msgid "Configuration Manager"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3618
+#: includes/class_rm_ui_strings.php:3621
 msgid "Associated User Meta Key"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3621
+#: includes/class_rm_ui_strings.php:3624
 msgid ""
 "Define the WordPress User Meta key where values of this field will be stored. "
 "Field values will be pre-filled when the form is opened, if currently logged "
@@ -16131,27 +16140,27 @@ msgid ""
 "note - Some complex type fields like price fields do not support pre-filling."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3630
+#: includes/class_rm_ui_strings.php:3633
 msgid "HTML Code"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3633
+#: includes/class_rm_ui_strings.php:3636
 msgid "Form Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3642
+#: includes/class_rm_ui_strings.php:3645
 msgid "User Area Tabs"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3645
+#: includes/class_rm_ui_strings.php:3648
 msgid "Magic PopUp"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3648 plus/lmsupport/lmsupport.php:78
+#: includes/class_rm_ui_strings.php:3651 plus/lmsupport/lmsupport.php:78
 msgid "Landing Page"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3663
+#: includes/class_rm_ui_strings.php:3666
 #, php-format
 msgid ""
 "If enabled, admin users will always be redirected to admin dashboard "
@@ -16159,218 +16168,218 @@ msgid ""
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3666
+#: includes/class_rm_ui_strings.php:3669
 msgid "--Select Country--"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3672
+#: includes/class_rm_ui_strings.php:3675
 msgid "Conditional Logic"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3675
+#: includes/class_rm_ui_strings.php:3678
 msgid "Controlling Field"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3678
+#: includes/class_rm_ui_strings.php:3681
 msgid "Operator"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3681 includes/class_rm_ui_strings.php:3684
+#: includes/class_rm_ui_strings.php:3684 includes/class_rm_ui_strings.php:3687
 msgid "Add Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3687
+#: includes/class_rm_ui_strings.php:3690
 msgid "New Paragraph Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3690
+#: includes/class_rm_ui_strings.php:3693
 msgid "New Heading Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3693
+#: includes/class_rm_ui_strings.php:3696
 msgid "New Spacing Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3696
+#: includes/class_rm_ui_strings.php:3699
 msgid "New Divider Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3702
+#: includes/class_rm_ui_strings.php:3705
 msgid "New Rich Text Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3720
+#: includes/class_rm_ui_strings.php:3723
 msgid ""
 "MagicWidgets labels do not appear on the form. MagicWidgets are not visible "
 "inside Submission page or Submission PDFs."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3732 includes/class_rm_ui_strings.php:3833
+#: includes/class_rm_ui_strings.php:3735 includes/class_rm_ui_strings.php:3836
 msgid "The clickable text that will be linked to specified URL or page."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3735
+#: includes/class_rm_ui_strings.php:3738
 msgid "Open in same window"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3738
+#: includes/class_rm_ui_strings.php:3741
 msgid "Opens link in same window."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3741 includes/class_rm_ui_strings.php:3785
+#: includes/class_rm_ui_strings.php:3744 includes/class_rm_ui_strings.php:3788
 msgid "Link Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3744
+#: includes/class_rm_ui_strings.php:3747
 msgid ""
 "To make a form Default WordPress Registration form, make sure it is "
 "configured to create WordPress User accounts on submission."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3747
+#: includes/class_rm_ui_strings.php:3750
 msgid "Dummy Text"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3753
+#: includes/class_rm_ui_strings.php:3756
 msgid "Choose from Pages"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3756
+#: includes/class_rm_ui_strings.php:3759
 msgid "YouTube Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3759
+#: includes/class_rm_ui_strings.php:3762
 msgid "Video URL"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3762
+#: includes/class_rm_ui_strings.php:3765
 msgid "Auto Play"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3765
+#: includes/class_rm_ui_strings.php:3768
 msgid "Repeat"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3768
+#: includes/class_rm_ui_strings.php:3771
 msgid "Related Videos"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3771
+#: includes/class_rm_ui_strings.php:3774
 msgid "Player Width"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3773
+#: includes/class_rm_ui_strings.php:3776
 msgid "Iframe Width"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3775
+#: includes/class_rm_ui_strings.php:3778
 msgid "Iframe Height"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3779
+#: includes/class_rm_ui_strings.php:3782
 msgid "Spacing Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3782
+#: includes/class_rm_ui_strings.php:3785
 msgid "Player Height"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3788
+#: includes/class_rm_ui_strings.php:3791
 msgid "Timer Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3791
+#: includes/class_rm_ui_strings.php:3794
 msgid "Rich Text Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3794
+#: includes/class_rm_ui_strings.php:3797
 msgid "Iframe Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3797
+#: includes/class_rm_ui_strings.php:3800
 msgid "Paragraph Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3800
+#: includes/class_rm_ui_strings.php:3803
 msgid "Heading Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3803
+#: includes/class_rm_ui_strings.php:3806
 msgid "Divider Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3806
+#: includes/class_rm_ui_strings.php:3809
 msgid "Display a YouTube video in your form"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3809
+#: includes/class_rm_ui_strings.php:3812
 #, php-format
 msgid "URL of the YouTube Video you wish to add to your form. For example, %s"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3812
+#: includes/class_rm_ui_strings.php:3815
 msgid ""
 "Width of the YouTube Video. It can be set relative to the form in percentage "
 "(%) or in absolute pixels (px). For example, 100%, 50%, 350px etc."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3815
+#: includes/class_rm_ui_strings.php:3818
 msgid ""
 "Height of the YouTube Video. It can be set relative to the form in percentage "
 "(%) or in absolute pixels (px). For example, 100%, 50%, 350px etc."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3818
+#: includes/class_rm_ui_strings.php:3821
 msgid "Autoplays the video when the form first loads."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3821
+#: includes/class_rm_ui_strings.php:3824
 msgid "Loops the video after the first play through."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3824
+#: includes/class_rm_ui_strings.php:3827
 msgid ""
 "Display a list of related videos after the video finishes. This will have no "
 "effect if you have turned on Repeat."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3827
+#: includes/class_rm_ui_strings.php:3830
 msgid "Anchor Text"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3830
+#: includes/class_rm_ui_strings.php:3833
 msgid "URL for Image Hyperlink."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3836
+#: includes/class_rm_ui_strings.php:3839
 msgid "Hyperlink the Image."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3839
+#: includes/class_rm_ui_strings.php:3842
 msgid "Display an external webpage in your form using iFrame"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3842
+#: includes/class_rm_ui_strings.php:3845
 msgid "Select page which you want to link to the anchor text."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3845
+#: includes/class_rm_ui_strings.php:3848
 msgid "Enter the URL of the page which you wish to render inside the iFrame."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3848
+#: includes/class_rm_ui_strings.php:3851
 msgid ""
 "Width of the frame. It can be set relative to the form in percentage (%) or "
 "in absolute pixels (px). For example, 100%, 50%, 350px etc."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3851
+#: includes/class_rm_ui_strings.php:3854
 msgid ""
 "Height of the frame. It can be set in percentage (%) or in absolute pixels "
 "(px). For example, 100%, 50%, 400px etc."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3854
+#: includes/class_rm_ui_strings.php:3857
 #, php-format
 msgid ""
 "Allows user to add extra text area boxes to the form for submitting different "
@@ -16378,30 +16387,30 @@ msgid ""
 "target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3860
+#: includes/class_rm_ui_strings.php:3863
 msgid "Test Email"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3869
+#: includes/class_rm_ui_strings.php:3872
 msgid "Sender's Email"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3872
+#: includes/class_rm_ui_strings.php:3875
 msgid "Submission Notification for User"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3875
+#: includes/class_rm_ui_strings.php:3878
 msgid "Submission Notification for Admin"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3878
+#: includes/class_rm_ui_strings.php:3881
 #, php-format
 msgid ""
 "The sender's email address in the message header that the user will receive. "
 "<a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3881
+#: includes/class_rm_ui_strings.php:3884
 #, php-format
 msgid ""
 "The sender's email address in the message header that the admin will receive. "
@@ -16411,11 +16420,11 @@ msgid ""
 "more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3884
+#: includes/class_rm_ui_strings.php:3887
 msgid "Street Number"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3887
+#: includes/class_rm_ui_strings.php:3890
 #, php-format
 msgid ""
 "Key value of the Role which will be saved in database. This will not be "
@@ -16423,499 +16432,499 @@ msgid ""
 "class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3890
+#: includes/class_rm_ui_strings.php:3893
 #, php-format
 msgid ""
 "Name of the Role that will be displayed on the front-end and the dashboard. "
 "<a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3893
+#: includes/class_rm_ui_strings.php:3896
 #, php-format
 msgid ""
 "Inherit viewing and editing permissions for this custom Role from one of "
 "default WordPress roles. <a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3896
+#: includes/class_rm_ui_strings.php:3899
 #, php-format
 msgid ""
 "Sends an email to this address for testing outing messages. <a "
 "target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3899
+#: includes/class_rm_ui_strings.php:3902
 msgid "Start typing your address"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3902
+#: includes/class_rm_ui_strings.php:3905
 msgid "Powered by GOOGLE MAPS"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3905
+#: includes/class_rm_ui_strings.php:3908
 msgid ""
 "Use this text area to enter countries you wish to show in the Countries "
 "dropdown. Comma separate country names, for example: Australia, Japan, "
 "Singapore"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3911
+#: includes/class_rm_ui_strings.php:3914
 msgid "Activate User Automatically"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3914
+#: includes/class_rm_ui_strings.php:3917
 msgid "Deactivate User for Manual Approval"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3917
+#: includes/class_rm_ui_strings.php:3920
 msgid "Send Verification Email"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3920
+#: includes/class_rm_ui_strings.php:3923
 msgid ""
 "Select the action to be performed when a user submits a registration form for "
 "the first time. Content of the account verification email can be modified "
 "from Dashboard->Email Templates."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3923
+#: includes/class_rm_ui_strings.php:3926
 msgid "Account Activation Method"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3926
+#: includes/class_rm_ui_strings.php:3929
 msgid "New User Email Subject"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3929
+#: includes/class_rm_ui_strings.php:3932
 msgid "User Activation Email Subject"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3932
+#: includes/class_rm_ui_strings.php:3935
 msgid "New Submission Email Subject (To Admin)"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3935
+#: includes/class_rm_ui_strings.php:3938
 msgid "Payment Invoice Email Subject"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3938
+#: includes/class_rm_ui_strings.php:3941
 msgid "Subject of the email to be sent to the newly created user."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3941
+#: includes/class_rm_ui_strings.php:3944
 msgid "Subject of the email to be sent to the activated user."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3944 includes/class_rm_ui_strings.php:3947
+#: includes/class_rm_ui_strings.php:3947 includes/class_rm_ui_strings.php:3950
 msgid "Subject of the email to be sent to admin on new submission."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3950
+#: includes/class_rm_ui_strings.php:3953
 msgid "Subject for the email with the invoice to be sent to the users."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3953 includes/class_rm_ui_strings.php:3962
+#: includes/class_rm_ui_strings.php:3956 includes/class_rm_ui_strings.php:3965
 msgid "Failed Login Attempt Email Subject"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3956
+#: includes/class_rm_ui_strings.php:3959
 msgid "One-Time Password Email Subject"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3959
+#: includes/class_rm_ui_strings.php:3962
 msgid "Password Reset Email Subject"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3965
+#: includes/class_rm_ui_strings.php:3968
 msgid "IP Blocked Email Subject"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3968
+#: includes/class_rm_ui_strings.php:3971
 msgid ""
 "Set the subject for the email sent to users when a failed login attempt "
 "occurs."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3971
+#: includes/class_rm_ui_strings.php:3974
 msgid ""
 "Set the subject for the email containing a one-time password sent to users."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3974
+#: includes/class_rm_ui_strings.php:3977
 msgid ""
 "Set the subject for the email containing a password reset link sent to users."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3977
+#: includes/class_rm_ui_strings.php:3980
 msgid ""
 "Set the subject for the email sent to admins when a failed login attempt "
 "occurs."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3980
+#: includes/class_rm_ui_strings.php:3983
 msgid "Set the subject for the email sent to admins when an IP is blocked."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3983
+#: includes/class_rm_ui_strings.php:3986
 msgid "Upload Form Template"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3986 includes/class_rm_utilities.php:168
+#: includes/class_rm_ui_strings.php:3989 includes/class_rm_utilities.php:168
 msgid "Image Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3989
+#: includes/class_rm_ui_strings.php:3992
 msgid "Insert an image in your form"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3992
+#: includes/class_rm_ui_strings.php:3995
 msgid "Caption"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:3998
+#: includes/class_rm_ui_strings.php:4001
 msgid "Effects"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4001
+#: includes/class_rm_ui_strings.php:4004
 msgid "Shape"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4004
+#: includes/class_rm_ui_strings.php:4007
 msgid "Display as pop up"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4007
+#: includes/class_rm_ui_strings.php:4010
 msgid "Size"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4010
+#: includes/class_rm_ui_strings.php:4013
 msgid "Display total price of products selected by user in the form"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4016
+#: includes/class_rm_ui_strings.php:4019
 msgid "Price Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4019
+#: includes/class_rm_ui_strings.php:4022
 msgid "Submission Coutdown Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4022
+#: includes/class_rm_ui_strings.php:4025
 msgid "Map Widget"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4025
+#: includes/class_rm_ui_strings.php:4028
 msgid "Latitude"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4028
+#: includes/class_rm_ui_strings.php:4031
 msgid "Longitude"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4031
+#: includes/class_rm_ui_strings.php:4034
 msgid "Map Width"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4034
+#: includes/class_rm_ui_strings.php:4037
 msgid "Zoom"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4040
+#: includes/class_rm_ui_strings.php:4043
 msgid "Chart Type"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4043 includes/class_rm_utilities.php:186
+#: includes/class_rm_ui_strings.php:4046 includes/class_rm_utilities.php:186
 msgid "Form Data"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4046
+#: includes/class_rm_ui_strings.php:4049
 msgid "Number of form views"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4049
+#: includes/class_rm_ui_strings.php:4052
 msgid "Text Before"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4052
+#: includes/class_rm_ui_strings.php:4055
 msgid "Text After"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4055
+#: includes/class_rm_ui_strings.php:4058
 msgid "Display number of Submissions"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4058
+#: includes/class_rm_ui_strings.php:4061
 msgid "Display Submission Limits"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4061
+#: includes/class_rm_ui_strings.php:4064
 msgid "Display Form Date Limits"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4064
+#: includes/class_rm_ui_strings.php:4067
 msgid "Last Submission Received Time"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4076
+#: includes/class_rm_ui_strings.php:4079
 msgid "Days to go"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4082
+#: includes/class_rm_ui_strings.php:4085
 msgid "Custom Text"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4085
+#: includes/class_rm_ui_strings.php:4088
 msgid "Hide Date"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4088
+#: includes/class_rm_ui_strings.php:4091
 msgid "Hide Country"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4091
+#: includes/class_rm_ui_strings.php:4094
 msgid "Max number of items to display"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4094
+#: includes/class_rm_ui_strings.php:4097
 msgid "Show Gravatar"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4097
+#: includes/class_rm_ui_strings.php:4100
 msgid "registered on"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4103
+#: includes/class_rm_ui_strings.php:4106
 msgid "Unregistered user submission"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4106
+#: includes/class_rm_ui_strings.php:4109
 msgid "User Identification"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4109
+#: includes/class_rm_ui_strings.php:4112
 msgid "Define which keywords to use to identify users in registration feed."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4112
+#: includes/class_rm_ui_strings.php:4115
 msgid "Do not display user registration date in registration feed."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4115
+#: includes/class_rm_ui_strings.php:4118
 msgid ""
 "Do not display registering user's country name or flag in the registration "
 "feed."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4118
+#: includes/class_rm_ui_strings.php:4121
 msgid "Display user avatars pulled from Gravatar in registration feed."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4121
+#: includes/class_rm_ui_strings.php:4124
 msgid ""
 "Define maximum no of recent registration records to be displayed in "
 "registration feed."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4124
+#: includes/class_rm_ui_strings.php:4127
 msgid "Define Size of the Image."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4127
+#: includes/class_rm_ui_strings.php:4130
 msgid "Add Effects to the the Image."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4130
+#: includes/class_rm_ui_strings.php:4133
 msgid "Define Border Color."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4133
+#: includes/class_rm_ui_strings.php:4136
 msgid "Define Border Width."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4136 includes/class_rm_ui_strings.php:4139
+#: includes/class_rm_ui_strings.php:4139 includes/class_rm_ui_strings.php:4142
 msgid "Define Border Shape."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4142
+#: includes/class_rm_ui_strings.php:4145
 msgid "Display the Image as Popup on Clicking."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4145
+#: includes/class_rm_ui_strings.php:4148
 msgid "Display Image Captions."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4148
+#: includes/class_rm_ui_strings.php:4151
 msgid "Display Image Title."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4151
+#: includes/class_rm_ui_strings.php:4154
 msgid "Display number of times the form was viewed by site visitors."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4154
+#: includes/class_rm_ui_strings.php:4157
 msgid ""
 "The text before the form view count. You can combine text before and after to "
 "render dynamic content like, 'The form was viewed 25 times' (this is just an "
 "example). The count will keep updating automatically"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4157
+#: includes/class_rm_ui_strings.php:4160
 msgid "The text after the form view count."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4160
+#: includes/class_rm_ui_strings.php:4163
 msgid "Display the number of times this form was submitted."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4163
+#: includes/class_rm_ui_strings.php:4166
 msgid ""
 "The text before the form submission count. You can combine text before and "
 "after to render dynamic content like, 'A total of 25 users have registered so "
 "far.' (this is just an example). The count will keep updating automatically."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4166
+#: includes/class_rm_ui_strings.php:4169
 msgid "The text after the form submission count."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4169
+#: includes/class_rm_ui_strings.php:4172
 msgid ""
 "Display form submission limits, if you have set them in Form Dashboard --> "
 "Limits."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4172
+#: includes/class_rm_ui_strings.php:4175
 msgid "Text before submission limit."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4175
+#: includes/class_rm_ui_strings.php:4178
 msgid "Text after submission limit."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4178
+#: includes/class_rm_ui_strings.php:4181
 msgid ""
 "Display form date limits, if you have set them in Form Dashboard --> Limits"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4181
+#: includes/class_rm_ui_strings.php:4184
 msgid "Text before date limit."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4184
+#: includes/class_rm_ui_strings.php:4187
 msgid "Text after date limit."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4187
+#: includes/class_rm_ui_strings.php:4190
 msgid "Display last submission time."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4190
+#: includes/class_rm_ui_strings.php:4193
 msgid "Text before last submission time."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4193
+#: includes/class_rm_ui_strings.php:4196
 msgid "Display Name of the Form."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4196
+#: includes/class_rm_ui_strings.php:4199
 msgid "Text after last submission time."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4199
+#: includes/class_rm_ui_strings.php:4202
 msgid "Display Description of the Form defined in Form Dashboard --> General."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4202
+#: includes/class_rm_ui_strings.php:4205
 msgid "Select the Chart or graph you wish to display."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4205
+#: includes/class_rm_ui_strings.php:4208
 msgid ""
 "Use your own text instead of system generated text before user identification."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4214
+#: includes/class_rm_ui_strings.php:4217
 msgid "Enter latitude of the marker location."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4217
+#: includes/class_rm_ui_strings.php:4220
 msgid "Enter longitude of the marker location."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4220
+#: includes/class_rm_ui_strings.php:4223
 msgid ""
 "Define map zoom level. Zoom levels range between 0 (no zoom) to 18 or 21 "
 "(down to street level) depending on the location."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4223
+#: includes/class_rm_ui_strings.php:4226
 msgid "Width of the map widget in the form in pixels (px)."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4229
+#: includes/class_rm_ui_strings.php:4232
 msgid "Records"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4235
+#: includes/class_rm_ui_strings.php:4238
 msgid "Displays user avatar when user accesses login box in logged in state."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4238
+#: includes/class_rm_ui_strings.php:4241
 msgid ""
 "Displays user’s first and last names when user accesses login box in logged "
 "in state."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4241
+#: includes/class_rm_ui_strings.php:4244
 msgid "Displays greetings above the user’s name."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4244
+#: includes/class_rm_ui_strings.php:4247
 msgid "Enter the greetings text."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4247
+#: includes/class_rm_ui_strings.php:4250
 msgid ""
 "Displays a custom message when user accesses login box in logged in state."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4250
+#: includes/class_rm_ui_strings.php:4253
 msgid "Enter the custom message you wish to display."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4253
+#: includes/class_rm_ui_strings.php:4256
 msgid "Separator bar color"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4256
+#: includes/class_rm_ui_strings.php:4259
 msgid "Select the color for the separator bar."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4259
+#: includes/class_rm_ui_strings.php:4262
 msgid ""
 "Displays a link to user account page when user accesses login box in logged "
 "in state. To make it work, please make sure you have defined default user "
 "account page in Global Settings → Default Pages"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4262
+#: includes/class_rm_ui_strings.php:4265
 msgid "Displays a Logout link when user accesses login box in logged in state."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4265
+#: includes/class_rm_ui_strings.php:4268
 msgid "The link text for user account link."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4268
+#: includes/class_rm_ui_strings.php:4271
 msgid "The link text for user logout link."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4271
+#: includes/class_rm_ui_strings.php:4274
 msgid ""
 "The error message users see when they try to login using an invalid username."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4274
+#: includes/class_rm_ui_strings.php:4277
 msgid ""
 "The error message users see when they try to login using a valid username but "
 "invalid password. Use code {{username}} to render the valid username inside "
@@ -16924,305 +16933,310 @@ msgid ""
 "in both cases."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4277
+#: includes/class_rm_ui_strings.php:4280
 msgid ""
 "The error message users see when they try to access the Submissions page "
 "without login."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4292
+#: includes/class_rm_ui_strings.php:4295
 msgid "Focus Color"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4301
+#: includes/class_rm_ui_strings.php:4304
 msgid "Section Background Color"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4304
+#: includes/class_rm_ui_strings.php:4307
 msgid "Section Text Color"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4307
+#: includes/class_rm_ui_strings.php:4310
 msgid "Section Text Style"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4340
+#: includes/class_rm_ui_strings.php:4343
 msgid "Account has not been activated yet"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4346
+#: includes/class_rm_ui_strings.php:4349
 msgid ""
 "Add field which allows users to upload digital signature image with the form "
 "submission."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4349
+#: includes/class_rm_ui_strings.php:4352
 msgid ""
 "If case you have issue with PDF characters not appearing properly, try "
 "changing this option."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4352
+#: includes/class_rm_ui_strings.php:4355
 msgid "Submission PDF Font"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4355
-#: libs/factory/class_rm_form_factory_revamp.php:2138
+#: includes/class_rm_ui_strings.php:4358
+#: libs/factory/class_rm_form_factory_revamp.php:2140
 msgid "Please wait while we are logging into the system."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4358
+#: includes/class_rm_ui_strings.php:4361
 msgid ""
 "This will hide MagicPopup styling options on frontend for Admins. If you do "
 "not plan to use MagicPopup or have configured it and no longer wish to change "
 "its style, you should check this option."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4361
+#: includes/class_rm_ui_strings.php:4364
+msgid ""
+"Select the form that will appear in the 'Register' tab of the MagicPopup."
+msgstr ""
+
+#: includes/class_rm_ui_strings.php:4367
 msgid "Please wait for admin's approval before you can log in."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4364
+#: includes/class_rm_ui_strings.php:4370
 msgid ""
 "Account has been created. Please wait for admin's approval before you can log "
 "in."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4367
+#: includes/class_rm_ui_strings.php:4373
 msgid "Use grab handles to sort fields order."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4370
+#: includes/class_rm_ui_strings.php:4376
 msgid "Click on a button to edit its label."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4372
+#: includes/class_rm_ui_strings.php:4378
 msgid "Form Wizard"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4374
+#: includes/class_rm_ui_strings.php:4380
 msgid "Form Import"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4376
+#: includes/class_rm_ui_strings.php:4382
 msgid "Overview"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4378 includes/class_rm_ui_strings.php:4386
+#: includes/class_rm_ui_strings.php:4384 includes/class_rm_ui_strings.php:4392
 msgid "Submission Counter"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4382
+#: includes/class_rm_ui_strings.php:4388
 msgid "Latest Forms"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4384
+#: includes/class_rm_ui_strings.php:4390
 msgid "Latest Users"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4388
+#: includes/class_rm_ui_strings.php:4394
 msgid "Trending Forms"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4390
+#: includes/class_rm_ui_strings.php:4396
 msgid "User Registrations"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4394
+#: includes/class_rm_ui_strings.php:4400
 msgid "Weeks"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4400
+#: includes/class_rm_ui_strings.php:4406
 msgid "Overall Statics"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4402
+#: includes/class_rm_ui_strings.php:4408
 msgid "Total Submissions"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4404
+#: includes/class_rm_ui_strings.php:4410
 msgid "Total Forms"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4406
+#: includes/class_rm_ui_strings.php:4412
 msgid "Total Users"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4410
+#: includes/class_rm_ui_strings.php:4416
 msgid "Total User Roles"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4412
+#: includes/class_rm_ui_strings.php:4418
 msgid "Configuration"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4414
+#: includes/class_rm_ui_strings.php:4420
 msgid "Login Form Configuration"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4422
+#: includes/class_rm_ui_strings.php:4428
 msgid "Mailchimp Integration"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4426
+#: includes/class_rm_ui_strings.php:4432
 msgid "Privacy Settings"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4430
+#: includes/class_rm_ui_strings.php:4436
 msgid "User Role"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4440
+#: includes/class_rm_ui_strings.php:4446
 msgid "Available Shortcode"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4448
+#: includes/class_rm_ui_strings.php:4454
 msgid "Importants Shortcodes"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4450
+#: includes/class_rm_ui_strings.php:4456
 msgid "Logins"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4454
+#: includes/class_rm_ui_strings.php:4460
 msgid "Latest Attachments"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4456
+#: includes/class_rm_ui_strings.php:4462
 msgid "Latest Payments"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4458
+#: includes/class_rm_ui_strings.php:4464
 msgid "File Type Counter"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4460
+#: includes/class_rm_ui_strings.php:4466
 msgid "Reports"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4462
+#: includes/class_rm_ui_strings.php:4468
 msgid "Submission Reports"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4464
+#: includes/class_rm_ui_strings.php:4470
 msgid "Login Reports"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4466
+#: includes/class_rm_ui_strings.php:4472
 msgid "Total submissions"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4468
+#: includes/class_rm_ui_strings.php:4474
 msgid "Total payments completed"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4470
+#: includes/class_rm_ui_strings.php:4476
 msgid "Total payments pending"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4472
+#: includes/class_rm_ui_strings.php:4478
 msgid "Total payments refunded"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4474
+#: includes/class_rm_ui_strings.php:4480
 msgid "Total payments cancelled"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4477
+#: includes/class_rm_ui_strings.php:4483
 msgid "Scheduled Email Reports"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4479
+#: includes/class_rm_ui_strings.php:4485
 msgid "New Report"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4483
+#: includes/class_rm_ui_strings.php:4489
 msgid "Filter records based on the form you wish to generate report for."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4485
+#: includes/class_rm_ui_strings.php:4491
 msgid "Login Status"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4487
+#: includes/class_rm_ui_strings.php:4493
 msgid "Filter report records based on outcome of the login attempts."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4491
+#: includes/class_rm_ui_strings.php:4497
 msgid ""
 "Filter report records based on outcome of the payment. Note: If the form you "
 "selected above does not have any payment fields, the report will be empty."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4493
+#: includes/class_rm_ui_strings.php:4499
 msgid "Frequency"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4495
+#: includes/class_rm_ui_strings.php:4501
 msgid "Define how often you wish to send out this email report."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4497
+#: includes/class_rm_ui_strings.php:4503
 msgid "Starts on"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4499
+#: includes/class_rm_ui_strings.php:4505
 msgid ""
 "Select date and time when this report will be first sent. The frequency of "
 "subsequent reports will be calculated based on this."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4501
+#: includes/class_rm_ui_strings.php:4507
 msgid "Email Subject"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4503
+#: includes/class_rm_ui_strings.php:4509
 msgid ""
 "Subject of the email containing this report. Use variable {{REPORT_NAME}} to "
 "insert the name of the report automatically."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4505
+#: includes/class_rm_ui_strings.php:4511
 msgid "Email Body"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4507
+#: includes/class_rm_ui_strings.php:4513
 msgid ""
 "Contents of this email report. The report will be attached automatically to "
 "this email as CSV file."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4511
+#: includes/class_rm_ui_strings.php:4517
 msgid ""
 "Name of your scheduled report. This can help you identify purpose of this "
 "report and can be used inside the email subject."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4513
+#: includes/class_rm_ui_strings.php:4519
 msgid "Report Type"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4515
+#: includes/class_rm_ui_strings.php:4521
 msgid "Choose the data source for this report."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4517
+#: includes/class_rm_ui_strings.php:4523
 msgid "Email Report To"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4519
+#: includes/class_rm_ui_strings.php:4525
 msgid "Define the recipients for this report."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4521
+#: includes/class_rm_ui_strings.php:4527
 msgid "Individuals Email"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4523
+#: includes/class_rm_ui_strings.php:4529
 msgid "A comma seprated list of email addresses."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4525
+#: includes/class_rm_ui_strings.php:4531
 #, php-format
 msgid ""
 "Hello, <br> <br>Your report is attached. Below are the details of this "
@@ -17232,406 +17246,406 @@ msgid ""
 "off."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4527
+#: includes/class_rm_ui_strings.php:4533
 #, php-format
 msgid "Here's the summary for %s from your website!"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4529 plus/chronos/common/ui_strings.php:25
+#: includes/class_rm_ui_strings.php:4535 plus/chronos/common/ui_strings.php:25
 msgid "Enable"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4531 plus/chronos/common/ui_strings.php:28
+#: includes/class_rm_ui_strings.php:4537 plus/chronos/common/ui_strings.php:28
 msgid "Disable"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4533
+#: includes/class_rm_ui_strings.php:4539
 msgid "Default Payment Method"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4535
+#: includes/class_rm_ui_strings.php:4541
 msgid "select default payment method on frontend."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4542
+#: includes/class_rm_ui_strings.php:4548
 msgid "Enable New PayPal Payment Interface"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4544
+#: includes/class_rm_ui_strings.php:4550
 msgid ""
 "Enable this option to use pop-up for PayPal payments without having the users "
 "redirected away from forms."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4546
+#: includes/class_rm_ui_strings.php:4552
 msgid "PayPal Client ID"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4548
+#: includes/class_rm_ui_strings.php:4554
 msgid "Client ID can be obtained from PayPal dashboard."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4550
+#: includes/class_rm_ui_strings.php:4556
 msgid "Button Color"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4552
+#: includes/class_rm_ui_strings.php:4558
 msgid "You can change the color of button. "
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4554
+#: includes/class_rm_ui_strings.php:4560
 msgid "GOLD"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4556
+#: includes/class_rm_ui_strings.php:4562
 msgid "Blue"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4558
+#: includes/class_rm_ui_strings.php:4564
 msgid "Silver"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4560
+#: includes/class_rm_ui_strings.php:4566
 msgid "White"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4562
+#: includes/class_rm_ui_strings.php:4568
 msgid "Black"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4570
+#: includes/class_rm_ui_strings.php:4576
 msgid "Filter by time"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4572
+#: includes/class_rm_ui_strings.php:4578
 msgid "Filter by status"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4574
+#: includes/class_rm_ui_strings.php:4580
 msgid "Order Amount"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4594
+#: includes/class_rm_ui_strings.php:4600
 msgid "Add your company name to be displayed in the invoice."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4596
+#: includes/class_rm_ui_strings.php:4602
 msgid "Company Address"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4598
+#: includes/class_rm_ui_strings.php:4604
 msgid "Add your company address to be displayed in the invoice."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4600
+#: includes/class_rm_ui_strings.php:4606
 msgid "Company Contact No."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4602
+#: includes/class_rm_ui_strings.php:4608
 msgid "Add your company contact number to be displayed in the invoice."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4604
+#: includes/class_rm_ui_strings.php:4610
 msgid "Company Email"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4606
+#: includes/class_rm_ui_strings.php:4612
 msgid "Add your company email address to be displayed in the invoice."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4608
+#: includes/class_rm_ui_strings.php:4614
 msgid "VAT Number"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4610
+#: includes/class_rm_ui_strings.php:4616
 msgid "Add your company VAT to be displayed in the invoice."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4612
+#: includes/class_rm_ui_strings.php:4618
 msgid "Footer"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4614
+#: includes/class_rm_ui_strings.php:4620
 msgid "Enable the footer for the invoice.."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4616
+#: includes/class_rm_ui_strings.php:4622
 msgid "Footer Text"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4618
+#: includes/class_rm_ui_strings.php:4624
 msgid "Enter text of footer."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4620
+#: includes/class_rm_ui_strings.php:4626
 msgid "Left Margin"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4622
+#: includes/class_rm_ui_strings.php:4628
 msgid "Set PDF left margin (default: 5)."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4624
+#: includes/class_rm_ui_strings.php:4630
 msgid "Right Margin"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4626
+#: includes/class_rm_ui_strings.php:4632
 msgid "Set PDF right margin (default: 5)."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4628
+#: includes/class_rm_ui_strings.php:4634
 msgid "Top Margin"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4630
+#: includes/class_rm_ui_strings.php:4636
 msgid "Set PDF top margin (default: 5)."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4633
+#: includes/class_rm_ui_strings.php:4639
 msgid "Logo"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4635
+#: includes/class_rm_ui_strings.php:4641
 msgid "Prefered size(width: 200px, height: 150px)"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4637
+#: includes/class_rm_ui_strings.php:4643
 msgid "Enable for users"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4639
+#: includes/class_rm_ui_strings.php:4645
 msgid "Allow users to download the invoice."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4643 includes/class_rm_ui_strings.php:4647
+#: includes/class_rm_ui_strings.php:4649 includes/class_rm_ui_strings.php:4653
 msgid "Invoice font"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4645
+#: includes/class_rm_ui_strings.php:4651
 msgid "Set invoice font family."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4649
+#: includes/class_rm_ui_strings.php:4655
 msgid "Set Invoice font family."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4651
+#: includes/class_rm_ui_strings.php:4657
 msgid "Email Invoice"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4653
+#: includes/class_rm_ui_strings.php:4659
 msgid "Send invoice in an email when users complete their payment."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4657 includes/class_rm_ui_strings.php:4659
+#: includes/class_rm_ui_strings.php:4663 includes/class_rm_ui_strings.php:4665
 msgid "View Payments"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4661
+#: includes/class_rm_ui_strings.php:4667
 msgid ""
 "Add field which allows users to select active users from user drop-down list."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4663
+#: includes/class_rm_ui_strings.php:4669
 msgid "Custom Registration Status"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4665
+#: includes/class_rm_ui_strings.php:4671
 msgid "New Status"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4667
+#: includes/class_rm_ui_strings.php:4673
 msgid ""
 "You have not created any Custom Status yet. Start creating by clicking 'New "
 "Status' button above."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4671
+#: includes/class_rm_ui_strings.php:4677
 msgid "Color"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4673
+#: includes/class_rm_ui_strings.php:4679
 msgid "New Custom Status"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4679
+#: includes/class_rm_ui_strings.php:4685
 msgid "Your Submission has been updated!"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4681
+#: includes/class_rm_ui_strings.php:4687
 msgid "Submission Updated"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4683
+#: includes/class_rm_ui_strings.php:4689
 msgid "Status Filters"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4685
+#: includes/class_rm_ui_strings.php:4691
 msgid "Edit Other Statuses"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4687
+#: includes/class_rm_ui_strings.php:4693
 msgid "Show on Frontend Profile"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4689
+#: includes/class_rm_ui_strings.php:4695
 #, php-format
 msgid ""
 "Interact with other Custom Statuses. <a target='_blank' class='rm-more' "
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4691
+#: includes/class_rm_ui_strings.php:4697
 msgid "Status Action"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4693
+#: includes/class_rm_ui_strings.php:4699
 msgid "Email To User"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4695
+#: includes/class_rm_ui_strings.php:4701
 #, php-format
 msgid ""
 "Send email to User on applying this Custom Status. <a target='_blank' "
 "class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4697
+#: includes/class_rm_ui_strings.php:4703
 #, php-format
 msgid ""
 "Send email to Admin on applying this Custom Status. <a target='_blank' "
 "class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4699
+#: includes/class_rm_ui_strings.php:4705
 #, php-format
 msgid ""
 "Interact with the User account on applying this Custom Status. <a "
 "target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4701
+#: includes/class_rm_ui_strings.php:4707
 msgid "User Account Actions"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4703
+#: includes/class_rm_ui_strings.php:4709
 msgid "User Actions"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4705
+#: includes/class_rm_ui_strings.php:4711
 msgid "Email To Admin"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4707
+#: includes/class_rm_ui_strings.php:4713
 msgid "Attach Note"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4709
+#: includes/class_rm_ui_strings.php:4715
 #, php-format
 msgid ""
 "Attach Admin Note to form submission on applying this Custom Status. <a "
 "target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4711
+#: includes/class_rm_ui_strings.php:4717
 msgid "Contents of the note to be attached to the submission."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4713
+#: includes/class_rm_ui_strings.php:4719
 msgid "Blacklist"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4715
+#: includes/class_rm_ui_strings.php:4721
 #, php-format
 msgid ""
 "Block or restore access to the user for the form on applying this Custom "
 "Status. <a target='_blank' class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4717
+#: includes/class_rm_ui_strings.php:4723
 msgid ""
 "Block the user email address associated with the submission from accessing "
 "forms."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4719
+#: includes/class_rm_ui_strings.php:4725
 msgid "Block the user IP associated with the submission from accessing forms."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4721
+#: includes/class_rm_ui_strings.php:4727
 msgid ""
 "Unblock the user email address associated with the submission and allow it "
 "access to the forms."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4723
+#: includes/class_rm_ui_strings.php:4729
 msgid ""
 "Unblock the user IP associated with the submission and allow it access to the "
 "forms."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4725
+#: includes/class_rm_ui_strings.php:4731
 msgid "Contents of the email to be sent to the user."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4727
+#: includes/class_rm_ui_strings.php:4733
 msgid "Subject of the email to be sent to the user."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4729
+#: includes/class_rm_ui_strings.php:4735
 msgid "Contents of the email to be sent to the admin."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4731
+#: includes/class_rm_ui_strings.php:4737
 msgid "Subject of the email to be sent to the admin."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4737
+#: includes/class_rm_ui_strings.php:4743
 msgid "Limit by Status(es)"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4739
+#: includes/class_rm_ui_strings.php:4745
 msgid ""
 "Select the statuses which should currently be applied to past user "
 "submissions to allow the user to submit this form.Press ctrl or ⌘ (in Mac) "
 "while clicking to select multiple options."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4741
+#: includes/class_rm_ui_strings.php:4747
 msgid "Limit by Status"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4743
+#: includes/class_rm_ui_strings.php:4749
 msgid "Helptext goes here"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4745
+#: includes/class_rm_ui_strings.php:4751
 #: libs/factory/class_rm_form_factory_revamp.php:178
 msgid "Submission can not be done as it is restricted by admin."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4749
+#: includes/class_rm_ui_strings.php:4755
 #, php-format
 msgid ""
 "Label for your Custom Status. <a target='_blank' class='rm-more' "
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4751
+#: includes/class_rm_ui_strings.php:4757
 #, php-format
 msgid ""
 "Text with details of your Custom Status. <a target='_blank' class='rm-more' "
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4753
+#: includes/class_rm_ui_strings.php:4759
 #, php-format
 msgid ""
 "Color to identify your Custom Status. <a target='_blank' class='rm-more' "
 "href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4755
+#: includes/class_rm_ui_strings.php:4761
 #, php-format
 msgid ""
 "Enabling this option will show this status on the frontend user profile if "
@@ -17639,59 +17653,59 @@ msgid ""
 "class='rm-more' href='%s'>More</a>"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4757
+#: includes/class_rm_ui_strings.php:4763
 msgid "Public note"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4759
+#: includes/class_rm_ui_strings.php:4765
 msgid "Make note public"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4763
+#: includes/class_rm_ui_strings.php:4769
 msgid "Unblock IP"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4765
+#: includes/class_rm_ui_strings.php:4771
 msgid ""
 "Certain actions can be associated when applying Status to a submission. These "
 "actions are executed once, when the label is applied. Removing the label does "
 "not reverses these actions."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4767 includes/class_rm_ui_strings.php:4771
+#: includes/class_rm_ui_strings.php:4773 includes/class_rm_ui_strings.php:4777
 msgid "A field for capturing a digital signature using mouse or touchscreen."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4769 includes/class_rm_utilities.php:195
+#: includes/class_rm_ui_strings.php:4775 includes/class_rm_utilities.php:195
 msgid "Digital Signature"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4773
+#: includes/class_rm_ui_strings.php:4779
 msgid ""
 "You have successfully verified your email. Your account is now active. You "
 "can login below.\n"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4776
+#: includes/class_rm_ui_strings.php:4782
 msgid ""
 "Looks like the activation code is broken or incorrect. You can try pasting "
 "the activation code from your mail in input box below and manually verify it."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4778
+#: includes/class_rm_ui_strings.php:4784
 msgid ""
 "Sorry, the verification link has expired. Click here to resend the link "
 "{{SEND_VERIFICATION_EMAIL}}."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4780
+#: includes/class_rm_ui_strings.php:4786
 msgid ""
 "Your account has not been activated yet. Please follow the link we sent to "
 "your registered email to activate your account. If you have not received it, "
 "click here to resend the link {{SEND_VERIFICATION_EMAIL}}."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4785
+#: includes/class_rm_ui_strings.php:4791
 msgid "NO STRING FOUND"
 msgstr ""
 
@@ -18886,7 +18900,7 @@ msgid "Here is your updated password: "
 msgstr ""
 
 #: libs/factory/class_rm_field_factory.php:1042
-#: libs/factory/class_rm_form_factory_revamp.php:2521
+#: libs/factory/class_rm_form_factory_revamp.php:2523
 #: public/views/template_rm_reset_password.php:75
 msgid "This field is required"
 msgstr ""
@@ -18896,8 +18910,8 @@ msgstr ""
 msgid "Invalid price field"
 msgstr ""
 
-#: libs/factory/class_rm_field_factory_revamp.php:5890
-#: libs/factory/class_rm_field_factory_revamp.php:6745
+#: libs/factory/class_rm_field_factory_revamp.php:5897
+#: libs/factory/class_rm_field_factory_revamp.php:6752
 msgid "Loading States..."
 msgstr ""
 
@@ -18929,7 +18943,7 @@ msgid "You have reached your form submission limit"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:186
-#: libs/factory/class_rm_form_factory_revamp.php:1371
+#: libs/factory/class_rm_form_factory_revamp.php:1373
 msgid "You are banned from submitting the form."
 msgstr ""
 
@@ -18942,7 +18956,7 @@ msgid "A user with this username already exists"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:236
-#: libs/factory/class_rm_form_factory_revamp.php:695
+#: libs/factory/class_rm_form_factory_revamp.php:697
 msgid "This username is reserved/blacklisted by the admin"
 msgstr ""
 
@@ -18956,28 +18970,28 @@ msgid "Password confirmation does not match"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:268
-#: libs/factory/class_rm_form_factory_revamp.php:2524
+#: libs/factory/class_rm_form_factory_revamp.php:2526
 msgid "Password must contain an uppercase letter"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:273
-#: libs/factory/class_rm_form_factory_revamp.php:2525
+#: libs/factory/class_rm_form_factory_revamp.php:2527
 msgid "Password must contain a number"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:278
-#: libs/factory/class_rm_form_factory_revamp.php:2526
+#: libs/factory/class_rm_form_factory_revamp.php:2528
 msgid "Password must contain a special character"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:283
-#: libs/factory/class_rm_form_factory_revamp.php:2527
+#: libs/factory/class_rm_form_factory_revamp.php:2529
 #, php-format
 msgid "Password must be at least %s characters long"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:288
-#: libs/factory/class_rm_form_factory_revamp.php:2528
+#: libs/factory/class_rm_form_factory_revamp.php:2530
 #, php-format
 msgid "Password must not be longer than %s characters"
 msgstr ""
@@ -18988,247 +19002,246 @@ msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:305
 #: libs/factory/class_rm_form_factory_revamp.php:326
-#: libs/factory/class_rm_form_factory_revamp.php:369
-#: libs/factory/class_rm_form_factory_revamp.php:530
-#: libs/factory/class_rm_form_factory_revamp.php:678
+#: libs/factory/class_rm_form_factory_revamp.php:370
+#: libs/factory/class_rm_form_factory_revamp.php:532
+#: libs/factory/class_rm_form_factory_revamp.php:680
 #, php-format
 msgid "%s is a required field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:333
-#: libs/factory/class_rm_form_factory_revamp.php:376
+#: libs/factory/class_rm_form_factory_revamp.php:334
+#: libs/factory/class_rm_form_factory_revamp.php:378
 #, php-format
 msgid "%s file type is not allowed for upload."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:336
-#: libs/factory/class_rm_form_factory_revamp.php:379
+#: libs/factory/class_rm_form_factory_revamp.php:337
+#: libs/factory/class_rm_form_factory_revamp.php:381
 msgid "Invalid file upload."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:555
-#: libs/factory/class_rm_form_factory_revamp.php:576
-#: libs/factory/class_rm_form_factory_revamp.php:581
+#: libs/factory/class_rm_form_factory_revamp.php:557
+#: libs/factory/class_rm_form_factory_revamp.php:578
+#: libs/factory/class_rm_form_factory_revamp.php:583
 #, php-format
 msgid "Incorrect format provided for %s field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:565
+#: libs/factory/class_rm_form_factory_revamp.php:567
 #, php-format
 msgid "%s must be a number"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:591
+#: libs/factory/class_rm_form_factory_revamp.php:593
 #, php-format
 msgid "Incorrect Website/URL format provided for %s field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:636
-#: libs/factory/class_rm_form_factory_revamp.php:642
+#: libs/factory/class_rm_form_factory_revamp.php:638
+#: libs/factory/class_rm_form_factory_revamp.php:644
 #, php-format
 msgid "%s should have a unique value. Please try form submission again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:654
+#: libs/factory/class_rm_form_factory_revamp.php:656
 #, php-format
 msgid "%s should have more than %s characters"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:662
+#: libs/factory/class_rm_form_factory_revamp.php:664
 #, php-format
 msgid "%s should have less than %s characters"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:691
+#: libs/factory/class_rm_form_factory_revamp.php:693
 msgid "Username is a required field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:708
-#: libs/factory/class_rm_form_factory_revamp.php:717
+#: libs/factory/class_rm_form_factory_revamp.php:710
+#: libs/factory/class_rm_form_factory_revamp.php:719
 #, php-format
 msgid "User Role (%s)"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:711
+#: libs/factory/class_rm_form_factory_revamp.php:713
 msgid "Incorrect user role selected. Please try form submission again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:727
-#: libs/factory/class_rm_form_factory_revamp.php:738
+#: libs/factory/class_rm_form_factory_revamp.php:729
 msgid "reCAPTCHA check failed"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:754
+#: libs/factory/class_rm_form_factory_revamp.php:756
 msgid "No payment method selected. Please try form submission again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:808
+#: libs/factory/class_rm_form_factory_revamp.php:810
 msgid "Could not save submission in database. Please try again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1126
-#: libs/factory/class_rm_form_factory_revamp.php:1142
+#: libs/factory/class_rm_form_factory_revamp.php:1128
+#: libs/factory/class_rm_form_factory_revamp.php:1144
 msgid "Form Submission Saved"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1134
-#: libs/factory/class_rm_form_factory_revamp.php:1150
+#: libs/factory/class_rm_form_factory_revamp.php:1136
+#: libs/factory/class_rm_form_factory_revamp.php:1152
 #, php-format
 msgid "Submission Token: %s"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1172
-#: libs/factory/class_rm_form_factory_revamp.php:1176
+#: libs/factory/class_rm_form_factory_revamp.php:1174
+#: libs/factory/class_rm_form_factory_revamp.php:1178
 #, php-format
 msgid "Redirecting you to %s"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1185
+#: libs/factory/class_rm_form_factory_revamp.php:1187
 msgid "User email not provided. Please try submission again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1286
+#: libs/factory/class_rm_form_factory_revamp.php:1288
 msgid "Submission edited succesfully"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1289
+#: libs/factory/class_rm_form_factory_revamp.php:1291
 msgid "Redirecting you back to the submission details"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1292
+#: libs/factory/class_rm_form_factory_revamp.php:1294
 msgid "Invalid submission edit."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1353
+#: libs/factory/class_rm_form_factory_revamp.php:1355
 msgid "Auto login successful"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1363
-#: libs/factory/class_rm_form_factory_revamp.php:1382
+#: libs/factory/class_rm_form_factory_revamp.php:1365
+#: libs/factory/class_rm_form_factory_revamp.php:1384
 msgid "Form doesn't exist in the database"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1394
+#: libs/factory/class_rm_form_factory_revamp.php:1396
 msgid "This form has expired."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1455
+#: libs/factory/class_rm_form_factory_revamp.php:1457
 msgid "Please enter the details to complete the payment:"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1456
+#: libs/factory/class_rm_form_factory_revamp.php:1458
 msgid "Pay"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1523
+#: libs/factory/class_rm_form_factory_revamp.php:1525
 msgid "Invalid submission edit"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1854
+#: libs/factory/class_rm_form_factory_revamp.php:1856
 msgid "Offline"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1929
+#: libs/factory/class_rm_form_factory_revamp.php:1931
 msgid "Invalid form access"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2100
+#: libs/factory/class_rm_form_factory_revamp.php:2102
 #: public/class_rm_public.php:752 services/class_rm_front_form_service.php:556
 #: services/class_rm_paypal_service.php:379
 msgid "Submitted"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2110
+#: libs/factory/class_rm_form_factory_revamp.php:2112
 #: public/class_rm_public.php:765 services/class_rm_front_form_service.php:572
 #: services/class_rm_paypal_service.php:392
 msgid "(No Title)"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2256
+#: libs/factory/class_rm_form_factory_revamp.php:2258
 msgid "You need to login to access this form"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2522
+#: libs/factory/class_rm_form_factory_revamp.php:2524
 msgid "Password does not match"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2523
+#: libs/factory/class_rm_form_factory_revamp.php:2525
 msgid "Email does not match"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2529
+#: libs/factory/class_rm_form_factory_revamp.php:2531
 msgid "A user with this email already exists"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2530
+#: libs/factory/class_rm_form_factory_revamp.php:2532
 msgid "Incorrect email format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2531
+#: libs/factory/class_rm_form_factory_revamp.php:2533
 msgid "Incorrect website/URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2532
+#: libs/factory/class_rm_form_factory_revamp.php:2534
 msgid "Incorrect Facebook URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2533
+#: libs/factory/class_rm_form_factory_revamp.php:2535
 msgid "Incorrect Twitter URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2534
+#: libs/factory/class_rm_form_factory_revamp.php:2536
 msgid "Incorrect Instagram URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2535
+#: libs/factory/class_rm_form_factory_revamp.php:2537
 msgid "Incorrect LinkedIn URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2536
+#: libs/factory/class_rm_form_factory_revamp.php:2538
 msgid "Incorrect YouTube URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2537
+#: libs/factory/class_rm_form_factory_revamp.php:2539
 msgid "Incorrect VKontacte URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2538
+#: libs/factory/class_rm_form_factory_revamp.php:2540
 msgid "Incorrect Skype format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2539
+#: libs/factory/class_rm_form_factory_revamp.php:2541
 msgid "Incorrect SoundCloud URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2540
+#: libs/factory/class_rm_form_factory_revamp.php:2542
 msgid "Incorrect format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2541
-msgid "Incorrect mobile number format"
-msgstr ""
-
-#: libs/factory/class_rm_form_factory_revamp.php:2542
-#, php-format
-msgid "Value cannot be less than %s characters"
-msgstr ""
-
 #: libs/factory/class_rm_form_factory_revamp.php:2543
-#, php-format
-msgid "Value cannot be more than %s characters"
+msgid "Incorrect mobile number format"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:2544
 #, php-format
-msgid "Value cannot be less than %s"
+msgid "Value cannot be less than %s characters"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:2545
 #, php-format
-msgid "Value cannot be more than %s"
+msgid "Value cannot be more than %s characters"
 msgstr ""
 
 #: libs/factory/class_rm_form_factory_revamp.php:2546
+#, php-format
+msgid "Value cannot be less than %s"
+msgstr ""
+
+#: libs/factory/class_rm_form_factory_revamp.php:2547
+#, php-format
+msgid "Value cannot be more than %s"
+msgstr ""
+
+#: libs/factory/class_rm_form_factory_revamp.php:2548
 msgid "Please provide reCaptcha verification"
 msgstr ""
 

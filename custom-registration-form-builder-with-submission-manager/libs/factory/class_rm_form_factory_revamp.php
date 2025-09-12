@@ -329,8 +329,9 @@ final class RM_Form_Factory_Revamp {
                                     // Error for file field
                                     $file_extension = explode('.', $file_name);
                                     if(isset($file_extension[1])) {
-                                        if(!in_array(strtolower($file_extension[1]), $allowed_file_types)) {
-                                            array_push($errors, sprintf(esc_html__('%s file type is not allowed for upload.','custom-registration-form-builder-with-submission-manager'), trim(strtoupper($file_extension[1]))));
+                                        $ext = $file_extension[count($file_extension)-1];
+                                        if(!in_array(strtoupper($ext), $allowed_file_types) && !in_array(strtolower($ext), $allowed_file_types)) {
+                                            array_push($errors, sprintf(esc_html__('%s file type is not allowed for upload.','custom-registration-form-builder-with-submission-manager'), trim(strtoupper($ext))));
                                         }
                                     } else {
                                         array_push($errors, esc_html__('Invalid file upload.','custom-registration-form-builder-with-submission-manager'));
@@ -372,8 +373,9 @@ final class RM_Form_Factory_Revamp {
                                 // Error for file field
                                 $file_extension = explode('.', $file_name);
                                 if(isset($file_extension[1])) {
-                                    if(!in_array(strtolower($file_extension[1]), $allowed_file_types)) {
-                                        array_push($errors, sprintf(esc_html__('%s file type is not allowed for upload.','custom-registration-form-builder-with-submission-manager'), trim(strtoupper($file_extension[1]))));
+                                    $ext = $file_extension[count($file_extension)-1];
+                                    if(!in_array(strtoupper($ext), $allowed_file_types) && !in_array(strtolower($ext), $allowed_file_types)) {
+                                        array_push($errors, sprintf(esc_html__('%s file type is not allowed for upload.','custom-registration-form-builder-with-submission-manager'), trim(strtoupper($ext))));
                                     }
                                 } else {
                                     array_push($errors, esc_html__('Invalid file upload.','custom-registration-form-builder-with-submission-manager'));
@@ -735,7 +737,7 @@ final class RM_Form_Factory_Revamp {
                     }
                     $re_resp = rm_recaptcha_check_answer($pvt_key, $_SERVER["REMOTE_ADDR"], sanitize_text_field($sub_data["g-recaptcha-response"]));
                     if(!$re_resp->is_valid) {
-                        array_push($errors, esc_html__('reCAPTCHA check failed','custom-registration-form-builder-with-submission-manager'));
+                        array_push($errors, $re_resp->error ?? esc_html__('reCAPTCHA validation failed. Please try again.', 'custom-registration-form-builder-with-submission-manager'));
                     }
                 }
             }

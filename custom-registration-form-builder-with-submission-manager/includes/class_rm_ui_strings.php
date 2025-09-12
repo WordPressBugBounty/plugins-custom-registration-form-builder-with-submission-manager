@@ -3077,6 +3077,9 @@ class RM_UI_Strings {
             case 'LABEL_SHOW_PAYMENT_TAB':
                 return __("Show Payment Tab", 'custom-registration-form-builder-with-submission-manager');
 
+            case 'LABEL_DEFAULT_FORM':
+                return __("Registration Form", 'custom-registration-form-builder-with-submission-manager');
+
             case 'LABEL_SHOW_SUBMISSION_TAB':
                 return __("Show Registrations Tab", 'custom-registration-form-builder-with-submission-manager');
 
@@ -4356,7 +4359,10 @@ class RM_UI_Strings {
             
             case 'HIDE_MAGIC_PANEL_STYLER':
                 return __('This will hide MagicPopup styling options on frontend for Admins. If you do not plan to use MagicPopup or have configured it and no longer wish to change its style, you should check this option.', 'custom-registration-form-builder-with-submission-manager');
-                
+
+            case 'SELECT_DEFAULT_FORM_FAB':
+                return esc_html__("Select the form that will appear in the 'Register' tab of the MagicPopup.", 'custom-registration-form-builder-with-submission-manager');
+
             case 'RM_SOCIAL_ERR_ACC_UNAPPROVED':
                 return __('Please wait for admin\'s approval before you can log in.', 'custom-registration-form-builder-with-submission-manager');
                 

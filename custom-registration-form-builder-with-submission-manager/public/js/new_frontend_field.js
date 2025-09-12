@@ -13,15 +13,16 @@ jQuery(document).ready(function() {
         }
     });
 
-    if(typeof bday_min_max != 'undefined') {
-        jQuery('.bdaydatepicker').datepicker({
-            dateFormat: jQuery('.bdaydatepicker').data('dateformat'),
-            changeMonth: true,
-            changeYear: true,
-            yearRange: '1900:+50',
-            minDate: bday_min_max.min,
-            maxDate: bday_min_max.max,
-            onSelect: function (date, datepicker) { 
+    jQuery('.bdaydatepicker').each(
+        function() {
+            jQuery(this).datepicker({
+                dateFormat: jQuery(this).data('dateformat'),
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1900:+50',
+                minDate: jQuery(this).attr('required_min_range'),
+                maxDate: jQuery(this).attr('required_max_range'),
+                onSelect: function (date, datepicker) { 
                 if(date != "") {
                     jQuery(this).parent().removeClass('rmform-has-error');
                     jQuery(this).siblings('span.rmform-error-message').text('');
@@ -29,7 +30,7 @@ jQuery(document).ready(function() {
                 }
             }
         });
-    }
+    });
 });
 
 var rmReCaptchas = [];

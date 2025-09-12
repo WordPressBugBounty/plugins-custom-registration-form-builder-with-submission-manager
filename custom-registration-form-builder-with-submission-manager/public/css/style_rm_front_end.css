@@ -1411,6 +1411,12 @@ i.rm_front_field_icon {
     margin: 0px auto;
 }
 
+.rm-floating-page .rm-floating-page-content .rmformui {
+    float: none;
+    width: 94%;
+    margin: 0px auto;
+}
+
 .rmagic.rm_theme_matchmytheme.rm_layout_label_left .rmrow .rm-link-field {
     text-align: center;
 }

@@ -132,9 +132,9 @@
                     </div>
                     <!--Registration Form-->
                     <div class="dbfl" id="rm-register-panel-big">
-                        <?php if ($this->param->default_form > 0 && !is_user_logged_in()) {                           
-                                
-                            echo do_shortcode("[RM_Form force_enable_multiform='true' id='".$this->param->default_form."']");       
+                        <?php if ($this->param->default_form > 0 && !is_user_logged_in()) {
+                            //echo do_shortcode("[RM_Form force_enable_multiform='true' id='".$this->param->default_form."']");
+                            echo do_shortcode("[RM_Forms id='".$this->param->default_form."']");
                         } else {
                             echo "<div class='rm-no-default-from-notification'>". wp_kses_post((string)RM_UI_Strings::get('NO_DEFAULT_FORM'))."</div>";
                         }

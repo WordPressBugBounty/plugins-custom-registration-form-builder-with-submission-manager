@@ -191,6 +191,7 @@ class RM_Options_Controller
             $options['display_floating_action_btn'] = isset($request->req['display_floating_action_btn']) ? "yes" : null;
             $options['hide_magic_panel_styler'] = isset($request->req['hide_magic_panel_styler']) ? "yes" : null;
             $options['fab_icon'] = $request->req['fab_icon'];
+            $options['default_form_id'] = $request->req['default_form_id'];
            
             $service->set_model($model);
 
@@ -200,7 +201,7 @@ class RM_Options_Controller
         {
             $view = $this->mv_handler->setView('options_fab');
             $service->set_model($model);
-            $data = $service->get_options();            
+            $data = $service->get_options();
             $view->render($data);
         }
     }

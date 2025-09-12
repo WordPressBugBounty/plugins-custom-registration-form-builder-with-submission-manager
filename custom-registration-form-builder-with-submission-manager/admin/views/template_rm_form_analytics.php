@@ -189,7 +189,7 @@ endif;
             <?php if($stat->user_ip == '::1') { ?>
             <td><?php echo 'localhost'; ?></td>
             <?php } else { ?>
-            <td><a href='https://geoiptool.com/?ip=<?php echo esc_attr($stat->user_ip); ?>'><?php echo esc_html($stat->user_ip); ?></a></td>
+            <td><a href='https://iplocation.io/ip/<?php echo esc_attr($stat->user_ip); ?>'><?php echo esc_html($stat->user_ip); ?></a></td>
             <?php } ?>
             <td>&nbsp;
                 <?php

@@ -1292,6 +1292,16 @@ span.rm-newsletter-button a:focus {
     background-color: #F6FAFD;
 }
 
+.rmagic-cards .rmcard .rm-form-links .rm-btn-pill-wrap .rm-box-card-setting-item:first-child:hover{
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.rmagic-cards .rmcard .rm-form-links .rm-btn-pill-wrap .rm-box-card-setting-item:last-child:hover{
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
 .rmagic .rmagic-cards .rmcard .rm-limit-info {
     font-size: 11px;
     text-align: center;
@@ -6338,8 +6348,8 @@ div[class^="rm-grid-sidebar"] a.rm_deactivated {
 }
 
 #rm_pproc_config_parent_backdrop #rm_pproc_config_parent{
-    height: 100%;
-    max-height: fit-content;
+    height: fit-content;
+    max-height: 82%;
 }
 
 #rm_pproc_config_parent_backdrop.rm_config_pop_wrap .rm_pproc_config_overlay{
@@ -12544,4 +12554,26 @@ span.rm-submission-time:after {
 
 .rm-view-btn.rm-view-btn-right{
     border-radius: 0px 4px 4px 0px;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+  .rmagic #options_payment .rmrow.rm_pricefield_checkbox {
+  
+    }
+
+.rmagic #options_payment .rmrow.rm_pricefield_checkbox .rmfield,
+.rmagic #options_payment .rmrow.rm_pricefield_checkbox .rminput,
+.rmagic #options_payment .rmrow .rmnote{
+        width: 100%;
+    }
+    
+    .rmagic #options_payment .rmrow .rmnote{
+        margin-top: 6px;
+    }
+    
+    .rmagic #options_payment .rmrow .rmfield{
+      
+    }
 }

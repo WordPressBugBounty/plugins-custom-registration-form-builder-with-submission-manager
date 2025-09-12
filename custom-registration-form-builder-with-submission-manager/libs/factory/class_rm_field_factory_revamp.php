@@ -609,7 +609,7 @@ final class RM_Field_Factory_Revamp {
                     if(empty($country_field_id)) {
                         wp_add_inline_script('rm_mobile_script',"window.addEventListener('load', (event) => { if (typeof telDuplicate_" . $field->field_id . " === 'undefined') { telDuplicate_" . $field->field_id . " = true; const rmMobileEl = document.getElementById('$input_id'); var iti_" . $field->field_id . " = window.intlTelInput(rmMobileEl, {$tel_params}); rmMobileEl.addEventListener('keyup', (event) => { const check = iti_" . $field->field_id . ".isValidNumber() ? 1 : 0; rmMobileEl.dataset.validnumber = check; rmMobileEl.dataset.fullnumber = iti_" . $field->field_id . ".getNumber(intlTelInputUtils.numberFormat.E164); }); } });");
                     } else {
-                        wp_add_inline_script('rm_mobile_script',"window.addEventListener('load', (event) => { if (typeof telDuplicate_" . $field->field_id . " === 'undefined') { telDuplicate_" . $field->field_id . " = true; const rmMobileEl = document.getElementById('$input_id'); var iti_" . $field->field_id . " = window.intlTelInput(rmMobileEl, {$tel_params}); rmMobileEl.addEventListener('keyup', (event) => { const check = iti_" . $field->field_id . ".isValidNumber() ? 1 : 0; rmMobileEl.dataset.validnumber = check; rmMobileEl.dataset.fullnumber = iti_" . $field->field_id . ".getNumber(intlTelInputUtils.numberFormat.E164); }); } document.getElementById('" . $country_field_id . "').onchange = function() { var code = this.querySelector('option[value=' + this.value + ']').dataset.code; var selected_value = this.value; if(code) { iti_" . $field->field_id . ".setCountry(code); ".$force_match_js."} } });");
+                        wp_add_inline_script('rm_mobile_script',"window.addEventListener('load', (event) => { if (typeof telDuplicate_" . $field->field_id . " === 'undefined') { telDuplicate_" . $field->field_id . " = true; const rmMobileEl = document.getElementById('$input_id'); var iti_" . $field->field_id . " = window.intlTelInput(rmMobileEl, {$tel_params}); rmMobileEl.addEventListener('keyup', (event) => { const check = iti_" . $field->field_id . ".isValidNumber() ? 1 : 0; rmMobileEl.dataset.validnumber = check; rmMobileEl.dataset.fullnumber = iti_" . $field->field_id . ".getNumber(intlTelInputUtils.numberFormat.E164); }); } document.getElementById('" . $country_field_id . "').onchange = function() { var code = this.querySelector('option[value=\"' + this.value + '\"]').dataset.code; var selected_value = this.value; if(code) { iti_" . $field->field_id . ".setCountry(code); ".$force_match_js."} } });");
                     }
                 }
             }
@@ -4261,12 +4261,17 @@ final class RM_Field_Factory_Revamp {
             $attributes['placeholder'] = $field->field_options->field_placeholder;
         }
 
-        if (isset($field->field_options->field_is_required_range)) {
+        $format = "m/d/Y";
+
+        if(isset($attributes['data-dateformat']) && !empty($attributes['data-dateformat'])) {
             $format = str_replace(
                 ['dd','mm','yy'],
                 ['d','m','Y'],
                 $attributes['data-dateformat']
             );
+        }
+
+        if (isset($field->field_options->field_is_required_range)) {
             if($field->field_options->field_is_required_max_range) {
                 $max_date = DateTime::createFromFormat('m/d/Y', $field->field_options->field_is_required_max_range);
                 $attributes['required_max_range'] = $max_date->format($format);
@@ -4276,6 +4281,8 @@ final class RM_Field_Factory_Revamp {
                 $attributes['required_min_range'] = $min_date->format($format);
             }
         }
+
+        $attributes['required_max_range'] = $attributes['required_max_range'] == "" ? date($format) : $attributes['required_max_range'];
 
         if(isset($old_value)) {
             $attributes['value'] = $old_value;
@@ -4307,13 +4314,13 @@ final class RM_Field_Factory_Revamp {
 
         wp_enqueue_style( 'jquery-ui-bday', 'https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css' ); 
 
-        $bday_min_max = array(
-            'max' => $attributes['required_max_range'] == "" ? date("m/d/Y") : $attributes['required_max_range'],
-            'min' => $attributes['required_min_range'],
-        );
+        //$bday_min_max = array(
+            //'max' => $attributes['required_max_range'] == "" ? date("m/d/Y") : $attributes['required_max_range'],
+            //'min' => $attributes['required_min_range'],
+        //);
 
         wp_enqueue_script('rm-new-frontend-field', RM_BASE_URL.'public/js/new_frontend_field.js', array('jquery','jquery-ui-datepicker'));
-        wp_localize_script('rm-new-frontend-field','bday_min_max', $bday_min_max);
+        //wp_localize_script('rm-new-frontend-field','bday_min_max', $bday_min_max);
     }
 
     public function create_gender_field($field = null, $ex_sub_id = 0) {
