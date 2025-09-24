@@ -740,7 +740,7 @@ class RM_Utilities {
     }
 
     //Sends a generic mail to a given address.
-    public static function quick_email($to, $sub, $body, $mail_type = RM_EMAIL_GENERIC, array $extra_params = null) {
+    public static function quick_email($to, $sub, $body, $mail_type = RM_EMAIL_GENERIC, $extra_params = []) {
         $params = new stdClass;
         $params->type = $mail_type;
         $params->to = $to;

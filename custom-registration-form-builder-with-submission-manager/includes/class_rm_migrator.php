@@ -409,7 +409,7 @@ class RM_Migrator
         $qry = "";
         $data_mapping = $this->value_map['forms'];
         $dst_data = array();
-        $valid_options = array('form_is_opt_in_checkbox', 'form_opt_in_text', 'form_should_user_pick', 'form_is_unique_token', 'form_description', 'form_user_field_label', 'form_custom_text', 'form_success_message', 'form_email_subject', 'form_email_content', 'form_submit_btn_label', 'form_submit_btn_color', 'form_submit_btn_bck_color', 'form_expired_by', 'form_submissions_limit', 'form_expiry_date', 'form_message_after_expiry', 'mailchimp_list', 'mailchimp_mapped_email', 'mailchimp_mapped_first_name', 'mailchimp_mapped_last_name');
+        $valid_options = array('form_is_opt_in_checkbox', 'form_opt_in_text', 'form_should_user_pick', 'form_is_unique_token', 'unique_token_opt', 'form_description', 'form_user_field_label', 'form_custom_text', 'form_success_message', 'form_email_subject', 'form_email_content', 'form_submit_btn_label', 'form_submit_btn_color', 'form_submit_btn_bck_color', 'form_expired_by', 'form_submissions_limit', 'form_expiry_date', 'form_message_after_expiry', 'mailchimp_list', 'mailchimp_mapped_email', 'mailchimp_mapped_first_name', 'mailchimp_mapped_last_name');
         $dbcolumns = array('form_id', 'form_name', 'form_type', 'form_user_role', 'default_user_role', 'form_should_send_email', 'form_redirect', 'form_redirect_to_page', 'form_redirect_to_url', 'form_should_auto_expire', 'form_options', 'published_pages');
         $table_name_src = $wpdb->prefix . 'crf_forms';
         $table_name_dst = $wpdb->prefix . 'rm_forms';

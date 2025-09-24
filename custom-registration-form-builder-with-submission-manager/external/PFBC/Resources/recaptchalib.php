@@ -127,8 +127,6 @@ function rm_recaptcha_check_answer($privkey, $remoteip, $response, $extra_params
 	if ($remoteip == null || $remoteip == '') {
 		die ("For security reasons, you must pass the remote ip to reCAPTCHA");
 	}
-
-	
 	
         //discard spam submissions
         if ($response == null || strlen($response) == 0) {

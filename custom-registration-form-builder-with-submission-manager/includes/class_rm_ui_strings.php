@@ -412,6 +412,9 @@ class RM_UI_Strings {
             case 'LABEL_UNIQUE_TOKEN':
                 return __('Display a Unique Token Number', 'custom-registration-form-builder-with-submission-manager');
 
+            case 'LABEL_UNIQUE_TOKEN_OPT':
+                return __('Unique Token Type', 'custom-registration-form-builder-with-submission-manager');
+
             case 'LABEL_USER_REDIRECT':
                 return __('Redirection', 'custom-registration-form-builder-with-submission-manager');
 
@@ -1513,6 +1516,9 @@ class RM_UI_Strings {
 
             case 'HELP_ADD_FORM_UNIQUE_TOKEN':
                 return sprintf(__("A Unique Token Number/ Unique ID is assigned to the submission and also emailed to the user if auto-reply is turned on. Token number is visible in the submission records. <a target='_blank' class='rm-more' href='%s'>More</a>", 'custom-registration-form-builder-with-submission-manager'),'https://registrationmagic.com/knowledgebase/post-submission/#httokennumber');
+
+            case 'HELP_ADD_FORM_UNIQUE_TOKEN_OPT':
+                return __("System generated token will be an automatically generated unique number based on various submission parameters. Submission ID will be the unique form submission ID that is saved in the database.", 'custom-registration-form-builder-with-submission-manager');
 
             case 'HELP_ADD_FORM_REDIRECT_AFTER_SUB':
                 return sprintf(__("Redirect the user to a new page after submission (and success message). <a target='_blank' class='rm-more' href='%s'>More</a>", 'custom-registration-form-builder-with-submission-manager'),'https://registrationmagic.com/knowledgebase/post-submission/#htredirection');

@@ -63,8 +63,8 @@ global $rm_env_requirements;
         $form->addElement(new Element_TinyMCEWP("<b>" . RM_UI_Strings::get('LABEL_CONTENT_ABOVE') . "</b>", (string)$data->model->form_options->form_custom_text, "form_custom_text", array('editor_class' => 'rm_TinyMCE', 'editor_height' => '100px'), array("longDesc" => RM_UI_Strings::get('HELP_ADD_FORM_CONTENT_ABOVE_FORM'))));
 
         $form->addElement(new Element_TinyMCEWP("<b>" . RM_UI_Strings::get('LABEL_SUCC_MSG') . "</b>", $data->model->form_options->form_success_message, "form_success_message", array('editor_class' => 'rm_TinydMCE', 'editor_height' => '100px'), array("longDesc" => RM_UI_Strings::get('HELP_ADD_FORM_SUCCESS_MSG'))));
-        $form->addElement(new Element_Checkbox("<b>" . RM_UI_Strings::get('LABEL_UNIQUE_TOKEN') . "</b>", "form_is_unique_token", array(1 => ""), array("id" => "rm_", /*"value" => $data->model->form_options->form_is_unique_token,*/ "longDesc" => RM_UI_Strings::get('HELP_ADD_FORM_UNIQUE_TOKEN'))));
-        $form->addElement(new Element_Radio("<b>" . RM_UI_Strings::get('LABEL_USER_REDIRECT') . "</b>", "form_redirect", array('none' => 'None', 'page' => 'Page', 'url' => 'URL'), array("id" => "rm_", "class" => "rm_", "onclick" => "hide_show_radio(this);", /*"value" => $data->model->form_redirect? : 'none',*/ "required" => "1", "longDesc" => RM_UI_Strings::get('HELP_ADD_FORM_REDIRECT_AFTER_SUB'))));
+        $form->addElement(new Element_Checkbox("<b>" . RM_UI_Strings::get('LABEL_UNIQUE_TOKEN') . "</b>", "form_is_unique_token", array(1 => ""), array("id" => "rm_", "longDesc" => RM_UI_Strings::get('HELP_ADD_FORM_UNIQUE_TOKEN'))));
+        $form->addElement(new Element_Radio("<b>" . RM_UI_Strings::get('LABEL_USER_REDIRECT') . "</b>", "form_redirect", array('none' => 'None', 'page' => 'Page', 'url' => 'URL'), array("id" => "rm_", "class" => "rm_", "onclick" => "hide_show_radio(this);", "required" => "1", "longDesc" => RM_UI_Strings::get('HELP_ADD_FORM_REDIRECT_AFTER_SUB'))));
 
         if ($data->model->form_redirect == 'none')
             $form->addElement(new Element_HTML('<div class="childfieldsrow" id="rm__childfieldsrow" style="display:none" >'));

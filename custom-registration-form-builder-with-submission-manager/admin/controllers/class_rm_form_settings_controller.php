@@ -192,6 +192,7 @@ class RM_Form_Settings_Controller {
             $options['form_redirect_to_url'] = $request->req['form_redirect_to_url'];
             if(defined('REGMAGIC_ADDON')) {
                 $options['form_is_unique_token'] = isset($request->req['form_is_unique_token']) ? $request->req['form_is_unique_token'] : null;
+                $options['unique_token_opt'] = isset($request->req['unique_token_opt']) ? $request->req['unique_token_opt'] : 'system';
                 $options['should_export_submissions'] = isset($request->req['should_export_submissions']) ? $request->req['should_export_submissions'] : null;
                 $options['export_submissions_to_url'] = isset($request->req['export_submissions_to_url']) ? $request->req['export_submissions_to_url'] : null;
             }

@@ -948,8 +948,30 @@ final class RM_Form_Factory_Revamp {
                     }
     
                     // Token check
-                    if(!isset($form->form_options->form_is_unique_token) || absint($form->form_options->form_is_unique_token) != 1 || !defined('REGMAGIC_ADDON'))
+                    if(!defined('REGMAGIC_ADDON')) {
                         $token = null;
+                    } else if(isset($form->form_options->form_is_unique_token) && absint($form->form_options->form_is_unique_token) == 1) {
+                        if ($form->form_options->unique_token_opt == 'id') {
+                            $token = $sub_id;
+                            $wpdb->update(
+                                "{$wpdb->prefix}rm_submissions",
+                                array(
+                                    'unique_token' => $token
+                                ),
+                                array(
+                                    'submission_id' => $sub_id
+                                ),
+                                array(
+                                    '%s'
+                                ),
+                                array(
+                                    '%d'
+                                )
+                            );
+                        }
+                    } else {
+                        $token = null;
+                    }
     
                     $sub_detail = new stdClass();
                     $sub_detail->submission_id = $sub_id;
