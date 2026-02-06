@@ -210,6 +210,7 @@ class RM_Utilities {
                 "Iframe"=>__('Embed Iframe','custom-registration-form-builder-with-submission-manager')));
         }
         $field_types['Activeuser'] = __('User Drop-down','custom-registration-form-builder-with-submission-manager');
+        $field_types['Subscription'] = __('Subscription','custom-registration-form-builder-with-submission-manager');
         return apply_filters('rm_add_field_types',$field_types);
     }
     
@@ -1691,7 +1692,7 @@ class RM_Utilities {
         $fields = $service->get_all_form_fields($config['form_id']);
         $options = '';
         if (isset($config['full']))
-            echo '<select name="' . esc_attr($config['name']) . '" id="' . (isset($config['id']) ? esc_attr($config['id']) : esc_attr($config['name'])) . '" onchange="' . (isset($config['change']) ? esc_attr($config['change'].'(this)') : ' ') . '">';
+            echo '<select name="' . esc_attr($config['name']) . '" id="' . (isset($config['id']) ? esc_attr($config['id']) : esc_attr($config['name'])) . '" onchange="' . (isset($config['change']) ? esc_attr($config['change'].'(this)') : ' ') . '" required>';
         if ($fields)
             foreach ($fields as $field) {
                 if (!empty($config['exclude']) && in_array($field->field_id, $config['exclude']))
@@ -2613,7 +2614,7 @@ class RM_Utilities {
         
         $count= RM_DBManager::count('LOGIN', array('m_key'=>'validations'));
         if($count==0){
-            RM_DBManager::insert_row('LOGIN', array('m_key'=>'validations','value'=>'{"un_error_msg":"The login credentials you entered are incorrect. Please try again.","pass_error_msg":"The login credentials you entered are incorrect. Please try again.","sub_error_msg":"You must be logged in to view contents of this page.","en_recovery_link":1,"en_failed_user_notification":0,"en_failed_admin_notification":0,"en_captcha":0,"allowed_failed_attempts":3,"allowed_failed_duration":60,"en_ban_ip":0,"allowed_attempts_before_ban":6,"allowed_duration_before_ban":60,"ban_type":"temp","ban_duration":1440,"ban_error_msg":"<div style=\"font-weight: 400;\" class=\"rm-failed-ip-error\">Your IP has been banned by the Admin due to repeated failed login attempts.<\/div>","notify_admin_on_ban":1}'), array('%s','%s'));
+            RM_DBManager::insert_row('LOGIN', array('m_key'=>'validations','value'=>'{"un_error_msg":"The login credentials you entered are incorrect. Please try again.","pass_error_msg":"The login credentials you entered are incorrect. Please try again.","sub_error_msg":"You must be logged in to view contents of this page.","en_recovery_link":1,"en_failed_user_notification":0,"en_failed_admin_notification":0,"en_captcha":0,"allowed_failed_attempts":3,"allowed_failed_duration":60,"en_ban_ip":0,"allowed_attempts_before_ban":6,"allowed_duration_before_ban":60,"ban_type":"temp","ban_duration":1440,"ban_error_msg":"<div style=\"font-weight: 400;\" class=\"rm-failed-ip-error\">Your IP has been banned by the Admin due to repeated failed login attempts.<\/div>","notify_admin_on_ban":1,"disable_autocomplete":0}'), array('%s','%s'));
         }
         
         $count= RM_DBManager::count('LOGIN', array('m_key'=>'recovery'));

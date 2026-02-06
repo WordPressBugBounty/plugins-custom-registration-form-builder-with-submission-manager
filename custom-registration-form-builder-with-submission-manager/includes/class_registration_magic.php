@@ -148,6 +148,8 @@ class Registration_Magic
     {
         $rm_admin = new RM_Admin($this->get_plugin_name(), $this->get_version(), $this->get_controller());
         $rm_utilities = new RM_Utilities();
+        $this->loader->add_action('admin_init', $this, 'create_posts_pages');
+        $this->loader->add_action('admin_init', $this, 'fix_admin_menu_order');
         $this->loader->add_action('admin_enqueue_scripts', $rm_admin, 'enqueue_styles_global');
         //$this->loader->add_action('admin_enqueue_scripts', $rm_admin, 'enqueue_scripts');
         $this->loader->add_action('rm_pre_admin_template_render', $rm_admin, 'enqueue_styles');
@@ -1384,6 +1386,28 @@ class Registration_Magic
 
             RM_Email_Service::send_activation_link($user_id);
             return;
+        }
+    }
+
+    public function create_posts_pages() {
+        if(get_option('rm_create_posts_pages', false)) {
+            delete_option('rm_create_posts_pages');
+            RM_Activator::setup_submission_page();
+            RM_Activator::setup_recovery_page();
+            RM_Activator::setup_login_page();
+        }
+    }
+
+    public function fix_admin_menu_order() {
+        $enable_admin_menu = get_option('rm_option_enable_admin_order', 'no');
+        if ($enable_admin_menu === 'yes') {
+            $admin_order = get_option('rm_option_admin_order', array());
+            if (empty($admin_order) || !is_array($admin_order) || !isset($admin_order[0][0]) || empty($admin_order[0][0])) {
+                $rm_opts = new RM_Options();
+                $rm_opts->reset('admin_order');
+                $rm_opts->reset('num_hidden_menus');
+                $rm_opts->reset('inbox_badge');
+            }
         }
     }
 

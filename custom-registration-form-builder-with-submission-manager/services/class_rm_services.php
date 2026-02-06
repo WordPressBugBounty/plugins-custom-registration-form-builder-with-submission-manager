@@ -1762,7 +1762,7 @@ class RM_Services {
             throw new InvalidArgumentException("Invalid Submission ID '$sub_id'.");
     }
 
-    public function get_submissions_to_export(RM_Submission_Filter $filter, $sub_ids = array(), $form_id = null) {
+    public function get_submissions_to_export($filter, $sub_ids = array(), $form_id = null) {
         $export_data = array();
         $is_payment = false;
         $option = new RM_Options;
@@ -1810,7 +1810,8 @@ class RM_Services {
                 return false;
             if(!empty($sub_ids))
                 $submission_ids = array_intersect($submission_ids, $sub_ids);
-            $submissions = RM_DBManager::get_results_for_array('SUBMISSION_FIELDS', 'field_id', $field_ids);
+            //$submissions = RM_DBManager::get_results_for_array('SUBMISSION_FIELDS', 'field_id', $field_ids);
+            $submissions = RM_DBManager::get_sub_fields_for_array('SUBMISSION_FIELDS', 'field_id', $field_ids, 'submission_id', $submission_ids);
         } else {
             $submission_ids = RM_DBManager::get_submissions($filter,$form_id,'*','submission_id', true, 'col',false);//RM_DBManager::get_results_for_last_col($search->interval, $form_id, $search->id, $search->value);
             if (!$submission_ids)

@@ -47,20 +47,15 @@ define("RM_RECAPTCHA_VERIFY_SERVER", "https://www.google.com");
  */
 
 function _rm_recaptcha_http_get($host, $path, $data, $port = 80) {
-
-    $verifyResponse = wp_remote_get($host.$path.'?secret='.$data['secret'].'&response='.$data['response']);
-    if (!is_wp_error($verifyResponse)) {
-        $response = json_decode($verifyResponse['body']);
-    }
-    else{
-        $response = new stdClass();
-        $response->success = "0";
-    }
-    return $response;
-
+	$verifyResponse = wp_remote_get($host . $path . '?secret=' . $data['secret'] . '&response=' . $data['response']);
+	if (!is_wp_error($verifyResponse)) {
+		$response = json_decode(wp_remote_retrieve_body($verifyResponse));
+	} else {
+		$response = new stdClass();
+		$response->success = false; // "0" old value
+	}
+	return $response;
 }
-
-
 
 /**
  * Gets the challenge HTML (javascript and non-javascript version).
@@ -75,7 +70,7 @@ function _rm_recaptcha_http_get($host, $path, $data, $port = 80) {
 function rm_recaptcha_get_html($pubkey, $version, $error = null, $use_ssl = false)
 {
 	if ($pubkey == null || $pubkey == '') {
-		die ("To use reCAPTCHA you must get an API key from <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>");
+		die(wp_kses_post(sprintf(__('To use reCAPTCHA you must get an API key from <a href="%s">%s</a>', 'custom-registration-form-builder-with-submission-manager'), 'https://www.google.com/recaptcha/admin/create', 'https://www.google.com/recaptcha/admin/create')));
 	}
 	
 	if ($use_ssl) {
@@ -118,42 +113,53 @@ class RM_ReCaptchaResponse {
   * @param array $extra_params an array of extra variables to post to the server
   * @return RM_ReCaptchaResponse
   */
-function rm_recaptcha_check_answer($privkey, $remoteip, $response, $extra_params = array())
-{
+function rm_recaptcha_check_answer($version, $privkey, $remoteip, $response, $extra_params = array()) {
 	if ($privkey == null || $privkey == '') {
-		die ("To use reCAPTCHA you must get an API key from <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>");
+		die(wp_kses_post(sprintf(__('To use reCAPTCHA you must get an API key from <a href="%s">%s</a>', 'custom-registration-form-builder-with-submission-manager'), 'https://www.google.com/recaptcha/admin/create', 'https://www.google.com/recaptcha/admin/create')));
 	}
 
 	if ($remoteip == null || $remoteip == '') {
-		die ("For security reasons, you must pass the remote ip to reCAPTCHA");
+		die(esc_html__('For security reasons, you must pass the remote ip to reCAPTCHA', 'custom-registration-form-builder-with-submission-manager'));
 	}
 	
-        //discard spam submissions
-        if ($response == null || strlen($response) == 0) {
-                $recaptcha_response = new RM_ReCaptchaResponse();
-                $recaptcha_response->is_valid = false;
-                $recaptcha_response->error = esc_html__('reCAPTCHA response missing. Please try again.', 'custom-registration-form-builder-with-submission-manager');
-                return $recaptcha_response;
-        }
-        $response = _rm_recaptcha_http_get(
-                RM_RECAPTCHA_VERIFY_SERVER,
-                "/recaptcha/api/siteverify",
-                array (
-                        'secret' => $privkey,
-                        'remoteip' => $remoteip,
-                        'response' => $response
-                        ) + $extra_params
-                );
-        $recaptcha_response = new RM_ReCaptchaResponse();
+	// Discard spam submissions
+	if ($response == null || strlen($response) == 0) {
+		$recaptcha_response = new RM_ReCaptchaResponse();
+		$recaptcha_response->is_valid = false;
+		$recaptcha_response->error = esc_html__('reCAPTCHA response missing. Please try again.', 'custom-registration-form-builder-with-submission-manager');
+		return $recaptcha_response;
+	}
+	
+	$response = _rm_recaptcha_http_get(
+		RM_RECAPTCHA_VERIFY_SERVER,
+		"/recaptcha/api/siteverify",
+		array(
+			'secret' => $privkey,
+			'remoteip' => $remoteip,
+			'response' => $response
+			) + $extra_params
+	);
+	$recaptcha_response = new RM_ReCaptchaResponse();
+	$error_message = esc_html__('reCAPTCHA validation failed. Please try again.', 'custom-registration-form-builder-with-submission-manager');
 
-        if ($response->success=="1") {
-                $recaptcha_response->is_valid = true;
-        }
-        else {
-                $recaptcha_response->is_valid = false;
-                $recaptcha_response->error = esc_html__('reCAPTCHA validation failed. Please try again.', 'custom-registration-form-builder-with-submission-manager');
-        }
-        return $recaptcha_response;
-
+	if ($version == 2) {
+		if (!empty($response->success)) {
+			$recaptcha_response->is_valid = true;
+		} else {
+			$recaptcha_response->is_valid = false;
+			$recaptcha_response->error = $error_message;
+		}
+	} elseif ($version == 3) {
+		if (!empty($response->success) && $response->score >= 0.5) {
+			$recaptcha_response->is_valid = true;
+		} else {
+			$recaptcha_response->is_valid = false;
+			$recaptcha_response->error = $error_message;
+		}
+	} else {
+		$recaptcha_response->is_valid = false;
+		$recaptcha_response->error = $error_message;
+	}
+	return $recaptcha_response;
 }
 ?>

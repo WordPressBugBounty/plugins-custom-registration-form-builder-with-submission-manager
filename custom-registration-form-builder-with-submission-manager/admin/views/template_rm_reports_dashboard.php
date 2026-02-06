@@ -118,7 +118,7 @@ else{
                     </div>
 
                 </div>
- 
+                <?php do_action('rm_reports_dashboard');?>
         </div>
     </div>
 </div>

@@ -548,7 +548,12 @@
             case 'Activeuser' :
                 var object = RM_jQ(".rm_text_type_field, .rm_field_value, .rm_textarea_type, #rm_field_default_value_sortable, #rm_field_default_value_textarea").not("#rm_field_helptext_container");
                 var val_field = RM_jQ("#rm_field_value_options_textarea");
-                break;    
+            case 'Subscription' :
+                break; 
+            case 'Profilegridgroups' :
+                var object = RM_jQ(".rm_text_type_field, .rm_field_value, .rm_textarea_type, #rm_field_default_value_sortable, #rm_field_default_value_textarea").not("#rm_field_helptext_container");
+                var val_field = RM_jQ("#rm_field_value_options_textarea");
+                break;
             default :
                 var object = RM_jQ(".rm_static_field").not("#rm_field_type_select_dropdown");
                 RM_jQ("#rm_field_helptext_container").hide();

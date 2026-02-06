@@ -4,16 +4,19 @@ if (!defined('WPINC')) {
 }
 
 wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.css' );
-    
 if (!empty($data->show_otp) && defined('REGMAGIC_ADDON'))  // 2 Factor OTP form
 {
     echo '<div class="rmagic"><div class="rmcontent rm-login-wrapper">';
     $form = new RM_PFBC_Form($data->otp_form_slug);
-    $form->configure(array(
+    $configure_arr = array(
         "prevent" => array("bootstrap", "jQuery"),
         "action" => "",
-        "style" => isset($data->design['style_form'])?$data->design['style_form']:null
-    ));
+        "style" => isset($data->design['style_form'])?$data->design['style_form']:null,
+    );
+    if($data->disable_autocomplete) {
+        $configure_arr['autocomplete'] = "off";
+    }
+    $form->configure($configure_arr);
     
     if(isset($data->design['placeholder_css'])){		
         $p_css = '<style>'.str_replace("::-", ' #'.$data->otp_form_slug.' ::-', $data->design['placeholder_css']);		
@@ -60,11 +63,15 @@ else // Normal form with username and password
     }
 
     $form = new RM_PFBC_Form($data->login_form_slug);
-    $form->configure(array(
+    $configure_arr = array(
         "prevent" => array("bootstrap", "jQuery"),
         "action" => "",
-         "style" => isset($data->design['style_form'])?$data->design['style_form']:null
-    ));
+        "style" => isset($data->design['style_form'])?$data->design['style_form']:null,
+    );
+    if(isset($data->disable_autocomplete) && $data->disable_autocomplete) {
+        $configure_arr['autocomplete'] = "off";
+    }
+    $form->configure($configure_arr);
 
     if(isset($data->design['placeholder_css'])){		
         $p_css = str_replace("::-", '#'.$data->login_form_slug.' ::-', $data->design['placeholder_css']);		
@@ -161,9 +168,9 @@ else // Normal form with username and password
                     if(isset($this->field_options)){
                         $this->x_opts = (object)array('icon' => $this->field_options->icon);
                     }
-                   $form->addElement(new Element_Textbox($field['field_label'], "username", array("required" => "1","class"=>$field['field_css_class'], "minlength"=>isset($field['field_min_length'])?$field['field_min_length']:0, "maxlength"=>isset($field['field_max_length'])?$field['field_max_length']:'', "placeholder" => $field['placeholder'],'style'=>isset($data->design['style_textfield'])?$data->design['style_textfield']:null)));
+                   $form->addElement(new Element_Textbox($field['field_label'], "username", array("required" => "1","class"=>$field['field_css_class'], "minlength"=>isset($field['field_min_length'])?$field['field_min_length']:0, "maxlength"=>isset($field['field_max_length'])?$field['field_max_length']:'', "placeholder" => $field['placeholder'],'style'=>isset($data->design['style_textfield'])?$data->design['style_textfield']:null, "autocomplete" => isset($data->disable_autocomplete) && $data->disable_autocomplete ? "off" : null)));
                 } else if ($field['field_type'] == 'password') {
-                    $form->addElement(new Element_Password($field['field_label'], "pwd", array("required" => "1", "class"=>$field['field_css_class']. ' ' .'rm_login_pwd_field', "minlength"=>isset($field['field_min_length'])?$field['field_min_length']:0, "maxlength"=>isset($field['field_max_length'])?$field['field_max_length']:'', "placeholder" => $field['placeholder'],'style'=>isset($data->design['style_textfield'])?$data->design['style_textfield']:null)));
+                    $form->addElement(new Element_Password($field['field_label'], "pwd", array("required" => "1", "class"=>$field['field_css_class']. ' ' .'rm_login_pwd_field', "minlength"=>isset($field['field_min_length'])?$field['field_min_length']:0, "maxlength"=>isset($field['field_max_length'])?$field['field_max_length']:'', "placeholder" => $field['placeholder'],'style'=>isset($data->design['style_textfield'])?$data->design['style_textfield']:null, "autocomplete" => isset($data->disable_autocomplete) && $data->disable_autocomplete ? "off" : null)));
                 } else {
                     /* Get widget data in field options format to comply with existing field structure */
                     $login_model = new RM_Login_Fields();
@@ -244,7 +251,7 @@ else // Normal form with username and password
                             echo html_entity_decode(wp_kses((string)$data->linkedin_html,RM_Utilities::expanded_allowed_tags()));
                             echo html_entity_decode(wp_kses((string)$data->windows_html,RM_Utilities::expanded_allowed_tags()));
                             echo html_entity_decode(wp_kses((string)$data->twitter_html,RM_Utilities::expanded_allowed_tags()));
-                            echo html_entity_decode(wp_kses((string)$data->instagram_html,RM_Utilities::expanded_allowed_tags()));
+                            //echo html_entity_decode(wp_kses((string)$data->instagram_html,RM_Utilities::expanded_allowed_tags()));
                         }
                     ?>
                     </div>

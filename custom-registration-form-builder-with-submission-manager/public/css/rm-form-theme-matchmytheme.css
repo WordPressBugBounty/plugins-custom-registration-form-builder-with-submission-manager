@@ -146,3 +146,9 @@
 .rmform-ui.rmform-custom-form[data-style=label_left] .rmform-row .rmform-col > .rmform-field .rmform-privicy-wrap{
     width: 100%
 }
+
+
+.rmagic.rm_theme_matchmytheme.rm_layout_label_left .rmagic-row:has(.rmform-password-field-col) .rmagic-fields-wrap {
+    display: flex;
+    flex-direction: column;
+}

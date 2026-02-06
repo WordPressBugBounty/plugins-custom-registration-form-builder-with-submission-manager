@@ -51,7 +51,7 @@ class Element_Textboxsortable extends Element
         $suffix = mt_rand(1, 500);
         $this->renderSortable('start',$suffix);
         $i = 0;
-        if(is_array($this->_attributes['value']) && !empty($this->_attributes['value'])) {
+        if(isset($this->_attributes['value']) && is_array($this->_attributes['value']) && !empty($this->_attributes['value'])) {
             foreach ($this->_attributes['value'] as $key => $value)
             {
                 $this->renderSortable("prepend",$suffix);

@@ -20,20 +20,21 @@ class RM_Map_MailChimp_Controller {
     }
 
     public function get_mc_list_field() {
-        if(check_ajax_referer('rm_ajax_secure','rm_sec_nonce') && current_user_can('manage_options')) {
-            $list = sanitize_text_field($_POST['list_id']);
-            $form_id = sanitize_text_field($_POST['form_id']);
+        if (current_user_can('manage_options') || current_user_can('rm_form_managemanage_options')) {
+            if(check_ajax_referer('rm_ajax_secure','rm_sec_nonce')) {
+                $list = sanitize_text_field($_POST['list_id']);
+                $form_id = sanitize_text_field($_POST['form_id']);
 
-            $mailchimp = new RM_MailChimp_Service();       
+                $mailchimp = new RM_MailChimp_Service();       
 
-            $form = new RM_Forms;
-            $form->load_from_db($form_id);
+                $form = new RM_Forms;
+                $form->load_from_db($form_id);
 
-            $content = $mailchimp->mc_field_mapping($form_id, $form->form_options, $list);
+                $content = $mailchimp->mc_field_mapping($form_id, $form->form_options, $list);
 
-            echo wp_kses((string)$content,RM_Utilities::expanded_allowed_tags());
+                echo wp_kses((string)$content,RM_Utilities::expanded_allowed_tags());
+            }
+            die;
         }
-        die;
-    }
-    
+    }   
 }

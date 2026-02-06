@@ -64,7 +64,7 @@ window.addEventListener("load", (event) => {
                     }
                     // Validating required fields
                     if(field.hasAttribute("required")) {
-                        if(saveSub && (field.dataset.primary != '1' && field.dataset.rmfieldtype != 'price' && field.name != 'username' && field.name != 'pwd' && field.name != 'password_confirmation' && field.name != 'email_confirmation')) {
+                        if(saveSub && (field.dataset.primary != '1' && field.dataset.rmfieldtype != 'price' && field.dataset.rmfieldtype != 'subscription' && field.name != 'username' && field.name != 'pwd' && field.name != 'password_confirmation' && field.name != 'email_confirmation')) {
                             return true;
                         }
                         
@@ -374,6 +374,19 @@ window.addEventListener("load", (event) => {
                                 } else {
                                     fieldErrors.push(rmValidationJS.texts.mobileformat);
                                     valid = false;
+                                }
+                            } else if(field.dataset.fieldtype == 'File') {
+                                if(field.hasAttribute("accept") && field.getAttribute("accept") != '') {
+                                    let acceptedTypes = field.getAttribute("accept").split(',');
+                                    let fileList = field.files;
+                                    for(let f = 0; f < fileList.length; f++) {
+                                        let file = fileList[f];
+                                        let fileExt = '.' + file.name.split('.').pop().toLowerCase();
+                                        if(!acceptedTypes.includes(fileExt)) {
+                                            fieldErrors.push(rmValidationJS.texts.filetype.replace('%s', acceptedTypes.join(', ')));
+                                            valid = false;
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -2285,13 +2285,14 @@ final class RM_Field_Factory_Revamp {
                     echo "<select " . $this->print_attributes($attributes) . " >";
                     foreach(RM_Utilities_Revamp::get_countries() as $ccode => $country) {
                         $ccode = strtolower(preg_replace('/.*\[(.*)\].*/', '$1', $ccode));
-                        if (isset($meta_value['country']) && $meta_value['country'] == $country) {
-                            $attributes['checked'] = 'checked';
-                        }
                         if(empty($ccode)) {
                             echo "<option value=\"\">".esc_html($country)."</option>";
                         } else {
-                            echo "<option value=\"".esc_attr($country)."\" data-code=\"".esc_attr($ccode)."\">".esc_html($country)."</option>";
+                            if (isset($meta_value['country']) && $meta_value['country'] == $country) {
+                                echo "<option value=\"".esc_attr($country)."\" data-code=\"".esc_attr($ccode)."\" selected>".esc_html($country)."</option>";
+                            } else {
+                                echo "<option value=\"".esc_attr($country)."\" data-code=\"".esc_attr($ccode)."\">".esc_html($country)."</option>";
+                            }
                         }
                     }
                     echo "</select>";
@@ -2416,7 +2417,11 @@ final class RM_Field_Factory_Revamp {
                             if(empty($code)) {
                                 echo "<option value=\"\">".esc_html($country)."</option>";
                             } else {
-                                echo "<option value=\"".esc_attr($country)."\" data-code=\"".esc_attr($ccode)."\">".esc_html($country)."</option>";
+                                if (isset($meta_value['country']) && $meta_value['country'] == $country) {
+                                    echo "<option value=\"".esc_attr($country)."\" data-code=\"".esc_attr($ccode)."\" selected>".esc_html($country)."</option>";
+                                } else {
+                                    echo "<option value=\"".esc_attr($country)."\" data-code=\"".esc_attr($ccode)."\">".esc_html($country)."</option>";
+                                }
                             }
                         }
                         echo "</select>";
@@ -3879,22 +3884,27 @@ final class RM_Field_Factory_Revamp {
         if (!defined('REGMAGIC_ADDON')) {
             return;
         }
+
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
-
         $attributes = array(
             'type' => 'file',
             'name' => $field->field_type . '_' . $field->field_id,
             'class' => 'rmform-control',
             'aria-describedby'=>'rm-note-'.$field->field_id,
             'id' => $input_id,
-            'aria-labelledby' => $label_id
+            'aria-labelledby' => $label_id,
+            'data-fieldtype' => $field->field_type,
         );
         
         $multiple= get_option('rm_option_allow_multiple_file_uploads');
         if (isset($multiple) && $multiple == "yes") {
             $attributes['name'] = $field->field_type . '_' . $field->field_id . '[]';
             $attributes['multiple'] = 'multiple';
+        }
+        if (isset($field->field_value) && !empty($field->field_value)) {
+            $allowed_types = array_map('trim', explode('|', $field->field_value));
+            $attributes['accept'] = '.' . implode(',.', array_map('strtolower', $allowed_types));
         }
         $main_label_attributes = array(
             'for' => $input_id,
@@ -4958,6 +4968,7 @@ final class RM_Field_Factory_Revamp {
         }
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
+        $def_state = '';
 
         $field_wcb_firstname_en = $field->field_options->field_wcb_firstname_en ;
         $field_wcb_lastname_en = $field->field_options->field_wcb_lastname_en ;
@@ -5942,6 +5953,7 @@ final class RM_Field_Factory_Revamp {
 
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);
+        $def_state = '';
 
         $field_wcs_firstname_en = $field->field_options->field_wcs_firstname_en ;
         $field_wcs_lastname_en = $field->field_options->field_wcs_lastname_en ;
@@ -6891,5 +6903,197 @@ final class RM_Field_Factory_Revamp {
         //wp_enqueue_script('rm-jquery-signature');
         wp_enqueue_script('rm-jquery-touchpad', RM_BASE_URL.'public/js/jquery.ui.touch-punch.js',['jquery', 'jquery-ui-core', 'jquery-ui-mouse']);
         wp_enqueue_script('rm-jquery-signature', RM_BASE_URL.'public/js/jquery.signature.js', ['jquery', 'jquery-ui-core', 'jquery-ui-mouse'], RM_PLUGIN_VERSION, false);
+    }
+    
+    public function create_Profilegridgroups_field($field=null, $ex_sub_id = 0){
+        if(!class_exists('PM_DBhandler')){
+            return;
+        }
+        $dbhandler = new PM_DBhandler();
+        $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
+        $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
+        $meta_value = "";
+        if(!empty($ex_sub_id)) {
+            global $wpdb;
+            $old_value = $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}rm_submission_fields WHERE submission_id = %d AND field_id = %d AND form_id = %d", $ex_sub_id, $field->field_id, $field->form_id));
+        }
+        $attributes = array(
+            'name' => $field->field_type . '_' . $field->field_id.'[]',
+            'class' => 'rmform-control '. 'select_'.$field->field_id,
+            'aria-describedby'=>'rm-note-'.$field->field_id,
+            'id' => $input_id,
+            'aria-labelledby' => $label_id,
+        );
+        $main_label_attributes = array(
+            'for' => $input_id,
+            'id' => $label_id,
+            'class' => 'rmform-label'
+        );
+        if (isset($field->field_options->field_css_class)) {
+            $attributes['class'] .= " ".$field->field_options->field_css_class;
+        }
+        if (isset($field->field_options->field_placeholder)) {
+            $attributes['placeholder'] = $field->field_options->field_placeholder;
+        }
+
+        // conditional attributes
+        $attributes = $this->conditional_attributes($attributes, $field);
+
+        $icon = isset($field->field_options->icon) && $field->field_options->icon->codepoint ? $this->field_icon($field->field_options->icon) : "";
+
+        if(isset($old_value)) {
+            $meta_value = $old_value;
+        } elseif(isset($field->field_options->field_default_value)) {
+            $meta_value = $field->field_options->field_default_value;
+        }
+
+        if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
+            if ( $field->field_options->field_user_profile == 'existing_user_meta') {
+                $meta_value = get_user_meta(get_current_user_id(), $field->field_options->existing_user_meta_key, true);
+            } elseif ( $field->field_options->field_user_profile == 'define_new_user_meta') {
+                $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
+            }
+        }
+        
+        $groups   = $dbhandler->get_all_result( 'GROUPS', array( 'id', 'group_name' ) );
+        $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
+
+        if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
+            $astrick = get_option('rm_option_show_asterix');
+            if(isset($astrick) && $astrick == "yes"){
+                $label .= "<span class='rmform-req-symbol'>*</span>";
+            }
+            $attributes['required'] = 'required';
+            $attributes['aria-required'] = 'true';
+        }
+        $label .= "</label>";
+        echo $label;
+        echo "<select ".wp_kses_post($this->print_attributes($attributes))." multiple>";
+        if (isset($field->field_options->field_select_label)) {
+            $default = $field->field_options->field_select_label;
+            echo "<option value=''>".esc_html(trim($default))."</option>";
+        }
+
+        foreach($groups as $group) {
+            $group_name = trim($group->group_name);
+            if($group_name === null || $group_name === false || $group_name === '') {
+                continue;
+            }
+            if($meta_value == $group->id) {
+                echo "<option value='".esc_attr($group->id)."' selected>".esc_html($group_name)."</option>";
+            }else{
+                echo "<option value='".esc_attr($group->id)."'>".esc_html($group_name)."</option>";
+            }
+        }
+
+        echo "</select>";
+        wp_enqueue_script('rm_select2',RM_BASE_URL.'public/js/script_rm_select2.js', array('jquery'));
+        wp_enqueue_style('rm_select2',RM_BASE_URL.'public/css/style_rm_select2.css');
+        echo '<script>jQuery(document).ready(function() {jQuery(".select_'.esc_attr($field->field_id).'").select2();});</script>';
+    }
+    
+    public function create_subscription_field($field = null) {
+        if (!defined('REGMAGIC_ADDON') || !class_exists('RMSubscriptions')) {
+            return;
+        }
+        $service = new RMSubscriptions_Service();
+        
+        $selected_plans = isset($field->field_options->subscription_plans) ? maybe_unserialize($field->field_options->subscription_plans) : array();
+        
+        $checked = "";
+        $attributes = array (
+            'name' => $field->field_type . '_' . $field->field_id,
+            'class' => 'rmform-control '. 'radio_'.$field->field_id,
+            'aria-describedby'=>'rm-note-'.$field->field_id,
+            'type' => 'radio',
+            //'onchange' => 'rmToggleOtherText(this)'
+        );
+        
+        $main_label_attributes = array(
+            'class' => 'rmform-label'
+        );
+        $secondary_label_attributes = array(
+            'class' => 'rmform-label rmform-radio-check'
+        );
+
+        $icon = isset($field->field_options->icon) && $field->field_options->icon->codepoint ? $this->field_icon($field->field_options->icon) : "";
+
+        if (isset($field->field_options->field_css_class)) {
+            $attributes['class'] .= " ".$field->field_options->field_css_class;
+        }
+
+        // conditional attributes
+        $attributes = $this->conditional_attributes($attributes, $field);
+
+
+        $label = "<span ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
+        if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
+            $astrick = get_option('rm_option_show_asterix');
+            if(isset($astrick) && $astrick == "yes"){
+                $label .= "<span class='rmform-req-symbol'>*</span>";
+            }
+            $attributes['required'] = 'required';
+            $attributes['aria-required'] = 'true';
+        }
+        $label .= "</span>";
+        echo $label;
+
+        if (get_option('rm_option_form_layout', 'label_top') == "label_left") {
+            echo "<div class='rmform-control-wrap'>";
+        }
+        
+        $count = 0;
+        
+        $subscription_plans = array();
+        if(class_exists('RMSubscriptions')){
+            $subscription_plans = RMSubscriptions_DBManager::get_subscription_list_dropdown();
+            
+        }
+        $subscription_plan_exist = false;
+        if(!empty($subscription_plans) && !empty($selected_plans)){
+            foreach($subscription_plans as $plan){
+                if(in_array($plan['id'], $selected_plans)){
+                    $subscription_plan_exist = true;
+                    break;
+                }
+            }
+        }
+        
+        if(!empty($subscription_plans) && !empty($selected_plans) && !empty($subscription_plan_exist)){
+            echo "<div class='rm-subscription-cards'>";
+            foreach($subscription_plans as $plan) {
+                if(in_array($plan['id'], $selected_plans)){
+                    $plan_details = $plan['details'];
+                    
+                    $attributes['id'] = $field->field_type . '_' . $field->field_id."_".$count;
+                    $attributes['value'] = esc_attr(trim($plan['id']));
+                    $attributes['aria-labelledby'] = 'label_id_'.$field->field_type . '_' . $field->field_id.'_'.$count;
+                    
+                    echo "<label class='rmform-check' for='" . esc_attr($attributes['id']) . "'>";
+                    
+                    echo "<input ".$this->print_attributes($attributes).">";
+                    
+                    $secondary_label_attributes['id'] = 'label_id_'.$field->field_type ."_".$field->field_id.'_'.$count;
+                    echo "<div " . $this->print_attributes($secondary_label_attributes) . " >";
+                    echo "<div class='rm-sub-plan-name'>".esc_attr($plan['name'])."</div>";
+                    $service->formated_price_with_message($plan_details);
+                    
+                    echo "</div>";
+                    echo "</label>";
+                    
+                    $count++;
+                }
+            }
+            echo "</div>";
+        }
+
+        if($count){
+            echo "<div id='rm-note-".wp_kses_post((string)$field->field_id)."' class='rmform-note' style='display: none;'>".wp_kses_post((string)$field->field_options->help_text)."</div>";
+        }
+        if (get_option('rm_option_form_layout', 'label_top') == "label_left") {
+            echo "</div>";
+        }
+
+        wp_enqueue_script( 'rm-new-frontend-field', RM_BASE_URL.'public/js/new_frontend_field.js', array('jquery','jquery-ui-datepicker'));
     }
 }

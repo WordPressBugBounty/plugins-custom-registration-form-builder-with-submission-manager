@@ -49,35 +49,45 @@ if(!in_array($rm_status, array('all', 'active', 'pending'))) {
     $rm_status = 'all';
 }
 
-$all_active_users_query = new WP_User_Query(
-    array(
-        'fields'=>'ID',
-        'meta_query' => array(
+$all_active_users = $data->total_users;
+$all_deactive_users = $data->total_users;
+$all_user_count = $data->total_users;
+if ($data->total_users < 5000) {
+    if ($rm_status === 'all' || $rm_status === 'pending') {
+        $all_active_users_query = new WP_User_Query(
             array(
-                'key' => 'rm_user_status',
-                'value' => '1',
-                'compare' => '!='
-            ),
-        )
-    )
-);
-$all_active_users = $all_active_users_query->get_total();
-$all_deactive_users_query = new WP_User_Query(
-    array(
-        'fields'=>'ID',
-        'meta_query' => array(
-            array(
-                'key' => 'rm_user_status',
-                'value' => '1',
-                'compare' => '='
+                'fields'=>'ID',
+                'meta_query' => array(
+                    array(
+                        'key' => 'rm_user_status',
+                        'value' => '1',
+                        'compare' => '!='
+                    ),
+                )
             )
-        )
-    )
-);
-$all_deactive_users = $all_deactive_users_query->get_total();
-
-global $wpdb;
-$all_user_count = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->users}");
+        );
+        $all_active_users = absint($all_active_users_query->get_total());
+    }
+    if ($rm_status === 'all' || $rm_status === 'active') {
+        $all_deactive_users_query = new WP_User_Query(
+            array(
+                'fields'=>'ID',
+                'meta_query' => array(
+                    array(
+                        'key' => 'rm_user_status',
+                        'value' => '1',
+                        'compare' => '='
+                    )
+                )
+            )
+        );
+        $all_deactive_users = absint($all_deactive_users_query->get_total());
+    }
+    if ($rm_status === 'active' || $rm_status === 'pending') {
+        global $wpdb;
+        $all_user_count = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->users}");
+    }
+}
 
 global $wp_roles;
 $all_roles = $wp_roles->roles;
@@ -113,20 +123,16 @@ $user_ids = array();
                     <input type="submit" id="search-submit" class="button" onclick="rm_user_search();" value="<?php esc_html_e('Search Users','custom-registration-form-builder-with-submission-manager');?>">
                 </p>
                 
-                
-                
                 <ul class="subsubsub">
                     <input type="hidden" name="rm_status" value="<?php echo $rm_status; ?>">
                     <input type="hidden" name="rm_slug" value="" id="rm_slug_input_field"/>
                     <input type="hidden" name="page" value="rm_user_manage"/>
                     <input type="hidden" name="rm_sort" value="<?php echo isset($_GET['rm_sort']) && in_array($_GET['rm_sort'], array('latest','oldest','0toz','zto0')) ? sanitize_text_field($_GET['rm_sort']) : 'latest';?>"/>
-                    <li class="all"><a href="?page=rm_user_manage" class="<?php if ($rm_status == 'all') { echo 'current';} ?>" aria-current="page"><?php esc_html_e('All','custom-registration-form-builder-with-submission-manager'); ?> <span class="count">(<?php echo absint($all_user_count); ?>)</span></a> |</li>
-                    <li class="active"><a href="?page=rm_user_manage&rm_status=active" class="<?php if ($rm_status == 'active') { echo 'current';} ?>"><?php esc_html_e('Active','custom-registration-form-builder-with-submission-manager'); ?> <span class="count">(<?php echo absint($all_active_users); ?>)</span></a> |</li>
-                    <li class="pending"><a href="?page=rm_user_manage&rm_status=pending" class="<?php if ($rm_status == 'pending') { echo 'current';} ?>"><?php esc_html_e('Inactive','custom-registration-form-builder-with-submission-manager'); ?> <span class="count">(<?php echo absint($all_deactive_users); ?>)</span></a></li>
+                    <li class="all"><a href="?page=rm_user_manage" class="<?php if ($rm_status == 'all') { echo 'current';} ?>" aria-current="page"><?php esc_html_e('All','custom-registration-form-builder-with-submission-manager'); ?> <?php if($data->total_users < 5000) { ?><span class="count">(<?php echo esc_html($all_user_count); ?>)</span><?php } ?></a> |</li>
+                    <li class="active"><a href="?page=rm_user_manage&rm_status=active" class="<?php if ($rm_status == 'active') { echo 'current';} ?>"><?php esc_html_e('Active','custom-registration-form-builder-with-submission-manager'); ?> <?php if($data->total_users < 5000) { ?><span class="count">(<?php echo esc_html($all_active_users); ?>)</span><?php } ?></a> |</li>
+                    <li class="pending"><a href="?page=rm_user_manage&rm_status=pending" class="<?php if ($rm_status == 'pending') { echo 'current';} ?>"><?php esc_html_e('Inactive','custom-registration-form-builder-with-submission-manager'); ?> <?php if($data->total_users < 5000) { ?><span class="count">(<?php echo esc_html($all_deactive_users); ?>)</span><?php } ?></a></li>
                 </ul>
-             
 
-         
                 <div class="tablenav top rm-tablenav-top">
                     <div class="alignleft actions bulkactions">
                         <label for="bulk-action-selector-top"  class="screen-reader-text"><?php _e('Select bulk action', 'custom-registration-form-builder-with-submission-manager'); ?></label>
@@ -617,7 +623,7 @@ $user_ids = array();
 
     <pre class="rm-pre-wrapper-for-script-tags"><script type="text/javascript">
         jQuery(document).ready(function(e){
-            <?php if($user_ids){?>
+            <?php if($user_ids && $all_user_count < 5000){?>
                 var data = {
                     'action': 'rm_user_additional_details',
                     'rm_slug'  : 'rm_user_additional_details',

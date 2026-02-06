@@ -43,7 +43,7 @@ class Element_RichText extends Element
                     }
                 }
             }
-            echo '<div '.wp_kses_post((string)$style_str).' class="rm_form_field_type_richtext',$this->_attributes["class"]? ' '.esc_attr($this->_attributes["class"]):null,'">';
+            echo '<div ' . wp_kses_post((string)$style_str) . ' class="rm_form_field_type_richtext' . ($this->_attributes["class"] ? ' ' . esc_attr($this->_attributes["class"]) : '') . '">';
         }
         if($type === "append")
             echo '</div>';

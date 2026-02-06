@@ -3,8 +3,8 @@ Contributors: registrationmagic, metagauss, registrationmagicforms
 Donate link: http://registrationmagic.com/
 Tags: user registration, registration, WooCommerce registration form, payment form, event registration
 Requires at least: 5.2
-Tested up to: 6.8
-Stable tag: 6.0.6.2
+Tested up to: 6.9
+Stable tag: 6.0.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -398,6 +398,53 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.0.7.5: January 22 2026 =
+* Major security improvements.
+* Minor bug fixes.
+
+= 6.0.7.4: January 19 2026 =
+* Minor bug fixes.
+
+= 6.0.7.3: January 19 2026 =
+* Fixed: Admin menu visibility issue.
+
+= 6.0.7.2: January 16 2026 =
+* Security improvements.
+* Multiple major bug fixes.
+
+= 6.0.7.1: January 5 2026 =
+* Security improvements.
+* Minor bug fixes.
+
+= 6.0.7.0: December 23 2025 =
+* Security improvements.
+* Minor bug fixes.
+
+= 6.0.6.9: December 13 2025 =
+* Minor improvements.
+
+= 6.0.6.8: December 8 2025 =
+* Security improvements.
+
+= 6.0.6.7: November 25 2025 =
+* Fixed: Widget rendering issue with Elementor.
+* Minor bug fixes.
+
+= 6.0.6.6: November 11 2025 =
+* Minor bug fixes.
+
+= 6.0.6.5: October 28 2025 =
+* Minor bug fixes.
+
+= 6.0.6.4: October 17 2025 =
+* Minor UI improvements & bug fixes.
+
+= 6.0.6.3: October 6 2025 =
+* New: Added option to turn off autocomplete for Login Form. (Premium Only)
+* Fixed: Error on exporting selected form submissions. (Premium Only)
+* Security improvements.
+* Minor bug fixes.
 
 = 6.0.6.2: September 24 2025 =
 * New: Added option to set submission token to the submission ID. (Premium Only)
@@ -1512,52 +1559,54 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * Fixed: Cancel button redirection from Global Setting options.
 * Fixed: Plugin's WooCommerce My Account page template removed for better translation support. (Premium Only).
 
-= 4.3.2.6 =
-* Improved help texts.
-* Map field issue in Multipage forms (Premium).
-* Login/Logout redirection filters added.
-* Role based redirection issue.
-
-= 4.3.2.5 =
-* CSS Improvements.
-* Material icon issue fixed.
-* Front end js code bug fixed.
-* WordPress 5.0 compatibility.
-
-= 4.3.2.4 =
-* Constant contact integration discontinued. (Premium only)
-* Help page changes.
-
-= 4.3.2.3 =
-* Improved: Login error message handling.
-* Improved: CSS Optimization.
-* Improved: Outlook SMTP compatibility.
-* Improved: Submission verification page appearance.
-* Improved: Helptexts.
-* Improved: provisional account activation. (Premium Only)
-
-= 4.3.2.2 =
-* Link fixes
-* Password strength JS variables fix
-
-= 4.3.2.1 =
-* Fixed: Submission countdown widget for fresh installation.
-* Fixed: Conditional field Radio button.
-* Fixed: Conditional field with 'contains' operator.
-* Improved: Token number visible after form submission. (Premium Only)
-* Fixed: reCaptcha visible on WooCommerce checkout and MyAccount page.
-* Fixed: Form fields won't be visible within My Account if guest checkout is enabled. (Premium Only)
-* Compatibility fixes and other improvements.
-
-= 4.3.2.0 =
-* Reduced plugin size with Image optimization.
-* CSS fixes and optimizations
-* SVG replacement for front-end icon font.
-* Fixed: Conflict with User Submitted Post plugin.
-* Fixed: Duplicate cron issue.
-* New: Aweber Integration.
-
 == Upgrade Notice ==
+
+= 6.0.7.5: January 22 2026 =
+* Major security improvements.
+* Minor bug fixes.
+
+= 6.0.7.4: January 19 2026 =
+* Minor bug fixes.
+
+= 6.0.7.3: January 19 2026 =
+* Fixed: Admin menu visibility issue.
+
+= 6.0.7.2: January 16 2026 =
+* Security improvements.
+* Multiple major bug fixes.
+
+= 6.0.7.1: January 5 2026 =
+* Security improvements.
+* Minor bug fixes.
+
+= 6.0.7.0: December 23 2025 =
+* Security improvements.
+* Minor bug fixes.
+
+= 6.0.6.9: December 13 2025 =
+* Minor improvements.
+
+= 6.0.6.8: December 8 2025 =
+* Security improvements.
+
+= 6.0.6.7: November 25 2025 =
+* Fixed: Widget rendering issue with Elementor.
+* Minor bug fixes.
+
+= 6.0.6.6: November 11 2025 =
+* Minor bug fixes.
+
+= 6.0.6.5: October 28 2025 =
+* Minor bug fixes.
+
+= 6.0.6.4: October 17 2025 =
+* Minor UI improvements & bug fixes.
+
+= 6.0.6.3: October 6 2025 =
+* New: Added option to turn off autocomplete for Login Form. (Premium Only)
+* Fixed: Error on exporting selected form submissions. (Premium Only)
+* Security improvements.
+* Minor bug fixes.
 
 = 6.0.6.2: September 24 2025 =
 * New: Added option to set submission token to the submission ID. (Premium Only)

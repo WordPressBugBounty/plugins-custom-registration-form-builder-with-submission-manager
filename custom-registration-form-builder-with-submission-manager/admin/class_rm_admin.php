@@ -475,9 +475,8 @@ class RM_Admin {
                 $roles = wp_roles()->roles;
 
                 $admin_order = $gopts->get_value_of('enable_admin_order') == 'yes' ? $gopts->get_value_of('admin_order') : $gopts->default['admin_order'];
-
+                $admin_order = apply_filters('rm_admin_menu_order_list',$admin_order, $gopts);
                 $role_top_admin = array("administrator");
-
                 foreach ($admin_order as $value) {
 
                     foreach ( $roles as $role_slug => $role ) {
@@ -485,7 +484,6 @@ class RM_Admin {
                         $rm_role = get_role( $role_slug );
 
                         if (in_array( $role_slug, $value[2] )){
-
                             if ( ! $rm_role->has_cap( $value[0]."manage_options" ) ) {
 
                                 $rm_role->add_cap( $value[0]."manage_options" );
@@ -803,6 +801,10 @@ class RM_Admin {
 
                                 do_action("rm_admin_menu_after_field_stats",$value[0]);
 
+                            } elseif ($value[0] == 'rm_subscriptions') {
+                                // attachments menu
+                                do_action("rm_admin_menu_after_automation",$value[0], $value[3]);
+                                
                             } elseif ($value[0] == 'rm_analytics_show_form') {
 
                                 // Analytics > FORMS
@@ -1121,6 +1123,10 @@ class RM_Admin {
 
                                     // do_action("rm_admin_menu_after_field_stats","");
 
+                                }  elseif ($value[0] == 'rm_subscriptions') {
+                                    // attachments menu
+                                    do_action("rm_admin_menu_after_automation",$value[0], $value[3]);
+                                
                                 } elseif ($value[0] == 'rm_analytics_show_form') {
 
                                     // Analytics > FORMS
@@ -1170,7 +1176,7 @@ class RM_Admin {
 
                                     // setting
 
-                                    add_submenu_page("rm_form_manage", RM_UI_Strings::get('ADMIN_MENU_SETTINGS'), RM_UI_Strings::get('ADMIN_MENU_SETTINGS'), "manage_options", "rm_options_manage", array($this->get_controller(), 'run'));
+                                    add_submenu_page(current_user_can('manage_options') ? "rm_form_manage" : "rm_dummy_string", RM_UI_Strings::get('ADMIN_MENU_SETTINGS'), RM_UI_Strings::get('ADMIN_MENU_SETTINGS'), "manage_options", "rm_options_manage", array($this->get_controller(), 'run'));
 
                                     // setting options
 
@@ -2332,8 +2338,6 @@ class RM_Admin {
 
         }
 
-
-
         ?>
 
         <?php if($php_notice!=0): ?>
@@ -2350,20 +2354,6 @@ class RM_Admin {
 
         <?php endif; ?>
 
-        <?php /* if($php_8_notice != 0 && isset($_GET['page']) && $_GET['page'] == 'rm_form_manage'):
-
-            if(version_compare(PHP_VERSION, '8.0.0', '>=')): ?>
-
-            <div id="rm-php-notice-warning" class="rm_admin_notice rm-notice-banner notice notice-warning is-dismissible">
-
-                <p><?php _e( 'You are using PHP 8. RegistrationMagic currently does not supports PHP 8 and you might see some unwanted errors or warnings. We are working on PHP 8 compatibility update and it will be available very soon.','custom-registration-form-builder-with-submission-manager'); ?> <a class="rm_dismiss" href="<?php echo esc_url($query_string).'rm_disable_php_8_notice=1' ?>"><?php _e('Dismiss','custom-registration-form-builder-with-submission-manager'); ?></a></p>
-
-            </div>
-
-            <?php endif;
-
-        endif; */ ?>
-
         <?php if($edd_notice!=0 &&  class_exists( 'Easy_Digital_Downloads')): ?>
 
             <div class="rm_admin_notice rm-notice-banner notice notice-success is-dismissible">
@@ -2374,8 +2364,6 @@ class RM_Admin {
 
         <?php endif; ?>
 
-
-
         <?php if($wc_notice!=0 && class_exists( 'WooCommerce' )): ?>
 
             <div class="rm_admin_notice rm-notice-banner notice notice-success is-dismissible">
@@ -2384,6 +2372,18 @@ class RM_Admin {
 
             </div>
 
+        <?php endif;
+
+        $modern_paypal = get_option('rm_option_paypal_modern_enable', false);
+        $p_client_id = get_option('rm_option_paypal_client_id', '');
+        $p_client_secret = get_option('rm_option_paypal_secret_key', '');
+        if($modern_paypal && !empty($p_client_id) && empty($p_client_secret)): ?>
+            <div class="rm_admin_notice_banner rm-notice-banner notice notice-error">
+                <p style="vertical-align:middle;">
+                    <span style="color:#d63638;font-size:20px;" aria-hidden="true">&#9888;&#65039;</span>
+                    <?php echo wp_kses_post(sprintf(__( '<strong>Your PayPal Secret Key</strong> is required to receive payments with RegistrationMagic form submissions. Please <strong>update your PayPal Secret Key</strong> from the <a href="%s">Payment Settings</a> to continue receiving payments.','custom-registration-form-builder-with-submission-manager'), esc_url(admin_url('admin.php?page=rm_options_payment')))); ?>
+                </p>
+            </div>
         <?php endif;
 
         if (function_exists('is_multisite') && is_multisite()) {

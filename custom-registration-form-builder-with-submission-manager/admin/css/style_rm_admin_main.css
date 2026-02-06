@@ -2586,6 +2586,10 @@ i#id_show_selected_icon.material-icons {
     width: 87%;
 }
 
+.rmagic .rm-address-field-row.rm-address-field-col2 .rm-address-field textarea#rm_field_ca_country_limited{
+    width: 86.45%;
+}
+
 .rmagic .rmagic .rm-address-field-row .rm-address-field label {
     outline: 0px;
     margin-top: 5px;
@@ -10240,32 +10244,6 @@ ul.form_temp .form_temp_bullet .rm-temp-header-title {
         max-width: 20%;
     }
 }
-
-@media (min-width: 400px){
-    .rmagic.rm-all-forms .rm-box-col-md-3 {
-        -ms-flex: 0 0 100%;
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
-}
-
-
-@media (min-width: 768px){
-    .rmagic.rm-all-forms .rm-box-col-md-3 {
-        -ms-flex: 0 0 33.3%;
-        flex: 0 0 33.3%;
-        max-width: 33.3%;
-    }
-}
-
-@media (min-width: 1024px){
-    .rmagic.rm-all-forms .rm-box-col-md-3 {
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
-    }
-}
-
 
 /* Reports----*/
 

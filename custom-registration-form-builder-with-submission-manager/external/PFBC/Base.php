@@ -97,7 +97,10 @@ abstract class Base {
     }
 
     public function setAttribute($attribute, $value) {
-        if(isset($this->_attributes))
-            $this->_attributes[$attribute] = $value;
+        if(isset($this->_attributes)) {
+            if(!is_null($value)) {
+                $this->_attributes[$attribute] = $value;
+            }
+        }
     }
 }

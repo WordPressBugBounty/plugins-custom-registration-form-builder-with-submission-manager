@@ -215,7 +215,7 @@ class RM_Login_Controller{
                         return;
                     }
                     require_once(RM_EXTERNAL_DIR . "PFBC/Resources/recaptchalib.php");
-                    $recaptcha_response = rm_recaptcha_check_answer(get_option('rm_option_recaptcha_v') === 'v2' ? get_option('rm_option_private_key') : get_option('rm_option_private_key3'), $_SERVER["REMOTE_ADDR"], sanitize_text_field($_POST["g-recaptcha-response"]));
+                    $recaptcha_response = rm_recaptcha_check_answer(get_option('rm_option_recaptcha_v') === 'v3' ? 3 : 2, get_option('rm_option_recaptcha_v') === 'v3' ? get_option('rm_option_private_key3') : get_option('rm_option_private_key'), $_SERVER["REMOTE_ADDR"], sanitize_text_field($_POST["g-recaptcha-response"]));
                     if (!$recaptcha_response->is_valid) {
                         echo $recaptcha_response->error;
                         return;

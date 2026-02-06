@@ -277,10 +277,10 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                 <div class="rm-grid-sidebar-card dbfl">
                     <a href="javascript:void(0)" class="fd_sub_link">
                     <div class="rm-grid-card-profile-image dbfl">
-                        <?php echo get_avatar($login_detail->email)?get_avatar($login_detail->email):'<img src="'.esc_url(RM_IMG_URL).'default_person.png">'; ?>
+                        <?php echo get_avatar((string)$login_detail->email) ? wp_kses_post(get_avatar((string)$login_detail->email)) : '<img src="' . esc_url(RM_IMG_URL) . 'default_person.png">'; ?>
                     </div>
                     <div class="rm-grid-card-content difl">
-                        <?php $user = get_user_by( 'email', $login_detail->email ); ?>
+                        <?php $user = get_user_by( 'email', (string)$login_detail->email ); ?>
                         <div class="dbfl"><?php echo $user ? esc_html((string)$user->display_name) : esc_html((string)$login_detail->email); ?></div>
                         <div class="rm-grid-card-content-subtext dbfl"><?php echo esc_html(date('F d Y @ g:i a',strtotime((string)$login_detail->time))); ?></div></div>
                     </a>

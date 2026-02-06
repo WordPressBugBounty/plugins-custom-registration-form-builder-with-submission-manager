@@ -224,7 +224,7 @@ class RM_Job_Manager {
         $fields = array();
 
         foreach ($email_fields as $field) {
-            if ($field->field_type != 'Price' && $field->field_type != 'HTMLH' && $field->field_type != 'File' && $field->field_type != 'HTMLP' && $field->field_type != 'Terms') {
+            if ($field->field_type != 'Price' && $field->field_type != 'Subscription' && $field->field_type != 'HTMLH' && $field->field_type != 'File' && $field->field_type != 'HTMLP' && $field->field_type != 'Terms') {
                 $fields[] = $field;
             }
         }

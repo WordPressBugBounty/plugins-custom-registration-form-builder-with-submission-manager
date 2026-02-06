@@ -323,11 +323,23 @@ class RM_Public {
     }
 
     public function rm_user_form_render($attribute) {
+        if(isset($attribute['id'])) {
+            $form_id = absint($attribute['id']);
+        } else {
+            ob_start();
+            esc_html_e('Form ID is required to render the form.','custom-registration-form-builder-with-submission-manager');
+            return ob_get_clean();
+        }
+
+        RM_DBManager::add_form_published_pages($form_id, get_the_ID());
+
+        // Load new shortcode if form has rows
+        if (!empty(RM_DBManager::get_rows_by_form_id($form_id))) {
+            return $this->rm_new_form_render($attribute);
+        }
+
         $this->enqueue_styles();
         $this->enqueue_scripts();
-        if(isset($attribute['id'])) {
-            RM_DBManager::add_form_published_pages(absint($attribute['id']),get_the_ID());
-        }
         $attribute = apply_filters('rm_before_form_render', $attribute);
         if ( isset($attribute['block']) && !empty($attribute['block']) ) {
             ob_start();
@@ -346,7 +358,6 @@ class RM_Public {
             $html = ob_get_clean();
             return $html;
         }
-        $form_id = absint($attribute['id']);
         $xml_loader = defined('REGMAGIC_ADDON') ? RM_XML_Loader::getInstance(RM_ADDON_INCLUDES_DIR . 'rm_config.xml') : RM_XML_Loader::getInstance(RM_INCLUDES_DIR . 'rm_config.xml');
         $request = new RM_Request($xml_loader);
         $request->setReqSlug('rm_user_form_process', true);

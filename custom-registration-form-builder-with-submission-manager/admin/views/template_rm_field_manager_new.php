@@ -158,12 +158,21 @@ if($data->total_page > 1)
                     <div class="rm-field-row-delete rm-field-action-item rm-field-row-action" title="<?php _e('Delete Row', 'custom-registration-form-builder-with-submission-manager'); ?>"><a onclick="CallRowDeleteBox(this)" data-form-id="<?php echo esc_attr($data->form_id); ?>" data-row-id="<?php echo esc_attr($row->row_id); ?>"><span class="material-icons">delete</span></a></div>
                     
                 </div>
+                <?php $is_subscription_added = 0;
+                    $is_product_added = 0;
+                ?>    
                 <!--<div class="rm-fields-dragable">-->
                 <?php foreach ($row->fields as $field_order => $field) { ?>
                 <?php if (!empty($field)) {
                         $is_privacy_added = 0;
                         if($field->field_type=='Privacy') {
                             $is_privacy_added = 1;
+                        }
+                        if($field->field_type=='Subscription') {
+                            $is_subscription_added = 1;
+                        }
+                        if($field->field_type=='Price') {
+                            $is_product_added = 1;
                         }
                         $f_options = maybe_unserialize($field->field_options);
                         if (isset($f_options->field_is_multiline) && $f_options->field_is_multiline == 1) {

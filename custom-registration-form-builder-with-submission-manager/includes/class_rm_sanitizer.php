@@ -39,8 +39,11 @@ class RM_Sanitizer
                     if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET' && !isset($_REQUEST['page'])) {
                         $request[$key] = $this->sanitize_query_elements($value);
                     } else {
-                        if(isset($request['rm_slug']) && $request['rm_slug'] == 'rm_login_form' && ($key == 'username' || $key == 'pwd'))
+                        if(isset($request['rm_slug']) && $request['rm_slug'] == 'rm_login_form' && ($key == 'username' || $key == 'pwd')) {
                             continue;
+                        } else if (isset($request['rm_form_sub_id']) && $request['rm_form_sub_id'] === 'rm_reset_password_form' && ($key === 'password' || $key === 'confirm_password')) {
+                            continue;
+                        }
                         $request[$key] = wp_kses_post((string)$value);
                     }
                     // Confirming integer values for variables that should be integers
@@ -71,6 +74,9 @@ class RM_Sanitizer
 
     public function sanitize_all_requests($page,$request)
     {
+        if (is_array($page)) {
+            $page = implode('', $page);
+        }
         $sanitize_method = 'get_sanitized_' . strtolower($page) . '_page';
         $sanitize_array = array();
         foreach($request as $key=>$value)

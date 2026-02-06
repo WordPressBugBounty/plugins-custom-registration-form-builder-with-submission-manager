@@ -21,27 +21,30 @@ class RM_Note_Controller
         $this->mv_handler = new RM_Model_View_Handler();
     }
 
-    public function add($model, RM_Note_Service $service, $request, $params)
-    {
-        if(defined('REGMAGIC_ADDON')) {
-            $addon_controller = new RM_Note_Controller_Addon();
-            return $addon_controller->add($model, $service, $request, $params, $this);
+    public function add($model, RM_Note_Service $service, $request, $params) {
+        if (current_user_can('manage_options') || current_user_can('rm_submission_managemanage_options')) {
+            if(defined('REGMAGIC_ADDON')) {
+                $addon_controller = new RM_Note_Controller_Addon();
+                return $addon_controller->add($model, $service, $request, $params, $this);
+            }
+            return true;
         }
-        return true;
     }
 
-    public function remove($model, /* RM_Services */ $service, $request, $params)
-    {
-        return true;
+    public function remove($model, /* RM_Services */ $service, $request, $params) {
+        if (current_user_can('manage_options') || current_user_can('rm_submission_managemanage_options')) {
+            return true;
+        }
     }
 
-    public function delete($model, /* RM_Services */ $service, $request, $params)
-    {
-        if(defined('REGMAGIC_ADDON')) {
-            $addon_controller = new RM_Note_Controller_Addon();
-            return $addon_controller->delete($model, $service, $request, $params);
+    public function delete($model, /* RM_Services */ $service, $request, $params) {
+        if (current_user_can('manage_options') || current_user_can('rm_submission_managemanage_options')) {
+            if(defined('REGMAGIC_ADDON')) {
+                $addon_controller = new RM_Note_Controller_Addon();
+                return $addon_controller->delete($model, $service, $request, $params);
+            }
+            return true;
         }
-        return true;
     }
 
 }

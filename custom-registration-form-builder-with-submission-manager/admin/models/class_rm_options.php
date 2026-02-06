@@ -39,6 +39,7 @@ class RM_Options
             array("rm_form_manage_cstatus",'Custom Status',array("administrator") ,"visible","false"),
             array("rm_ex_chronos_manage_tasks",'Automation',array("administrator") ,"visible","false"),
             array("rm_invitations_manage",'Bulk Email',array("administrator") ,"visible","false"),
+            array("rm_subscriptions",'Subscriptions',array("administrator") ,"visible","false"),
             array("rm_user_manage",'User Manager',array("administrator") ,"visible","false"),
             array("rm_user_role_manage",'User Roles',array("administrator") ,"visible","false"),
             array("rm_paypal_field_manage",'Products',array("administrator") ,"visible","false"),
@@ -353,6 +354,7 @@ class RM_Options
             'openai_api_limit'=>'',
             'gpt_model'=> '',
             'openai_api_reset_limit'=> '',
+            'paypal_secret_key'=>'',
         );
     }
 

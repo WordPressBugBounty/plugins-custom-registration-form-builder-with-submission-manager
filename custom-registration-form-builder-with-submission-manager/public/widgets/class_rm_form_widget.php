@@ -15,7 +15,23 @@ class RM_Form_Widget extends WP_Widget
             __('RegistrationMagic Form', 'custom-registration-form-builder-with-submission-manager'), // Name
             array('description' => __('Attaches RegistrationMagic form.', 'custom-registration-form-builder-with-submission-manager'),) // Args
         );
+        add_action('wp_enqueue_scripts', array($this, 'register_assets'));
     }
+    
+    public function register_assets() {
+        wp_enqueue_style(RM_PLUGIN_BASENAME, RM_BASE_URL . 'public/css/style_rm_front_end.css', array(), RM_PLUGIN_VERSION, 'all');
+        wp_enqueue_style('rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.css', array(), RM_PLUGIN_VERSION, 'all');
+        $theme = get_option('rm_option_theme','default');
+        
+        if(in_array($theme,array('default','classic','matchmytheme'))) {
+            wp_enqueue_style('rm-form-revamp-theme', RM_BASE_URL . "public/css/rm-form-theme-{$theme}.css", array(), RM_PLUGIN_VERSION);
+        } else {
+            wp_enqueue_style('rm-form-revamp-theme', RM_BASE_URL . "public/css/rm-form-theme-custom.css", array(), RM_PLUGIN_VERSION);
+        }
+        wp_enqueue_style('rm-form-revamp-style', RM_BASE_URL . 'public/css/rm-form-common-utility.css', array(), RM_PLUGIN_VERSION);
+        
+    }
+    
     /**
      * Front-end display of widget.
      *

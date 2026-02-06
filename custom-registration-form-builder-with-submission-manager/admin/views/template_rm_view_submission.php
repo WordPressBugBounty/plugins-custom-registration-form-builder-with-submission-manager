@@ -157,10 +157,10 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                             //if submitted data is array print it in more than one row.
 
                             if (is_array($sub_data)) {
-
-                                //If submitted data is a file.
-
-                                if (isset($sub_data['rm_field_type']) && $sub_data['rm_field_type'] == 'File') {
+                                $additional_fields = apply_filters('rm_additional_fields', array());
+                                if(in_array($sub->type, $additional_fields)){
+                                    echo wp_kses_post(do_action('rm_additional_fields_data',$sub->type, $sub_data));
+                                }elseif (isset($sub_data['rm_field_type']) && $sub_data['rm_field_type'] == 'File') {
                                     unset($sub_data['rm_field_type']);
 
                                     foreach ($sub_data as $sub) {
@@ -211,7 +211,7 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                             } else {
                                 $additional_fields = apply_filters('rm_additional_fields', array());
                                 if(in_array($sub->type, $additional_fields)){
-                                    echo do_action('rm_additional_fields_data',$sub->type, $sub_data);
+                                    echo wp_kses_post(do_action('rm_additional_fields_data',$sub->type, $sub_data));
                                 }
                                 elseif($sub->type == 'Rating')
                                 {

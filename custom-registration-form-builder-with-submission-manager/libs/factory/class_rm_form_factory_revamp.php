@@ -61,12 +61,12 @@ final class RM_Form_Factory_Revamp {
         $form->rows = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_rows WHERE form_id = %d ORDER BY page_no, row_order ASC", $form_id));
         if($prefilled) {
             if(current_user_can('manage_options')) {
-                $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type != 'Price' AND is_field_primary = 0", $form_id), OBJECT_K);
+                $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type NOT IN ('Price', 'Subscription') AND is_field_primary = 0", $form_id), OBJECT_K);
             } else {
                 if(isset($form->form_options->save_submission_enabled) && !empty($form->form_options->save_submission_enabled) && defined('RM_SAVE_SUBMISSION_BASENAME')) {
-                    $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type != 'Price' AND is_field_primary = 0", $form_id), OBJECT_K);
+                    $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type NOT IN ('Price', 'Subscription') AND is_field_primary = 0", $form_id), OBJECT_K);
                 } else {
-                    $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type != 'Price' AND is_field_primary = 0 AND field_is_editable = 1", $form_id), OBJECT_K);
+                    $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type NOT IN ('Price', 'Subscription') AND is_field_primary = 0 AND field_is_editable = 1", $form_id), OBJECT_K);
                 }
             }
         } else {
@@ -79,6 +79,9 @@ final class RM_Form_Factory_Revamp {
         $password = null;
         $errors = array();
         $has_price = false;
+        $has_subscription = false;
+        $subscription_id = null;
+        $subscription_data = new stdClass();
         $pricing_details = new stdClass();
         $pricing_details->billing = array();
         $pricing_details->total_price = 0.00;
@@ -420,7 +423,7 @@ final class RM_Form_Factory_Revamp {
                             if($form->fields[$field_id]->field_type == 'PGAvatar') {
                                 $user_meta_fields[$profile_meta_arr[$form->fields[$field_id]->field_type]] = $data_block->value[0];
                             } else {
-                                $file_meta_key = $form->fields[$field_id]->field_options->field_user_profile == 'existing_user_meta' ? $form->fields[$field_id]->field_options->existing_user_meta_key : ($form->fields[$field_id]->field_options->field_user_profile == 'define_new_user_meta' ? $form->fields[$field_id]->field_options->field_meta_add : null);
+                                $file_meta_key = isset($form->fields[$field_id]->field_options->field_user_profile) && $form->fields[$field_id]->field_options->field_user_profile == 'existing_user_meta' ? $form->fields[$field_id]->field_options->existing_user_meta_key : (isset($form->fields[$field_id]->field_options->field_user_profile) && $form->fields[$field_id]->field_options->field_user_profile == 'define_new_user_meta' ? $form->fields[$field_id]->field_options->field_meta_add : null);
                                 if(!empty($file_meta_key)) {
                                     if(count($data_block->value) > 2) {
                                         foreach($data_block->value as $key => $value) {
@@ -527,6 +530,23 @@ final class RM_Form_Factory_Revamp {
                                     break;
                             }
                         }
+                    }else if($form->fields[$field_id]->field_type == 'Subscription'){
+                        if (defined('REGMAGIC_ADDON') && class_exists('RMSubscriptions')) {
+                            if(isset($sub_data[$field_name])){
+                                $has_subscription = true;
+                                $subscription_id = $sub_data[$field_name];
+                                $subscription_data->id = $subscription_id;
+
+                                $data_block->label = $form->fields[$field_id]->field_label;
+                                $data_block->value = $sub_data[$field_name];
+                                $data_block->type = $form->fields[$field_id]->field_type;
+                                $data_block->meta = null;
+                                $db_data[$field_id] = $data_block;
+                            }
+                        }
+                        
+                        
+                        
                     } else if($form->fields[$field_id]->field_type == 'DigitalSign'){
                         if(defined('REGMAGIC_ADDON') && isset($sub_data[$field_name]) && absint($form->fields[$field_id]->field_options->field_is_required) == 1 && empty($sub_data[$field_name])) {
                             array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
@@ -657,10 +677,10 @@ final class RM_Form_Factory_Revamp {
                                     }
                                 }
                             }
-
+                            
                             if(isset($form->fields[$field_id]->field_options->field_max_length) && !empty($form->fields[$field_id]->field_options->field_max_length)) {
                                 if(!is_array($sub_data[$field_name])) {
-                                    if(strlen($sub_data[$field_name]) > absint($form->fields[$field_id]->field_options->field_max_length)) {
+                                    if(strlen(str_replace(array("\n", "\r", "\r\n"), "", $sub_data[$field_name])) > absint($form->fields[$field_id]->field_options->field_max_length)) {
                                         array_push($errors, sprintf(esc_html__('%s should have less than %s characters', 'custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label, $form->fields[$field_id]->field_options->field_max_length));
                                     }
                                 }
@@ -669,10 +689,12 @@ final class RM_Form_Factory_Revamp {
                             // Adding values to user meta array
                             if(in_array($form->fields[$field_id]->field_type, array('Fname','Lname','BInfo','Nickname','Website','SecEmail','PGAvatar'))) {
                                 $user_meta_fields[$profile_meta_arr[$form->fields[$field_id]->field_type]] = $data_block->value;
-                            } else if($form->fields[$field_id]->field_options->field_user_profile == 'existing_user_meta') {
-                                $user_meta_fields[$form->fields[$field_id]->field_options->existing_user_meta_key] = $data_block->value;
-                            } else if($form->fields[$field_id]->field_options->field_user_profile == 'define_new_user_meta') {
-                                $user_meta_fields[$form->fields[$field_id]->field_options->field_meta_add] = $data_block->value;
+                            } else if(isset($form->fields[$field_id]->field_options->field_user_profile)) {
+                                if ($form->fields[$field_id]->field_options->field_user_profile == 'existing_user_meta') {
+                                    $user_meta_fields[$form->fields[$field_id]->field_options->existing_user_meta_key] = $data_block->value;
+                                } else if ($form->fields[$field_id]->field_options->field_user_profile == 'define_new_user_meta') {
+                                    $user_meta_fields[$form->fields[$field_id]->field_options->field_meta_add] = $data_block->value;
+                                }
                             }
 
                             if(!$save_submission) {
@@ -735,7 +757,7 @@ final class RM_Form_Factory_Revamp {
                     } elseif($captcha_ver == 'v3') {
                         $pvt_key = get_option('rm_option_private_key3');
                     }
-                    $re_resp = rm_recaptcha_check_answer($pvt_key, $_SERVER["REMOTE_ADDR"], sanitize_text_field($sub_data["g-recaptcha-response"]));
+                    $re_resp = rm_recaptcha_check_answer($captcha_ver == 'v3' ? 3 : 2, $pvt_key, $_SERVER["REMOTE_ADDR"], sanitize_text_field($sub_data["g-recaptcha-response"]));
                     if(!$re_resp->is_valid) {
                         array_push($errors, $re_resp->error ?? esc_html__('reCAPTCHA validation failed. Please try again.', 'custom-registration-form-builder-with-submission-manager'));
                     }
@@ -770,7 +792,12 @@ final class RM_Form_Factory_Revamp {
                 }
             }
         }
-
+        if(!empty($has_subscription) && !empty($subscription_id)){
+            if((!isset($sub_data['rm_payment_method']) || empty($sub_data['rm_payment_method']))) {
+                esc_html_e("No payment method selected. Please try form submission again.", 'custom-registration-form-builder-with-submission-manager');
+                return false;
+            }
+        }
         // Inserting submission data in the database
         if(!$prefilled) {
             if(!empty($user_email)) {
@@ -884,7 +911,7 @@ final class RM_Form_Factory_Revamp {
                                 }
                                 RM_Email_Service::send_activation_link($user_id);
                             } */
-                           if($user_setting == 'yes' && $pricing_details->total_price <= 0) {
+                           if($user_setting == 'yes' && ( $pricing_details->total_price <= 0 && empty($has_subscription))) {
                                 do_action('rm_user_activated',$user_id);
                                 update_user_meta($user_id, 'rm_user_status', 0);
                                 update_user_meta($user_id, 'rm_activation_time', current_time('mysql'));
@@ -907,7 +934,7 @@ final class RM_Form_Factory_Revamp {
                                 if($send_act_email == 'yes' || $send_act_email == false)
                                     RM_Email_Service::notify_admin_to_activate_user($params);
                             }
-                        } elseif($form->form_options->user_auto_approval == 'yes' && $pricing_details->total_price <= 0) {
+                        } elseif($form->form_options->user_auto_approval == 'yes' && ( $pricing_details->total_price <= 0 && empty($has_subscription))) {
                             do_action('rm_user_activated',$user_id);
                             update_user_meta($user_id, 'rm_user_status', 0);
                             update_user_meta($user_id, 'rm_activation_time', current_time('mysql'));
@@ -1160,6 +1187,31 @@ final class RM_Form_Factory_Revamp {
                                 }
                             }
                         }
+                    }else if(!empty($has_subscription) && !empty($subscription_id)) {
+                        $payment_processor = $sub_data['rm_payment_method'];
+
+                        $form_factory = defined('REGMAGIC_ADDON') ? new RM_Form_Factory_Addon() : new RM_Form_Factory();
+                            $form_obj = $form_factory->create_form($form_id);
+                            $req_obj = new stdClass();
+                            $req_obj->req = $sub_data;
+                            $data->form_id = $form_id;
+                            $data->form_name = $form->form_name;
+                            $data->submission_id = $sub_id;
+                            $data->user_email = $user_email;
+                            $data->sub_detail = $sub_detail;
+                            $data->paystate = 'pre_payment';
+                            $data->user_email = $user_email;
+                            if(absint($form->form_type) == RM_REG_FORM){
+                                $data->user_id = $user_id;
+                            }
+                            $payment_done = false;
+                            $payment_done = apply_filters('rm_process_subscription_payment', $payment_done, $form_obj, $req_obj, $data, $subscription_data);
+
+                            $payment_html = $payment_done;
+                            if(isset($payment_html['html'])) {
+                                echo $payment_html['html'];
+                                return;
+                            }
                     } else {
                         // Displaying post submission message
                         if($save_submission) {
@@ -1439,7 +1491,7 @@ final class RM_Form_Factory_Revamp {
                 }
 
                 $price_fields = 0;
-
+                $subscription_enabled = 0;
                 // Handling Paypal redirect after payment
                 if (isset($_GET['rm_pproc'], $_GET['rm_fid'], $_GET['rm_fno'], $rm_form_diary[$form_id], $_GET['sh'])
                     && $_GET['rm_fid'] == $form_id && $_GET['rm_fno'] == $rm_form_diary[$form_id]) {
@@ -1561,12 +1613,12 @@ final class RM_Form_Factory_Revamp {
             $form->rows = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_rows WHERE form_id = %d ORDER BY page_no, row_order ASC", $form_id));
             if($prefilled) {
                 if(current_user_can('manage_options')) {
-                    $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type != 'Price' AND is_field_primary = 0", $form_id), OBJECT_K);
+                    $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type NOT IN ('Price', 'Subscription') AND is_field_primary = 0", $form_id), OBJECT_K);
                 } else {
                     if(isset($form->form_options->save_submission_enabled) && !empty($form->form_options->save_submission_enabled) && defined('RM_SAVE_SUBMISSION_BASENAME')) {
-                        $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type != 'Price' AND is_field_primary = 0", $form_id), OBJECT_K);
+                        $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type NOT IN ('Price', 'Subscription') AND is_field_primary = 0", $form_id), OBJECT_K);
                     } else {
-                        $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type != 'Price' AND is_field_primary = 0 AND field_is_editable = 1", $form_id), OBJECT_K);
+                        $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d AND field_type NOT IN ('Price', 'Subscription') AND is_field_primary = 0 AND field_is_editable = 1", $form_id), OBJECT_K);
                     }
                 }
             } else {
@@ -1586,7 +1638,7 @@ final class RM_Form_Factory_Revamp {
                     '1:1:1:1' => array(3,3,3,3)
                 );
                 echo "<div class='rmformui'>";
-                echo "<div id='rm-form-container' class='rmform-design--".wp_kses_post((string)$theme)."-container'>";
+                echo "<div id='rm-form-container' class='rmform-design--".esc_attr((string)$theme)."-container'>";
                 // Displaying errors
                 if(!empty($errors) && is_array($errors)) {
                     echo "<div id='rm-form-errors' class='rmform-errors-message'>";
@@ -1705,7 +1757,14 @@ final class RM_Form_Factory_Revamp {
                             if($field->field_type == 'Price') {
                                 $price_fields++;
                             }
-
+                            if($field->field_type == 'Subscription') {
+                                if (defined('REGMAGIC_ADDON') && class_exists('RMSubscriptions')) {
+                                   $subscription_enabled = 1;
+                                }else{
+                                    $subscription_enabled = 0;
+                                }
+                                
+                            }
                             if($field->field_type == 'Username') {
                                 $error_span_id = 'username-error';
                             } else if($field->field_type == 'UserPassword') {
@@ -1851,8 +1910,63 @@ final class RM_Form_Factory_Revamp {
                         echo "<input type='hidden' name='rm_prefilled' value='1'>";
                         echo "<input type='hidden' name='rm_slug' value='rm_user_form_edit_sub'>";
                     }
+                    //Adding Payment Gateway for Subscriptions
+                    if($price_fields  == 0 && !empty($subscription_enabled)) {
+                        $payment_gateways = get_option('rm_option_payment_gateway');
+                        if(!empty($payment_gateways)){
+                            if(in_array('offline',$payment_gateways)){
+                                unset($payment_gateways[array_search ('offline', $payment_gateways)]);
+                            }
+                            if(in_array('anet',$payment_gateways)){
+                                unset($payment_gateways[array_search ('anet', $payment_gateways)]);
+                            }
+                            if(in_array('rm_wepay',$payment_gateways)){
+                                unset($payment_gateways[array_search ('rm_wepay', $payment_gateways)]);
+                            }
+                        }
+                        if(empty($payment_gateways)) {
+                            esc_html_e('No payment gateway enabled. Please enable a payment gateway to process payment.', 'custom-registration-form-builder-with-submission-manager'); 
+                            //return;
+                        } else {
+                            if(!defined('REGMAGIC_ADDON')) {
+                                $payment_gateways = array("paypal");
+                            }
+                            $def_proc = get_option('rm_option_default_payment_method');
+                            $def_proc = empty($def_proc) ? 'paypal' : $def_proc;
+                            if(get_option("rm_option_hide_pay_selector")) {
+                                echo "<div id='rm_form_payment_selector' class='rmform-payment-selector'>";
+                                echo "<div class='rm_payment_options'>";
+                                echo "<div class='rmform-payment-option'>";
+                                echo "<input type='hidden' id='rm_gateway_".wp_kses_post((string)$def_proc)."' value='".wp_kses_post((string)$def_proc)."' name='rm_payment_method'>";
+                                echo "</div>";
+                            } else {
+                                $pay_procs_options = array(
+                                    "paypal" => "<img src='" . RM_IMG_URL . "/paypal-logo.png" . "'></img>",
+                                    "stripe" => "<img src='" . RM_IMG_URL . "/stripe-logo.png" . "'></img>",
+                                );
+                                
+                                echo "<div id='rm_form_payment_selector' class='rmform-payment-selector'>";
+                                echo "<label class='rmform-label'>".esc_html__("Select a payment method", 'custom-registration-form-builder-with-submission-manager')."<sup class='required'>&nbsp;*</sup></label>";
+                                echo "<div class='rm_payment_options'>";
+                                foreach($payment_gateways as $gateway) {
+                                    $gateway = $gateway == 'anet' ? 'anet_sim' : $gateway;
+                                    $def_proc = $def_proc == 'anet' ? 'anet_sim' : $def_proc;
+                                    echo "<div class='rmform-payment-option'>";
+                                    if($gateway == $def_proc) {
+                                        echo "<input type='radio' id='rm_gateway_".wp_kses_post((string)$gateway)."' value='".wp_kses_post((string)$gateway)."' name='rm_payment_method' checked>";
+                                    } else {
+                                        echo "<input type='radio' id='rm_gateway_".wp_kses_post((string)$gateway)."' value='".wp_kses_post((string)$gateway)."' name='rm_payment_method'>";
+                                    }
+                                    echo "<label for='rm_gateway_".wp_kses_post((string)$gateway)."'>".wp_kses_post($pay_procs_options[$gateway])."</label>";
+                                    echo "</div>";
+                                }
+                            }
+                            echo "</div>";
+                            echo "</div>";
+                        }
+                    }
                     // Adding payment gateway selector field
-                    if($price_fields > 0) {
+                    if($price_fields > 0 && empty($subscription_enabled)) {
                         $payment_gateways = get_option('rm_option_payment_gateway');
 
                         if(empty($payment_gateways)) {
@@ -1891,6 +2005,17 @@ final class RM_Form_Factory_Revamp {
                                     }
                                     echo "<label for='rm_gateway_".wp_kses_post((string)$gateway)."'>".wp_kses_post($pay_procs_options[$gateway])."</label>";
                                     echo "</div>";
+                                    if ($gateway === 'paypal') {
+                                        $modern_paypal = get_option('rm_option_paypal_modern_enable', false);
+                                        $client_id = get_option('rm_option_paypal_client_id', '');
+                                        $client_secret = get_option('rm_option_paypal_secret_key', '');
+                                        if ($modern_paypal && !empty($client_id) && empty($client_secret)) {
+                                            echo "<div class='rm-paypal-modern-notice' style='background:#fff3cd;color:#856404;border:1px solid #ffeeba;padding:12px 16px;margin:10px 0;border-radius:4px;display:flex;align-items:center;font-weight:500;font-size:15px;'>"
+                                                ."<span style='margin-right:10px;display:inline-flex;align-items:center;'><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='#ff0000ff'/><path d='M12 8v4m0 4h.01' stroke='#ffffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg></span>"
+                                                .esc_html__('PayPal payment gateway isn\'t fully configured. Payments may not get updated correctly. Please contact site administrator to resolve this issue.', 'custom-registration-form-builder-with-submission-manager')
+                                                ."</div>";
+                                        }
+                                    }
                                 }
                             }
                             if(isset($form->form_options->show_total_price[0]) && $form->form_options->show_total_price[0] == 1) {
@@ -2563,6 +2688,7 @@ final class RM_Form_Factory_Revamp {
                 'scformat' => esc_html__("Incorrect SoundCloud URL format", 'custom-registration-form-builder-with-submission-manager'),
                 'customformat' => esc_html__("Incorrect format", 'custom-registration-form-builder-with-submission-manager'),
                 'mobileformat' => esc_html__("Incorrect mobile number format", 'custom-registration-form-builder-with-submission-manager'),
+                'filetype' => esc_html__("Invalid file type. Allowed types: %s", 'custom-registration-form-builder-with-submission-manager'),
                 'minlength' => esc_html__("Value cannot be less than %s characters", 'custom-registration-form-builder-with-submission-manager'),
                 'maxlength' => esc_html__("Value cannot be more than %s characters", 'custom-registration-form-builder-with-submission-manager'),
                 'minnum' => esc_html__("Value cannot be less than %s", 'custom-registration-form-builder-with-submission-manager'),
@@ -2572,7 +2698,7 @@ final class RM_Form_Factory_Revamp {
         ));
     }
 
-    private static function is_username_reserved($username_to_check) {
+    private function is_username_reserved($username_to_check) {
         if(empty($username_to_check))
             return false;
 
@@ -2587,7 +2713,7 @@ final class RM_Form_Factory_Revamp {
             return false;
     }
 
-    private static function show_subscription_checkboxes($form = null) {
+    private function show_subscription_checkboxes($form = null) {
         if(get_option('rm_option_enable_mailchimp') == 'yes' && $form->form_options->form_is_opt_in_checkbox == 1 && (isset($form->form_options->enable_mailchimp[0]) && $form->form_options->enable_mailchimp[0] == 1)) {
             //This outer div is added so that the optin text can be made full width by CSS.
             echo '<div class="rm_optin_text rm-subscription-wrap">';

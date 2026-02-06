@@ -421,8 +421,10 @@ if(!empty($data->filter->filters['rm_dateupto'])) {
                                                                                         $sub_val = $sub_data[absint($form_field->field_id)]->value;
                                                                                         //if submitted data is array print it in more than one row.
                                                                                         if (is_array($sub_val)) {
-                                                                                            //If submitted data is a file.
-                                                                                            if (isset($sub_val['rm_field_type']) && $sub_val['rm_field_type'] == 'File') {
+                                                                                            $additional_fields = apply_filters('rm_additional_fields', array());
+                                                                                            if(in_array($sub_data[absint($form_field->field_id)]->type, $additional_fields)){
+                                                                                                echo wp_kses_post(do_action('rm_additional_fields_data',$sub_data[absint($form_field->field_id)]->type, $sub_data));
+                                                                                            }elseif (isset($sub_val['rm_field_type']) && $sub_val['rm_field_type'] == 'File') {
                                                                                                 unset($sub_val['rm_field_type']);
                                                                                                 foreach ($sub_val as $sub) {
                                                                                                     $att_path = get_attached_file($sub);
@@ -468,7 +470,7 @@ if(!empty($data->filter->filters['rm_dateupto'])) {
                                                                                         } else {
                                                                                             $additional_fields = apply_filters('rm_additional_fields', array());
                                                                                             if(in_array($sub_data[absint($form_field->field_id)]->type, $additional_fields)){
-                                                                                                echo do_action('rm_additional_fields_data',$sub_data[absint($form_field->field_id)]->type, $sub_data);
+                                                                                                echo wp_kses_post(do_action('rm_additional_fields_data',$sub_data[absint($form_field->field_id)]->type, $sub_data));
                                                                                             }
                                                                                             elseif($sub_data[absint($form_field->field_id)]->type == 'Rating')
                                                                                             {

@@ -20,6 +20,9 @@ $type= $data->type; $options= $data->options; ?>
             "prevent" => array("bootstrap", "jQuery"),
             "action" => ""
         ));
+
+        // Nonce
+        $form->addElement(new Element_Hidden("social_login_nonce", wp_create_nonce("social_login_nonce")));
         
         if($type=='fb'){
             if(RM_Utilities::is_ssl()){

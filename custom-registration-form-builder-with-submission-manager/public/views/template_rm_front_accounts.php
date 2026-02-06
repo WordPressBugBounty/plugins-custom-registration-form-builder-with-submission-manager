@@ -140,7 +140,10 @@ if ($data->is_user) {
                                     <div class="rm-user-field-value">
                                         <?php
                                         if (is_array($meta) || is_object($meta)) {
-                                            if (isset($meta['rm_field_type']) && $meta['rm_field_type'] == 'File') {
+                                            $additional_fields = apply_filters('rm_additional_fields', array());
+                                            if(in_array($sub->type, $additional_fields)){
+                                                echo wp_kses_post(do_action('rm_additional_fields_data',$sub->type, $sub->value));
+                                            }elseif (isset($meta['rm_field_type']) && $meta['rm_field_type'] == 'File') {
                                                 unset($meta['rm_field_type']);
 
                                                 foreach ($meta as $sub) {
@@ -184,7 +187,7 @@ if ($data->is_user) {
                                         } else {
                                             $additional_fields = apply_filters('rm_additional_fields', array());
                                             if(in_array($sub->type, $additional_fields)){
-                                                echo do_action('rm_additional_fields_data',$sub->type, $sub->value);
+                                                echo wp_kses_post(do_action('rm_additional_fields_data',$sub->type, $sub->value));
                                             }
                                             elseif ($sub->type == 'Rating') {
                                                 if(defined('REGMAGIC_ADDON')) {

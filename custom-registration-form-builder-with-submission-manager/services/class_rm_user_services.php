@@ -799,7 +799,7 @@ FB.api('/me',{fields: 'first_name,email'}, function (response) {
                         }
                     }
                 } else
-                    die('Error: Unable to fetch email address from Facebbok.');
+                    die(esc_html__('Error: Unable to fetch email address from Facebook.', 'custom-registration-form-builder-with-submission-manager'));
             }
         }
 
@@ -869,6 +869,7 @@ FB.api('/me',{fields: 'first_name,email'}, function (response) {
                 if(empty($accessToken))
                     break;
 
+                
                 $gopts = new RM_Options;
                 $fb_app_id = $gopts->get_value_of('facebook_app_id');
                 $fb_app_secret = $gopts->get_value_of('facebook_app_secret');
@@ -884,7 +885,7 @@ FB.api('/me',{fields: 'first_name,email'}, function (response) {
             case 'google':
                 $login_success = $this->google_login_callback(sanitize_text_field($_POST['token']), $user_email);
                 break;
-            case 'instagram':
+            /* case 'instagram':
                 $response = wp_remote_get('https://graph.instagram.com/v12.0/me?fields=id,username&access_token='.sanitize_text_field($_POST['token']));
                 $response = json_decode(wp_remote_retrieve_body($response));
                 if(isset($response->username)) {
@@ -892,7 +893,7 @@ FB.api('/me',{fields: 'first_name,email'}, function (response) {
                     $user_fname = '';
                     $login_success = true;
                 }
-                break;
+                break; */
             default:
                 break;
         }

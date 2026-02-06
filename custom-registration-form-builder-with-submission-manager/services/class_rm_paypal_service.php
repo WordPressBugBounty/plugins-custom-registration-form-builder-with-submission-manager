@@ -321,23 +321,23 @@ class RM_Paypal_Service implements RM_Gateway_Service
         return $data; //We do not want form redirect to work in case paypal processing is going on.
     }
     
-    public function process_paypal_sdk_payment(){
-        
+    public function process_paypal_sdk_payment() {
         if(check_ajax_referer('rm_ajax_secure','rm_sec_nonce')) {
-            if(!isset($_POST['transaction'])|| !is_array($_POST['transaction']) ){
+            if(!isset($_POST['transaction']) || !is_array($_POST['transaction']) ) {
                 wp_send_json_error(array('msg'=>__('Transaction not valid.','custom-registration-form-builder-with-submission-manager')));
             }
             $submission_id= isset($_POST['submission_id']) ? absint($_POST['submission_id']) : 0;
             empty($submission_id) ? wp_send_json_error(array('msg'=>__('Submission not valid.','custom-registration-form-builder-with-submission-manager'))) : '';
             $submission = new RM_Submissions();
-            if(!$submission->load_from_db($submission_id)){
+            if(!$submission->load_from_db($submission_id)) {
                 wp_send_json_error(array('msg'=>__('Submission not valid.','custom-registration-form-builder-with-submission-manager')));
             }
             $transaction = $_POST['transaction'];
             $log_id = isset($_POST['payment_id']) ? absint($_POST['payment_id']) : 0;
-            $status = isset($transaction['status']) ? strtolower($transaction['status']) : 'Pending';
-            $status = ucfirst($status);
+            //$status = isset($transaction['status']) ? strtolower($transaction['status']) : 'Pending';
+            //$status = ucfirst($status);
             $txn_id = isset($transaction['id']) ? $transaction['id'] : '';
+            $status = $this->validate_sdk_payment( $txn_id );
             $log_entry_id = RM_DBManager::update_row('PAYPAL_LOGS', $log_id, array(
                         'status' => $status,
                         'txn_id' => $txn_id,
@@ -351,7 +351,6 @@ class RM_Paypal_Service implements RM_Gateway_Service
             }
             if($status == 'Completed') {
                 if ($_POST['user_id']){
-                    $gopt = new RM_Options;
                     if ($check_setting == "yes"){
                         $user_service = new RM_User_Services();
                         $user_service->activate_user_by_id($_POST['user_id']);
@@ -368,11 +367,82 @@ class RM_Paypal_Service implements RM_Gateway_Service
                 $response['log_id']= $log_id;
             }
             wp_send_json_success($response);
-        }
-        else{
+        } else {
             wp_send_json_error(array('msg'=>__('Submission not valid.','custom-registration-form-builder-with-submission-manager')));
         }
     }
+
+    public function validate_sdk_payment( $transaction_id ) {
+        $gopts = new RM_Options;
+        $sandbox =  $gopts->get_value_of('paypal_test_mode') === 'yes' ? true : false;
+
+        // PayPal API keys
+        $client_id = $gopts->get_value_of('paypal_client_id');
+        $secret    = $gopts->get_value_of('paypal_secret_key');
+
+        // PayPal REST API endpoint
+        $paypal_api = $sandbox
+            ? 'https://api.sandbox.paypal.com'
+            : 'https://api.paypal.com';
+
+        /*
+        * 1. Get OAuth Access Token
+        */
+        $token_response = wp_remote_post( "$paypal_api/v1/oauth2/token", [
+            'method'      => 'POST',
+            'timeout'     => 60,
+            'headers'     => [
+                'Authorization' => 'Basic ' . base64_encode( "$client_id:$secret" ),
+            ],
+            'body'        => 'grant_type=client_credentials',
+        ]);
+
+        if ( is_wp_error( $token_response ) ) {
+            return 'Pending';
+        }
+
+        $token_body = json_decode( wp_remote_retrieve_body( $token_response ), true );
+
+        if ( empty( $token_body['access_token'] ) ) {
+            return 'Pending';
+        }
+
+        $access_token = $token_body['access_token'];
+
+        /*
+        * 2. Fetch transaction details (only to check if it exists)
+        */
+        $payment_response = wp_remote_get( "$paypal_api/v2/payments/captures/$transaction_id", [
+            'timeout' => 60,
+            'headers' => [
+                'Authorization' => "Bearer $access_token",
+                'Content-Type'  => 'application/json',
+            ],
+        ]);
+        
+        if ( is_wp_error( $payment_response ) ) {
+            return 'Pending';
+        }
+
+        $payment_data = json_decode( wp_remote_retrieve_body( $payment_response ), true );
+
+        if ( empty( $payment_data['status'] ) ) {
+            return 'Pending';
+        }
+
+        /*
+        * 3. Validate PayPal status only
+        */
+        if ( $payment_data['status'] !== 'COMPLETED' ) {
+            return 'Pending';
+        }
+
+        /*
+        * SUCCESS
+        */
+        return 'Completed';
+    }
+
     public function demo(){
         $response['msg'] .= '<div id="rmform">';
         $response['msg'] .= "<br><br><div class='rm-post-sub-msg'>";
@@ -406,6 +476,7 @@ class RM_Paypal_Service implements RM_Gateway_Service
         }
         $response['msg'] .= '</div>';
     }
+
     public function charge_popup($data, $pricing_details){
         $submission_id = $data->submission_id;
         $form_id= $data->form_id;
@@ -436,6 +507,7 @@ class RM_Paypal_Service implements RM_Gateway_Service
             $items['unit_amount'] = array('currency_code'=>$this->currency,'value'=>$pricing_details->tax);
             $order_items[] = $items;
         }
+        // For number precision = number_format((float)$pricing_details->total_price, 2, '.', '')
         $purchase_units = array(
             'amount'=> array(
                 'currency_code'=>$this->currency,
@@ -496,6 +568,7 @@ class RM_Paypal_Service implements RM_Gateway_Service
         ob_end_clean();
         return $data;
     }
+
     public function refund() {
         
     }
@@ -505,4 +578,3 @@ class RM_Paypal_Service implements RM_Gateway_Service
     }
 
 }
-

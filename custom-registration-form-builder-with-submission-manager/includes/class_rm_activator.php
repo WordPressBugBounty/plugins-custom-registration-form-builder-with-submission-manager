@@ -31,14 +31,15 @@ class RM_Activator
     public static function activate($network_wide)
     {
         RM_Table_Tech::create_tables($network_wide);
-        self::setup_submission_page($network_wide);
-        self::setup_recovery_page($network_wide);
-        self::setup_login_page($network_wide);
+        //self::setup_submission_page($network_wide);
+        //self::setup_recovery_page($network_wide);
+        //self::setup_login_page($network_wide);
         self::first_install_proc();
         self::migrate($network_wide);
         self::setup_login_options($network_wide);
         update_site_option('rm_option_last_activation_time', time());
         update_option('rm_redirect_after_activation', 1);
+        update_option('rm_create_posts_pages', true);
         
         if (method_exists('RM_Chronos_Service', 'insert_cron_on_activate_plugin')){
             $cron_service = new RM_Chronos_Service;
@@ -46,7 +47,7 @@ class RM_Activator
         }
     }
     
-    public static function setup_recovery_page($network_wide){
+    public static function setup_recovery_page($network_wide = true){
         global $wpdb;
         if (is_multisite() && $network_wide)
         {
@@ -83,7 +84,7 @@ class RM_Activator
         
     }
     //Create deafult login page while taking care of multisite installtion 
-    public static function setup_login_page($network_wide){
+    public static function setup_login_page($network_wide = true){
         global $wpdb;
 
         if (is_multisite() && $network_wide)
@@ -105,7 +106,7 @@ class RM_Activator
     }
     
     //Create default submission page while taking care of multisite installation.
-    public static function setup_submission_page($network_wide)
+    public static function setup_submission_page($network_wide = true)
     {
         global $wpdb;
 

@@ -182,10 +182,10 @@ if ($data->form_type_status == "1" && !empty($data->user)) {
         if (is_array($sub_data)) {
 
             $i = 0;
-
-            //If submitted data is a file.
-
-            if (isset($sub_data['rm_field_type']) && $sub_data['rm_field_type'] == 'File') {
+            $additional_fields = apply_filters('rm_additional_fields', array());
+            if(in_array($sub->type, $additional_fields)){
+                echo wp_kses_post(do_action('rm_additional_fields_data',$sub->type, $sub_data));
+            }elseif (isset($sub_data['rm_field_type']) && $sub_data['rm_field_type'] == 'File') {
                 unset($sub_data['rm_field_type']);
 
                 foreach ($sub_data as $sub) {
@@ -227,7 +227,7 @@ if ($data->form_type_status == "1" && !empty($data->user)) {
                         } else {
                             $additional_fields = apply_filters('rm_additional_fields', array());
                             if(in_array($sub->type, $additional_fields)){
-                                echo do_action('rm_additional_fields_data',$sub->type, $sub_data);
+                                echo wp_kses_post(do_action('rm_additional_fields_data',$sub->type, $sub_data));
                             }
                             elseif ($sub->type == 'Rating') {
                                 if(defined('REGMAGIC_ADDON'))

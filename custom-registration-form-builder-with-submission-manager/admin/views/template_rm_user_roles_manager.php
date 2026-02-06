@@ -67,9 +67,11 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                             <span><?php echo esc_html($role_name); ?></span>
 
                         </div>
+                        <!-- Disable delete for default roles
                         <div class="rm-slab-buttons">
                             <a href="javascript:void(0)" class="rmdisabled"><?php echo wp_kses_post((string)RM_UI_Strings::get("LABEL_DELETE")); ?></a>
                         </div>
+                        -->
                     </div>
                 </li>
 

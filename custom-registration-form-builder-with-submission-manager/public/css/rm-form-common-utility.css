@@ -799,14 +799,17 @@ ul#rmagic-progressbar li .rm-form-page-name {
     
 }
 
-.rmform-payment-selector .rm_payment_options input[type="radio"]{
-     margin-right: 8px;
+.rmform-payment-selector .rm_payment_options input[type="radio"] {
+    width: auto;
+    margin: 0 8px 0 0;
 }
 
 .rmform-payment-selector .rm_payment_options .rmform-payment-option{
     margin-bottom: 14px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px
 }
 
 .rmform-payment-selector .rm_payment_options .rmform-payment-option label {

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RegistrationMagic Basic v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2025-09-24 09:43+0530\n"
+"POT-Creation-Date: 2026-01-22 16:18+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: RegistrationMagic Support <support@registrationmagic.com>\n"
@@ -85,158 +85,158 @@ msgstr ""
 msgid "You are using older version of IE. Please update IE to latest version"
 msgstr ""
 
-#: admin/class_rm_admin.php:678 admin/class_rm_admin.php:991
-#: admin/class_rm_admin.php:1407
+#: admin/class_rm_admin.php:676 admin/class_rm_admin.php:993
+#: admin/class_rm_admin.php:1413
 msgid "Login Dashboard"
 msgstr ""
 
-#: admin/class_rm_admin.php:680 admin/class_rm_admin.php:682
-#: admin/class_rm_admin.php:684 admin/class_rm_admin.php:993
-#: admin/class_rm_admin.php:995 admin/class_rm_admin.php:997
-#: admin/class_rm_admin.php:1403 admin/class_rm_admin.php:1404
-#: admin/class_rm_admin.php:1405
+#: admin/class_rm_admin.php:678 admin/class_rm_admin.php:680
+#: admin/class_rm_admin.php:682 admin/class_rm_admin.php:995
+#: admin/class_rm_admin.php:997 admin/class_rm_admin.php:999
+#: admin/class_rm_admin.php:1409 admin/class_rm_admin.php:1410
+#: admin/class_rm_admin.php:1411
 msgid "Login Fields"
 msgstr ""
 
-#: admin/class_rm_admin.php:686 admin/class_rm_admin.php:999
-#: admin/class_rm_admin.php:1406
+#: admin/class_rm_admin.php:684 admin/class_rm_admin.php:1001
+#: admin/class_rm_admin.php:1412
 msgid "Logged in View"
 msgstr ""
 
-#: admin/class_rm_admin.php:688 admin/class_rm_admin.php:1001
-#: admin/class_rm_admin.php:1408
+#: admin/class_rm_admin.php:686 admin/class_rm_admin.php:1003
+#: admin/class_rm_admin.php:1414
 msgid "Login Redirections"
 msgstr ""
 
-#: admin/class_rm_admin.php:690 admin/class_rm_admin.php:1003
-#: admin/class_rm_admin.php:1409
+#: admin/class_rm_admin.php:688 admin/class_rm_admin.php:1005
+#: admin/class_rm_admin.php:1415
 msgid "Login Validation & Security"
 msgstr ""
 
-#: admin/class_rm_admin.php:692 admin/class_rm_admin.php:1005
-#: admin/class_rm_admin.php:1410 admin/views/template_rm_form_manager.php:300
+#: admin/class_rm_admin.php:690 admin/class_rm_admin.php:1007
+#: admin/class_rm_admin.php:1416 admin/views/template_rm_form_manager.php:300
 #: admin/views/template_rm_form_manager_old.php:241
 #: admin/views/template_rm_login_recovery.php:11
 #: admin/views/template_rm_login_sett_manage.php:128
-#: includes/class_rm_utilities.php:503
+#: includes/class_rm_utilities.php:504
 msgid "Password Recovery"
 msgstr ""
 
-#: admin/class_rm_admin.php:694 admin/class_rm_admin.php:1007
-#: admin/class_rm_admin.php:1412
+#: admin/class_rm_admin.php:692 admin/class_rm_admin.php:1009
+#: admin/class_rm_admin.php:1418
 msgid "Two Factor Authentication"
 msgstr ""
 
-#: admin/class_rm_admin.php:696 admin/class_rm_admin.php:1009
-#: admin/class_rm_admin.php:1411 admin/views/template_rm_login_email_temp.php:12
+#: admin/class_rm_admin.php:694 admin/class_rm_admin.php:1011
+#: admin/class_rm_admin.php:1417 admin/views/template_rm_login_email_temp.php:12
 #: admin/views/template_rm_login_sett_manage.php:137
 #: includes/class_rm_ui_strings.php:3516 includes/class_rm_ui_strings.php:3540
 #: includes/class_rm_ui_strings.php:3543
 msgid "Email Templates"
 msgstr ""
 
-#: admin/class_rm_admin.php:698 admin/class_rm_admin.php:1011
-#: admin/class_rm_admin.php:1413
+#: admin/class_rm_admin.php:696 admin/class_rm_admin.php:1013
+#: admin/class_rm_admin.php:1419
 msgid "Third Part Integrations"
 msgstr ""
 
-#: admin/class_rm_admin.php:700 admin/class_rm_admin.php:1013
-#: admin/class_rm_admin.php:1414 admin/views/template_rm_form_manager.php:298
+#: admin/class_rm_admin.php:698 admin/class_rm_admin.php:1015
+#: admin/class_rm_admin.php:1420 admin/views/template_rm_form_manager.php:298
 #: admin/views/template_rm_form_manager_old.php:225
 #: admin/views/template_rm_login_sett_manage.php:241
 msgid "Login Analytics"
 msgstr ""
 
-#: admin/class_rm_admin.php:702 admin/class_rm_admin.php:1015
-#: admin/class_rm_admin.php:1415
+#: admin/class_rm_admin.php:700 admin/class_rm_admin.php:1017
+#: admin/class_rm_admin.php:1421
 msgid "Log Retention"
 msgstr ""
 
-#: admin/class_rm_admin.php:704 admin/class_rm_admin.php:1017
-#: admin/class_rm_admin.php:1416
+#: admin/class_rm_admin.php:702 admin/class_rm_admin.php:1019
+#: admin/class_rm_admin.php:1422
 msgid "Advanced Log"
 msgstr ""
 
-#: admin/class_rm_admin.php:718
+#: admin/class_rm_admin.php:716
 msgid "Add Custom Status"
 msgstr ""
 
-#: admin/class_rm_admin.php:841 admin/class_rm_admin.php:1157
-#: admin/class_rm_admin.php:1345
+#: admin/class_rm_admin.php:843 admin/class_rm_admin.php:1163
+#: admin/class_rm_admin.php:1351
 #: admin/views/template_rm_reports_attachments.php:17
 msgid "Attachments Reports"
 msgstr ""
 
-#: admin/class_rm_admin.php:843 admin/class_rm_admin.php:1159
-#: admin/class_rm_admin.php:1346 admin/views/template_rm_reports_payments.php:17
+#: admin/class_rm_admin.php:845 admin/class_rm_admin.php:1165
+#: admin/class_rm_admin.php:1352 admin/views/template_rm_reports_payments.php:17
 msgid "Payments Reports"
 msgstr ""
 
-#: admin/class_rm_admin.php:845 admin/class_rm_admin.php:1161
-#: admin/class_rm_admin.php:1347
+#: admin/class_rm_admin.php:847 admin/class_rm_admin.php:1167
+#: admin/class_rm_admin.php:1353
 msgid "Compare Form Reports"
 msgstr ""
 
-#: admin/class_rm_admin.php:847 admin/class_rm_admin.php:922
-#: admin/class_rm_admin.php:1163 admin/class_rm_admin.php:1165
-#: admin/class_rm_admin.php:1348 admin/class_rm_admin.php:1349
+#: admin/class_rm_admin.php:849 admin/class_rm_admin.php:924
+#: admin/class_rm_admin.php:1169 admin/class_rm_admin.php:1171
+#: admin/class_rm_admin.php:1354 admin/class_rm_admin.php:1355
 msgid "Notifications Reports"
 msgstr ""
 
-#: admin/class_rm_admin.php:849 admin/class_rm_admin.php:922
-#: admin/class_rm_admin.php:1165 admin/class_rm_admin.php:1349
+#: admin/class_rm_admin.php:851 admin/class_rm_admin.php:924
+#: admin/class_rm_admin.php:1171 admin/class_rm_admin.php:1355
 msgid "Add Notifications Reports"
 msgstr ""
 
-#: admin/class_rm_admin.php:877 admin/class_rm_admin.php:1193
-#: admin/class_rm_admin.php:1363
+#: admin/class_rm_admin.php:879 admin/class_rm_admin.php:1199
+#: admin/class_rm_admin.php:1369
 #: admin/views/template_rm_options_user_privacy.php:23
 msgid "User Privacy"
 msgstr ""
 
-#: admin/class_rm_admin.php:879 admin/class_rm_admin.php:1195
-#: admin/class_rm_admin.php:1401
+#: admin/class_rm_admin.php:881 admin/class_rm_admin.php:1201
+#: admin/class_rm_admin.php:1407
 msgid "Advance Options"
 msgstr ""
 
-#: admin/class_rm_admin.php:881 admin/class_rm_admin.php:1197
-#: admin/class_rm_admin.php:1417 admin/views/template_rm_form_settings.php:330
+#: admin/class_rm_admin.php:883 admin/class_rm_admin.php:1203
+#: admin/class_rm_admin.php:1423 admin/views/template_rm_form_settings.php:330
 #: admin/views/template_rm_form_settings.php:340
 #: admin/views/template_rm_options_manager.php:159
 #: admin/views/template_rm_profilegrid.php:10
 msgid "ProfileGrid"
 msgstr ""
 
-#: admin/class_rm_admin.php:885
+#: admin/class_rm_admin.php:887
 #: admin/views/template_rm_options_admin_menu.php:89
 msgid "Arrange Admin Menu"
 msgstr ""
 
-#: admin/class_rm_admin.php:893 admin/class_rm_admin.php:1199
-#: admin/class_rm_admin.php:1419
+#: admin/class_rm_admin.php:895 admin/class_rm_admin.php:1205
+#: admin/class_rm_admin.php:1425
 msgid "Custom Tabs"
 msgstr ""
 
-#: admin/class_rm_admin.php:896 admin/class_rm_admin.php:1202
-#: admin/class_rm_admin.php:1421
+#: admin/class_rm_admin.php:898 admin/class_rm_admin.php:1208
+#: admin/class_rm_admin.php:1427
 msgid "Add Custom Tabs"
 msgstr ""
 
-#: admin/class_rm_admin.php:1230 admin/class_rm_admin.php:1245
-#: admin/class_rm_admin.php:1372
+#: admin/class_rm_admin.php:1236 admin/class_rm_admin.php:1251
+#: admin/class_rm_admin.php:1378
 msgid "Licensing"
 msgstr ""
 
-#: admin/class_rm_admin.php:1393
+#: admin/class_rm_admin.php:1399
 msgid "Extensions"
 msgstr ""
 
-#: admin/class_rm_admin.php:1418
+#: admin/class_rm_admin.php:1424
 #: admin/views/template_rm_options_eventprime.php:10
 msgid "EventPrime"
 msgstr ""
 
-#: admin/class_rm_admin.php:2037
+#: admin/class_rm_admin.php:2043
 #, php-format
 msgid ""
 "You have invalid or expired license keys for RegistrationMagic. You can renew "
@@ -245,7 +245,7 @@ msgid ""
 "class=\"button action button-primary rm-mt-2\">Renew License </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2049
+#: admin/class_rm_admin.php:2055
 #, php-format
 msgid ""
 "You have invalid or expired license keys for RegistrationMagic. You can renew "
@@ -254,7 +254,7 @@ msgid ""
 "class=\"button action\">Renew License </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2060
+#: admin/class_rm_admin.php:2066
 #, php-format
 msgid ""
 "Your license key for RegistrationMagic has expired and it's no longer "
@@ -262,7 +262,7 @@ msgid ""
 "class='button action' target='_blank'>Renew License </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2071
+#: admin/class_rm_admin.php:2077
 #, php-format
 msgid ""
 "You have reached license key limit for RegistrationMagic. Please upgrade for "
@@ -270,7 +270,7 @@ msgid ""
 "action'>Upgrade License </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2082
+#: admin/class_rm_admin.php:2088
 #, php-format
 msgid ""
 "You have reached fair usage license key limit for RegistrationMagic. Please "
@@ -278,14 +278,14 @@ msgid ""
 "action'>Contact Support </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2095
+#: admin/class_rm_admin.php:2101
 #, php-format
 msgid ""
 "You have deactivated your license key for RegistrationMagic and it's no "
 "longer receiving updates. <a href='%s' class='button action'>Activate Now</a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2153
+#: admin/class_rm_admin.php:2159
 #, php-format
 msgid ""
 "Hey, there 👋 ! It looks like you are publishing events on your website. "
@@ -294,7 +294,7 @@ msgid ""
 "to try now!"
 msgstr ""
 
-#: admin/class_rm_admin.php:2170
+#: admin/class_rm_admin.php:2176
 #, php-format
 msgid ""
 "Hey, there 👋 ! It looks like you are building a user community or membership "
@@ -303,28 +303,28 @@ msgid ""
 "href=\"%s\">Click here</a> to try now!"
 msgstr ""
 
-#: admin/class_rm_admin.php:2186
+#: admin/class_rm_admin.php:2192
 #, php-format
 msgid ""
 "Unlock all RegistrationMagic features by upgrading to Premium. It takes less "
 "than 5 minutes! <a href=\"%s\">Click here</a> to start."
 msgstr ""
 
-#: admin/class_rm_admin.php:2200
+#: admin/class_rm_admin.php:2206
 #, php-format
 msgid ""
 "Upgrade to RegistrationMagic Premium+ by paying the difference! <a "
 "href=\"%s\">Click here </a>to upgrade."
 msgstr ""
 
-#: admin/class_rm_admin.php:2213
+#: admin/class_rm_admin.php:2219
 #, php-format
 msgid ""
 "RegistrationMagic Premium license key is missing. <a href=\"%s\" "
 "class=\"button action\">Activate License </a>"
 msgstr ""
 
-#: admin/class_rm_admin.php:2226
+#: admin/class_rm_admin.php:2232
 #, php-format
 msgid ""
 "Unlicensed version of RegistrationMagic Premium. Auto-updates are disabled. "
@@ -332,7 +332,7 @@ msgid ""
 "to get your license key."
 msgstr ""
 
-#: admin/class_rm_admin.php:2241
+#: admin/class_rm_admin.php:2247
 #, php-format
 msgid ""
 "Your RegistrationMagic Premium license key has expired. Renew now or upgrade "
@@ -340,7 +340,7 @@ msgid ""
 "\"_blank\">Click here</a> to proceed."
 msgstr ""
 
-#: admin/class_rm_admin.php:2256
+#: admin/class_rm_admin.php:2262
 #, php-format
 msgid ""
 "Your RegistrationMagic Premium license key has expired. Auto-updates are "
@@ -348,7 +348,7 @@ msgid ""
 "href=\"%s\" target=\"_blank\">Click here</a> to proceed."
 msgstr ""
 
-#: admin/class_rm_admin.php:2345
+#: admin/class_rm_admin.php:2349
 msgid ""
 "It seems you are using now obsolete version of PHP. Please note that "
 "RegistrationMagic works best with PHP 5.6 or later versions. You may want to "
@@ -356,7 +356,7 @@ msgid ""
 "message may not display again once dismissed."
 msgstr ""
 
-#: admin/class_rm_admin.php:2371
+#: admin/class_rm_admin.php:2361
 #, php-format
 msgid ""
 "Using Easy Digital Downloads? <a target=\"__blank\" href=\"%s\">Learn how to</"
@@ -364,16 +364,25 @@ msgid ""
 "which display customer order history and details with the form submission."
 msgstr ""
 
-#: admin/class_rm_admin.php:2371 admin/class_rm_admin.php:2383
+#: admin/class_rm_admin.php:2361 admin/class_rm_admin.php:2371
 msgid "Dismiss"
 msgstr ""
 
-#: admin/class_rm_admin.php:2383
+#: admin/class_rm_admin.php:2371
 #, php-format
 msgid ""
 "Using WooCommerce? <a target=\"__blank\" href=\"%s\">Learn how to</a> create "
 "intelligent contact forms for your products using RegistrationMagic which "
 "display customer order history with the form submission."
+msgstr ""
+
+#: admin/class_rm_admin.php:2384
+#, php-format
+msgid ""
+"<strong>Your PayPal Secret Key</strong> is required to receive payments with "
+"RegistrationMagic form submissions. Please <strong>update your PayPal Secret "
+"Key</strong> from the <a href=\"%s\">Payment Settings</a> to continue "
+"receiving payments."
 msgstr ""
 
 #: admin/class_rm_admin.php:2426 admin/views/template_rm_dashboard.php:502
@@ -403,13 +412,13 @@ msgid "Setup Invoice options"
 msgstr ""
 
 #: admin/class_rm_admin.php:2589 admin/class_rm_admin.php:2615
-#: admin/controllers/class_rm_form_controller.php:335
+#: admin/controllers/class_rm_form_controller.php:346
 #: admin/controllers/class_rm_options_controller.php:120
-#: admin/controllers/class_rm_user_controller.php:51
+#: admin/controllers/class_rm_user_controller.php:52
 #: admin/controllers/class_rm_user_controller.php:79
-#: admin/controllers/class_rm_user_controller.php:106
-#: admin/controllers/class_rm_user_controller.php:139
-#: admin/controllers/class_rm_user_controller.php:274
+#: admin/controllers/class_rm_user_controller.php:105
+#: admin/controllers/class_rm_user_controller.php:140
+#: admin/controllers/class_rm_user_controller.php:278
 msgid "Failed security check"
 msgstr ""
 
@@ -417,43 +426,56 @@ msgstr ""
 msgid "Security check failed. Please refresh the page and try again later."
 msgstr ""
 
-#: admin/controllers/class_rm_field_controller.php:27
-#: admin/controllers/class_rm_field_controller.php:138
-#: admin/controllers/class_rm_field_controller.php:189
-#: admin/controllers/class_rm_form_settings_controller.php:27
+#: admin/controllers/class_rm_field_controller.php:28
+#: admin/controllers/class_rm_field_controller.php:141
+#: admin/controllers/class_rm_field_controller.php:194
+#: admin/controllers/class_rm_form_settings_controller.php:28
 msgid "No form selected. Redirecting you back to the all forms page."
 msgstr ""
 
-#: admin/controllers/class_rm_login_manage_controller.php:232
+#: admin/controllers/class_rm_login_manage_controller.php:247
 msgid "You must select the role to implement the redirections."
 msgstr ""
 
-#: admin/controllers/class_rm_login_manage_controller.php:325
+#: admin/controllers/class_rm_login_manage_controller.php:309
+msgid ""
+"Your IP has been banned by the Admin due to repeated failed login attempts."
+msgstr ""
+
+#: admin/controllers/class_rm_login_manage_controller.php:347
 msgid "You must define text for the link."
 msgstr ""
 
-#: admin/controllers/class_rm_options_controller.php:499
+#: admin/controllers/class_rm_login_manage_controller.php:404
+msgid "Nonce check failed. Please try again."
+msgstr ""
+
+#: admin/controllers/class_rm_options_controller.php:485
 msgid "PayPal account email is required"
 msgstr ""
 
-#: admin/controllers/class_rm_options_controller.php:504
+#: admin/controllers/class_rm_options_controller.php:490
 msgid "PayPal Client ID is required"
 msgstr ""
 
-#: admin/controllers/class_rm_payments_controller.php:105
-#: admin/controllers/class_rm_submission_controller.php:125
+#: admin/controllers/class_rm_options_controller.php:492
+msgid "PayPal Secret Key is required"
+msgstr ""
+
+#: admin/controllers/class_rm_payments_controller.php:106
+#: admin/controllers/class_rm_submission_controller.php:126
 #: includes/class_rm_ui_strings.php:141 includes/class_rm_ui_strings.php:1771
 #: public/controllers/class_rm_front_controller.php:171
 msgid "Registration"
 msgstr ""
 
-#: admin/controllers/class_rm_payments_controller.php:105
-#: admin/controllers/class_rm_submission_controller.php:125
+#: admin/controllers/class_rm_payments_controller.php:106
+#: admin/controllers/class_rm_submission_controller.php:126
 #: public/controllers/class_rm_front_controller.php:171
 msgid "Non WP Account"
 msgstr ""
 
-#: admin/controllers/class_rm_reports_controller.php:84
+#: admin/controllers/class_rm_reports_controller.php:90
 msgid "Can not unlink file"
 msgstr ""
 
@@ -533,12 +555,12 @@ msgstr ""
 
 #: admin/views/html/address_field.php:6 admin/views/html/wc_billing_field.php:32
 #: admin/views/html/wc_shipping_field.php:32
-#: admin/views/template_rm_submissions_manager.php:445
+#: admin/views/template_rm_submissions_manager.php:447
 #: admin/views/template_rm_user_view.php:164
 #: admin/views/template_rm_user_view.php:165
 #: admin/views/template_rm_view_submission.php:184
 #: includes/class_rm_ui_strings.php:2009
-#: public/views/template_rm_front_accounts.php:163
+#: public/views/template_rm_front_accounts.php:166
 #: public/views/template_rm_front_submission_data.php:209
 #: public/widgets/html/account.php:110
 msgid "City"
@@ -556,12 +578,12 @@ msgstr ""
 
 #: admin/views/html/address_field.php:9 admin/views/html/wc_billing_field.php:35
 #: admin/views/html/wc_shipping_field.php:35
-#: admin/views/template_rm_submissions_manager.php:448
+#: admin/views/template_rm_submissions_manager.php:450
 #: admin/views/template_rm_user_view.php:167
 #: admin/views/template_rm_view_submission.php:187
 #: includes/class_rm_ui_strings.php:681 includes/class_rm_ui_strings.php:2015
 #: includes/class_rm_utilities.php:143
-#: public/views/template_rm_front_accounts.php:166
+#: public/views/template_rm_front_accounts.php:169
 #: public/views/template_rm_front_submission_data.php:212
 #: public/widgets/html/account.php:113
 msgid "Country"
@@ -657,20 +679,20 @@ msgstr ""
 #: admin/views/html/wc_billing_field.php:226
 #: admin/views/html/wc_shipping_field.php:219
 #: admin/views/html/wc_shipping_field.php:220
-#: includes/class_rm_utilities.php:2293
+#: includes/class_rm_utilities.php:2294
 #: includes/class_rm_utilities_revamp.php:505
-#: libs/factory/class_rm_field_factory_revamp.php:2317
-#: libs/factory/class_rm_field_factory_revamp.php:2438
+#: libs/factory/class_rm_field_factory_revamp.php:2318
+#: libs/factory/class_rm_field_factory_revamp.php:2443
 msgid "United States"
 msgstr ""
 
 #: admin/views/html/address_field.php:195
 #: admin/views/html/wc_billing_field.php:226
 #: admin/views/html/wc_shipping_field.php:220
-#: includes/class_rm_utilities.php:2099
+#: includes/class_rm_utilities.php:2100
 #: includes/class_rm_utilities_revamp.php:311
-#: libs/factory/class_rm_field_factory_revamp.php:2318
-#: libs/factory/class_rm_field_factory_revamp.php:2439
+#: libs/factory/class_rm_field_factory_revamp.php:2319
+#: libs/factory/class_rm_field_factory_revamp.php:2444
 msgid "Canada"
 msgstr ""
 
@@ -891,10 +913,10 @@ msgstr ""
 #: admin/views/template_rm_field_add.php:335
 #: admin/views/template_rm_field_conditions.php:310
 #: admin/views/template_rm_field_manager.php:344
-#: admin/views/template_rm_field_manager_new.php:416
-#: admin/views/template_rm_field_manager_new.php:454
-#: admin/views/template_rm_field_manager_new.php:490
-#: admin/views/template_rm_field_manager_new.php:617
+#: admin/views/template_rm_field_manager_new.php:425
+#: admin/views/template_rm_field_manager_new.php:463
+#: admin/views/template_rm_field_manager_new.php:499
+#: admin/views/template_rm_field_manager_new.php:626
 #: admin/views/template_rm_form_access_control_sett.php:143
 #: admin/views/template_rm_form_accounts_sett.php:64
 #: admin/views/template_rm_form_add.php:171
@@ -916,11 +938,11 @@ msgstr ""
 #: admin/views/template_rm_login_analytics.php:210
 #: admin/views/template_rm_login_email_temp.php:39
 #: admin/views/template_rm_login_field_add.php:88
-#: admin/views/template_rm_login_integrations.php:38
+#: admin/views/template_rm_login_integrations.php:41
 #: admin/views/template_rm_login_recovery.php:43
 #: admin/views/template_rm_login_retention.php:29
 #: admin/views/template_rm_login_sett_redirections.php:44
-#: admin/views/template_rm_login_sett_validation.php:39
+#: admin/views/template_rm_login_sett_validation.php:40
 #: admin/views/template_rm_login_view.php:108
 #: admin/views/template_rm_login_view_sett.php:94
 #: admin/views/template_rm_login_view_sett.php:96
@@ -941,8 +963,8 @@ msgstr ""
 #: admin/views/template_rm_paypal_field_add.php:74
 #: admin/views/template_rm_primary_field_add.php:107
 #: admin/views/template_rm_user_edit.php:38
-#: admin/views/template_rm_user_manager.php:485
-#: admin/views/template_rm_user_manager.php:540
+#: admin/views/template_rm_user_manager.php:491
+#: admin/views/template_rm_user_manager.php:546
 #: admin/views/template_rm_user_view.php:372 admin/views/widgets/divider.php:32
 #: admin/views/widgets/feed.php:46 admin/views/widgets/form_chart.php:40
 #: admin/views/widgets/formdata.php:80 admin/views/widgets/htmlh.php:32
@@ -1121,7 +1143,7 @@ msgstr ""
 #: admin/views/template_rm_field_picker.php:511
 #: admin/views/template_rm_field_picker.php:529
 #: admin/views/template_rm_field_picker.php:548
-#: admin/views/template_rm_field_picker.php:625
+#: admin/views/template_rm_field_picker.php:689
 #: admin/views/template_rm_header.php:46 includes/class_rm_ui_strings.php:3464
 msgid "Premium"
 msgstr ""
@@ -1372,9 +1394,9 @@ msgstr ""
 #: admin/views/template_rm_fd_promo.php:95
 #: admin/views/template_rm_login_fd_promo.php:85
 #: admin/views/template_rm_login_field_manager.php:251 blocks/index.js:283
-#: includes/class_rm_ui_strings.php:1110 includes/class_rm_utilities.php:522
-#: public/widgets/class_rm_login_btn_widget.php:45
-#: public/widgets/class_rm_login_btn_widget.php:125
+#: includes/class_rm_ui_strings.php:1110 includes/class_rm_utilities.php:523
+#: public/widgets/class_rm_login_btn_widget.php:53
+#: public/widgets/class_rm_login_btn_widget.php:240
 msgid "Login"
 msgstr ""
 
@@ -1749,8 +1771,8 @@ msgid "Add"
 msgstr ""
 
 #: admin/views/template_rm_field_conditions.php:210
-#: admin/views/template_rm_field_manager_new.php:455
-#: admin/views/template_rm_field_manager_new.php:491
+#: admin/views/template_rm_field_manager_new.php:464
+#: admin/views/template_rm_field_manager_new.php:500
 #: admin/views/template_rm_form_manager.php:120
 #: admin/views/template_rm_form_manager.php:352
 #: admin/views/template_rm_form_manager.php:535
@@ -1759,10 +1781,10 @@ msgstr ""
 #: admin/views/template_rm_login_field_manager.php:226
 #: admin/views/template_rm_options_user_privacy.php:25
 #: admin/views/template_rm_submissions_manager.php:84
-#: admin/views/template_rm_submissions_manager.php:570
-#: admin/views/template_rm_user_manager.php:137
-#: admin/views/template_rm_user_manager.php:305
-#: admin/views/template_rm_user_manager.php:566
+#: admin/views/template_rm_submissions_manager.php:572
+#: admin/views/template_rm_user_manager.php:143
+#: admin/views/template_rm_user_manager.php:311
+#: admin/views/template_rm_user_manager.php:572
 #: includes/class_rm_ui_strings.php:708 plus/chronos/templates/edit_task.php:172
 #: plus/chronos/templates/edit_task.php:187
 msgid "Delete"
@@ -1797,7 +1819,7 @@ msgid "(when all of these conditions are true) "
 msgstr ""
 
 #: admin/views/template_rm_field_conditions.php:311
-#: admin/views/template_rm_field_manager_new.php:618
+#: admin/views/template_rm_field_manager_new.php:627
 #: admin/views/template_rm_form_view_sett.php:106
 #: admin/views/template_rm_login_view_sett.php:99
 #: admin/views/template_rm_new_form_templates.php:44
@@ -1839,7 +1861,7 @@ msgid ""
 msgstr ""
 
 #: admin/views/template_rm_field_manager.php:163
-#: admin/views/template_rm_field_manager_new.php:203
+#: admin/views/template_rm_field_manager_new.php:212
 #, php-format
 msgid ""
 "To unlock removing Username field (and many more features), please upgrade <a "
@@ -1847,8 +1869,8 @@ msgid ""
 msgstr ""
 
 #: admin/views/template_rm_field_manager.php:193
-#: admin/views/template_rm_field_manager_new.php:243
-#: admin/views/template_rm_field_manager_new.php:285
+#: admin/views/template_rm_field_manager_new.php:252
+#: admin/views/template_rm_field_manager_new.php:294
 #: admin/views/template_rm_form_view_sett.php:12
 #: libs/factory/class_rm_form_factory_revamp.php:11
 #: libs/factory/class_rm_form_factory_revamp.php:16
@@ -1857,7 +1879,7 @@ msgid "Submit"
 msgstr ""
 
 #: admin/views/template_rm_field_manager.php:195
-#: admin/views/template_rm_field_manager_new.php:245
+#: admin/views/template_rm_field_manager_new.php:254
 #: admin/views/template_rm_formflow_config.php:137
 #: includes/class_rm_ui_strings.php:270
 #: libs/factory/class_rm_form_factory_revamp.php:18
@@ -1868,26 +1890,26 @@ msgid "Next"
 msgstr ""
 
 #: admin/views/template_rm_field_manager.php:212
-#: admin/views/template_rm_field_manager_new.php:262
+#: admin/views/template_rm_field_manager_new.php:271
 #: admin/views/template_rm_login_field_manager.php:268
 #: admin/views/template_rm_login_field_manager.php:272
 msgid "Click to edit button label"
 msgstr ""
 
 #: admin/views/template_rm_field_manager.php:218
-#: admin/views/template_rm_field_manager_new.php:608
+#: admin/views/template_rm_field_manager_new.php:617
 #: admin/views/template_rm_login_field_manager.php:288
 msgid "Left"
 msgstr ""
 
 #: admin/views/template_rm_field_manager.php:219
-#: admin/views/template_rm_field_manager_new.php:609
+#: admin/views/template_rm_field_manager_new.php:618
 #: admin/views/template_rm_login_field_manager.php:290
 msgid "Center"
 msgstr ""
 
 #: admin/views/template_rm_field_manager.php:220
-#: admin/views/template_rm_field_manager_new.php:610
+#: admin/views/template_rm_field_manager_new.php:619
 #: admin/views/template_rm_login_field_manager.php:292
 #: admin/views/template_rm_primary_field_add.php:80
 msgid "Right"
@@ -1898,7 +1920,7 @@ msgid "Choose a field type"
 msgstr ""
 
 #: admin/views/template_rm_field_manager.php:277
-#: admin/views/template_rm_field_manager_new.php:526
+#: admin/views/template_rm_field_manager_new.php:535
 #: admin/views/template_rm_login_field_manager.php:340
 msgid "MagicWidgets"
 msgstr ""
@@ -1999,186 +2021,186 @@ msgid "Row Options"
 msgstr ""
 
 #: admin/views/template_rm_field_manager_new.php:158
-#: admin/views/template_rm_field_manager_new.php:431
-#: admin/views/template_rm_field_manager_new.php:547
+#: admin/views/template_rm_field_manager_new.php:440
+#: admin/views/template_rm_field_manager_new.php:556
 msgid "Delete Row"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:194
+#: admin/views/template_rm_field_manager_new.php:203
 msgid "Field Options"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:195
-#: admin/views/template_rm_field_manager_new.php:467
-#: admin/views/template_rm_field_manager_new.php:803
+#: admin/views/template_rm_field_manager_new.php:204
+#: admin/views/template_rm_field_manager_new.php:476
+#: admin/views/template_rm_field_manager_new.php:812
 msgid "Delete Field"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:221
-#: admin/views/template_rm_field_manager_new.php:235
+#: admin/views/template_rm_field_manager_new.php:230
+#: admin/views/template_rm_field_manager_new.php:244
 #: includes/class_rm_ui_strings.php:485 includes/class_rm_ui_strings.php:624
 #: includes/class_rm_ui_strings.php:1840
 msgid "Add Field"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:275
+#: admin/views/template_rm_field_manager_new.php:284
 #: admin/views/template_rm_login_field_manager.php:298
 msgid "Updating..."
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:279
+#: admin/views/template_rm_field_manager_new.php:288
 msgid "Click on submit button to edit label"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:305
+#: admin/views/template_rm_field_manager_new.php:314
 msgid "Row Properties"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:314
+#: admin/views/template_rm_field_manager_new.php:323
 msgid "Heading (Optional)"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:316
+#: admin/views/template_rm_field_manager_new.php:325
 msgid ""
 "Heading text for the fields in this row. Rendered on frontend with larger "
 "font size."
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:320
+#: admin/views/template_rm_field_manager_new.php:329
 msgid "Sub-heading (Optional)"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:322
+#: admin/views/template_rm_field_manager_new.php:331
 msgid "Sub Heading"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:323
+#: admin/views/template_rm_field_manager_new.php:332
 msgid ""
 "Subtitle for the fields in this row. Rendered on frontend with muted body "
 "font."
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:331
+#: admin/views/template_rm_field_manager_new.php:340
 msgid "Field Columns"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:338
+#: admin/views/template_rm_field_manager_new.php:347
 msgid "Single"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:346
+#: admin/views/template_rm_field_manager_new.php:355
 msgid "1:1"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:354
+#: admin/views/template_rm_field_manager_new.php:363
 msgid "2:1"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:363
+#: admin/views/template_rm_field_manager_new.php:372
 msgid "1:1:1"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:373
+#: admin/views/template_rm_field_manager_new.php:382
 msgid "1:1:1:1"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:378
+#: admin/views/template_rm_field_manager_new.php:387
 msgid ""
 "The number of columns cannot be less than the number of fields in this row."
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:382
+#: admin/views/template_rm_field_manager_new.php:391
 msgid "Optional styling:"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:387
+#: admin/views/template_rm_field_manager_new.php:396
 msgid "CSS Class"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:389
+#: admin/views/template_rm_field_manager_new.php:398
 msgid "Add additional CSS class to the row for custom styling."
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:392
+#: admin/views/template_rm_field_manager_new.php:401
 msgid "Gutter"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:395
+#: admin/views/template_rm_field_manager_new.php:404
 msgid ""
 "Define spacing between columns in this row in px. Does not applies to single "
 "column layouts."
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:398
+#: admin/views/template_rm_field_manager_new.php:407
 msgid "Bottom Margin"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:401
+#: admin/views/template_rm_field_manager_new.php:410
 msgid ""
 "Add additional vertical spacing between this row, and the the row just below, "
 "in px."
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:404
+#: admin/views/template_rm_field_manager_new.php:413
 msgid "Max Width"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:407
+#: admin/views/template_rm_field_manager_new.php:416
 msgid ""
 "Define maximum width for this row in px. Leave empty for full-width "
 "(justified)."
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:449
+#: admin/views/template_rm_field_manager_new.php:458
 msgid "Are you sure you want to delete this row?"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:485
-#: admin/views/template_rm_field_manager_new.php:804
+#: admin/views/template_rm_field_manager_new.php:494
+#: admin/views/template_rm_field_manager_new.php:813
 msgid "Are you sure you want to delete this field?"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:504
+#: admin/views/template_rm_field_manager_new.php:513
 msgid "Form Fields"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:505
+#: admin/views/template_rm_field_manager_new.php:514
 msgid "Click on a field to add it to your form."
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:565
+#: admin/views/template_rm_field_manager_new.php:574
 msgid "There are fields inside this row. Please delete them first."
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:591
+#: admin/views/template_rm_field_manager_new.php:600
 msgid "Styling & Buttons"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:599
+#: admin/views/template_rm_field_manager_new.php:608
 msgid "Button text"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:605
+#: admin/views/template_rm_field_manager_new.php:614
 msgid "Button align"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:759
+#: admin/views/template_rm_field_manager_new.php:768
 msgid "Delete Username Field"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:760
+#: admin/views/template_rm_field_manager_new.php:769
 msgid "After removing the Username field, Email field will be used as login ID."
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:760
+#: admin/views/template_rm_field_manager_new.php:769
 msgid "Do you wish to proceed? "
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:763
+#: admin/views/template_rm_field_manager_new.php:772
 msgid "Delete Password Field"
 msgstr ""
 
-#: admin/views/template_rm_field_manager_new.php:764
+#: admin/views/template_rm_field_manager_new.php:773
 msgid ""
 "After removing the Password Field, passwords will be automatically generated "
 "and emailed to the user on successful registration. Do you wish to proceed?"
@@ -2208,7 +2230,7 @@ msgid "Profile Fields"
 msgstr ""
 
 #: admin/views/template_rm_field_picker.php:27
-#: admin/views/template_rm_field_picker.php:688
+#: admin/views/template_rm_field_picker.php:752
 msgid "WooCommerce Fields"
 msgstr ""
 
@@ -2265,91 +2287,95 @@ msgstr ""
 #: admin/views/template_rm_field_picker.php:302
 #: includes/class_rm_utilities.php:190
 #: libs/factory/class_rm_field_factory.php:1016
-#: libs/factory/class_rm_field_factory_revamp.php:2847
+#: libs/factory/class_rm_field_factory_revamp.php:2852
 msgid "Privacy Policy"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:690
-#: admin/views/template_rm_field_picker.php:694
-#: admin/views/template_rm_field_picker.php:695
-#: admin/views/template_rm_field_picker.php:721
-#: admin/views/template_rm_field_picker.php:725
-#: admin/views/template_rm_field_picker.php:726
+#: admin/views/template_rm_field_picker.php:593
+msgid "Premium +"
+msgstr ""
+
+#: admin/views/template_rm_field_picker.php:754
+#: admin/views/template_rm_field_picker.php:758
+#: admin/views/template_rm_field_picker.php:759
+#: admin/views/template_rm_field_picker.php:785
+#: admin/views/template_rm_field_picker.php:789
+#: admin/views/template_rm_field_picker.php:790
 msgid "WooCommerce Billing Field"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:699
-#: admin/views/template_rm_field_picker.php:703
-#: admin/views/template_rm_field_picker.php:704
-#: admin/views/template_rm_field_picker.php:733
-#: admin/views/template_rm_field_picker.php:737
-#: admin/views/template_rm_field_picker.php:738
+#: admin/views/template_rm_field_picker.php:763
+#: admin/views/template_rm_field_picker.php:767
+#: admin/views/template_rm_field_picker.php:768
+#: admin/views/template_rm_field_picker.php:797
+#: admin/views/template_rm_field_picker.php:801
+#: admin/views/template_rm_field_picker.php:802
 msgid "WooCommerce Shipping Field"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:708
-#: admin/views/template_rm_field_picker.php:712
-#: admin/views/template_rm_field_picker.php:713
-#: admin/views/template_rm_field_picker.php:744
-#: admin/views/template_rm_field_picker.php:748
-#: admin/views/template_rm_field_picker.php:749
+#: admin/views/template_rm_field_picker.php:772
+#: admin/views/template_rm_field_picker.php:776
+#: admin/views/template_rm_field_picker.php:777
+#: admin/views/template_rm_field_picker.php:808
+#: admin/views/template_rm_field_picker.php:812
+#: admin/views/template_rm_field_picker.php:813
 msgid "Billing Phone Number"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:719
+#: admin/views/template_rm_field_picker.php:783
 msgid ""
 "WooCommerce Fields (Install and activate WooCommerce to enable these fields)"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:729
-#: admin/views/template_rm_field_picker.php:741
-#: admin/views/template_rm_field_picker.php:752
+#: admin/views/template_rm_field_picker.php:793
+#: admin/views/template_rm_field_picker.php:805
+#: admin/views/template_rm_field_picker.php:816
 msgid ""
 "WooCommerce is required for this field to work. Please install and activate "
 "the WooCommerce plugin."
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:965
+#: admin/views/template_rm_field_picker.php:1029
 #: admin/views/template_rm_widget_picker.php:59
 #: includes/class_rm_utilities.php:209
 msgid "YouTube Video"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:976
+#: admin/views/template_rm_field_picker.php:1040
 msgid "IFrame Embed"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:987
+#: admin/views/template_rm_field_picker.php:1051
 #: admin/views/template_rm_login_field_manager.php:502
 #: admin/views/template_rm_widget_picker.php:73
 #: includes/class_rm_ui_strings.php:776
 msgid "Image"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:998
+#: admin/views/template_rm_field_picker.php:1062
 msgid "Total Price"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1003
-#: admin/views/template_rm_field_picker.php:1010
+#: admin/views/template_rm_field_picker.php:1067
+#: admin/views/template_rm_field_picker.php:1074
 #: includes/class_rm_ui_strings.php:4022
 msgid ""
 "If you have set form limits, you can display the limit status using this "
 "widget"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1009
+#: admin/views/template_rm_field_picker.php:1073
 #: admin/views/template_rm_widget_picker.php:85
 msgid "Submission Countdown"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1014
-#: admin/views/template_rm_field_picker.php:1021
+#: admin/views/template_rm_field_picker.php:1078
+#: admin/views/template_rm_field_picker.php:1085
 #: admin/views/template_rm_widget_picker.php:89
 msgid "Display a location with marker using GoogleMaps"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1020
+#: admin/views/template_rm_field_picker.php:1084
 #: admin/views/template_rm_login_field_manager.php:538
 #: admin/views/template_rm_widget_picker.php:91
 #: includes/class_rm_ui_strings.php:2003 includes/class_rm_utilities.php:150
@@ -2357,64 +2383,64 @@ msgstr ""
 msgid "Map"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1025
-#: admin/views/template_rm_field_picker.php:1032
+#: admin/views/template_rm_field_picker.php:1089
+#: admin/views/template_rm_field_picker.php:1096
 #: admin/views/template_rm_widget_picker.php:95
 msgid "Display stats about the form using graphs and charts"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1031
+#: admin/views/template_rm_field_picker.php:1095
 #: admin/views/template_rm_login_field_manager.php:526
 #: admin/views/template_rm_widget_picker.php:97
 #: includes/class_rm_ui_strings.php:4046 includes/class_rm_utilities.php:185
 msgid "Form Data Chart"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1036
-#: admin/views/template_rm_field_picker.php:1043
+#: admin/views/template_rm_field_picker.php:1100
+#: admin/views/template_rm_field_picker.php:1107
 #: admin/views/template_rm_widget_picker.php:102
 msgid "Display various properties of the form"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1042
+#: admin/views/template_rm_field_picker.php:1106
 #: admin/views/template_rm_login_field_manager.php:512
 #: admin/views/template_rm_widget_picker.php:104
 msgid "Form Meta-Data"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1047
-#: admin/views/template_rm_field_picker.php:1054
+#: admin/views/template_rm_field_picker.php:1111
+#: admin/views/template_rm_field_picker.php:1118
 #: admin/views/template_rm_widget_picker.php:109
 msgid "Display latest registrations/ submissions data in your form"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1053
+#: admin/views/template_rm_field_picker.php:1117
 #: admin/views/template_rm_widget_picker.php:111
 #: includes/class_rm_utilities.php:198
 msgid "Submission Feed"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1053
+#: admin/views/template_rm_field_picker.php:1117
 #: admin/views/template_rm_login_field_manager.php:560
 #: admin/views/template_rm_widget_picker.php:111
 #: includes/class_rm_ui_strings.php:4088 includes/class_rm_utilities.php:187
 msgid "Registration Feed"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1067
+#: admin/views/template_rm_field_picker.php:1131
 msgid "Unable to find a field?"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1070
-#: admin/views/template_rm_field_picker.php:1072
+#: admin/views/template_rm_field_picker.php:1134
+#: admin/views/template_rm_field_picker.php:1136
 msgid "Request our support team"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1229
+#: admin/views/template_rm_field_picker.php:1293
 msgid "Search results for"
 msgstr ""
 
-#: admin/views/template_rm_field_picker.php:1232
+#: admin/views/template_rm_field_picker.php:1296
 msgid "No fields found for"
 msgstr ""
 
@@ -2626,7 +2652,7 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:50
 #: admin/views/template_rm_form_manager.php:85
 #: admin/views/template_rm_submissions_manager.php:65
-#: admin/views/template_rm_user_manager.php:98
+#: admin/views/template_rm_user_manager.php:108
 msgid "Results per page"
 msgstr ""
 
@@ -2676,7 +2702,7 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:72
 #: admin/views/template_rm_options_general.php:96
 #: admin/views/template_rm_reports_submissions.php:59
-#: admin/views/template_rm_user_manager.php:123
+#: admin/views/template_rm_user_manager.php:131
 #: admin/views/widgets/subcountv.php:30 includes/class_rm_ui_strings.php:1383
 msgid "All"
 msgstr ""
@@ -2697,18 +2723,18 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:116
 #: admin/views/template_rm_form_manager.php:531
 #: admin/views/template_rm_submissions_manager.php:81
-#: admin/views/template_rm_submissions_manager.php:567
-#: admin/views/template_rm_user_manager.php:132
-#: admin/views/template_rm_user_manager.php:561
+#: admin/views/template_rm_submissions_manager.php:569
+#: admin/views/template_rm_user_manager.php:138
+#: admin/views/template_rm_user_manager.php:567
 msgid "Select bulk action"
 msgstr ""
 
 #: admin/views/template_rm_form_manager.php:118
 #: admin/views/template_rm_form_manager.php:533
 #: admin/views/template_rm_submissions_manager.php:83
-#: admin/views/template_rm_submissions_manager.php:569
-#: admin/views/template_rm_user_manager.php:134
-#: admin/views/template_rm_user_manager.php:563
+#: admin/views/template_rm_submissions_manager.php:571
+#: admin/views/template_rm_user_manager.php:140
+#: admin/views/template_rm_user_manager.php:569
 msgid "Bulk actions"
 msgstr ""
 
@@ -2716,7 +2742,7 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:356
 #: admin/views/template_rm_form_manager.php:534
 #: admin/views/template_rm_submissions_manager.php:89
-#: admin/views/template_rm_submissions_manager.php:575
+#: admin/views/template_rm_submissions_manager.php:577
 #: includes/class_rm_ui_strings.php:2773 includes/class_rm_ui_strings.php:4446
 msgid "Export"
 msgstr ""
@@ -2756,9 +2782,9 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:160
 #: admin/views/template_rm_form_manager.php:553
 #: admin/views/template_rm_submissions_manager.php:144
-#: admin/views/template_rm_submissions_manager.php:581
-#: admin/views/template_rm_user_manager.php:182
-#: admin/views/template_rm_user_manager.php:586
+#: admin/views/template_rm_submissions_manager.php:583
+#: admin/views/template_rm_user_manager.php:188
+#: admin/views/template_rm_user_manager.php:592
 #, php-format
 msgid "%s items"
 msgstr ""
@@ -2811,10 +2837,10 @@ msgstr ""
 #: admin/views/template_rm_form_manager.php:362
 #: admin/views/template_rm_form_manager.php:489
 #: admin/views/template_rm_formcard_menu.php:42
-#: admin/views/template_rm_user_manager.php:233
-#: admin/views/template_rm_user_manager.php:422 blocks/index.js:236
+#: admin/views/template_rm_user_manager.php:239
+#: admin/views/template_rm_user_manager.php:428 blocks/index.js:236
 #: includes/class_rm_ui_strings.php:497 includes/class_rm_ui_strings.php:4448
-#: includes/class_rm_utilities.php:468
+#: includes/class_rm_utilities.php:469
 msgid "Submissions"
 msgstr ""
 
@@ -3228,65 +3254,65 @@ msgid "This is required field."
 msgstr ""
 
 #: admin/views/template_rm_form_post_sub_sett.php:35
-#: libs/factory/class_rm_form_factory_revamp.php:1152
-#: libs/factory/class_rm_form_factory_revamp.php:1168
+#: libs/factory/class_rm_form_factory_revamp.php:1179
+#: libs/factory/class_rm_form_factory_revamp.php:1220
 #, php-format
 msgid "%s Submitted"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:14
-#: libs/factory/class_rm_form_factory_revamp.php:1354
+#: libs/factory/class_rm_form_factory_revamp.php:1406
 #: public/class_rm_public.php:171
 msgid "No Results Found"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:15
-#: libs/factory/class_rm_form_factory_revamp.php:1355
+#: libs/factory/class_rm_form_factory_revamp.php:1407
 #: public/class_rm_public.php:172
 msgid "Invalid Zip Code"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:16
-#: libs/factory/class_rm_form_factory_revamp.php:1356
+#: libs/factory/class_rm_form_factory_revamp.php:1408
 #: public/class_rm_public.php:173
 msgid "Please wait..."
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:17
-#: libs/factory/class_rm_form_factory_revamp.php:1357
+#: libs/factory/class_rm_form_factory_revamp.php:1409
 #: public/class_rm_public.php:174
 msgid "Hours"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:18
-#: libs/factory/class_rm_form_factory_revamp.php:1358
+#: libs/factory/class_rm_form_factory_revamp.php:1410
 #: public/class_rm_public.php:175
 msgid "Minutes"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:19
-#: libs/factory/class_rm_form_factory_revamp.php:1359
+#: libs/factory/class_rm_form_factory_revamp.php:1411
 #: public/class_rm_public.php:176
 msgid "Seconds"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:20
 #: includes/class_rm_ui_strings.php:4404
-#: libs/factory/class_rm_form_factory_revamp.php:1360
+#: libs/factory/class_rm_form_factory_revamp.php:1412
 #: public/class_rm_public.php:177
 msgid "Days"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:21
 #: includes/class_rm_ui_strings.php:4408
-#: libs/factory/class_rm_form_factory_revamp.php:1361
+#: libs/factory/class_rm_form_factory_revamp.php:1413
 #: public/class_rm_public.php:178
 msgid "Months"
 msgstr ""
 
 #: admin/views/template_rm_form_preview.php:22
 #: includes/class_rm_ui_strings.php:4410
-#: libs/factory/class_rm_form_factory_revamp.php:1362
+#: libs/factory/class_rm_form_factory_revamp.php:1414
 #: public/class_rm_public.php:179
 msgid "Years"
 msgstr ""
@@ -3838,8 +3864,8 @@ msgstr ""
 #: admin/views/template_rm_form_setup.php:128
 #: admin/views/template_rm_login_advanced.php:239
 #: admin/views/template_rm_login_analytics.php:209
-#: admin/views/template_rm_user_manager.php:542
-#: admin/views/template_rm_user_manager.php:759
+#: admin/views/template_rm_user_manager.php:548
+#: admin/views/template_rm_user_manager.php:765
 #: admin/views/template_rm_user_view.php:373
 #: admin/views/template_rm_user_view.php:398
 #: includes/class_rm_ui_strings.php:1404
@@ -3903,7 +3929,7 @@ msgstr ""
 #: admin/views/widgets/link.php:29 includes/class_rm_ui_strings.php:425
 #: includes/class_rm_ui_strings.php:675 includes/class_rm_ui_strings.php:1894
 #: includes/class_rm_utilities.php:141
-#: public/widgets/class_rm_login_btn_widget.php:70
+#: public/widgets/class_rm_login_btn_widget.php:139
 msgid "URL"
 msgstr ""
 
@@ -3933,7 +3959,7 @@ msgstr ""
 #: admin/views/template_rm_form_setup.php:161
 #: admin/views/template_rm_login_advanced.php:234
 #: admin/views/template_rm_login_analytics.php:204
-#: admin/views/template_rm_user_manager.php:527
+#: admin/views/template_rm_user_manager.php:533
 #: admin/views/template_rm_user_view.php:366
 #: includes/class_rm_ui_strings.php:431 includes/class_rm_ui_strings.php:3353
 #: includes/class_rm_ui_strings.php:4747
@@ -4894,13 +4920,13 @@ msgstr ""
 #: admin/views/template_rm_license.php:268
 #: admin/views/template_rm_license.php:274
 #: admin/views/template_rm_license.php:280
-#: admin/views/template_rm_user_manager.php:135
-#: admin/views/template_rm_user_manager.php:293
-#: admin/views/template_rm_user_manager.php:564
+#: admin/views/template_rm_user_manager.php:141
+#: admin/views/template_rm_user_manager.php:299
+#: admin/views/template_rm_user_manager.php:570
 #: includes/class_rm_licensing.php:136 includes/class_rm_licensing.php:141
 #: includes/class_rm_licensing.php:147 includes/class_rm_licensing.php:152
 #: includes/class_rm_licensing.php:159 includes/class_rm_ui_strings.php:770
-#: services/class_rm_email_service.php:660
+#: services/class_rm_email_service.php:668
 msgid "Activate"
 msgstr ""
 
@@ -5042,8 +5068,8 @@ msgstr ""
 #: admin/views/template_rm_login_advanced.php:230
 #: admin/views/template_rm_login_analytics.php:125
 #: admin/views/template_rm_login_analytics.php:200
-#: admin/views/template_rm_user_manager.php:308
-#: admin/views/template_rm_user_manager.php:505
+#: admin/views/template_rm_user_manager.php:314
+#: admin/views/template_rm_user_manager.php:511
 #: plus/chronos/templates/edit_task.php:374
 msgid "Send Email"
 msgstr ""
@@ -5063,7 +5089,7 @@ msgstr ""
 #: admin/views/template_rm_login_analytics.php:156
 #: admin/views/template_rm_reports_submissions.php:92
 #: admin/views/template_rm_submissions_manager.php:247
-#: admin/views/template_rm_user_manager.php:284
+#: admin/views/template_rm_user_manager.php:290
 #: includes/class_rm_ui_strings.php:791 includes/class_rm_ui_strings.php:4681
 #: includes/class_rm_ui_strings.php:4759
 msgid "View"
@@ -5087,7 +5113,7 @@ msgstr ""
 
 #: admin/views/template_rm_login_advanced.php:204
 #: admin/views/template_rm_login_analytics.php:174
-#: public/widgets/class_rm_login_btn_widget.php:68
+#: public/widgets/class_rm_login_btn_widget.php:110
 msgid "Login Method"
 msgstr ""
 
@@ -5103,7 +5129,7 @@ msgstr ""
 
 #: admin/views/template_rm_login_advanced.php:233
 #: admin/views/template_rm_login_analytics.php:203
-#: admin/views/template_rm_user_manager.php:513
+#: admin/views/template_rm_user_manager.php:519
 #: includes/class_rm_ui_strings.php:3350
 msgid "To"
 msgstr ""
@@ -5124,7 +5150,7 @@ msgstr ""
 
 #: admin/views/template_rm_login_advanced.php:235
 #: admin/views/template_rm_login_analytics.php:205
-#: admin/views/template_rm_user_manager.php:534
+#: admin/views/template_rm_user_manager.php:540
 #: admin/views/template_rm_user_view.php:369
 msgid "Message"
 msgstr ""
@@ -5301,7 +5327,7 @@ msgid "Username field placeholder"
 msgstr ""
 
 #: admin/views/template_rm_login_field_add.php:28
-#: includes/class_rm_ui_strings.php:1086 public/views/template_rm_login.php:150
+#: includes/class_rm_ui_strings.php:1086 public/views/template_rm_login.php:157
 msgid "Enter Username"
 msgstr ""
 
@@ -5336,7 +5362,7 @@ msgid "Password field placeholder"
 msgstr ""
 
 #: admin/views/template_rm_login_field_add.php:34
-#: includes/class_rm_ui_strings.php:1089 public/views/template_rm_login.php:152
+#: includes/class_rm_ui_strings.php:1089 public/views/template_rm_login.php:159
 msgid "Enter Password"
 msgstr ""
 
@@ -5367,13 +5393,13 @@ msgid "Label icon container shape"
 msgstr ""
 
 #: admin/views/template_rm_login_field_manager.php:185
-#: includes/class_rm_ui_strings.php:1074 public/views/template_rm_login.php:142
+#: includes/class_rm_ui_strings.php:1074 public/views/template_rm_login.php:149
 msgid "Username"
 msgstr ""
 
 #: admin/views/template_rm_login_field_manager.php:187
 #: includes/class_rm_ui_strings.php:1077 includes/class_rm_utilities.php:157
-#: public/views/template_rm_login.php:144 public/widgets/html/login.php:71
+#: public/views/template_rm_login.php:151 public/widgets/html/login.php:71
 #: public/widgets/html/otp.php:57
 msgid "Password"
 msgstr ""
@@ -5710,7 +5736,7 @@ msgstr ""
 
 #: admin/views/template_rm_login_sett_manage.php:91
 #: admin/views/template_rm_login_view.php:16
-#: public/widgets/class_rm_login_btn_widget.php:90
+#: public/widgets/class_rm_login_btn_widget.php:181
 msgid "Logged In View"
 msgstr ""
 
@@ -5720,7 +5746,7 @@ msgid "Login Box"
 msgstr ""
 
 #: admin/views/template_rm_login_sett_manage.php:171
-#: public/widgets/class_rm_login_btn_widget.php:15
+#: public/widgets/class_rm_login_btn_widget.php:16
 msgid "Login Button"
 msgstr ""
 
@@ -5893,6 +5919,16 @@ msgid ""
 "After a certain number of failed login attempts from a specific IP, login "
 "form will no longer be displayed for that user. The ban can be temporary or "
 "permanent based on options below."
+msgstr ""
+
+#: admin/views/template_rm_login_sett_validation.php:38
+msgid "Disable Autocomplete"
+msgstr ""
+
+#: admin/views/template_rm_login_sett_validation.php:38
+msgid ""
+"Disables autocomplete for the login form fields so that browsers do not "
+"remember previously entered values."
 msgstr ""
 
 #: admin/views/template_rm_login_view.php:24
@@ -6645,14 +6681,14 @@ msgid "Date"
 msgstr ""
 
 #: admin/views/template_rm_payments_view.php:281
-#: admin/views/template_rm_user_manager.php:223
-#: admin/views/template_rm_user_manager.php:412
+#: admin/views/template_rm_user_manager.php:229
+#: admin/views/template_rm_user_manager.php:418
 msgid "User"
 msgstr ""
 
 #: admin/views/template_rm_payments_view.php:282
 #: admin/views/template_rm_payments_view.php:338
-#: includes/class_registration_magic.php:424
+#: includes/class_registration_magic.php:426
 #: includes/class_rm_ui_strings.php:255 public/widgets/html/payments.php:19
 #: services/class_rm_payments_service.php:34
 msgid "Amount"
@@ -6662,7 +6698,7 @@ msgstr ""
 #: admin/views/template_rm_payments_view.php:339
 #: admin/views/template_rm_payments_view.php:539
 #: admin/views/template_rm_reports_login.php:60
-#: includes/class_registration_magic.php:420
+#: includes/class_registration_magic.php:422
 #: includes/class_rm_ui_strings.php:736 includes/class_rm_ui_strings.php:3249
 #: includes/class_rm_ui_strings.php:4588
 #: services/class_rm_payments_service.php:36
@@ -6740,7 +6776,7 @@ msgid "Error Occured"
 msgstr ""
 
 #: admin/views/template_rm_payments_view.php:564
-#: admin/views/template_rm_user_roles_manager.php:139
+#: admin/views/template_rm_user_roles_manager.php:141
 #: libs/factory/class_rm_form_factory_revamp.php:13
 #: public/models/class_rm_frontend_form_multipage.php:380
 msgid "Update"
@@ -7679,8 +7715,8 @@ msgid "Select Form"
 msgstr ""
 
 #: admin/views/template_rm_reports_submissions.php:91
-#: includes/class_registration_magic.php:346
-#: includes/class_registration_magic.php:411
+#: includes/class_registration_magic.php:348
+#: includes/class_registration_magic.php:413
 msgid "Form ID"
 msgstr ""
 
@@ -7701,24 +7737,24 @@ msgid "Unlock Note,Print,Block Email/IP and Send Message options, by upgrading"
 msgstr ""
 
 #: admin/views/template_rm_submissions_manager.php:86
-#: admin/views/template_rm_submissions_manager.php:572
+#: admin/views/template_rm_submissions_manager.php:574
 msgid "Mark Read"
 msgstr ""
 
 #: admin/views/template_rm_submissions_manager.php:87
-#: admin/views/template_rm_submissions_manager.php:573
+#: admin/views/template_rm_submissions_manager.php:575
 msgid "Mark Unread"
 msgstr ""
 
 #: admin/views/template_rm_submissions_manager.php:97
 #: admin/views/template_rm_submissions_manager.php:108
-#: admin/views/template_rm_user_manager.php:158
+#: admin/views/template_rm_user_manager.php:164
 msgid "All Dates"
 msgstr ""
 
 #: admin/views/template_rm_submissions_manager.php:121
-#: admin/views/template_rm_submissions_manager.php:757
-#: admin/views/template_rm_user_manager.php:176
+#: admin/views/template_rm_submissions_manager.php:759
+#: admin/views/template_rm_user_manager.php:182
 msgid "Filter"
 msgstr ""
 
@@ -7738,131 +7774,131 @@ msgstr ""
 msgid "Unregistered User"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:444
+#: admin/views/template_rm_submissions_manager.php:446
 #: admin/views/template_rm_user_view.php:163
 #: admin/views/template_rm_view_submission.php:183
 #: includes/class_rm_ui_strings.php:2006
-#: public/views/template_rm_front_accounts.php:162
+#: public/views/template_rm_front_accounts.php:165
 #: public/views/template_rm_front_submission_data.php:208
 #: public/widgets/html/account.php:109
 msgid "Street Address"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:446
+#: admin/views/template_rm_submissions_manager.php:448
 #: admin/views/template_rm_view_submission.php:185
 #: includes/class_rm_ui_strings.php:2012
-#: public/views/template_rm_front_accounts.php:164
+#: public/views/template_rm_front_accounts.php:167
 #: public/views/template_rm_front_submission_data.php:210
 #: public/widgets/html/account.php:111
 msgid "State"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:447
+#: admin/views/template_rm_submissions_manager.php:449
 #: admin/views/template_rm_user_view.php:166
 #: admin/views/template_rm_view_submission.php:186
 #: includes/class_rm_ui_strings.php:2018
-#: public/views/template_rm_front_accounts.php:165
+#: public/views/template_rm_front_accounts.php:168
 #: public/views/template_rm_front_submission_data.php:211
 #: public/widgets/html/account.php:112
 msgid "Zip Code"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:524
+#: admin/views/template_rm_submissions_manager.php:526
 msgid "No submissions match your filter criteria"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:527
+#: admin/views/template_rm_submissions_manager.php:529
 msgid "There are no submissions to display yet"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:633
+#: admin/views/template_rm_submissions_manager.php:635
 msgid ""
 "Please filter submissions by a form first. Currently, the form filter is set "
 "to "
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:634
+#: admin/views/template_rm_submissions_manager.php:636
 msgid "All Forms."
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:646
+#: admin/views/template_rm_submissions_manager.php:648
 msgid "Field Search"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:657
+#: admin/views/template_rm_submissions_manager.php:659
 #: includes/class_rm_ui_strings.php:1455
 msgid "Unique Token"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:671
+#: admin/views/template_rm_submissions_manager.php:673
 msgid "Status Filter"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:673
+#: admin/views/template_rm_submissions_manager.php:675
 msgid "Select Custom Status"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:699
+#: admin/views/template_rm_submissions_manager.php:701
 msgid "Properties Filter"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:706
+#: admin/views/template_rm_submissions_manager.php:708
 msgid "Has Note"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:710
+#: admin/views/template_rm_submissions_manager.php:712
 #: includes/class_rm_ui_strings.php:3431
 msgid "User Blocked"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:715
+#: admin/views/template_rm_submissions_manager.php:717
 msgid "Attachment"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:719
+#: admin/views/template_rm_submissions_manager.php:721
 msgid "No Attachment"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:724
+#: admin/views/template_rm_submissions_manager.php:726
 msgid "Payment Received"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:729
+#: admin/views/template_rm_submissions_manager.php:731
 #: includes/class_rm_ui_strings.php:3425
 msgid "Payment Pending"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:734
+#: admin/views/template_rm_submissions_manager.php:736
 msgid "Offline Pending Payment"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:739
+#: admin/views/template_rm_submissions_manager.php:741
 #: admin/views/widgets/subcountv.php:35
 msgid "Read"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:744
+#: admin/views/template_rm_submissions_manager.php:746
 #: admin/views/widgets/subcountv.php:36 includes/class_rm_ui_strings.php:3032
 msgid "Unread"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:758
+#: admin/views/template_rm_submissions_manager.php:760
 msgid "Clear"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:774
+#: admin/views/template_rm_submissions_manager.php:776
 msgid "Save search as filter "
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:914
+#: admin/views/template_rm_submissions_manager.php:916
 msgid "This action cannot be reversed. Are you sure you want to proceed ahead?"
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:1105
+#: admin/views/template_rm_submissions_manager.php:1107
 msgid "Filter already exists! Please try with a different name."
 msgstr ""
 
-#: admin/views/template_rm_submissions_manager.php:1107
+#: admin/views/template_rm_submissions_manager.php:1109
 msgid "This Search is already saved, please try with different search criteria."
 msgstr ""
 
@@ -8116,149 +8152,149 @@ msgstr ""
 msgid "RegistrationMagic Submissions"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:90 blocks/index.js:324
+#: admin/views/template_rm_user_manager.php:100 blocks/index.js:324
 #: includes/class_rm_ui_strings.php:1801
 msgid "Users"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:111
-#: admin/views/template_rm_user_manager.php:113
+#: admin/views/template_rm_user_manager.php:121
+#: admin/views/template_rm_user_manager.php:123
 msgid "Search Users"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:124
+#: admin/views/template_rm_user_manager.php:132
 #: includes/class_rm_ui_strings.php:1149
 msgid "Active"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:125
+#: admin/views/template_rm_user_manager.php:133
 msgid "Inactive"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:136
-#: admin/views/template_rm_user_manager.php:289
-#: admin/views/template_rm_user_manager.php:565
+#: admin/views/template_rm_user_manager.php:142
+#: admin/views/template_rm_user_manager.php:295
+#: admin/views/template_rm_user_manager.php:571
 #: includes/class_rm_ui_strings.php:773
 msgid "Deactivate"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:143
-#: admin/views/template_rm_user_manager.php:572
+#: admin/views/template_rm_user_manager.php:149
+#: admin/views/template_rm_user_manager.php:578
 msgid "Change role to..."
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:154
-#: admin/views/template_rm_user_manager.php:583
+#: admin/views/template_rm_user_manager.php:160
+#: admin/views/template_rm_user_manager.php:589
 #: includes/class_rm_ui_strings.php:2469
 msgid "Change"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:164
+#: admin/views/template_rm_user_manager.php:170
 msgid "All Roles"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:188
-#: admin/views/template_rm_user_manager.php:593
+#: admin/views/template_rm_user_manager.php:194
+#: admin/views/template_rm_user_manager.php:599
 msgid "First Page"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:189
-#: admin/views/template_rm_user_manager.php:594
+#: admin/views/template_rm_user_manager.php:195
+#: admin/views/template_rm_user_manager.php:600
 msgid "Previous Page"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:200
-#: admin/views/template_rm_user_manager.php:605
+#: admin/views/template_rm_user_manager.php:206
+#: admin/views/template_rm_user_manager.php:611
 msgid "Next Page"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:201
-#: admin/views/template_rm_user_manager.php:606
+#: admin/views/template_rm_user_manager.php:207
+#: admin/views/template_rm_user_manager.php:612
 msgid "Last Page"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:217
-#: admin/views/template_rm_user_manager.php:406
+#: admin/views/template_rm_user_manager.php:223
+#: admin/views/template_rm_user_manager.php:412
 msgid "Select All"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:231
-#: admin/views/template_rm_user_manager.php:420
+#: admin/views/template_rm_user_manager.php:237
+#: admin/views/template_rm_user_manager.php:426
 #: includes/class_rm_ui_strings.php:739 includes/class_rm_ui_strings.php:846
 #: includes/class_rm_ui_strings.php:3564 includes/class_rm_ui_strings.php:4521
 msgid "Name"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:232
-#: admin/views/template_rm_user_manager.php:421
+#: admin/views/template_rm_user_manager.php:238
+#: admin/views/template_rm_user_manager.php:427
 #: includes/class_rm_ui_strings.php:404
 msgid "Role"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:234
-#: admin/views/template_rm_user_manager.php:423
+#: admin/views/template_rm_user_manager.php:240
+#: admin/views/template_rm_user_manager.php:429
 msgid "Revenue"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:238
-#: admin/views/template_rm_user_manager.php:427
+#: admin/views/template_rm_user_manager.php:244
+#: admin/views/template_rm_user_manager.php:433
 msgid "Registered On"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:246
-#: admin/views/template_rm_user_manager.php:435
+#: admin/views/template_rm_user_manager.php:252
+#: admin/views/template_rm_user_manager.php:441
 msgid "Last login"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:280
+#: admin/views/template_rm_user_manager.php:286
 msgid "— Inactive"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:299
+#: admin/views/template_rm_user_manager.php:305
 #: includes/class_rm_ui_strings.php:4773
 msgid "Unblock Email"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:301
+#: admin/views/template_rm_user_manager.php:307
 #: includes/class_rm_ui_strings.php:2972
 msgid "Block Email"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:307
+#: admin/views/template_rm_user_manager.php:313
 msgid "Login Details"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:324
+#: admin/views/template_rm_user_manager.php:330
 #: admin/views/widgets/imagev.php:55 includes/class_rm_ui_strings.php:1104
 msgid "None"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:396
+#: admin/views/template_rm_user_manager.php:402
 msgid "No User Found."
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:452
+#: admin/views/template_rm_user_manager.php:458
 msgid "Delete Users"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:466
+#: admin/views/template_rm_user_manager.php:472
 msgid "Delete all content"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:471
+#: admin/views/template_rm_user_manager.php:477
 msgid "Attribute all content to:"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:487
+#: admin/views/template_rm_user_manager.php:493
 msgid "Confirm Deletion"
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:784
+#: admin/views/template_rm_user_manager.php:790
 #: admin/views/template_rm_user_view.php:410
 msgid "Sending..."
 msgstr ""
 
-#: admin/views/template_rm_user_manager.php:793
+#: admin/views/template_rm_user_manager.php:799
 #: admin/views/template_rm_user_view.php:417
 msgid "Email has been sent successfully."
 msgstr ""
@@ -8412,42 +8448,42 @@ msgstr ""
 msgid "--Select State--"
 msgstr ""
 
-#: external/PFBC/Element/State.php:6 includes/class_rm_utilities.php:1983
+#: external/PFBC/Element/State.php:6 includes/class_rm_utilities.php:1984
 #: includes/class_rm_utilities_revamp.php:51
 msgid "Alabama"
 msgstr ""
 
-#: external/PFBC/Element/State.php:7 includes/class_rm_utilities.php:1984
+#: external/PFBC/Element/State.php:7 includes/class_rm_utilities.php:1985
 #: includes/class_rm_utilities_revamp.php:52
 msgid "Alaska"
 msgstr ""
 
-#: external/PFBC/Element/State.php:8 includes/class_rm_utilities.php:1985
+#: external/PFBC/Element/State.php:8 includes/class_rm_utilities.php:1986
 #: includes/class_rm_utilities_revamp.php:53
 msgid "Arizona"
 msgstr ""
 
-#: external/PFBC/Element/State.php:9 includes/class_rm_utilities.php:1986
+#: external/PFBC/Element/State.php:9 includes/class_rm_utilities.php:1987
 #: includes/class_rm_utilities_revamp.php:54
 msgid "Arkansas"
 msgstr ""
 
-#: external/PFBC/Element/State.php:10 includes/class_rm_utilities.php:1990
+#: external/PFBC/Element/State.php:10 includes/class_rm_utilities.php:1991
 #: includes/class_rm_utilities_revamp.php:58
 msgid "California"
 msgstr ""
 
-#: external/PFBC/Element/State.php:11 includes/class_rm_utilities.php:1991
+#: external/PFBC/Element/State.php:11 includes/class_rm_utilities.php:1992
 #: includes/class_rm_utilities_revamp.php:59
 msgid "Colorado"
 msgstr ""
 
-#: external/PFBC/Element/State.php:12 includes/class_rm_utilities.php:1992
+#: external/PFBC/Element/State.php:12 includes/class_rm_utilities.php:1993
 #: includes/class_rm_utilities_revamp.php:60
 msgid "Connecticut"
 msgstr ""
 
-#: external/PFBC/Element/State.php:13 includes/class_rm_utilities.php:1993
+#: external/PFBC/Element/State.php:13 includes/class_rm_utilities.php:1994
 #: includes/class_rm_utilities_revamp.php:61
 msgid "Delaware"
 msgstr ""
@@ -8456,216 +8492,216 @@ msgstr ""
 msgid "District of Columbia"
 msgstr ""
 
-#: external/PFBC/Element/State.php:15 includes/class_rm_utilities.php:1995
+#: external/PFBC/Element/State.php:15 includes/class_rm_utilities.php:1996
 #: includes/class_rm_utilities_revamp.php:63
 msgid "Florida"
 msgstr ""
 
-#: external/PFBC/Element/State.php:16 includes/class_rm_utilities.php:1996
-#: includes/class_rm_utilities.php:2140
+#: external/PFBC/Element/State.php:16 includes/class_rm_utilities.php:1997
+#: includes/class_rm_utilities.php:2141
 #: includes/class_rm_utilities_revamp.php:64
 #: includes/class_rm_utilities_revamp.php:352
 msgid "Georgia"
 msgstr ""
 
-#: external/PFBC/Element/State.php:17 includes/class_rm_utilities.php:1997
+#: external/PFBC/Element/State.php:17 includes/class_rm_utilities.php:1998
 #: includes/class_rm_utilities_revamp.php:65
 msgid "Hawaii"
 msgstr ""
 
-#: external/PFBC/Element/State.php:18 includes/class_rm_utilities.php:1998
+#: external/PFBC/Element/State.php:18 includes/class_rm_utilities.php:1999
 #: includes/class_rm_utilities_revamp.php:66
 msgid "Idaho"
 msgstr ""
 
-#: external/PFBC/Element/State.php:19 includes/class_rm_utilities.php:1999
+#: external/PFBC/Element/State.php:19 includes/class_rm_utilities.php:2000
 #: includes/class_rm_utilities_revamp.php:67
 msgid "Illinois"
 msgstr ""
 
-#: external/PFBC/Element/State.php:20 includes/class_rm_utilities.php:2000
+#: external/PFBC/Element/State.php:20 includes/class_rm_utilities.php:2001
 #: includes/class_rm_utilities_revamp.php:68
 msgid "Indiana"
 msgstr ""
 
-#: external/PFBC/Element/State.php:21 includes/class_rm_utilities.php:2001
+#: external/PFBC/Element/State.php:21 includes/class_rm_utilities.php:2002
 #: includes/class_rm_utilities_revamp.php:69
 msgid "Iowa"
 msgstr ""
 
-#: external/PFBC/Element/State.php:22 includes/class_rm_utilities.php:2002
+#: external/PFBC/Element/State.php:22 includes/class_rm_utilities.php:2003
 #: includes/class_rm_utilities_revamp.php:70
 msgid "Kansas"
 msgstr ""
 
-#: external/PFBC/Element/State.php:23 includes/class_rm_utilities.php:2003
+#: external/PFBC/Element/State.php:23 includes/class_rm_utilities.php:2004
 #: includes/class_rm_utilities_revamp.php:71
 msgid "Kentucky"
 msgstr ""
 
-#: external/PFBC/Element/State.php:24 includes/class_rm_utilities.php:2004
+#: external/PFBC/Element/State.php:24 includes/class_rm_utilities.php:2005
 #: includes/class_rm_utilities_revamp.php:72
 msgid "Louisiana"
 msgstr ""
 
-#: external/PFBC/Element/State.php:25 includes/class_rm_utilities.php:2005
+#: external/PFBC/Element/State.php:25 includes/class_rm_utilities.php:2006
 #: includes/class_rm_utilities_revamp.php:73
 msgid "Maine"
 msgstr ""
 
-#: external/PFBC/Element/State.php:26 includes/class_rm_utilities.php:2006
+#: external/PFBC/Element/State.php:26 includes/class_rm_utilities.php:2007
 #: includes/class_rm_utilities_revamp.php:74
 msgid "Maryland"
 msgstr ""
 
-#: external/PFBC/Element/State.php:27 includes/class_rm_utilities.php:2007
+#: external/PFBC/Element/State.php:27 includes/class_rm_utilities.php:2008
 #: includes/class_rm_utilities_revamp.php:75
 msgid "Massachusetts"
 msgstr ""
 
-#: external/PFBC/Element/State.php:28 includes/class_rm_utilities.php:2008
+#: external/PFBC/Element/State.php:28 includes/class_rm_utilities.php:2009
 #: includes/class_rm_utilities_revamp.php:76
 msgid "Michigan"
 msgstr ""
 
-#: external/PFBC/Element/State.php:29 includes/class_rm_utilities.php:2009
+#: external/PFBC/Element/State.php:29 includes/class_rm_utilities.php:2010
 #: includes/class_rm_utilities_revamp.php:77
 msgid "Minnesota"
 msgstr ""
 
-#: external/PFBC/Element/State.php:30 includes/class_rm_utilities.php:2010
+#: external/PFBC/Element/State.php:30 includes/class_rm_utilities.php:2011
 #: includes/class_rm_utilities_revamp.php:78
 msgid "Mississippi"
 msgstr ""
 
-#: external/PFBC/Element/State.php:31 includes/class_rm_utilities.php:2011
+#: external/PFBC/Element/State.php:31 includes/class_rm_utilities.php:2012
 #: includes/class_rm_utilities_revamp.php:79
 msgid "Missouri"
 msgstr ""
 
-#: external/PFBC/Element/State.php:32 includes/class_rm_utilities.php:2012
+#: external/PFBC/Element/State.php:32 includes/class_rm_utilities.php:2013
 #: includes/class_rm_utilities_revamp.php:80
 msgid "Montana"
 msgstr ""
 
-#: external/PFBC/Element/State.php:33 includes/class_rm_utilities.php:2013
+#: external/PFBC/Element/State.php:33 includes/class_rm_utilities.php:2014
 #: includes/class_rm_utilities_revamp.php:81
 msgid "Nebraska"
 msgstr ""
 
-#: external/PFBC/Element/State.php:34 includes/class_rm_utilities.php:2014
+#: external/PFBC/Element/State.php:34 includes/class_rm_utilities.php:2015
 #: includes/class_rm_utilities_revamp.php:82
 msgid "Nevada"
 msgstr ""
 
-#: external/PFBC/Element/State.php:35 includes/class_rm_utilities.php:2015
+#: external/PFBC/Element/State.php:35 includes/class_rm_utilities.php:2016
 #: includes/class_rm_utilities_revamp.php:83
 msgid "New Hampshire"
 msgstr ""
 
-#: external/PFBC/Element/State.php:36 includes/class_rm_utilities.php:2016
+#: external/PFBC/Element/State.php:36 includes/class_rm_utilities.php:2017
 #: includes/class_rm_utilities_revamp.php:84
 msgid "New Jersey"
 msgstr ""
 
-#: external/PFBC/Element/State.php:37 includes/class_rm_utilities.php:2017
+#: external/PFBC/Element/State.php:37 includes/class_rm_utilities.php:2018
 #: includes/class_rm_utilities_revamp.php:85
 msgid "New Mexico"
 msgstr ""
 
 #: external/PFBC/Element/State.php:38 external/PFBC/Element/Timezone.php:172
-#: includes/class_rm_utilities.php:2018
+#: includes/class_rm_utilities.php:2019
 #: includes/class_rm_utilities_revamp.php:86
 #: includes/class_rm_utilities_revamp.php:681
 msgid "New York"
 msgstr ""
 
-#: external/PFBC/Element/State.php:39 includes/class_rm_utilities.php:2019
+#: external/PFBC/Element/State.php:39 includes/class_rm_utilities.php:2020
 #: includes/class_rm_utilities_revamp.php:87
 msgid "North Carolina"
 msgstr ""
 
-#: external/PFBC/Element/State.php:40 includes/class_rm_utilities.php:2020
+#: external/PFBC/Element/State.php:40 includes/class_rm_utilities.php:2021
 #: includes/class_rm_utilities_revamp.php:88
 msgid "North Dakota"
 msgstr ""
 
-#: external/PFBC/Element/State.php:41 includes/class_rm_utilities.php:2021
+#: external/PFBC/Element/State.php:41 includes/class_rm_utilities.php:2022
 #: includes/class_rm_utilities_revamp.php:89
 msgid "Ohio"
 msgstr ""
 
-#: external/PFBC/Element/State.php:42 includes/class_rm_utilities.php:2022
+#: external/PFBC/Element/State.php:42 includes/class_rm_utilities.php:2023
 #: includes/class_rm_utilities_revamp.php:90
 msgid "Oklahoma"
 msgstr ""
 
-#: external/PFBC/Element/State.php:43 includes/class_rm_utilities.php:2023
+#: external/PFBC/Element/State.php:43 includes/class_rm_utilities.php:2024
 #: includes/class_rm_utilities_revamp.php:91
 msgid "Oregon"
 msgstr ""
 
-#: external/PFBC/Element/State.php:44 includes/class_rm_utilities.php:2024
+#: external/PFBC/Element/State.php:44 includes/class_rm_utilities.php:2025
 #: includes/class_rm_utilities_revamp.php:92
 msgid "Pennsylvania"
 msgstr ""
 
-#: external/PFBC/Element/State.php:45 includes/class_rm_utilities.php:2025
+#: external/PFBC/Element/State.php:45 includes/class_rm_utilities.php:2026
 #: includes/class_rm_utilities_revamp.php:93
 msgid "Rhode Island"
 msgstr ""
 
-#: external/PFBC/Element/State.php:46 includes/class_rm_utilities.php:2026
+#: external/PFBC/Element/State.php:46 includes/class_rm_utilities.php:2027
 #: includes/class_rm_utilities_revamp.php:94
 msgid "South Carolina"
 msgstr ""
 
-#: external/PFBC/Element/State.php:47 includes/class_rm_utilities.php:2027
+#: external/PFBC/Element/State.php:47 includes/class_rm_utilities.php:2028
 #: includes/class_rm_utilities_revamp.php:95
 msgid "South Dakota"
 msgstr ""
 
-#: external/PFBC/Element/State.php:48 includes/class_rm_utilities.php:2028
+#: external/PFBC/Element/State.php:48 includes/class_rm_utilities.php:2029
 #: includes/class_rm_utilities_revamp.php:96
 msgid "Tennessee"
 msgstr ""
 
-#: external/PFBC/Element/State.php:49 includes/class_rm_utilities.php:2029
+#: external/PFBC/Element/State.php:49 includes/class_rm_utilities.php:2030
 #: includes/class_rm_utilities_revamp.php:97
 msgid "Texas"
 msgstr ""
 
-#: external/PFBC/Element/State.php:50 includes/class_rm_utilities.php:2030
+#: external/PFBC/Element/State.php:50 includes/class_rm_utilities.php:2031
 #: includes/class_rm_utilities_revamp.php:98
 msgid "Utah"
 msgstr ""
 
-#: external/PFBC/Element/State.php:51 includes/class_rm_utilities.php:2031
+#: external/PFBC/Element/State.php:51 includes/class_rm_utilities.php:2032
 #: includes/class_rm_utilities_revamp.php:99
 msgid "Vermont"
 msgstr ""
 
-#: external/PFBC/Element/State.php:52 includes/class_rm_utilities.php:2032
+#: external/PFBC/Element/State.php:52 includes/class_rm_utilities.php:2033
 #: includes/class_rm_utilities_revamp.php:100
 msgid "Virginia"
 msgstr ""
 
-#: external/PFBC/Element/State.php:53 includes/class_rm_utilities.php:2033
+#: external/PFBC/Element/State.php:53 includes/class_rm_utilities.php:2034
 #: includes/class_rm_utilities_revamp.php:101
 msgid "Washington"
 msgstr ""
 
-#: external/PFBC/Element/State.php:54 includes/class_rm_utilities.php:2034
+#: external/PFBC/Element/State.php:54 includes/class_rm_utilities.php:2035
 #: includes/class_rm_utilities_revamp.php:102
 msgid "West Virginia"
 msgstr ""
 
-#: external/PFBC/Element/State.php:55 includes/class_rm_utilities.php:2035
+#: external/PFBC/Element/State.php:55 includes/class_rm_utilities.php:2036
 #: includes/class_rm_utilities_revamp.php:103
 msgid "Wisconsin"
 msgstr ""
 
-#: external/PFBC/Element/State.php:56 includes/class_rm_utilities.php:2036
+#: external/PFBC/Element/State.php:56 includes/class_rm_utilities.php:2037
 #: includes/class_rm_utilities_revamp.php:104
 msgid "Wyoming"
 msgstr ""
@@ -8765,7 +8801,7 @@ msgstr ""
 msgid "Dar es Salaam"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:39 includes/class_rm_utilities.php:2120
+#: external/PFBC/Element/Timezone.php:39 includes/class_rm_utilities.php:2121
 #: includes/class_rm_utilities_revamp.php:332
 #: includes/class_rm_utilities_revamp.php:548
 msgid "Djibouti"
@@ -8946,7 +8982,7 @@ msgstr ""
 msgid "Anchorage"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:75 includes/class_rm_utilities.php:2068
+#: external/PFBC/Element/Timezone.php:75 includes/class_rm_utilities.php:2069
 #: includes/class_rm_utilities_revamp.php:280
 #: includes/class_rm_utilities_revamp.php:584
 msgid "Anguilla"
@@ -9022,7 +9058,7 @@ msgstr ""
 msgid "Argentina - Ushuaia"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:90 includes/class_rm_utilities.php:2073
+#: external/PFBC/Element/Timezone.php:90 includes/class_rm_utilities.php:2074
 #: includes/class_rm_utilities_revamp.php:285
 #: includes/class_rm_utilities_revamp.php:599
 msgid "Aruba"
@@ -9048,7 +9084,7 @@ msgstr ""
 msgid "Bahia Banderas"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:95 includes/class_rm_utilities.php:2080
+#: external/PFBC/Element/Timezone.php:95 includes/class_rm_utilities.php:2081
 #: includes/class_rm_utilities_revamp.php:292
 #: includes/class_rm_utilities_revamp.php:604
 msgid "Barbados"
@@ -9059,7 +9095,7 @@ msgstr ""
 msgid "Belem"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:97 includes/class_rm_utilities.php:2083
+#: external/PFBC/Element/Timezone.php:97 includes/class_rm_utilities.php:2084
 #: includes/class_rm_utilities_revamp.php:295
 #: includes/class_rm_utilities_revamp.php:606
 msgid "Belize"
@@ -9125,7 +9161,7 @@ msgstr ""
 msgid "Chihuahua"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:110 includes/class_rm_utilities.php:2113
+#: external/PFBC/Element/Timezone.php:110 includes/class_rm_utilities.php:2114
 #: includes/class_rm_utilities_revamp.php:325
 #: includes/class_rm_utilities_revamp.php:619
 msgid "Costa Rica"
@@ -9171,7 +9207,7 @@ msgstr ""
 msgid "Detroit"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:119 includes/class_rm_utilities.php:2121
+#: external/PFBC/Element/Timezone.php:119 includes/class_rm_utilities.php:2122
 #: includes/class_rm_utilities_revamp.php:333
 #: includes/class_rm_utilities_revamp.php:628
 msgid "Dominica"
@@ -9187,7 +9223,7 @@ msgstr ""
 msgid "Eirunepe"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:122 includes/class_rm_utilities.php:2125
+#: external/PFBC/Element/Timezone.php:122 includes/class_rm_utilities.php:2126
 #: includes/class_rm_utilities_revamp.php:337
 #: includes/class_rm_utilities_revamp.php:631
 msgid "El Salvador"
@@ -9218,19 +9254,19 @@ msgstr ""
 msgid "Grand Turk"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:128 includes/class_rm_utilities.php:2146
+#: external/PFBC/Element/Timezone.php:128 includes/class_rm_utilities.php:2147
 #: includes/class_rm_utilities_revamp.php:358
 #: includes/class_rm_utilities_revamp.php:637
 msgid "Grenada"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:129 includes/class_rm_utilities.php:2147
+#: external/PFBC/Element/Timezone.php:129 includes/class_rm_utilities.php:2148
 #: includes/class_rm_utilities_revamp.php:359
 #: includes/class_rm_utilities_revamp.php:638
 msgid "Guadeloupe"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:130 includes/class_rm_utilities.php:2149
+#: external/PFBC/Element/Timezone.php:130 includes/class_rm_utilities.php:2150
 #: includes/class_rm_utilities_revamp.php:361
 #: includes/class_rm_utilities_revamp.php:639
 msgid "Guatemala"
@@ -9241,7 +9277,7 @@ msgstr ""
 msgid "Guayaquil"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:132 includes/class_rm_utilities.php:2153
+#: external/PFBC/Element/Timezone.php:132 includes/class_rm_utilities.php:2154
 #: includes/class_rm_utilities_revamp.php:365
 #: includes/class_rm_utilities_revamp.php:641
 msgid "Guyana"
@@ -9312,7 +9348,7 @@ msgstr ""
 msgid "Iqaluit"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:146 includes/class_rm_utilities.php:2169
+#: external/PFBC/Element/Timezone.php:146 includes/class_rm_utilities.php:2170
 #: includes/class_rm_utilities_revamp.php:381
 #: includes/class_rm_utilities_revamp.php:655
 msgid "Jamaica"
@@ -9378,7 +9414,7 @@ msgstr ""
 msgid "Marigot"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:159 includes/class_rm_utilities.php:2198
+#: external/PFBC/Element/Timezone.php:159 includes/class_rm_utilities.php:2199
 #: includes/class_rm_utilities_revamp.php:410
 #: includes/class_rm_utilities_revamp.php:668
 msgid "Martinique"
@@ -9434,7 +9470,7 @@ msgstr ""
 msgid "Montevideo"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:170 includes/class_rm_utilities.php:2208
+#: external/PFBC/Element/Timezone.php:170 includes/class_rm_utilities.php:2209
 #: includes/class_rm_utilities_revamp.php:420
 #: includes/class_rm_utilities_revamp.php:679
 msgid "Montserrat"
@@ -9480,7 +9516,7 @@ msgstr ""
 msgid "Ojinaga"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:180 includes/class_rm_utilities.php:2230
+#: external/PFBC/Element/Timezone.php:180 includes/class_rm_utilities.php:2231
 #: includes/class_rm_utilities_revamp.php:442
 #: includes/class_rm_utilities_revamp.php:689
 msgid "Panama"
@@ -9516,7 +9552,7 @@ msgstr ""
 msgid "Porto Velho"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:187 includes/class_rm_utilities.php:2238
+#: external/PFBC/Element/Timezone.php:187 includes/class_rm_utilities.php:2239
 #: includes/class_rm_utilities_revamp.php:450
 #: includes/class_rm_utilities_revamp.php:696
 msgid "Puerto Rico"
@@ -9777,7 +9813,7 @@ msgstr ""
 msgid "Baghdad"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:239 includes/class_rm_utilities.php:2078
+#: external/PFBC/Element/Timezone.php:239 includes/class_rm_utilities.php:2079
 #: includes/class_rm_utilities_revamp.php:290
 #: includes/class_rm_utilities_revamp.php:748
 msgid "Bahrain"
@@ -9868,7 +9904,7 @@ msgstr ""
 msgid "Ho Chi Minh"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:257 includes/class_rm_utilities.php:2158
+#: external/PFBC/Element/Timezone.php:257 includes/class_rm_utilities.php:2159
 #: includes/class_rm_utilities_revamp.php:370
 #: includes/class_rm_utilities_revamp.php:766
 msgid "Hong Kong"
@@ -9949,7 +9985,7 @@ msgstr ""
 msgid "Kuching"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:273 includes/class_rm_utilities.php:2178
+#: external/PFBC/Element/Timezone.php:273 includes/class_rm_utilities.php:2179
 #: includes/class_rm_utilities_revamp.php:390
 #: includes/class_rm_utilities_revamp.php:782
 msgid "Kuwait"
@@ -10020,7 +10056,7 @@ msgstr ""
 msgid "Pyongyang"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:287 includes/class_rm_utilities.php:2239
+#: external/PFBC/Element/Timezone.php:287 includes/class_rm_utilities.php:2240
 #: includes/class_rm_utilities_revamp.php:451
 #: includes/class_rm_utilities_revamp.php:796
 msgid "Qatar"
@@ -10061,7 +10097,7 @@ msgstr ""
 msgid "Shanghai"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:295 includes/class_rm_utilities.php:2259
+#: external/PFBC/Element/Timezone.php:295 includes/class_rm_utilities.php:2260
 #: includes/class_rm_utilities_revamp.php:471
 #: includes/class_rm_utilities_revamp.php:804
 msgid "Singapore"
@@ -10142,7 +10178,7 @@ msgstr ""
 msgid "Azores"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:311 includes/class_rm_utilities.php:2085
+#: external/PFBC/Element/Timezone.php:311 includes/class_rm_utilities.php:2086
 #: includes/class_rm_utilities_revamp.php:297
 #: includes/class_rm_utilities_revamp.php:820
 msgid "Bermuda"
@@ -10153,7 +10189,7 @@ msgstr ""
 msgid "Canary"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:313 includes/class_rm_utilities.php:2100
+#: external/PFBC/Element/Timezone.php:313 includes/class_rm_utilities.php:2101
 #: includes/class_rm_utilities_revamp.php:312
 #: includes/class_rm_utilities_revamp.php:822
 msgid "Cape Verde"
@@ -10254,7 +10290,7 @@ msgstr ""
 msgid "Amsterdam"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:333 includes/class_rm_utilities.php:2066
+#: external/PFBC/Element/Timezone.php:333 includes/class_rm_utilities.php:2067
 #: includes/class_rm_utilities_revamp.php:278
 #: includes/class_rm_utilities_revamp.php:842
 msgid "Andorra"
@@ -10315,13 +10351,13 @@ msgstr ""
 msgid "Dublin"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:345 includes/class_rm_utilities.php:2143
+#: external/PFBC/Element/Timezone.php:345 includes/class_rm_utilities.php:2144
 #: includes/class_rm_utilities_revamp.php:355
 #: includes/class_rm_utilities_revamp.php:854
 msgid "Gibraltar"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:346 includes/class_rm_utilities.php:2150
+#: external/PFBC/Element/Timezone.php:346 includes/class_rm_utilities.php:2151
 #: includes/class_rm_utilities_revamp.php:362
 #: includes/class_rm_utilities_revamp.php:855
 msgid "Guernsey"
@@ -10342,7 +10378,7 @@ msgstr ""
 msgid "Istanbul"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:350 includes/class_rm_utilities.php:2171
+#: external/PFBC/Element/Timezone.php:350 includes/class_rm_utilities.php:2172
 #: includes/class_rm_utilities_revamp.php:383
 #: includes/class_rm_utilities_revamp.php:859
 msgid "Jersey"
@@ -10373,7 +10409,7 @@ msgstr ""
 msgid "London"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:356 includes/class_rm_utilities.php:2188
+#: external/PFBC/Element/Timezone.php:356 includes/class_rm_utilities.php:2189
 #: includes/class_rm_utilities_revamp.php:400
 #: includes/class_rm_utilities_revamp.php:865
 msgid "Luxembourg"
@@ -10384,7 +10420,7 @@ msgstr ""
 msgid "Madrid"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:358 includes/class_rm_utilities.php:2196
+#: external/PFBC/Element/Timezone.php:358 includes/class_rm_utilities.php:2197
 #: includes/class_rm_utilities_revamp.php:408
 #: includes/class_rm_utilities_revamp.php:867
 msgid "Malta"
@@ -10400,7 +10436,7 @@ msgstr ""
 msgid "Minsk"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:361 includes/class_rm_utilities.php:2205
+#: external/PFBC/Element/Timezone.php:361 includes/class_rm_utilities.php:2206
 #: includes/class_rm_utilities_revamp.php:417
 #: includes/class_rm_utilities_revamp.php:870
 msgid "Monaco"
@@ -10446,7 +10482,7 @@ msgstr ""
 msgid "Samara"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:370 includes/class_rm_utilities.php:2252
+#: external/PFBC/Element/Timezone.php:370 includes/class_rm_utilities.php:2253
 #: includes/class_rm_utilities_revamp.php:464
 #: includes/class_rm_utilities_revamp.php:879
 msgid "San Marino"
@@ -10572,25 +10608,25 @@ msgstr ""
 msgid "Mahe"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:395 includes/class_rm_utilities.php:2194
+#: external/PFBC/Element/Timezone.php:395 includes/class_rm_utilities.php:2195
 #: includes/class_rm_utilities_revamp.php:406
 #: includes/class_rm_utilities_revamp.php:904
 msgid "Maldives"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:396 includes/class_rm_utilities.php:2200
+#: external/PFBC/Element/Timezone.php:396 includes/class_rm_utilities.php:2201
 #: includes/class_rm_utilities_revamp.php:412
 #: includes/class_rm_utilities_revamp.php:905
 msgid "Mauritius"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:397 includes/class_rm_utilities.php:2201
+#: external/PFBC/Element/Timezone.php:397 includes/class_rm_utilities.php:2202
 #: includes/class_rm_utilities_revamp.php:413
 #: includes/class_rm_utilities_revamp.php:906
 msgid "Mayotte"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:398 includes/class_rm_utilities.php:2240
+#: external/PFBC/Element/Timezone.php:398 includes/class_rm_utilities.php:2241
 #: includes/class_rm_utilities_revamp.php:452
 #: includes/class_rm_utilities_revamp.php:907
 msgid "Reunion"
@@ -10636,7 +10672,7 @@ msgstr ""
 msgid "Fakaofo"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:407 includes/class_rm_utilities.php:2132
+#: external/PFBC/Element/Timezone.php:407 includes/class_rm_utilities.php:2133
 #: includes/class_rm_utilities_revamp.php:344
 #: includes/class_rm_utilities_revamp.php:916
 msgid "Fiji"
@@ -10662,7 +10698,7 @@ msgstr ""
 msgid "Guadalcanal"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:412 includes/class_rm_utilities.php:2148
+#: external/PFBC/Element/Timezone.php:412 includes/class_rm_utilities.php:2149
 #: includes/class_rm_utilities_revamp.php:360
 #: includes/class_rm_utilities_revamp.php:921
 msgid "Guam"
@@ -10708,13 +10744,13 @@ msgstr ""
 msgid "Midway"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:421 includes/class_rm_utilities.php:2213
+#: external/PFBC/Element/Timezone.php:421 includes/class_rm_utilities.php:2214
 #: includes/class_rm_utilities_revamp.php:425
 #: includes/class_rm_utilities_revamp.php:930
 msgid "Nauru"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:422 includes/class_rm_utilities.php:2222
+#: external/PFBC/Element/Timezone.php:422 includes/class_rm_utilities.php:2223
 #: includes/class_rm_utilities_revamp.php:434
 #: includes/class_rm_utilities_revamp.php:931
 msgid "Niue"
@@ -10735,13 +10771,13 @@ msgstr ""
 msgid "Pago Pago"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:426 includes/class_rm_utilities.php:2228
+#: external/PFBC/Element/Timezone.php:426 includes/class_rm_utilities.php:2229
 #: includes/class_rm_utilities_revamp.php:440
 #: includes/class_rm_utilities_revamp.php:935
 msgid "Palau"
 msgstr ""
 
-#: external/PFBC/Element/Timezone.php:427 includes/class_rm_utilities.php:2235
+#: external/PFBC/Element/Timezone.php:427 includes/class_rm_utilities.php:2236
 #: includes/class_rm_utilities_revamp.php:447
 #: includes/class_rm_utilities_revamp.php:936
 msgid "Pitcairn"
@@ -11076,12 +11112,22 @@ msgstr ""
 msgid "YYYY-Www (e.g. "
 msgstr ""
 
-#: external/PFBC/Resources/recaptchalib.php:135
+#: external/PFBC/Resources/recaptchalib.php:73
+#: external/PFBC/Resources/recaptchalib.php:118
+#, php-format
+msgid "To use reCAPTCHA you must get an API key from <a href=\"%s\">%s</a>"
+msgstr ""
+
+#: external/PFBC/Resources/recaptchalib.php:122
+msgid "For security reasons, you must pass the remote ip to reCAPTCHA"
+msgstr ""
+
+#: external/PFBC/Resources/recaptchalib.php:129
 msgid "reCAPTCHA response missing. Please try again."
 msgstr ""
 
-#: external/PFBC/Resources/recaptchalib.php:154
-#: libs/factory/class_rm_form_factory_revamp.php:740
+#: external/PFBC/Resources/recaptchalib.php:143
+#: libs/factory/class_rm_form_factory_revamp.php:762
 msgid "reCAPTCHA validation failed. Please try again."
 msgstr ""
 
@@ -11155,85 +11201,85 @@ msgstr ""
 msgid "RegMagic Chronos Interval"
 msgstr ""
 
-#: includes/class_registration_magic.php:290
+#: includes/class_registration_magic.php:292
 msgid "RegistrationMagic Export"
 msgstr ""
 
-#: includes/class_registration_magic.php:338
+#: includes/class_registration_magic.php:340
 msgid "RM Form Submissions"
 msgstr ""
 
-#: includes/class_registration_magic.php:342
-#: includes/class_registration_magic.php:407
+#: includes/class_registration_magic.php:344
+#: includes/class_registration_magic.php:409
 #: includes/class_rm_ui_strings.php:1392
 msgid "Submission ID"
 msgstr ""
 
-#: includes/class_registration_magic.php:349
+#: includes/class_registration_magic.php:351
 msgid "Data"
 msgstr ""
 
-#: includes/class_registration_magic.php:352
+#: includes/class_registration_magic.php:354
 msgid "Submitted On"
 msgstr ""
 
-#: includes/class_registration_magic.php:363
-#: includes/class_registration_magic.php:445
+#: includes/class_registration_magic.php:365
+#: includes/class_registration_magic.php:447
 msgid "RM Recorded IPs"
 msgstr ""
 
-#: includes/class_registration_magic.php:367
-#: includes/class_registration_magic.php:449
+#: includes/class_registration_magic.php:369
+#: includes/class_registration_magic.php:451
 msgid "IP"
 msgstr ""
 
-#: includes/class_registration_magic.php:395
+#: includes/class_registration_magic.php:397
 msgid "RM Payment Records"
 msgstr ""
 
-#: includes/class_registration_magic.php:399
+#: includes/class_registration_magic.php:401
 msgid "Payer Name"
 msgstr ""
 
-#: includes/class_registration_magic.php:403
+#: includes/class_registration_magic.php:405
 msgid "Payer Email"
 msgstr ""
 
-#: includes/class_registration_magic.php:414
+#: includes/class_registration_magic.php:416
 msgid "Invoice ID"
 msgstr ""
 
-#: includes/class_registration_magic.php:417
+#: includes/class_registration_magic.php:419
 msgid "Transaction ID"
 msgstr ""
 
-#: includes/class_registration_magic.php:427
+#: includes/class_registration_magic.php:429
 msgid "Mode Of Payment"
 msgstr ""
 
-#: includes/class_registration_magic.php:430
+#: includes/class_registration_magic.php:432
 msgid "Payment Date"
 msgstr ""
 
-#: includes/class_registration_magic.php:468
-#: includes/class_registration_magic.php:473
-#: includes/class_registration_magic.php:478
-#: includes/class_registration_magic.php:482
-#: includes/class_registration_magic.php:486
-#: includes/class_registration_magic.php:490
+#: includes/class_registration_magic.php:470
+#: includes/class_registration_magic.php:475
+#: includes/class_registration_magic.php:480
+#: includes/class_registration_magic.php:484
+#: includes/class_registration_magic.php:488
+#: includes/class_registration_magic.php:492
 msgid "RegistrationMagic Eraser"
 msgstr ""
 
-#: includes/class_registration_magic.php:1167
+#: includes/class_registration_magic.php:1169
 #: includes/class_rm_ui_strings.php:4352
 msgid "Your account has not been activated yet."
 msgstr ""
 
-#: includes/class_registration_magic.php:1338
+#: includes/class_registration_magic.php:1340
 msgid "This username is already taken"
 msgstr ""
 
-#: includes/class_registration_magic.php:1356
+#: includes/class_registration_magic.php:1358
 msgid "Security check failed"
 msgstr ""
 
@@ -11628,9 +11674,9 @@ msgid "Payment Status"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:240
-#: libs/factory/class_rm_form_factory_revamp.php:2603
-#: libs/factory/class_rm_form_factory_revamp.php:2620
-#: libs/factory/class_rm_form_factory_revamp.php:2636
+#: libs/factory/class_rm_form_factory_revamp.php:2729
+#: libs/factory/class_rm_form_factory_revamp.php:2746
+#: libs/factory/class_rm_form_factory_revamp.php:2762
 msgid "Subscribe for emails"
 msgstr ""
 
@@ -12105,7 +12151,7 @@ msgid ""
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:721
-#: libs/factory/class_rm_form_factory_revamp.php:1372
+#: libs/factory/class_rm_form_factory_revamp.php:1424
 msgid "No form selected"
 msgstr ""
 
@@ -12342,7 +12388,7 @@ msgstr ""
 msgid "Email Address for Testing"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:960 includes/class_rm_utilities.php:943
+#: includes/class_rm_ui_strings.php:960 includes/class_rm_utilities.php:944
 msgid "Test"
 msgstr ""
 
@@ -12526,8 +12572,8 @@ msgid "is a required field."
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1116
-#: libs/factory/class_rm_form_factory_revamp.php:344
-#: libs/factory/class_rm_form_factory_revamp.php:388
+#: libs/factory/class_rm_form_factory_revamp.php:347
+#: libs/factory/class_rm_form_factory_revamp.php:391
 #, php-format
 msgid "%s exceeds the file size limit of %d kBs"
 msgstr ""
@@ -12817,7 +12863,7 @@ msgid "Field Analytics"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1365
-#: libs/factory/class_rm_form_factory_revamp.php:1501
+#: libs/factory/class_rm_form_factory_revamp.php:1553
 msgid ""
 "To fight spam admin has fixed the maximum number of submissions for this form "
 "from a single device. You can resubmit after 24 hours or you can contact the "
@@ -12913,7 +12959,7 @@ msgid "Display Price"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1440
-#: libs/factory/class_rm_form_factory_revamp.php:2128
+#: libs/factory/class_rm_form_factory_revamp.php:2253
 msgid "Redirecting you to"
 msgstr ""
 
@@ -13669,7 +13715,7 @@ msgstr ""
 msgid "Registrant"
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:1861 public/views/template_rm_login.php:227
+#: includes/class_rm_ui_strings.php:1861 public/views/template_rm_login.php:234
 msgid "Lost your password?"
 msgstr ""
 
@@ -13767,7 +13813,8 @@ msgid ""
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1924
-#: libs/factory/class_rm_form_factory_revamp.php:1881
+#: libs/factory/class_rm_form_factory_revamp.php:1949
+#: libs/factory/class_rm_form_factory_revamp.php:1995
 msgid "Select a payment method"
 msgstr ""
 
@@ -14010,8 +14057,8 @@ msgid ""
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:2099
-#: public/widgets/class_rm_login_btn_widget.php:48
-#: public/widgets/class_rm_login_btn_widget.php:128
+#: public/widgets/class_rm_login_btn_widget.php:56
+#: public/widgets/class_rm_login_btn_widget.php:255
 #: services/class_rm_setting_service.php:138
 msgid "Logout"
 msgstr ""
@@ -14111,7 +14158,7 @@ msgid ""
 "Premium to activate Basic edition."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:2182 includes/class_rm_utilities.php:2559
+#: includes/class_rm_ui_strings.php:2182 includes/class_rm_utilities.php:2560
 #: includes/class_rm_utilities_revamp.php:1318
 #: public/views/template_rm_user_form.php:247
 msgid "Expired"
@@ -14564,7 +14611,7 @@ msgid ""
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:2466
-#: libs/factory/class_rm_form_factory_revamp.php:2254
+#: libs/factory/class_rm_form_factory_revamp.php:2379
 msgid "Sorry, you are not authorised to access this content."
 msgstr ""
 
@@ -15900,8 +15947,8 @@ msgid "Has Attachment(s)"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:3443
-#: libs/factory/class_rm_field_factory_revamp.php:6825
-#: libs/factory/class_rm_form_factory_revamp.php:1897
+#: libs/factory/class_rm_field_factory_revamp.php:6837
+#: libs/factory/class_rm_form_factory_revamp.php:2022
 #, php-format
 msgid "Total Price: %s"
 msgstr ""
@@ -16987,7 +17034,7 @@ msgid "Submission PDF Font"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:4364
-#: libs/factory/class_rm_form_factory_revamp.php:2162
+#: libs/factory/class_rm_form_factory_revamp.php:2287
 msgid "Please wait while we are logging into the system."
 msgstr ""
 
@@ -17293,7 +17340,7 @@ msgid "PayPal Client ID"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:4560
-msgid "Client ID can be obtained from PayPal dashboard."
+msgid "Client ID can be obtained from your PayPal dashboard."
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:4562
@@ -17631,7 +17678,7 @@ msgid "Helptext goes here"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:4757
-#: libs/factory/class_rm_form_factory_revamp.php:178
+#: libs/factory/class_rm_form_factory_revamp.php:181
 msgid "Submission can not be done as it is restricted by admin."
 msgstr ""
 
@@ -17694,29 +17741,61 @@ msgstr ""
 #: includes/class_rm_ui_strings.php:4785
 msgid ""
 "You have successfully verified your email. Your account is now active. You "
-"can login below.\n"
+"can login below."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4788
+#: includes/class_rm_ui_strings.php:4787
 msgid ""
 "Looks like the activation code is broken or incorrect. You can try pasting "
 "the activation code from your mail in input box below and manually verify it."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4790
+#: includes/class_rm_ui_strings.php:4789
 msgid ""
 "Sorry, the verification link has expired. Click here to resend the link "
 "{{SEND_VERIFICATION_EMAIL}}."
 msgstr ""
 
-#: includes/class_rm_ui_strings.php:4792
+#: includes/class_rm_ui_strings.php:4791
 msgid ""
 "Your account has not been activated yet. Please follow the link we sent to "
 "your registered email to activate your account. If you have not received it, "
 "click here to resend the link {{SEND_VERIFICATION_EMAIL}}."
 msgstr ""
 
+#: includes/class_rm_ui_strings.php:4793
+msgid ""
+"This field connects to available subscription plans and allows users to "
+"select a plan during registration."
+msgstr ""
+
+#: includes/class_rm_ui_strings.php:4795
+msgid "Subscription field"
+msgstr ""
+
 #: includes/class_rm_ui_strings.php:4797
+msgid "Subscription Field don't work as this form contain product field."
+msgstr ""
+
+#: includes/class_rm_ui_strings.php:4799
+msgid "Only 1 subscription field allowed in a single form."
+msgstr ""
+
+#: includes/class_rm_ui_strings.php:4801
+msgid "PayPal Secret Key"
+msgstr ""
+
+#: includes/class_rm_ui_strings.php:4803
+msgid "Secret key can be obtained from your PayPal dashboard."
+msgstr ""
+
+#: includes/class_rm_ui_strings.php:4805
+msgid ""
+"RegistrationMagic Subscriptions Addons is required for this field to work. "
+"Please install and activate the RegistrationMagic Subscriptions Addons plugin."
+msgstr ""
+
+#: includes/class_rm_ui_strings.php:4811
 msgid "NO STRING FOUND"
 msgstr ""
 
@@ -17780,1138 +17859,1142 @@ msgstr ""
 msgid "User Drop-down"
 msgstr ""
 
-#: includes/class_rm_utilities.php:589
+#: includes/class_rm_utilities.php:213
+msgid "Subscription"
+msgstr ""
+
+#: includes/class_rm_utilities.php:590
 msgid "PDF for Submission"
 msgstr ""
 
-#: includes/class_rm_utilities.php:942
+#: includes/class_rm_utilities.php:943
 msgid "Test SMTP Connection"
 msgstr ""
 
-#: includes/class_rm_utilities.php:973
+#: includes/class_rm_utilities.php:974
 msgid "Test Mail"
 msgstr ""
 
-#: includes/class_rm_utilities.php:1889
+#: includes/class_rm_utilities.php:1890
 msgid "Show Field <span>(the field will be hidden on form load)</span>"
 msgstr ""
 
-#: includes/class_rm_utilities.php:1890
+#: includes/class_rm_utilities.php:1891
 msgid "Hide Field <span>(the field will be visible on form load)</span>"
 msgstr ""
 
-#: includes/class_rm_utilities.php:1891
+#: includes/class_rm_utilities.php:1892
 msgid "Disable Field <span>(the field will be editable on form load)</span>"
 msgstr ""
 
-#: includes/class_rm_utilities.php:1987
+#: includes/class_rm_utilities.php:1988
 #: includes/class_rm_utilities_revamp.php:55
 msgid "Armed Forces America"
 msgstr ""
 
-#: includes/class_rm_utilities.php:1988
+#: includes/class_rm_utilities.php:1989
 #: includes/class_rm_utilities_revamp.php:56
 msgid "Armed Forces Europe"
 msgstr ""
 
-#: includes/class_rm_utilities.php:1989
+#: includes/class_rm_utilities.php:1990
 #: includes/class_rm_utilities_revamp.php:57
 msgid "Armed Forces Pacific"
 msgstr ""
 
-#: includes/class_rm_utilities.php:1994
+#: includes/class_rm_utilities.php:1995
 #: includes/class_rm_utilities_revamp.php:62
 msgid "District Of Columbia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2042
+#: includes/class_rm_utilities.php:2043
 #: includes/class_rm_utilities_revamp.php:110
 msgid "Alberta"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2043
+#: includes/class_rm_utilities.php:2044
 #: includes/class_rm_utilities_revamp.php:111
 msgid "British Columbia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2044
+#: includes/class_rm_utilities.php:2045
 #: includes/class_rm_utilities_revamp.php:112
 msgid "Manitoba"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2045
+#: includes/class_rm_utilities.php:2046
 #: includes/class_rm_utilities_revamp.php:113
 msgid "New Brunswick"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2046
+#: includes/class_rm_utilities.php:2047
 #: includes/class_rm_utilities_revamp.php:114
 msgid "Newfoundland and Labrador"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2047
+#: includes/class_rm_utilities.php:2048
 #: includes/class_rm_utilities_revamp.php:115
 msgid "Northwest Territories"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2048
+#: includes/class_rm_utilities.php:2049
 #: includes/class_rm_utilities_revamp.php:116
 msgid "Nova Scotia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2049
+#: includes/class_rm_utilities.php:2050
 #: includes/class_rm_utilities_revamp.php:117
 msgid "Nunavut"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2050
+#: includes/class_rm_utilities.php:2051
 #: includes/class_rm_utilities_revamp.php:118
 msgid "Ontario"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2051
+#: includes/class_rm_utilities.php:2052
 #: includes/class_rm_utilities_revamp.php:119
 msgid "Prince Edward Island"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2052
+#: includes/class_rm_utilities.php:2053
 #: includes/class_rm_utilities_revamp.php:120
 msgid "QuÃ©bec"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2053
+#: includes/class_rm_utilities.php:2054
 #: includes/class_rm_utilities_revamp.php:121
 msgid "Saskatchewan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2054
+#: includes/class_rm_utilities.php:2055
 #: includes/class_rm_utilities_revamp.php:122
 msgid "Yukon"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2061
+#: includes/class_rm_utilities.php:2062
 #: includes/class_rm_utilities_revamp.php:273
 msgid "Afghanistan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2062
+#: includes/class_rm_utilities.php:2063
 #: includes/class_rm_utilities_revamp.php:274
 msgid "Aland Islands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2063
+#: includes/class_rm_utilities.php:2064
 #: includes/class_rm_utilities_revamp.php:275
 msgid "Albania"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2064
+#: includes/class_rm_utilities.php:2065
 #: includes/class_rm_utilities_revamp.php:276
 msgid "Algeria"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2065
+#: includes/class_rm_utilities.php:2066
 #: includes/class_rm_utilities_revamp.php:277
 msgid "American Samoa"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2067
+#: includes/class_rm_utilities.php:2068
 #: includes/class_rm_utilities_revamp.php:279
 msgid "Angola"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2069
+#: includes/class_rm_utilities.php:2070
 #: includes/class_rm_utilities_revamp.php:281
 msgid "Antarctica"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2070
+#: includes/class_rm_utilities.php:2071
 #: includes/class_rm_utilities_revamp.php:282
 msgid "Antigua and Barbuda"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2071
+#: includes/class_rm_utilities.php:2072
 #: includes/class_rm_utilities_revamp.php:283
 msgid "Argentina"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2072
+#: includes/class_rm_utilities.php:2073
 #: includes/class_rm_utilities_revamp.php:284
 msgid "Armenia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2074
+#: includes/class_rm_utilities.php:2075
 #: includes/class_rm_utilities_revamp.php:286
 msgid "Australia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2075
+#: includes/class_rm_utilities.php:2076
 #: includes/class_rm_utilities_revamp.php:287
 msgid "Austria"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2076
+#: includes/class_rm_utilities.php:2077
 #: includes/class_rm_utilities_revamp.php:288
 msgid "Azerbaijan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2077
+#: includes/class_rm_utilities.php:2078
 #: includes/class_rm_utilities_revamp.php:289
 msgid "Bahamas, The"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2079
+#: includes/class_rm_utilities.php:2080
 #: includes/class_rm_utilities_revamp.php:291
 msgid "Bangladesh"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2081
+#: includes/class_rm_utilities.php:2082
 #: includes/class_rm_utilities_revamp.php:293
 msgid "Belarus"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2082
+#: includes/class_rm_utilities.php:2083
 #: includes/class_rm_utilities_revamp.php:294
 msgid "Belgium"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2084
+#: includes/class_rm_utilities.php:2085
 #: includes/class_rm_utilities_revamp.php:296
 msgid "Benin"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2086
+#: includes/class_rm_utilities.php:2087
 #: includes/class_rm_utilities_revamp.php:298
 msgid "Bhutan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2087
+#: includes/class_rm_utilities.php:2088
 #: includes/class_rm_utilities_revamp.php:299
 msgid "Bolivia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2088
+#: includes/class_rm_utilities.php:2089
 #: includes/class_rm_utilities_revamp.php:300
 msgid "Bosnia and Herzegovina"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2089
+#: includes/class_rm_utilities.php:2090
 #: includes/class_rm_utilities_revamp.php:301
 msgid "Botswana"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2090
+#: includes/class_rm_utilities.php:2091
 #: includes/class_rm_utilities_revamp.php:302
 msgid "Bouvet Island"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2091
+#: includes/class_rm_utilities.php:2092
 #: includes/class_rm_utilities_revamp.php:303
 msgid "Brazil"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2092
+#: includes/class_rm_utilities.php:2093
 #: includes/class_rm_utilities_revamp.php:304
 msgid "British Indian Ocean Territory"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2093
+#: includes/class_rm_utilities.php:2094
 #: includes/class_rm_utilities_revamp.php:305
 msgid "Brunei Darussalam"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2094
+#: includes/class_rm_utilities.php:2095
 #: includes/class_rm_utilities_revamp.php:306
 msgid "Bulgaria"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2095
+#: includes/class_rm_utilities.php:2096
 #: includes/class_rm_utilities_revamp.php:307
 msgid "Burkina Faso"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2096
+#: includes/class_rm_utilities.php:2097
 #: includes/class_rm_utilities_revamp.php:308
 msgid "Burundi"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2097
+#: includes/class_rm_utilities.php:2098
 #: includes/class_rm_utilities_revamp.php:309
 msgid "Cambodia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2098
+#: includes/class_rm_utilities.php:2099
 #: includes/class_rm_utilities_revamp.php:310
 msgid "Cameroon"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2101
+#: includes/class_rm_utilities.php:2102
 #: includes/class_rm_utilities_revamp.php:313
 msgid "Cayman Islands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2102
+#: includes/class_rm_utilities.php:2103
 #: includes/class_rm_utilities_revamp.php:314
 msgid "Central African Republic"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2103
+#: includes/class_rm_utilities.php:2104
 #: includes/class_rm_utilities_revamp.php:315
 msgid "Chad"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2104
+#: includes/class_rm_utilities.php:2105
 #: includes/class_rm_utilities_revamp.php:316
 msgid "Chile"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2105
+#: includes/class_rm_utilities.php:2106
 #: includes/class_rm_utilities_revamp.php:317
 msgid "China"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2106
+#: includes/class_rm_utilities.php:2107
 #: includes/class_rm_utilities_revamp.php:318
 msgid "Christmas Island"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2107
+#: includes/class_rm_utilities.php:2108
 #: includes/class_rm_utilities_revamp.php:319
 msgid "Cocos (Keeling) Islands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2108
+#: includes/class_rm_utilities.php:2109
 #: includes/class_rm_utilities_revamp.php:320
 msgid "Colombia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2109
+#: includes/class_rm_utilities.php:2110
 #: includes/class_rm_utilities_revamp.php:321
 msgid "Comoros"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2110
+#: includes/class_rm_utilities.php:2111
 #: includes/class_rm_utilities_revamp.php:322
 msgid "Congo"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2111
+#: includes/class_rm_utilities.php:2112
 #: includes/class_rm_utilities_revamp.php:323
 msgid "Congo, The Democratic Republic Of The"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2112
+#: includes/class_rm_utilities.php:2113
 #: includes/class_rm_utilities_revamp.php:324
 msgid "Cook Islands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2114
+#: includes/class_rm_utilities.php:2115
 #: includes/class_rm_utilities_revamp.php:326
 msgid "Cote D'ivoire"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2115
+#: includes/class_rm_utilities.php:2116
 #: includes/class_rm_utilities_revamp.php:327
 msgid "Croatia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2116
+#: includes/class_rm_utilities.php:2117
 #: includes/class_rm_utilities_revamp.php:328
 msgid "Cuba"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2117
+#: includes/class_rm_utilities.php:2118
 #: includes/class_rm_utilities_revamp.php:329
 msgid "Cyprus"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2118
+#: includes/class_rm_utilities.php:2119
 #: includes/class_rm_utilities_revamp.php:330
 msgid "Czech Republic"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2119
+#: includes/class_rm_utilities.php:2120
 #: includes/class_rm_utilities_revamp.php:331
 msgid "Denmark"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2122
+#: includes/class_rm_utilities.php:2123
 #: includes/class_rm_utilities_revamp.php:334
 msgid "Dominican Republic"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2123
+#: includes/class_rm_utilities.php:2124
 #: includes/class_rm_utilities_revamp.php:335
 msgid "Ecuador"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2124
+#: includes/class_rm_utilities.php:2125
 #: includes/class_rm_utilities_revamp.php:336
 msgid "Egypt"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2126
+#: includes/class_rm_utilities.php:2127
 #: includes/class_rm_utilities_revamp.php:338
 msgid "Equatorial Guinea"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2127
+#: includes/class_rm_utilities.php:2128
 #: includes/class_rm_utilities_revamp.php:339
 msgid "Eritrea"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2128
+#: includes/class_rm_utilities.php:2129
 #: includes/class_rm_utilities_revamp.php:340
 msgid "Estonia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2129
+#: includes/class_rm_utilities.php:2130
 #: includes/class_rm_utilities_revamp.php:341
 msgid "Ethiopia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2130
+#: includes/class_rm_utilities.php:2131
 #: includes/class_rm_utilities_revamp.php:342
 msgid "Falkland Islands (Malvinas)"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2131
+#: includes/class_rm_utilities.php:2132
 #: includes/class_rm_utilities_revamp.php:343
 msgid "Faroe Islands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2133
+#: includes/class_rm_utilities.php:2134
 #: includes/class_rm_utilities_revamp.php:345
 msgid "Finland"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2134
+#: includes/class_rm_utilities.php:2135
 #: includes/class_rm_utilities_revamp.php:346
 msgid "France"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2135
+#: includes/class_rm_utilities.php:2136
 #: includes/class_rm_utilities_revamp.php:347
 msgid "French Guiana"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2136
+#: includes/class_rm_utilities.php:2137
 #: includes/class_rm_utilities_revamp.php:348
 msgid "French Polynesia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2137
+#: includes/class_rm_utilities.php:2138
 #: includes/class_rm_utilities_revamp.php:349
 msgid "French Southern Territories"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2138
+#: includes/class_rm_utilities.php:2139
 #: includes/class_rm_utilities_revamp.php:350
 msgid "Gabon"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2139
+#: includes/class_rm_utilities.php:2140
 #: includes/class_rm_utilities_revamp.php:351
 msgid "Gambia, The"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2141
+#: includes/class_rm_utilities.php:2142
 #: includes/class_rm_utilities_revamp.php:353
 msgid "Germany"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2142
+#: includes/class_rm_utilities.php:2143
 #: includes/class_rm_utilities_revamp.php:354
 msgid "Ghana"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2144
+#: includes/class_rm_utilities.php:2145
 #: includes/class_rm_utilities_revamp.php:356
 msgid "Greece"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2145
+#: includes/class_rm_utilities.php:2146
 #: includes/class_rm_utilities_revamp.php:357
 msgid "Greenland"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2151
+#: includes/class_rm_utilities.php:2152
 #: includes/class_rm_utilities_revamp.php:363
 msgid "Guinea"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2152
+#: includes/class_rm_utilities.php:2153
 #: includes/class_rm_utilities_revamp.php:364
 msgid "Guinea-Bissau"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2154
+#: includes/class_rm_utilities.php:2155
 #: includes/class_rm_utilities_revamp.php:366
 msgid "Haiti"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2155
+#: includes/class_rm_utilities.php:2156
 #: includes/class_rm_utilities_revamp.php:367
 msgid "Heard Island and the McDonald Islands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2156
+#: includes/class_rm_utilities.php:2157
 #: includes/class_rm_utilities_revamp.php:368
 msgid "Holy See"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2157
+#: includes/class_rm_utilities.php:2158
 #: includes/class_rm_utilities_revamp.php:369
 msgid "Honduras"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2159
+#: includes/class_rm_utilities.php:2160
 #: includes/class_rm_utilities_revamp.php:371
 msgid "Hungary"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2160
+#: includes/class_rm_utilities.php:2161
 #: includes/class_rm_utilities_revamp.php:372
 msgid "Iceland"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2161
+#: includes/class_rm_utilities.php:2162
 #: includes/class_rm_utilities_revamp.php:373
 msgid "India"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2162
+#: includes/class_rm_utilities.php:2163
 #: includes/class_rm_utilities_revamp.php:374
 msgid "Indonesia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2163
+#: includes/class_rm_utilities.php:2164
 #: includes/class_rm_utilities_revamp.php:375
 msgid "Iraq"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2164
+#: includes/class_rm_utilities.php:2165
 #: includes/class_rm_utilities_revamp.php:376
 msgid "Iran"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2165
+#: includes/class_rm_utilities.php:2166
 #: includes/class_rm_utilities_revamp.php:377
 msgid "Ireland"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2166
+#: includes/class_rm_utilities.php:2167
 #: includes/class_rm_utilities_revamp.php:378
 msgid "Isle Of Man"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2167
+#: includes/class_rm_utilities.php:2168
 #: includes/class_rm_utilities_revamp.php:379
 msgid "Israel"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2168
+#: includes/class_rm_utilities.php:2169
 #: includes/class_rm_utilities_revamp.php:380
 msgid "Italy"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2170
+#: includes/class_rm_utilities.php:2171
 #: includes/class_rm_utilities_revamp.php:382
 msgid "Japan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2172
+#: includes/class_rm_utilities.php:2173
 #: includes/class_rm_utilities_revamp.php:384
 msgid "Jordan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2173
+#: includes/class_rm_utilities.php:2174
 #: includes/class_rm_utilities_revamp.php:385
 msgid "Kazakhstan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2174
+#: includes/class_rm_utilities.php:2175
 #: includes/class_rm_utilities_revamp.php:386
 msgid "Kenya"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2175
+#: includes/class_rm_utilities.php:2176
 #: includes/class_rm_utilities_revamp.php:387
 msgid "Kiribati"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2176
+#: includes/class_rm_utilities.php:2177
 #: includes/class_rm_utilities_revamp.php:388
 msgid "Korea, Republic Of"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2177
+#: includes/class_rm_utilities.php:2178
 #: includes/class_rm_utilities_revamp.php:389
 msgid "Kosovo"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2179
+#: includes/class_rm_utilities.php:2180
 #: includes/class_rm_utilities_revamp.php:391
 msgid "Kyrgyzstan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2180
+#: includes/class_rm_utilities.php:2181
 #: includes/class_rm_utilities_revamp.php:392
 msgid "Lao People's Democratic Republic"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2181
+#: includes/class_rm_utilities.php:2182
 #: includes/class_rm_utilities_revamp.php:393
 msgid "Latvia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2182
+#: includes/class_rm_utilities.php:2183
 #: includes/class_rm_utilities_revamp.php:394
 msgid "Lebanon"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2183
+#: includes/class_rm_utilities.php:2184
 #: includes/class_rm_utilities_revamp.php:395
 msgid "Lesotho"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2184
+#: includes/class_rm_utilities.php:2185
 #: includes/class_rm_utilities_revamp.php:396
 msgid "Liberia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2185
+#: includes/class_rm_utilities.php:2186
 #: includes/class_rm_utilities_revamp.php:397
 msgid "Libya"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2186
+#: includes/class_rm_utilities.php:2187
 #: includes/class_rm_utilities_revamp.php:398
 msgid "Liechtenstein"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2187
+#: includes/class_rm_utilities.php:2188
 #: includes/class_rm_utilities_revamp.php:399
 msgid "Lithuania"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2189
+#: includes/class_rm_utilities.php:2190
 #: includes/class_rm_utilities_revamp.php:401
 msgid "Macao"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2190
+#: includes/class_rm_utilities.php:2191
 #: includes/class_rm_utilities_revamp.php:402
 msgid "Macedonia, The Former Yugoslav Republic Of"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2191
+#: includes/class_rm_utilities.php:2192
 #: includes/class_rm_utilities_revamp.php:403
 msgid "Madagascar"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2192
+#: includes/class_rm_utilities.php:2193
 #: includes/class_rm_utilities_revamp.php:404
 msgid "Malawi"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2193
+#: includes/class_rm_utilities.php:2194
 #: includes/class_rm_utilities_revamp.php:405
 msgid "Malaysia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2195
+#: includes/class_rm_utilities.php:2196
 #: includes/class_rm_utilities_revamp.php:407
 msgid "Mali"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2197
+#: includes/class_rm_utilities.php:2198
 #: includes/class_rm_utilities_revamp.php:409
 msgid "Marshall Islands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2199
+#: includes/class_rm_utilities.php:2200
 #: includes/class_rm_utilities_revamp.php:411
 msgid "Mauritania"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2202
+#: includes/class_rm_utilities.php:2203
 #: includes/class_rm_utilities_revamp.php:414
 msgid "Mexico"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2203
+#: includes/class_rm_utilities.php:2204
 #: includes/class_rm_utilities_revamp.php:415
 msgid "Micronesia, Federated States Of"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2204
+#: includes/class_rm_utilities.php:2205
 #: includes/class_rm_utilities_revamp.php:416
 msgid "Moldova, Republic Of"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2206
+#: includes/class_rm_utilities.php:2207
 #: includes/class_rm_utilities_revamp.php:418
 msgid "Mongolia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2207
+#: includes/class_rm_utilities.php:2208
 #: includes/class_rm_utilities_revamp.php:419
 msgid "Montenegro"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2209
+#: includes/class_rm_utilities.php:2210
 #: includes/class_rm_utilities_revamp.php:421
 msgid "Morocco"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2210
+#: includes/class_rm_utilities.php:2211
 #: includes/class_rm_utilities_revamp.php:422
 msgid "Mozambique"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2211
+#: includes/class_rm_utilities.php:2212
 #: includes/class_rm_utilities_revamp.php:423
 msgid "Myanmar"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2212
+#: includes/class_rm_utilities.php:2213
 #: includes/class_rm_utilities_revamp.php:424
 msgid "Namibia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2214
+#: includes/class_rm_utilities.php:2215
 #: includes/class_rm_utilities_revamp.php:426
 msgid "Nepal"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2215
+#: includes/class_rm_utilities.php:2216
 #: includes/class_rm_utilities_revamp.php:427
 msgid "Netherlands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2216
+#: includes/class_rm_utilities.php:2217
 #: includes/class_rm_utilities_revamp.php:428
 msgid "Netherlands Antilles"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2217
+#: includes/class_rm_utilities.php:2218
 #: includes/class_rm_utilities_revamp.php:429
 msgid "New Caledonia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2218
+#: includes/class_rm_utilities.php:2219
 #: includes/class_rm_utilities_revamp.php:430
 msgid "New Zealand"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2219
+#: includes/class_rm_utilities.php:2220
 #: includes/class_rm_utilities_revamp.php:431
 msgid "Nicaragua"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2220
+#: includes/class_rm_utilities.php:2221
 #: includes/class_rm_utilities_revamp.php:432
 msgid "Niger"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2221
+#: includes/class_rm_utilities.php:2222
 #: includes/class_rm_utilities_revamp.php:433
 msgid "Nigeria"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2223
+#: includes/class_rm_utilities.php:2224
 #: includes/class_rm_utilities_revamp.php:435
 msgid "Norfolk Island"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2224
+#: includes/class_rm_utilities.php:2225
 #: includes/class_rm_utilities_revamp.php:436
 msgid "Northern Mariana Islands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2225
+#: includes/class_rm_utilities.php:2226
 #: includes/class_rm_utilities_revamp.php:437
 msgid "Norway"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2226
+#: includes/class_rm_utilities.php:2227
 #: includes/class_rm_utilities_revamp.php:438
 msgid "Oman"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2227
+#: includes/class_rm_utilities.php:2228
 #: includes/class_rm_utilities_revamp.php:439
 msgid "Pakistan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2229
+#: includes/class_rm_utilities.php:2230
 #: includes/class_rm_utilities_revamp.php:441
 msgid "Palestinian Territories"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2231
+#: includes/class_rm_utilities.php:2232
 #: includes/class_rm_utilities_revamp.php:443
 msgid "Papua New Guinea"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2232
+#: includes/class_rm_utilities.php:2233
 #: includes/class_rm_utilities_revamp.php:444
 msgid "Paraguay"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2233
+#: includes/class_rm_utilities.php:2234
 #: includes/class_rm_utilities_revamp.php:445
 msgid "Peru"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2234
+#: includes/class_rm_utilities.php:2235
 #: includes/class_rm_utilities_revamp.php:446
 msgid "Philippines"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2236
+#: includes/class_rm_utilities.php:2237
 #: includes/class_rm_utilities_revamp.php:448
 msgid "Poland"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2237
+#: includes/class_rm_utilities.php:2238
 #: includes/class_rm_utilities_revamp.php:449
 msgid "Portugal"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2241
+#: includes/class_rm_utilities.php:2242
 #: includes/class_rm_utilities_revamp.php:453
 msgid "Romania"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2242
+#: includes/class_rm_utilities.php:2243
 #: includes/class_rm_utilities_revamp.php:454
 msgid "Russian Federation"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2243
+#: includes/class_rm_utilities.php:2244
 #: includes/class_rm_utilities_revamp.php:455
 msgid "Rwanda"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2244
+#: includes/class_rm_utilities.php:2245
 #: includes/class_rm_utilities_revamp.php:456
 msgid "Saint Barthelemy"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2245
+#: includes/class_rm_utilities.php:2246
 #: includes/class_rm_utilities_revamp.php:457
 msgid "Saint Helena"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2246
+#: includes/class_rm_utilities.php:2247
 #: includes/class_rm_utilities_revamp.php:458
 msgid "Saint Kitts and Nevis"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2247
+#: includes/class_rm_utilities.php:2248
 #: includes/class_rm_utilities_revamp.php:459
 msgid "Saint Lucia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2248
+#: includes/class_rm_utilities.php:2249
 #: includes/class_rm_utilities_revamp.php:460
 msgid "Saint Martin"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2249
+#: includes/class_rm_utilities.php:2250
 #: includes/class_rm_utilities_revamp.php:461
 msgid "Saint Pierre and Miquelon"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2250
+#: includes/class_rm_utilities.php:2251
 #: includes/class_rm_utilities_revamp.php:462
 msgid "Saint Vincent and The Grenadines"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2251
+#: includes/class_rm_utilities.php:2252
 #: includes/class_rm_utilities_revamp.php:463
 msgid "Samoa"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2253
+#: includes/class_rm_utilities.php:2254
 #: includes/class_rm_utilities_revamp.php:465
 msgid "Sao Tome and Principe"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2254
+#: includes/class_rm_utilities.php:2255
 #: includes/class_rm_utilities_revamp.php:466
 msgid "Saudi Arabia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2255
+#: includes/class_rm_utilities.php:2256
 #: includes/class_rm_utilities_revamp.php:467
 msgid "Senegal"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2256
+#: includes/class_rm_utilities.php:2257
 #: includes/class_rm_utilities_revamp.php:468
 msgid "Serbia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2257
+#: includes/class_rm_utilities.php:2258
 #: includes/class_rm_utilities_revamp.php:469
 msgid "Seychelles"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2258
+#: includes/class_rm_utilities.php:2259
 #: includes/class_rm_utilities_revamp.php:470
 msgid "Sierra Leone"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2260
+#: includes/class_rm_utilities.php:2261
 #: includes/class_rm_utilities_revamp.php:472
 msgid "Slovakia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2261
+#: includes/class_rm_utilities.php:2262
 #: includes/class_rm_utilities_revamp.php:473
 msgid "Slovenia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2262
+#: includes/class_rm_utilities.php:2263
 #: includes/class_rm_utilities_revamp.php:474
 msgid "Solomon Islands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2263
+#: includes/class_rm_utilities.php:2264
 #: includes/class_rm_utilities_revamp.php:475
 msgid "Somalia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2264
+#: includes/class_rm_utilities.php:2265
 #: includes/class_rm_utilities_revamp.php:476
 msgid "South Africa"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2265
+#: includes/class_rm_utilities.php:2266
 #: includes/class_rm_utilities_revamp.php:477
 msgid "South Georgia and the South Sandwich Islands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2266
+#: includes/class_rm_utilities.php:2267
 #: includes/class_rm_utilities_revamp.php:478
 msgid "Spain"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2267
+#: includes/class_rm_utilities.php:2268
 #: includes/class_rm_utilities_revamp.php:479
 msgid "Sri Lanka"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2268
+#: includes/class_rm_utilities.php:2269
 #: includes/class_rm_utilities_revamp.php:480
 msgid "Sudan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2269
+#: includes/class_rm_utilities.php:2270
 #: includes/class_rm_utilities_revamp.php:481
 msgid "Suriname"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2270
+#: includes/class_rm_utilities.php:2271
 #: includes/class_rm_utilities_revamp.php:482
 msgid "Svalbard and Jan Mayen"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2271
+#: includes/class_rm_utilities.php:2272
 #: includes/class_rm_utilities_revamp.php:483
 msgid "Swaziland"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2272
+#: includes/class_rm_utilities.php:2273
 #: includes/class_rm_utilities_revamp.php:484
 msgid "Sweden"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2273
+#: includes/class_rm_utilities.php:2274
 #: includes/class_rm_utilities_revamp.php:485
 msgid "Switzerland"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2274
+#: includes/class_rm_utilities.php:2275
 #: includes/class_rm_utilities_revamp.php:486
 msgid "Syria"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2275
+#: includes/class_rm_utilities.php:2276
 #: includes/class_rm_utilities_revamp.php:487
 msgid "Taiwan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2276
+#: includes/class_rm_utilities.php:2277
 #: includes/class_rm_utilities_revamp.php:488
 msgid "Tajikistan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2277
+#: includes/class_rm_utilities.php:2278
 #: includes/class_rm_utilities_revamp.php:489
 msgid "Tanzania, United Republic Of"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2278
+#: includes/class_rm_utilities.php:2279
 #: includes/class_rm_utilities_revamp.php:490
 msgid "Thailand"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2279
+#: includes/class_rm_utilities.php:2280
 #: includes/class_rm_utilities_revamp.php:491
 msgid "Timor-leste"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2280
+#: includes/class_rm_utilities.php:2281
 #: includes/class_rm_utilities_revamp.php:492
 msgid "Togo"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2281
+#: includes/class_rm_utilities.php:2282
 #: includes/class_rm_utilities_revamp.php:493
 msgid "Tokelau"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2282
+#: includes/class_rm_utilities.php:2283
 #: includes/class_rm_utilities_revamp.php:494
 msgid "Tonga"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2283
+#: includes/class_rm_utilities.php:2284
 #: includes/class_rm_utilities_revamp.php:495
 msgid "Trinidad and Tobago"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2284
+#: includes/class_rm_utilities.php:2285
 #: includes/class_rm_utilities_revamp.php:496
 msgid "Tunisia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2285
+#: includes/class_rm_utilities.php:2286
 #: includes/class_rm_utilities_revamp.php:497
 msgid "Turkey"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2286
+#: includes/class_rm_utilities.php:2287
 #: includes/class_rm_utilities_revamp.php:498
 msgid "Turkmenistan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2287
+#: includes/class_rm_utilities.php:2288
 #: includes/class_rm_utilities_revamp.php:499
 msgid "Turks and Caicos Islands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2288
+#: includes/class_rm_utilities.php:2289
 #: includes/class_rm_utilities_revamp.php:500
 msgid "Tuvalu"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2289
+#: includes/class_rm_utilities.php:2290
 #: includes/class_rm_utilities_revamp.php:501
 msgid "Uganda"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2290
+#: includes/class_rm_utilities.php:2291
 #: includes/class_rm_utilities_revamp.php:502
 msgid "Ukraine"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2291
+#: includes/class_rm_utilities.php:2292
 #: includes/class_rm_utilities_revamp.php:503
 msgid "United Arab Emirates"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2292
+#: includes/class_rm_utilities.php:2293
 #: includes/class_rm_utilities_revamp.php:504
 msgid "United Kingdom"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2294
+#: includes/class_rm_utilities.php:2295
 #: includes/class_rm_utilities_revamp.php:506
 msgid "United States Minor Outlying Islands"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2295
+#: includes/class_rm_utilities.php:2296
 #: includes/class_rm_utilities_revamp.php:507
 msgid "Uruguay"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2296
+#: includes/class_rm_utilities.php:2297
 #: includes/class_rm_utilities_revamp.php:508
 msgid "Uzbekistan"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2297
+#: includes/class_rm_utilities.php:2298
 #: includes/class_rm_utilities_revamp.php:509
 msgid "Vanuatu"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2298
+#: includes/class_rm_utilities.php:2299
 #: includes/class_rm_utilities_revamp.php:510
 msgid "Venezuela"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2299
+#: includes/class_rm_utilities.php:2300
 #: includes/class_rm_utilities_revamp.php:511
 msgid "Vietnam"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2300
+#: includes/class_rm_utilities.php:2301
 #: includes/class_rm_utilities_revamp.php:512
 msgid "Virgin Islands, British"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2301
+#: includes/class_rm_utilities.php:2302
 #: includes/class_rm_utilities_revamp.php:513
 msgid "Virgin Islands, U.S."
 msgstr ""
 
-#: includes/class_rm_utilities.php:2302
+#: includes/class_rm_utilities.php:2303
 #: includes/class_rm_utilities_revamp.php:514
 msgid "Wallis and Futuna"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2303
+#: includes/class_rm_utilities.php:2304
 #: includes/class_rm_utilities_revamp.php:515
 msgid "Western Sahara"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2304
+#: includes/class_rm_utilities.php:2305
 #: includes/class_rm_utilities_revamp.php:516
 msgid "Yemen"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2305
+#: includes/class_rm_utilities.php:2306
 #: includes/class_rm_utilities_revamp.php:517
 msgid "Zambia"
 msgstr ""
 
-#: includes/class_rm_utilities.php:2306
+#: includes/class_rm_utilities.php:2307
 #: includes/class_rm_utilities_revamp.php:518
 msgid "Zimbabwe"
 msgstr ""
 
-#: includes/class_rm_utilities.php:3088
+#: includes/class_rm_utilities.php:3089
 msgid "User does not exist."
 msgstr ""
 
-#: includes/class_rm_utilities.php:3094
+#: includes/class_rm_utilities.php:3095
 msgid "Cannot change password of a multisite network administrator."
 msgstr ""
 
-#: includes/class_rm_utilities.php:3100
+#: includes/class_rm_utilities.php:3101
 msgid "RM LOGIN PASSWORD CHANGED"
 msgstr ""
 
-#: includes/class_rm_utilities.php:3100
+#: includes/class_rm_utilities.php:3101
 msgid "Here is your updated password: "
 msgstr ""
 
 #: libs/factory/class_rm_field_factory.php:1042
-#: libs/factory/class_rm_form_factory_revamp.php:2545
+#: libs/factory/class_rm_form_factory_revamp.php:2670
 #: public/views/template_rm_reset_password.php:75
 msgid "This field is required"
 msgstr ""
@@ -18921,8 +19004,8 @@ msgstr ""
 msgid "Invalid price field"
 msgstr ""
 
-#: libs/factory/class_rm_field_factory_revamp.php:5897
-#: libs/factory/class_rm_field_factory_revamp.php:6752
+#: libs/factory/class_rm_field_factory_revamp.php:5908
+#: libs/factory/class_rm_field_factory_revamp.php:6764
 msgid "Loading States..."
 msgstr ""
 
@@ -18933,326 +19016,344 @@ msgstr ""
 msgid "Save & Exit"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:138
+#: libs/factory/class_rm_form_factory_revamp.php:141
 msgid "Email address contains invalid characters"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:147
+#: libs/factory/class_rm_form_factory_revamp.php:150
 msgid "A user with this email address already exists"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:151
+#: libs/factory/class_rm_form_factory_revamp.php:154
 msgid "Email confirmation is required"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:154
+#: libs/factory/class_rm_form_factory_revamp.php:157
 msgid "Emails are not matching"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:168
+#: libs/factory/class_rm_form_factory_revamp.php:171
 msgid "You have reached your form submission limit"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:186
-#: libs/factory/class_rm_form_factory_revamp.php:1395
+#: libs/factory/class_rm_form_factory_revamp.php:189
+#: libs/factory/class_rm_form_factory_revamp.php:1447
 msgid "You are banned from submitting the form."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:211
+#: libs/factory/class_rm_form_factory_revamp.php:214
 msgid "Account email is a required field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:230
+#: libs/factory/class_rm_form_factory_revamp.php:233
 msgid "A user with this username already exists"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:236
-#: libs/factory/class_rm_form_factory_revamp.php:697
+#: libs/factory/class_rm_form_factory_revamp.php:239
+#: libs/factory/class_rm_form_factory_revamp.php:719
 msgid "This username is reserved/blacklisted by the admin"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:248
 #: libs/factory/class_rm_form_factory_revamp.php:251
+#: libs/factory/class_rm_form_factory_revamp.php:254
 msgid "Password confirmation is required"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:255
+#: libs/factory/class_rm_form_factory_revamp.php:258
 msgid "Password confirmation does not match"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:268
-#: libs/factory/class_rm_form_factory_revamp.php:2548
+#: libs/factory/class_rm_form_factory_revamp.php:271
+#: libs/factory/class_rm_form_factory_revamp.php:2673
 msgid "Password must contain an uppercase letter"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:273
-#: libs/factory/class_rm_form_factory_revamp.php:2549
+#: libs/factory/class_rm_form_factory_revamp.php:276
+#: libs/factory/class_rm_form_factory_revamp.php:2674
 msgid "Password must contain a number"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:278
-#: libs/factory/class_rm_form_factory_revamp.php:2550
+#: libs/factory/class_rm_form_factory_revamp.php:281
+#: libs/factory/class_rm_form_factory_revamp.php:2675
 msgid "Password must contain a special character"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:283
-#: libs/factory/class_rm_form_factory_revamp.php:2551
+#: libs/factory/class_rm_form_factory_revamp.php:286
+#: libs/factory/class_rm_form_factory_revamp.php:2676
 #, php-format
 msgid "Password must be at least %s characters long"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:288
-#: libs/factory/class_rm_form_factory_revamp.php:2552
+#: libs/factory/class_rm_form_factory_revamp.php:291
+#: libs/factory/class_rm_form_factory_revamp.php:2677
 #, php-format
 msgid "Password must not be longer than %s characters"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:298
+#: libs/factory/class_rm_form_factory_revamp.php:301
 msgid "Password is a required field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:305
-#: libs/factory/class_rm_form_factory_revamp.php:326
-#: libs/factory/class_rm_form_factory_revamp.php:370
-#: libs/factory/class_rm_form_factory_revamp.php:532
-#: libs/factory/class_rm_form_factory_revamp.php:680
+#: libs/factory/class_rm_form_factory_revamp.php:308
+#: libs/factory/class_rm_form_factory_revamp.php:329
+#: libs/factory/class_rm_form_factory_revamp.php:373
+#: libs/factory/class_rm_form_factory_revamp.php:552
+#: libs/factory/class_rm_form_factory_revamp.php:702
 #, php-format
 msgid "%s is a required field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:334
-#: libs/factory/class_rm_form_factory_revamp.php:378
+#: libs/factory/class_rm_form_factory_revamp.php:337
+#: libs/factory/class_rm_form_factory_revamp.php:381
 #, php-format
 msgid "%s file type is not allowed for upload."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:337
-#: libs/factory/class_rm_form_factory_revamp.php:381
+#: libs/factory/class_rm_form_factory_revamp.php:340
+#: libs/factory/class_rm_form_factory_revamp.php:384
 msgid "Invalid file upload."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:557
-#: libs/factory/class_rm_form_factory_revamp.php:578
-#: libs/factory/class_rm_form_factory_revamp.php:583
+#: libs/factory/class_rm_form_factory_revamp.php:577
+#: libs/factory/class_rm_form_factory_revamp.php:598
+#: libs/factory/class_rm_form_factory_revamp.php:603
 #, php-format
 msgid "Incorrect format provided for %s field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:567
+#: libs/factory/class_rm_form_factory_revamp.php:587
 #, php-format
 msgid "%s must be a number"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:593
+#: libs/factory/class_rm_form_factory_revamp.php:613
 #, php-format
 msgid "Incorrect Website/URL format provided for %s field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:638
-#: libs/factory/class_rm_form_factory_revamp.php:644
+#: libs/factory/class_rm_form_factory_revamp.php:658
+#: libs/factory/class_rm_form_factory_revamp.php:664
 #, php-format
 msgid "%s should have a unique value. Please try form submission again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:656
+#: libs/factory/class_rm_form_factory_revamp.php:676
 #, php-format
 msgid "%s should have more than %s characters"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:664
+#: libs/factory/class_rm_form_factory_revamp.php:684
 #, php-format
 msgid "%s should have less than %s characters"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:693
+#: libs/factory/class_rm_form_factory_revamp.php:715
 msgid "Username is a required field"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:710
-#: libs/factory/class_rm_form_factory_revamp.php:719
+#: libs/factory/class_rm_form_factory_revamp.php:732
+#: libs/factory/class_rm_form_factory_revamp.php:741
 #, php-format
 msgid "User Role (%s)"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:713
+#: libs/factory/class_rm_form_factory_revamp.php:735
 msgid "Incorrect user role selected. Please try form submission again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:729
+#: libs/factory/class_rm_form_factory_revamp.php:751
 msgid "reCAPTCHA check failed"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:756
+#: libs/factory/class_rm_form_factory_revamp.php:778
+#: libs/factory/class_rm_form_factory_revamp.php:797
 msgid "No payment method selected. Please try form submission again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:810
+#: libs/factory/class_rm_form_factory_revamp.php:837
 msgid "Could not save submission in database. Please try again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1150
-#: libs/factory/class_rm_form_factory_revamp.php:1166
+#: libs/factory/class_rm_form_factory_revamp.php:1177
+#: libs/factory/class_rm_form_factory_revamp.php:1218
 msgid "Form Submission Saved"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1158
-#: libs/factory/class_rm_form_factory_revamp.php:1174
+#: libs/factory/class_rm_form_factory_revamp.php:1185
+#: libs/factory/class_rm_form_factory_revamp.php:1226
 #, php-format
 msgid "Submission Token: %s"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1196
-#: libs/factory/class_rm_form_factory_revamp.php:1200
+#: libs/factory/class_rm_form_factory_revamp.php:1248
+#: libs/factory/class_rm_form_factory_revamp.php:1252
 #, php-format
 msgid "Redirecting you to %s"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1209
+#: libs/factory/class_rm_form_factory_revamp.php:1261
 msgid "User email not provided. Please try submission again."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1310
+#: libs/factory/class_rm_form_factory_revamp.php:1362
 msgid "Submission edited succesfully"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1313
+#: libs/factory/class_rm_form_factory_revamp.php:1365
 msgid "Redirecting you back to the submission details"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1316
+#: libs/factory/class_rm_form_factory_revamp.php:1368
 msgid "Invalid submission edit."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1377
+#: libs/factory/class_rm_form_factory_revamp.php:1429
 msgid "Auto login successful"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1387
-#: libs/factory/class_rm_form_factory_revamp.php:1406
+#: libs/factory/class_rm_form_factory_revamp.php:1439
+#: libs/factory/class_rm_form_factory_revamp.php:1458
 msgid "Form doesn't exist in the database"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1418
+#: libs/factory/class_rm_form_factory_revamp.php:1470
 msgid "This form has expired."
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1479
+#: libs/factory/class_rm_form_factory_revamp.php:1531
 msgid "Please enter the details to complete the payment:"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1480
+#: libs/factory/class_rm_form_factory_revamp.php:1532
 msgid "Pay"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1547
+#: libs/factory/class_rm_form_factory_revamp.php:1599
 msgid "Invalid submission edit"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1878
+#: libs/factory/class_rm_form_factory_revamp.php:1928
+msgid ""
+"No payment gateway enabled. Please enable a payment gateway to process "
+"payment."
+msgstr ""
+
+#: libs/factory/class_rm_form_factory_revamp.php:1992
 msgid "Offline"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:1953
+#: libs/factory/class_rm_form_factory_revamp.php:2015
+msgid ""
+"PayPal payment gateway isn't fully configured. Payments may not get updated "
+"correctly. Please contact site administrator to resolve this issue."
+msgstr ""
+
+#: libs/factory/class_rm_form_factory_revamp.php:2078
 msgid "Invalid form access"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2124
-#: public/class_rm_public.php:752 services/class_rm_front_form_service.php:556
-#: services/class_rm_paypal_service.php:379
+#: libs/factory/class_rm_form_factory_revamp.php:2249
+#: public/class_rm_public.php:763 services/class_rm_front_form_service.php:556
+#: services/class_rm_paypal_service.php:449
 msgid "Submitted"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2134
-#: public/class_rm_public.php:765 services/class_rm_front_form_service.php:572
-#: services/class_rm_paypal_service.php:392
+#: libs/factory/class_rm_form_factory_revamp.php:2259
+#: public/class_rm_public.php:776 services/class_rm_front_form_service.php:572
+#: services/class_rm_paypal_service.php:462
 msgid "(No Title)"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2280
+#: libs/factory/class_rm_form_factory_revamp.php:2405
 msgid "You need to login to access this form"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2546
+#: libs/factory/class_rm_form_factory_revamp.php:2671
 msgid "Password does not match"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2547
+#: libs/factory/class_rm_form_factory_revamp.php:2672
 msgid "Email does not match"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2553
+#: libs/factory/class_rm_form_factory_revamp.php:2678
 msgid "A user with this email already exists"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2554
+#: libs/factory/class_rm_form_factory_revamp.php:2679
 msgid "Incorrect email format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2555
+#: libs/factory/class_rm_form_factory_revamp.php:2680
 msgid "Incorrect website/URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2556
+#: libs/factory/class_rm_form_factory_revamp.php:2681
 msgid "Incorrect Facebook URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2557
+#: libs/factory/class_rm_form_factory_revamp.php:2682
 msgid "Incorrect Twitter URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2558
+#: libs/factory/class_rm_form_factory_revamp.php:2683
 msgid "Incorrect Instagram URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2559
+#: libs/factory/class_rm_form_factory_revamp.php:2684
 msgid "Incorrect LinkedIn URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2560
+#: libs/factory/class_rm_form_factory_revamp.php:2685
 msgid "Incorrect YouTube URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2561
+#: libs/factory/class_rm_form_factory_revamp.php:2686
 msgid "Incorrect VKontacte URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2562
+#: libs/factory/class_rm_form_factory_revamp.php:2687
 msgid "Incorrect Skype format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2563
+#: libs/factory/class_rm_form_factory_revamp.php:2688
 msgid "Incorrect SoundCloud URL format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2564
+#: libs/factory/class_rm_form_factory_revamp.php:2689
 msgid "Incorrect format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2565
+#: libs/factory/class_rm_form_factory_revamp.php:2690
 msgid "Incorrect mobile number format"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2566
+#: libs/factory/class_rm_form_factory_revamp.php:2691
+#, php-format
+msgid "Invalid file type. Allowed types: %s"
+msgstr ""
+
+#: libs/factory/class_rm_form_factory_revamp.php:2692
 #, php-format
 msgid "Value cannot be less than %s characters"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2567
+#: libs/factory/class_rm_form_factory_revamp.php:2693
 #, php-format
 msgid "Value cannot be more than %s characters"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2568
+#: libs/factory/class_rm_form_factory_revamp.php:2694
 #, php-format
 msgid "Value cannot be less than %s"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2569
+#: libs/factory/class_rm_form_factory_revamp.php:2695
 #, php-format
 msgid "Value cannot be more than %s"
 msgstr ""
 
-#: libs/factory/class_rm_form_factory_revamp.php:2570
+#: libs/factory/class_rm_form_factory_revamp.php:2696
 msgid "Please provide reCaptcha verification"
 msgstr ""
 
@@ -19629,21 +19730,25 @@ msgid ""
 "manage landing pages."
 msgstr ""
 
-#: public/class_rm_public.php:568 public/class_rm_public.php:575
+#: public/class_rm_public.php:330
+msgid "Form ID is required to render the form."
+msgstr ""
+
+#: public/class_rm_public.php:579 public/class_rm_public.php:586
 msgid "No such user exists"
 msgstr ""
 
-#: public/class_rm_public.php:581
+#: public/class_rm_public.php:592
 msgid ""
 "Verification link has been sent on your registered email account. Please "
 "check."
 msgstr ""
 
-#: public/class_rm_public.php:586
+#: public/class_rm_public.php:597
 msgid "Incorrect security token. Please try after some time."
 msgstr ""
 
-#: public/class_rm_public.php:615
+#: public/class_rm_public.php:626
 msgid "Go to RegistrationMagic account"
 msgstr ""
 
@@ -19696,11 +19801,11 @@ msgstr ""
 msgid "My Account"
 msgstr ""
 
-#: public/views/template_rm_login.php:109
+#: public/views/template_rm_login.php:116
 msgid "Login Failed"
 msgstr ""
 
-#: public/views/template_rm_login.php:185
+#: public/views/template_rm_login.php:192
 msgid "Remember Me"
 msgstr ""
 
@@ -19767,7 +19872,7 @@ msgid "Good Afternoon"
 msgstr ""
 
 #: public/widgets/class_rm_form_widget.php:15
-#: public/widgets/class_rm_form_widget.php:48
+#: public/widgets/class_rm_form_widget.php:64
 msgid "RegistrationMagic Form"
 msgstr ""
 
@@ -19776,63 +19881,58 @@ msgid "Attaches RegistrationMagic form."
 msgstr ""
 
 #: public/widgets/class_rm_login_btn_widget.php:14
-#: public/widgets/class_rm_login_btn_widget.php:44
+#: public/widgets/class_rm_login_btn_widget.php:52
 msgid "RegistrationMagic Login Button"
 msgstr ""
 
-#: public/widgets/class_rm_login_btn_widget.php:46
-#: public/widgets/class_rm_login_btn_widget.php:126
-msgid "popup"
-msgstr ""
-
-#: public/widgets/class_rm_login_btn_widget.php:52
+#: public/widgets/class_rm_login_btn_widget.php:75
 #: public/widgets/class_rm_otp_widget.php:59
 msgid "Title:"
 msgstr ""
 
-#: public/widgets/class_rm_login_btn_widget.php:60
+#: public/widgets/class_rm_login_btn_widget.php:89
 msgid "Logged Out View"
 msgstr ""
 
-#: public/widgets/class_rm_login_btn_widget.php:63
+#: public/widgets/class_rm_login_btn_widget.php:94
 msgid "Login Label"
 msgstr ""
 
-#: public/widgets/class_rm_login_btn_widget.php:65
+#: public/widgets/class_rm_login_btn_widget.php:104
 msgid "Label of the button when user is in logged out state."
 msgstr ""
 
-#: public/widgets/class_rm_login_btn_widget.php:69
+#: public/widgets/class_rm_login_btn_widget.php:124
 msgid "Popup"
 msgstr ""
 
-#: public/widgets/class_rm_login_btn_widget.php:74
+#: public/widgets/class_rm_login_btn_widget.php:148
 msgid ""
 "Define what happens when user clicks login button. Popup will open popup box "
 "with login fields."
 msgstr ""
 
-#: public/widgets/class_rm_login_btn_widget.php:77
+#: public/widgets/class_rm_login_btn_widget.php:157
 msgid "Login Page URL"
 msgstr ""
 
-#: public/widgets/class_rm_login_btn_widget.php:84
+#: public/widgets/class_rm_login_btn_widget.php:174
 msgid "Make sure the page you selected has login box."
 msgstr ""
 
-#: public/widgets/class_rm_login_btn_widget.php:94
+#: public/widgets/class_rm_login_btn_widget.php:186
 msgid "Logout Label"
 msgstr ""
 
-#: public/widgets/class_rm_login_btn_widget.php:96
+#: public/widgets/class_rm_login_btn_widget.php:196
 msgid "Label of the button when user is in logged in state."
 msgstr ""
 
-#: public/widgets/class_rm_login_btn_widget.php:100
+#: public/widgets/class_rm_login_btn_widget.php:202
 msgid "Display User card on hover"
 msgstr ""
 
-#: public/widgets/class_rm_login_btn_widget.php:102
+#: public/widgets/class_rm_login_btn_widget.php:212
 msgid "Displays user information card when user hovers cursor above the button."
 msgstr ""
 
@@ -19899,17 +19999,17 @@ msgstr ""
 msgid "No payment history found."
 msgstr ""
 
-#: services/class_rm_paypal_service.php:328
+#: services/class_rm_paypal_service.php:327
 msgid "Transaction not valid."
 msgstr ""
 
-#: services/class_rm_paypal_service.php:331
-#: services/class_rm_paypal_service.php:334
-#: services/class_rm_paypal_service.php:373
+#: services/class_rm_paypal_service.php:330
+#: services/class_rm_paypal_service.php:333
+#: services/class_rm_paypal_service.php:371
 msgid "Submission not valid."
 msgstr ""
 
-#: services/class_rm_reports_service.php:953
+#: services/class_rm_reports_service.php:952
 msgid "Monthly"
 msgstr ""
 
@@ -19917,6 +20017,10 @@ msgstr ""
 msgid "Sign in with Facebook"
 msgstr ""
 
-#: services/class_rm_user_services.php:902
+#: services/class_rm_user_services.php:802
+msgid "Error: Unable to fetch email address from Facebook."
+msgstr ""
+
+#: services/class_rm_user_services.php:903
 msgid "Request denied"
 msgstr ""

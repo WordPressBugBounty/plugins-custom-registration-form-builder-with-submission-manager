@@ -217,9 +217,15 @@ $curr_arr = array(
                 if(jQuery("input#rm_pp_modern_client_id").val().trim() == '') {
                     jQuery("input#rm_pp_modern_client_id").focus();
                     jQuery('span#rm_pp_modern_client_error_msg').show();
-
                     var rmErrorMsg = jQuery('span#rm_pp_modern_client_error_msg');
                     rmErrorMsg.insertAfter('#rm_pp_modern_client_id');
+                    return;
+                }
+                if(jQuery("input#rm_pp_modern_secret_key").val().trim() == '') {
+                    jQuery("input#rm_pp_modern_secret_key").focus();
+                    jQuery('span#rm_pp_modern_secret_error_msg').show();
+                    var rmErrorMsg = jQuery('span#rm_pp_modern_secret_error_msg');
+                    rmErrorMsg.insertAfter('#rm_pp_modern_secret_key');
                     return;
                 }
             } else if (jQuery("input#rm_pp_email_tb").val().trim() == '') {
@@ -295,6 +301,11 @@ $curr_arr = array(
         jQuery("input#rm_pp_modern_client_id").on('keyup', function() {
             if(jQuery(this).val() != '') {
                 jQuery('span#rm_pp_modern_client_error_msg').hide();
+            }
+        });
+        jQuery("input#rm_pp_modern_secret_key").on('keyup', function() {
+            if(jQuery(this).val() != '') {
+                jQuery('span#rm_pp_modern_secret_error_msg').hide();
             }
         });
 

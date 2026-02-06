@@ -4557,7 +4557,7 @@ class RM_UI_Strings {
             case 'LABEL_PAYPAL_CLIENT_ID':
                 return __('PayPal Client ID', 'custom-registration-form-builder-with-submission-manager');
             case 'HELP_OPTIONS_PYMNT_PP_CLIENT_ID':
-                return __('Client ID can be obtained from PayPal dashboard.', 'custom-registration-form-builder-with-submission-manager');
+                return __('Client ID can be obtained from your PayPal dashboard.', 'custom-registration-form-builder-with-submission-manager');
             case 'LABEL_OPTIONS_PAYPAL_BTN_COLOR':
                 return __('Button Color', 'custom-registration-form-builder-with-submission-manager');
             case 'HELP_OPTIONS_PAYPAL_BTN_COLOR':
@@ -4782,14 +4782,28 @@ class RM_UI_Strings {
             case 'FIELD_HELP_TEXT_DigitalSign':
                 return __('A field for capturing a digital signature using mouse or touchscreen.', 'custom-registration-form-builder-with-submission-manager');
             case 'DEFAULT_ACC_ACT_VALUE':
-                return __('You have successfully verified your email. Your account is now active. You can login below.
-','custom-registration-form-builder-with-submission-manager');
+                return __('You have successfully verified your email. Your account is now active. You can login below.','custom-registration-form-builder-with-submission-manager');
             case 'DEFAULT_INVALID_ACC_ACT_CODE_VALUE':
                  return __('Looks like the activation code is broken or incorrect. You can try pasting the activation code from your mail in input box below and manually verify it.' ,'custom-registration-form-builder-with-submission-manager');
             case 'DEFAULT_ACC_ACT_LINK_NOTICE_VALUE':
                  return __('Sorry, the verification link has expired. Click here to resend the link {{SEND_VERIFICATION_EMAIL}}.','custom-registration-form-builder-with-submission-manager');
             case 'DEFAULT_LOGIN_ERR_MSG_VALUE':
                  return __('Your account has not been activated yet. Please follow the link we sent to your registered email to activate your account. If you have not received it, click here to resend the link {{SEND_VERIFICATION_EMAIL}}.','custom-registration-form-builder-with-submission-manager');
+            case 'FIELD_HELP_TEXT_Subscription':
+                return __('This field connects to available subscription plans and allows users to select a plan during registration.', 'custom-registration-form-builder-with-submission-manager');
+            case 'FIELD_TYPE_SUBSCRIPTION':
+                return __("Subscription field", 'custom-registration-form-builder-with-submission-manager');
+            case 'FIELD_HELP_TEXT_PRODUCT_SUBSCRIPTION_Resctriction':
+                return __("Subscription Field don't work as this form contain product field.", 'custom-registration-form-builder-with-submission-manager');
+            case 'FIELD_HELP_TEXT_SUBSCRIPTION_Resctriction':
+                return __("Only 1 subscription field allowed in a single form.", 'custom-registration-form-builder-with-submission-manager');
+            case 'LABEL_PAYPAL_SECRET_KEY':
+                return __("PayPal Secret Key", 'custom-registration-form-builder-with-submission-manager');
+            case 'HELP_OPTIONS_PYMNT_PP_SECRET_KEY':
+                return __("Secret key can be obtained from your PayPal dashboard.", 'custom-registration-form-builder-with-submission-manager');
+            case 'FIELD_HELP_TEXT_SUBSCRIPTION_Not_Installed_Resctriction':
+                return __("RegistrationMagic Subscriptions Addons is required for this field to work. Please install and activate the RegistrationMagic Subscriptions Addons plugin.", 'custom-registration-form-builder-with-submission-manager');
+                
             default:
                 if(defined('REGMAGIC_ADDON'))
                     return RM_UI_Strings_Addon::get($identifier);

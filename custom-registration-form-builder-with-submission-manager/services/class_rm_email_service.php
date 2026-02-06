@@ -34,8 +34,12 @@ class RM_Email_Service
 
                 if (is_array($val->value)) {
                     $values = '';
-                    // Check attachment type field
-                    if (isset($val->value['rm_field_type']) && $val->value['rm_field_type'] == 'File') {
+                    $additional_fields = apply_filters('rm_additional_fields', array());
+                    if(in_array($val->type, $additional_fields)){
+                        $special_fields = apply_filters('rm_additional_fields_data_email',$val->value, $val->type);
+                        $email_content .= '<span class="key-val" style="display: table-cell;border: 1px solid #e9e9e9;padding: 8px;line-height: 1.42857143;vertical-align: top;">' .$special_fields. '</span><br/>';
+                        
+                    }elseif (isset($val->value['rm_field_type']) && $val->value['rm_field_type'] == 'File') {
                         unset($val->value['rm_field_type']);
 
                         /*
@@ -376,8 +380,12 @@ class RM_Email_Service
 
                 if (is_array($val->value)) {
                     $values = '';
-                    // Check attachment type field
-                    if (isset($val->value['rm_field_type']) && $val->value['rm_field_type'] == 'File') {
+                    $additional_fields = apply_filters('rm_additional_fields', array());
+                    if(in_array($val->type, $additional_fields)){
+                        $special_fields = apply_filters('rm_additional_fields_data_email',$val->value, $val->type);
+                        $sub_data .= '<span class="key-val">' .$special_fields. '</span><br/>';
+                        
+                    }elseif (isset($val->value['rm_field_type']) && $val->value['rm_field_type'] == 'File') {
                         unset($val->value['rm_field_type']);
 
                         /*
