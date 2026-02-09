@@ -104,8 +104,8 @@ class RM_Options
         $this->default['senders_display_name'] = get_bloginfo('name', 'display');
         $this->default['senders_email'] = get_option('admin_email');
         $this->default['smtp_senders_email'] = get_option('admin_email');
-        $this->default['an_senders_display_name'] = '{{user}}'; //get_bloginfo('name', 'display');
-        $this->default['an_senders_email'] = '{{useremail}}';
+        $this->default['an_senders_display_name'] = ''; //{{user}}
+        $this->default['an_senders_email'] = ''; //{{useremail}}
         $this->default['enable_wordpress_default'] = 'no';
         $this->default['done_with_review_banner'] = 'no';
         $this->default['display_floating_action_btn'] = 'no';

@@ -176,11 +176,13 @@ class RM_Email_Service
         {
             $disp_name= get_bloginfo('name', 'display');
         }
-
-       // $from_email = $disp_name . " <" . $from_email . ">";
-        $rm_email->set_from_name($disp_name);
-        $rm_email->from($from_email);
-        $rm_email->reply_to($replyto_email, $disp_name);
+        
+        // $from_email = $disp_name . " <" . $from_email . ">";
+        $rm_email->from($from_email, $disp_name);
+        if(!empty($from_email)) {
+            $rm_email->set_from_name($disp_name);
+            $rm_email->reply_to($replyto_email, $disp_name);
+        }
           
         foreach($to as $recepient)
         {

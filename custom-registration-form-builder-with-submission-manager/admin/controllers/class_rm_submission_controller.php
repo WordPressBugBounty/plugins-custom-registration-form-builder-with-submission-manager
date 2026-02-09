@@ -161,7 +161,7 @@ class RM_Submission_Controller
     }
 
     public function print_pdf($model, $service, $request, $params) {
-        if (current_user_can('manage_options') || current_user_can('rm_submission_managemanage_options')) {
+        if (is_user_logged_in()) {
             if(defined('REGMAGIC_ADDON')) {
                 $addon_controller = new RM_Submission_Controller_Addon();
                 return $addon_controller->print_pdf($model, $service, $request, $params, $this);

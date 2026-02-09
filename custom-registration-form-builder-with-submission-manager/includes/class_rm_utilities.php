@@ -512,6 +512,13 @@ class RM_Utilities {
                 $options['recovery_page']= $page_id;
                 $login_service->update_recovery_options($options);
             }
+        } else {
+            $login_service = new RM_Login_Service();
+            $options= $login_service->get_recovery_options();
+            if($options['recovery_page'] != $id){
+                $options['recovery_page']= $id;
+                $login_service->update_recovery_options($options);
+            }
         }
     }
     

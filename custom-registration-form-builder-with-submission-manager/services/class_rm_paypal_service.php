@@ -511,7 +511,7 @@ class RM_Paypal_Service implements RM_Gateway_Service
         $purchase_units = array(
             'amount'=> array(
                 'currency_code'=>$this->currency,
-                'value'=>$pricing_details->total_price,
+                'value'=> $pricing_details->total_price,
                 'breakdown'=>array(
                     'item_total'=>array(
                         'currency_code' => $this->currency,

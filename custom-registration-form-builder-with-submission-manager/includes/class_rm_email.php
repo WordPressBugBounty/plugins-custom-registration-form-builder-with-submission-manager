@@ -123,6 +123,7 @@ class RM_Email
     public function set_from_name($from_name){
         $this->from_name= $from_name;
     }
+
     /**
     * Set FROM
     *
@@ -130,23 +131,48 @@ class RM_Email
     * @param	string	$name
     * @return	void
     */
-   public function from($from, $name = '')
-   {
-        $this->set_header('From', $from);
-        $this->from= $from;
-   }
-   
-   /**
+    public function from($from, $name = '', $replyto = true) {
+        if (!empty($from)) {
+            if (empty($name)) {
+                $this->set_header('From', $from);
+            } else {
+                $this->set_header('From', sprintf('%s <%s>', $name, $from));
+            }
+            $this->from = $from;
+            $this->from_name = $name;
+            if($replyto) {
+                $this->reply_to($from, $name);
+            }
+        } else {
+            $this->unset_header('From');
+            $this->unset_header('Reply-To');
+            $this->from = null;
+            $this->from_name = null;
+        }
+    }
+    
+    /**
     * Add a Header Item
     *
     * @param	string
     * @param	string
     * @return	void
     */
-   public function set_header($header, $value)
-   {
+    public function set_header($header, $value) {
         $this->headers[$header] = str_replace(array("\n", "\r"), '', $value);
-   }
+    }
+
+    /**
+    * Remove a Header Item
+    *
+    * @param	string
+    * @return	void
+    */
+    public function unset_header($header) {
+        if (isset($this->headers[$header])) {
+            unset($this->headers[$header]);
+        }
+    }
    
    /**
     * Set Content Type
@@ -182,27 +208,29 @@ class RM_Email
     * Write Headers as a string
     *
     * @return	void
-    */
-   public function write_headers()
-   {
-       $this->header_str = '';
-       foreach ($this->headers as $key => $val)
-       {
+   */
+    public function write_headers() {
+        $this->header_str = '';
+        
+        if (!isset($this->headers['From']) || empty($this->headers['From'])) {
+            $this->header_str .= 'From:'.$this->newline;
+        }
+        
+        foreach ($this->headers as $key => $val) {
             $val = trim((string)$val);
-            if ($val !== '')
-            {
-               $this->header_str .= $key.': '.$val.$this->newline;
+            if ($val !== '') {
+                $this->header_str .= $key.': '.$val.$this->newline;
             }
-       }
+        }
+        
+        if($this->content_type=="plain")
+            $this->header_str .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
            
-       if($this->content_type=="plain")
-           $this->header_str .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
-           
-       if($this->content_type=="html")
-               $this->header_str .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
-           
-       $this->header_str = rtrim((string)$this->header_str);
-   }
+        if($this->content_type=="html")
+            $this->header_str .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
+        
+        $this->header_str = rtrim((string)$this->header_str);
+    }
    
    /**
     * Set Reply-to
@@ -210,13 +238,20 @@ class RM_Email
     * @param	string
     * @param	string
     */
-   public function reply_to($replyto, $name = '')
-   {
-       //if (preg_match('/\<(.*)\>/', $replyto, $match)) {
-        //$replyto = $match[1];
-       //}
-       $this->set_header('Reply-To', $name.' <'.$replyto.'>');
-   }
+   public function reply_to($replyto, $name = '') {
+        //if (preg_match('/\<(.*)\>/', $replyto, $match)) {
+            //$replyto = $match[1];
+        //}
+        if (!empty($replyto)) {
+            if (empty($name)) {
+                $this->set_header('Reply-To', $replyto);
+            } else {
+                $this->set_header('Reply-To', sprintf('%s <%s>', $name, $replyto));
+            }
+        } else {
+            $this->unset_header('Reply-To');
+        }
+    }
         
    /**
     * Send Email
@@ -258,7 +293,9 @@ class RM_Email
                 $phpmailer->FromName = $this->from_name;
             else
                 $phpmailer->FromName = $options->get_value_of('senders_display_name');
-        } else {
+        }
+        /*
+        else {
             if($this->useAdminFrom){	
                 $phpmailer->From = $options->get_value_of('senders_email');	
                 $phpmailer->FromName = $options->get_value_of('senders_display_name');	
@@ -272,8 +309,9 @@ class RM_Email
 
         $phpmailer->addReplyTo($phpmailer->From, $phpmailer->FromName);
 
-        //if(empty($phpmailer->AltBody))
-            //$phpmailer->AltBody = RM_Utilities::html_to_text_email($phpmailer->Body);
+        if(empty($phpmailer->AltBody))
+            $phpmailer->AltBody = RM_Utilities::html_to_text_email($phpmailer->Body);
+        */
 
         return;	
     }

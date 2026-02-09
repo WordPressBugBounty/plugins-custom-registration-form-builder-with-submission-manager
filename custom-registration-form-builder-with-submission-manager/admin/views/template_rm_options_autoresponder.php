@@ -92,9 +92,9 @@ $image_path = plugin_dir_url(dirname(dirname(__FILE__))) . 'images/';
 
             // Admin notifications related.
             $form->addElement(new Element_HTML('<div class="rmnoarrow"><div class="rmrow"><h3>'.RM_UI_Strings::get('LABEL_ADMIN_NOTIFICATIONS').'</h3></div>'));
-            $form->addElement(new Element_Textbox(RM_UI_Strings::get('LABEL_SENDERS_NAME'), "an_senders_display_name", array("required" => 1,"id" => "an_senders_display_name", "value" => $data['an_senders_display_name'], "longDesc" => RM_UI_Strings::get('HELP_OPTIONS_ARESP_FROM_DISP_NAME'))));
+            $form->addElement(new Element_Textbox(RM_UI_Strings::get('LABEL_SENDERS_NAME'), "an_senders_display_name", array("id" => "an_senders_display_name", "value" => $data['an_senders_display_name'], "longDesc" => RM_UI_Strings::get('HELP_OPTIONS_ARESP_FROM_DISP_NAME'))));
 
-            $form->addElement(new Element_Textbox(RM_UI_Strings::get('LABEL_SENDERS_EMAIL'), "an_senders_email", array("required" => 1,"id" => "an_senders_email", "value" => $data['an_senders_email'], "longDesc" => RM_UI_Strings::get('HELP_OPTIONS_AR_AD_FROM_EMAIL'))));
+            $form->addElement(new Element_Textbox(RM_UI_Strings::get('LABEL_SENDERS_EMAIL'), "an_senders_email", array("id" => "an_senders_email", "value" => $data['an_senders_email'], "longDesc" => RM_UI_Strings::get('HELP_OPTIONS_AR_AD_FROM_EMAIL'))));
             $form->addElement(new Element_HTML('</div>'));
 
              $form->addElement(new Element_HTML('</div>'));

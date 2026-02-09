@@ -484,7 +484,7 @@ class RM_Admin {
                         $rm_role = get_role( $role_slug );
 
                         if (in_array( $role_slug, $value[2] )){
-                            if ( ! $rm_role->has_cap( $value[0]."manage_options" ) ) {
+                            if ( ! $rm_role->has_cap( $value[0]."manage_options" ) && !empty( trim( $value[0] ) ) ) {
 
                                 $rm_role->add_cap( $value[0]."manage_options" );
 
@@ -492,7 +492,7 @@ class RM_Admin {
 
                         }else{
 
-                            if ( $rm_role->has_cap( $value[0]."manage_options" ) ) {
+                            if ( $rm_role->has_cap( $value[0]."manage_options" ) && !empty( trim( $value[0] ) ) ) {
 
                                 $rm_role->remove_cap( $value[0]."manage_options" );
 
@@ -2378,7 +2378,7 @@ class RM_Admin {
         $p_client_id = get_option('rm_option_paypal_client_id', '');
         $p_client_secret = get_option('rm_option_paypal_secret_key', '');
         if($modern_paypal && !empty($p_client_id) && empty($p_client_secret)): ?>
-            <div class="rm_admin_notice_banner rm-notice-banner notice notice-error">
+            <div class="rm_admin_notice_banner rm-notice-banner notice notice-error inline rm-py-2 rm-my-2">
                 <p style="vertical-align:middle;">
                     <span style="color:#d63638;font-size:20px;" aria-hidden="true">&#9888;&#65039;</span>
                     <?php echo wp_kses_post(sprintf(__( '<strong>Your PayPal Secret Key</strong> is required to receive payments with RegistrationMagic form submissions. Please <strong>update your PayPal Secret Key</strong> from the <a href="%s">Payment Settings</a> to continue receiving payments.','custom-registration-form-builder-with-submission-manager'), esc_url(admin_url('admin.php?page=rm_options_payment')))); ?>

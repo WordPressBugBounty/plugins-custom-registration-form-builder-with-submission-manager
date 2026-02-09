@@ -854,7 +854,7 @@ final class RM_Form_Factory_Revamp {
                         if(!is_wp_error($user_id)) {
                             $wp_user = new WP_User($user_id);
                         } else {
-                            wp_die($wp_user->get_error_message());
+                            wp_die($user_id->get_error_message());
                         }
                         // Assigning role
                         if(!empty($form->form_options->form_should_user_pick)) {
@@ -1040,7 +1040,7 @@ final class RM_Form_Factory_Revamp {
                         $parameters->email = $user_email;
                         $parameters->email_content = $form->form_options->form_email_content;
                         $parameters->email_subject = $form->form_options->form_email_subject;
-                        $parameters->total_price = empty($total_price) ? 0 : $total_price;
+                        $parameters->total_price = empty($total_price) ? 0 : round(floatval($total_price), 2);
                         $parameters->sub_id = $sub_id;
                         $parameters->form_id = $form_id;
                         $parameters->sub_data = $submission->get_data();
@@ -1127,6 +1127,12 @@ final class RM_Form_Factory_Revamp {
     
                     // Charge payment if form has payment
                     if($pricing_details->total_price > 0) {
+                        // Round the price and tax to 2 decimal places
+                        $pricing_details->total_price = round(floatval($pricing_details->total_price), 2);
+                        if(isset($pricing_details->tax) && !empty($pricing_details->tax)) {
+                            $pricing_details->tax = round(floatval($pricing_details->tax), 2);
+                        }
+
                         $payment_processor = $sub_data['rm_payment_method'];
                         if($payment_processor == 'paypal') {
                             $paypal_service = new RM_Paypal_Service();
