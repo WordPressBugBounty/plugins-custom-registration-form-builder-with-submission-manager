@@ -334,9 +334,11 @@ class RM_Public {
         RM_DBManager::add_form_published_pages($form_id, get_the_ID());
 
         // Load new shortcode if form has rows
+        /*
         if (!empty(RM_DBManager::get_rows_by_form_id($form_id))) {
             return $this->rm_new_form_render($attribute);
         }
+        */
 
         $this->enqueue_styles();
         $this->enqueue_scripts();

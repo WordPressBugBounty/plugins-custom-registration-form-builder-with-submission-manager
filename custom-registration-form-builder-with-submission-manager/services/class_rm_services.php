@@ -2326,12 +2326,12 @@ class RM_Services {
             }
         }
         
-        if($this->get_setting('auto_generated_password')!='yes'){
+        /* if($this->get_setting('auto_generated_password')!='yes'){
             $user_pas_field = RM_DBManager::get_field_by_type($form_id, 'UserPassword');
             if(empty($user_pas_field)){
               $this->create_default_password_field($form_id, $has_rows);   
             }
-        }
+        } */
     }
     
     public function remove_primary_fields($form_id){

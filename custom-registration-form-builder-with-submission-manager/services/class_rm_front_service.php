@@ -166,7 +166,7 @@ class RM_Front_Service extends RM_Services {
         if (is_user_logged_in()) {
             $user = wp_get_current_user();
             $user_email = isset($user->user_email) ? $user->user_email : null;
-        } elseif (isset($_COOKIE['rm_autorized_email'])) {
+        } elseif (isset($_COOKIE['rm_autorized_email']) && $this->is_authorized()) {
             $user_email = $_COOKIE['rm_autorized_email'];
         }
 

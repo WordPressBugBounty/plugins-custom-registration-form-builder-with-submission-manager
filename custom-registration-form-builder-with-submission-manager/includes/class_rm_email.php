@@ -133,11 +133,7 @@ class RM_Email
     */
     public function from($from, $name = '', $replyto = true) {
         if (!empty($from)) {
-            if (empty($name)) {
-                $this->set_header('From', $from);
-            } else {
-                $this->set_header('From', sprintf('%s <%s>', $name, $from));
-            }
+            $this->set_header('From', $from);
             $this->from = $from;
             $this->from_name = $name;
             if($replyto) {

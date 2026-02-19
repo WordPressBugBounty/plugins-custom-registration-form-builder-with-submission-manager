@@ -1220,7 +1220,7 @@ class Registration_Magic
         }
     }
     public function rm_options_default_payment_method(){
-        if(check_ajax_referer('rm_ajax_secure','rm_sec_nonce')) {
+        if(check_ajax_referer('rm_ajax_secure','rm_sec_nonce') && (current_user_can('manage_options') || current_user_can('rm_options_managemanage_options'))) {
             if(!empty($_REQUEST['payment_method'])) {
                 update_option('rm_option_default_payment_method',sanitize_text_field($_REQUEST['payment_method']));
             }
