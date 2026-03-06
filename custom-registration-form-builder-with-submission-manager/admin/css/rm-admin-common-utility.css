@@ -1724,6 +1724,11 @@ body.rm-modal-open-body {
     color: #dc3545;
 }
 
+
+#rm_icon_field_settings_container .rm_remove_icon a {
+    color: #cc1f1f;
+}
+
 /*--Form error And Notification end--*/
 
 
