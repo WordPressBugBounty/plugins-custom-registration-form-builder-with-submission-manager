@@ -4634,6 +4634,10 @@ pre.rm-pre-wrapper-for-script-tags {
     width: 100%;
 }
 
+.rmagic .rm-analytics-table-wrapper table.rm-form-analytics thead tr th {
+    text-align: left;
+}
+
 .rmagic table .rmsubmitted_icon {
     width: 20px!important;
     height: 20px!important;
@@ -12555,3 +12559,4 @@ span.rm-submission-time:after {
       
     }
 }
+
