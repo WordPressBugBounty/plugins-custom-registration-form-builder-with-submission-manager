@@ -255,8 +255,8 @@ final class RM_Field_Factory_Revamp {
         $attributes = $this->conditional_attributes($attributes, $field);
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -324,8 +324,8 @@ final class RM_Field_Factory_Revamp {
         $attributes = $this->conditional_attributes($attributes, $field);
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -425,8 +425,8 @@ final class RM_Field_Factory_Revamp {
         $label =  "<label ".$this->print_attributes($main_label_attributes)."> $icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = "required";
@@ -488,8 +488,8 @@ final class RM_Field_Factory_Revamp {
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -699,8 +699,8 @@ final class RM_Field_Factory_Revamp {
         }
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -782,8 +782,8 @@ final class RM_Field_Factory_Revamp {
             $attributes['required'] = 'required';
             $attributes['aria-required'] = 'true';
 
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
         }
@@ -860,8 +860,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<span ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
         }
@@ -972,8 +972,8 @@ final class RM_Field_Factory_Revamp {
         $attributes = $this->conditional_attributes($attributes, $field);
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -1060,8 +1060,8 @@ final class RM_Field_Factory_Revamp {
         $attributes = $this->conditional_attributes($attributes, $field);
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -1126,8 +1126,8 @@ final class RM_Field_Factory_Revamp {
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -1206,8 +1206,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<span ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -1349,8 +1349,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<span ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -1501,8 +1501,8 @@ final class RM_Field_Factory_Revamp {
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -1632,8 +1632,8 @@ final class RM_Field_Factory_Revamp {
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -1687,8 +1687,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes)." >$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -1753,8 +1753,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -1824,8 +1824,8 @@ final class RM_Field_Factory_Revamp {
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon  $text ";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
         } 
@@ -1931,8 +1931,8 @@ final class RM_Field_Factory_Revamp {
 
             $label = "<label ".$this->print_attributes($main_label_attributes).">$icon  $field->field_label";
             if(isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-                $astrick = get_option('rm_option_show_asterix');
-                if(isset($astrick) && $astrick == "yes"){
+                $astrick = get_option('rm_option_show_asterix', false);
+                if($astrick === false || $astrick == "yes"){
                     $label .= "<span class='rmform-req-symbol'>*</span>";
                 }
             }
@@ -1966,8 +1966,8 @@ final class RM_Field_Factory_Revamp {
 
                 $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_ca_address1_label";
                 if (isset($field->field_options->field_ca_address1_req) && $field->field_options->field_ca_address1_req == 1){
-                    $astrick = get_option('rm_option_show_asterix');
-                    if(isset($astrick) && $astrick == "yes"){
+                    $astrick = get_option('rm_option_show_asterix', false);
+                    if($astrick === false || $astrick == "yes"){
                         $label .= "<span class='rmform-req-symbol'>*</span>";
                     }
                 }
@@ -2083,8 +2083,8 @@ final class RM_Field_Factory_Revamp {
                 echo "<input " . $this->print_attributes($attributes) . " >";
                 $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_ca_city_label";
                 if (isset($field->field_options->field_ca_city_req) && $field->field_options->field_ca_city_req == 1){
-                    $astrick = get_option('rm_option_show_asterix');
-                    if(isset($astrick) && $astrick == "yes"){
+                    $astrick = get_option('rm_option_show_asterix', false);
+                    if($astrick === false || $astrick == "yes"){
                         $label .= "<span class='rmform-req-symbol'>*</span>";
                     }
                 }
@@ -2138,8 +2138,8 @@ final class RM_Field_Factory_Revamp {
 
                 $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'>$field_ca_state_label";
                 if (isset($field->field_options->field_ca_state_req) && $field->field_options->field_ca_state_req == 1) {
-                    $astrick = get_option('rm_option_show_asterix');
-                    if(isset($astrick) && $astrick == "yes"){
+                    $astrick = get_option('rm_option_show_asterix', false);
+                    if($astrick === false || $astrick == "yes"){
                         $label .= "<span class='rmform-req-symbol'>*</span>";
                     }
                 }
@@ -2178,8 +2178,8 @@ final class RM_Field_Factory_Revamp {
                     echo "<input " . $this->print_attributes($attributes) . " >";
                     $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_ca_city_label";
                     if (isset($field->field_options->field_ca_city_req) && $field->field_options->field_ca_city_req == 1) {
-                        $astrick = get_option('rm_option_show_asterix');
-                        if(isset($astrick) && $astrick == "yes"){
+                        $astrick = get_option('rm_option_show_asterix', false);
+                        if($astrick === false || $astrick == "yes"){
                             $label .= "<span class='rmform-req-symbol'>*</span>";
                         }
                     }
@@ -2240,8 +2240,8 @@ final class RM_Field_Factory_Revamp {
     
                     $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_ca_state_label";
                     if (isset($field->field_options->field_ca_state_req) && $field->field_options->field_ca_state_req == 1) {
-                        $astrick = get_option('rm_option_show_asterix');
-                        if(isset($astrick) && $astrick == "yes"){
+                        $astrick = get_option('rm_option_show_asterix', false);
+                        if($astrick === false || $astrick == "yes"){
                             $label .= "<span class='rmform-req-symbol'>*</span>";
                         }
                     }
@@ -2371,8 +2371,8 @@ final class RM_Field_Factory_Revamp {
 
                 $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_ca_zip_label";
                 if (isset($field->field_options->field_ca_zip_req) && $field->field_options->field_ca_zip_req == 1){
-                    $astrick = get_option('rm_option_show_asterix');
-                    if(isset($astrick) && $astrick == "yes"){
+                    $astrick = get_option('rm_option_show_asterix', false);
+                    if($astrick === false || $astrick == "yes"){
                         $label .= "<span class='rmform-req-symbol'>*</span>";
                     }
                 }
@@ -2524,8 +2524,8 @@ final class RM_Field_Factory_Revamp {
         } else {
             $label = "<label ".$this->print_attributes($main_label_attributes).">$icon  $field->field_label";
             if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-                $astrick = get_option('rm_option_show_asterix');
-                if(isset($astrick) && $astrick == "yes"){
+                $astrick = get_option('rm_option_show_asterix', false);
+                if($astrick === false || $astrick == "yes"){
                     $label .= "<span class='rmform-req-symbol'>*</span>";
                 }
             }
@@ -2803,8 +2803,8 @@ final class RM_Field_Factory_Revamp {
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -2900,8 +2900,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -2954,8 +2954,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3017,8 +3017,8 @@ final class RM_Field_Factory_Revamp {
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3073,8 +3073,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3124,8 +3124,8 @@ final class RM_Field_Factory_Revamp {
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3181,8 +3181,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3238,8 +3238,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3295,8 +3295,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3352,8 +3352,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3408,8 +3408,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3465,8 +3465,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3522,8 +3522,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3579,8 +3579,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3918,8 +3918,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -3966,8 +3966,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -4074,8 +4074,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -4152,8 +4152,8 @@ final class RM_Field_Factory_Revamp {
 
         $label =  "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = "required";
@@ -4212,8 +4212,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -4310,8 +4310,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -4407,8 +4407,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -4531,8 +4531,8 @@ final class RM_Field_Factory_Revamp {
         $label =  "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = "required";
@@ -4576,8 +4576,8 @@ final class RM_Field_Factory_Revamp {
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -4648,8 +4648,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -4729,8 +4729,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
         }
@@ -4834,8 +4834,8 @@ final class RM_Field_Factory_Revamp {
         $label =  "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = "required";
@@ -4891,8 +4891,8 @@ final class RM_Field_Factory_Revamp {
         $attributes = $this->conditional_attributes($attributes, $field);
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -4929,8 +4929,8 @@ final class RM_Field_Factory_Revamp {
             $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
     
             if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-                $astrick = get_option('rm_option_show_asterix');
-                if(isset($astrick) && $astrick == "yes"){
+                $astrick = get_option('rm_option_show_asterix', false);
+                if($astrick === false || $astrick == "yes"){
                     $label .= "<span class='rmform-req-symbol'>*</span>";
                 }
                 $attributes['required'] = 'required';
@@ -5042,8 +5042,8 @@ final class RM_Field_Factory_Revamp {
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_firstname_label";
             if (isset($field->field_options->field_wcb_firstname_req) && $field->field_options->field_wcb_firstname_req == 1){
-                $astrick = get_option('rm_option_show_asterix');
-                if(isset($astrick) && $astrick == "yes"){
+                $astrick = get_option('rm_option_show_asterix', false);
+                if($astrick === false || $astrick == "yes"){
                     $label .= "<span class='rmform-req-symbol'>*</span>";
                 }
             } 
@@ -5089,8 +5089,8 @@ final class RM_Field_Factory_Revamp {
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_lastname_label";
             if (isset($field->field_options->field_wcb_lastname_req) && $field->field_options->field_wcb_lastname_req == 1){
-                $astrick = get_option('rm_option_show_asterix');
-                if(isset($astrick) && $astrick == "yes"){
+                $astrick = get_option('rm_option_show_asterix', false);
+                if($astrick === false || $astrick == "yes"){
                     $label .= "<span class='rmform-req-symbol'>*</span>";
                 }
             }
@@ -5142,8 +5142,8 @@ final class RM_Field_Factory_Revamp {
 
                 $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_firstname_label";
                 if (isset($field->field_options->field_wcb_firstname_req) && $field->field_options->field_wcb_firstname_req == 1){
-                    $astrick = get_option('rm_option_show_asterix');
-                    if(isset($astrick) && $astrick == "yes"){
+                    $astrick = get_option('rm_option_show_asterix', false);
+                    if($astrick === false || $astrick == "yes"){
                         $label .= "<span class='rmform-req-symbol'>*</span>";
                     }
                 }
@@ -5193,8 +5193,8 @@ final class RM_Field_Factory_Revamp {
 
                 $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_lastname_label";
                 if (isset($field->field_options->field_wcb_lastname_req) && $field->field_options->field_wcb_lastname_req == 1){
-                    $astrick = get_option('rm_option_show_asterix');
-                    if(isset($astrick) && $astrick == "yes"){
+                    $astrick = get_option('rm_option_show_asterix', false);
+                    if($astrick === false || $astrick == "yes"){
                         $label .= "<span class='rmform-req-symbol'>*</span>";
                     }
                 }
@@ -5246,8 +5246,8 @@ final class RM_Field_Factory_Revamp {
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_company_label";
             if (isset($field->field_options->field_wcb_company_req) && $field->field_options->field_wcb_company_req == 1){
-                $astrick = get_option('rm_option_show_asterix');
-                if(isset($astrick) && $astrick == "yes"){
+                $astrick = get_option('rm_option_show_asterix', false);
+                if($astrick === false || $astrick == "yes"){
                     $label .= "<span class='rmform-req-symbol'>*</span>";
                 }
             }
@@ -5297,8 +5297,8 @@ final class RM_Field_Factory_Revamp {
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_address1_label";
             if (isset($field->field_options->field_wcb_address1_req) && $field->field_options->field_wcb_address1_req == 1){
-                $astrick = get_option('rm_option_show_asterix');
-                if(isset($astrick) && $astrick == "yes"){
+                $astrick = get_option('rm_option_show_asterix', false);
+                if($astrick === false || $astrick == "yes"){
                     $label .= "<span class='rmform-req-symbol'>*</span>";
                 }
             }
@@ -5348,8 +5348,8 @@ final class RM_Field_Factory_Revamp {
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_address2_label";
             if (isset($field->field_options->field_wcb_address2_req) && $field->field_options->field_wcb_address2_req == 1){
-                $astrick = get_option('rm_option_show_asterix');
-                if(isset($astrick) && $astrick == "yes"){
+                $astrick = get_option('rm_option_show_asterix', false);
+                if($astrick === false || $astrick == "yes"){
                     $label .= "<span class='rmform-req-symbol'>*</span>";
                 }
             }
@@ -5400,8 +5400,8 @@ final class RM_Field_Factory_Revamp {
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_city_label";
             if (isset($field->field_options->field_wcb_city_req) && $field->field_options->field_wcb_city_req == 1){
-                $astrick = get_option('rm_option_show_asterix');
-                if(isset($astrick) && $astrick == "yes"){
+                $astrick = get_option('rm_option_show_asterix', false);
+                if($astrick === false || $astrick == "yes"){
                     $label .= "<span class='rmform-req-symbol'>*</span>";
                 }
             } 
@@ -5450,8 +5450,8 @@ final class RM_Field_Factory_Revamp {
 
             $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_state_label";
             if (isset($field->field_options->field_wcb_state_req) && $field->field_options->field_wcb_state_req == 1){
-                $astrick = get_option('rm_option_show_asterix');
-                if(isset($astrick) && $astrick == "yes"){
+                $astrick = get_option('rm_option_show_asterix', false);
+                if($astrick === false || $astrick == "yes"){
                     $label .= "<span class='rmform-req-symbol'>*</span>";
                 }
             }
@@ -5501,8 +5501,8 @@ final class RM_Field_Factory_Revamp {
 
                 $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_city_label";
                 if (isset($field->field_options->field_wcb_city_req) && $field->field_options->field_wcb_city_req == 1){
-                    $astrick = get_option('rm_option_show_asterix');
-                    if(isset($astrick) && $astrick == "yes"){
+                    $astrick = get_option('rm_option_show_asterix', false);
+                    if($astrick === false || $astrick == "yes"){
                         $label .= "<span class='rmform-req-symbol'>*</span>";
                     }
                 }
@@ -5555,8 +5555,8 @@ final class RM_Field_Factory_Revamp {
 
                 $label = "<label for='$input_id' id='$label_id' class='rmform-label rmform-label-address'> $field_wcb_state_label";
                 if (isset($field->field_options->field_wcb_state_req) && $field->field_options->field_wcb_state_req == 1){
-                    $astrick = get_option('rm_option_show_asterix');
-                    if(isset($astrick) && $astrick == "yes"){
+                    $astrick = get_option('rm_option_show_asterix', false);
+                    if($astrick === false || $astrick == "yes"){
                         $label .= "<span class='rmform-req-symbol'>*</span>";
                     }
                 }
@@ -6821,8 +6821,8 @@ final class RM_Field_Factory_Revamp {
         $label =  "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = "required";
@@ -6878,8 +6878,8 @@ final class RM_Field_Factory_Revamp {
             $attributes['required'] = 'required';
             $attributes['aria-required'] = 'true';
 
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
         }
@@ -6959,8 +6959,8 @@ final class RM_Field_Factory_Revamp {
         $label = "<label ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
 
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';
@@ -7028,8 +7028,8 @@ final class RM_Field_Factory_Revamp {
 
         $label = "<span ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1) {
-            $astrick = get_option('rm_option_show_asterix');
-            if(isset($astrick) && $astrick == "yes"){
+            $astrick = get_option('rm_option_show_asterix', false);
+            if($astrick === false || $astrick == "yes"){
                 $label .= "<span class='rmform-req-symbol'>*</span>";
             }
             $attributes['required'] = 'required';

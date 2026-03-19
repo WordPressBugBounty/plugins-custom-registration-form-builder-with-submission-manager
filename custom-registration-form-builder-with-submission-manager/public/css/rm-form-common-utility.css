@@ -43,6 +43,13 @@
     position: relative
 }
 
+
+
+.rmformui .rmform-row .rmform-row-field-wrap > * {
+    margin-bottom: calc(var(--rm-field-gutter) * 2);
+}
+
+
 @media (min-width: 783px) {
     .rmformui .rmform-row .rmform-row-field-wrap{
         display: -webkit-box;
@@ -64,7 +71,11 @@
         -ms-flex: 2;
         flex: 2;
     }
-
+    
+    .rmformui .rmform-row .rmform-row-field-wrap > * {
+        margin-bottom: 0px;
+    }
+    
 }
 
 .rmformui .rmform-row .rmform-field input[type="text"],

@@ -26,7 +26,21 @@ class RM_OTP_Widget extends WP_Widget
      */
     public function widget($args, $instance)
     {
-        wp_enqueue_script('rm_front');
+        //wp_enqueue_script('rm_front');
+        if(defined('REGMAGIC_ADDON'))
+            wp_enqueue_script('rm_front', RM_ADDON_BASE_URL . 'public/js/script_rm_front.js', array('jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-ui-tabs', 'jquery-ui-datepicker'), RM_PLUGIN_VERSION, false);
+        else
+            wp_enqueue_script('rm_front', RM_BASE_URL . 'public/js/script_rm_front.js', array('jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-ui-tabs', 'jquery-ui-datepicker'), RM_PLUGIN_VERSION, false);
+        $rm_ajax_data = array(
+            "url"=>admin_url('admin-ajax.php'),
+            "nonce"=>wp_create_nonce('rm_ajax_secure'),
+        );
+        if(defined('REGMAGIC_ADDON')) {
+            $login_service= new RM_Login_Service();
+            $auth_options= $login_service->get_auth_options();
+            $rm_ajax_data['max_otp_attempt'] = !empty($auth_options['en_resend_otp']) ? $auth_options['otp_resend_limit'] : 0;
+        }
+        wp_localize_script('rm_front', 'rm_ajax', $rm_ajax_data);
         wp_enqueue_style( 'style_rm_otpw', RM_BASE_URL."public/widgets/css/otp.css",array(), RM_PLUGIN_VERSION, 'all');
         wp_enqueue_script( 'script_rm_otpw', RM_BASE_URL."public/widgets/js/otp.js",array(), RM_PLUGIN_VERSION, 'all');
         

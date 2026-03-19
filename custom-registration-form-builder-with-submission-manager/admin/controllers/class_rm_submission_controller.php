@@ -28,7 +28,7 @@ class RM_Submission_Controller
                 $data->form->load_from_db($form_id);
             }
             $data->forms = RM_Utilities::get_forms_dropdown($service);
-            $data->fields = empty($form_id) ? array() : $service->get_all_form_fields($form_id);
+            $data->fields = empty($form_id) ? array() : $service->get_all_form_fields_by_rows($form_id);
             $data->form_id = $form_id;
             $data->filter = $filter;
             $data->rm_slug = $request->req['page'];
