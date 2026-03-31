@@ -800,7 +800,7 @@ final class RM_Field_Factory_Revamp {
                 'name' => $field->field_type . '_' . $field->field_id . '_' . $price_field->field_id . "_qty",
                 'class' => 'rm_price_field_quantity rmform-control',
                 'min' => isset($price_field->extra_options['min_quantity']) ? $price_field->extra_options['min_quantity'] : "",
-                'max' => isset($price_field->extra_options['max_quantity']) ? $price_field->extra_options['max_quantity'] : "",
+                'max' => isset($price_field->extra_options['max_quantity']) && intval($price_field->extra_options['max_quantity']) > 0 ? $price_field->extra_options['max_quantity'] : "",
             );
             if ($fixed_qnt_attributes['min'] != "" && $fixed_qnt_attributes['min']>0) {
                 $fixed_qnt_attributes['value'] = $fixed_qnt_attributes['min'];
@@ -903,7 +903,7 @@ final class RM_Field_Factory_Revamp {
                     'name' => $field->field_type . '_' . $field->field_id . '_' . $price_field->field_id . "_qty[_$x]",
                     'class' => 'rmform-control rm_price_field_quantity',
                     'min' => isset($price_field->extra_options['min_quantity']) ? $price_field->extra_options['min_quantity'] : "",
-                    'max' => isset($price_field->extra_options['max_quantity']) ? $price_field->extra_options['max_quantity'] : "",
+                    'max' => isset($price_field->extra_options['max_quantity']) && intval($price_field->extra_options['max_quantity']) > 0 ? $price_field->extra_options['max_quantity'] : "",
                 );
                 if ($multiselect_qnt_attributes['min'] != "" && $multiselect_qnt_attributes['min']>0) {
                     $multiselect_qnt_attributes['value'] = $multiselect_qnt_attributes['min'];
@@ -1005,7 +1005,7 @@ final class RM_Field_Factory_Revamp {
                 'class' => 'rmform-control rm_price_field_quantity',
                 'id' => $input_id . "_qnt",
                 'min' => isset($price_field->extra_options['min_quantity']) ? $price_field->extra_options['min_quantity'] : "",
-                'max' => isset($price_field->extra_options['max_quantity']) ? $price_field->extra_options['max_quantity'] : "",
+                'max' => isset($price_field->extra_options['max_quantity']) && intval($price_field->extra_options['max_quantity']) > 0 ? $price_field->extra_options['max_quantity'] : "",
                 'step' => "1"
             );
             if ($qnt_attributes['min'] != "" && $qnt_attributes['min']>0) {

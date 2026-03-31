@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RegistrationMagic Basic v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2026-02-19 14:31+0530\n"
+"POT-Creation-Date: 2026-03-30 16:46+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: RegistrationMagic Support <support@registrationmagic.com>\n"
@@ -16008,7 +16008,9 @@ msgid "Set the minimum quantity of this product that the user can select."
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:3482
-msgid "Set the maximum quantity of this product that the user can select."
+msgid ""
+"Set the maximum quantity of this product that the user can select. Set the "
+"value to 0 for unlimited quantity."
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:3485
@@ -19886,7 +19888,7 @@ msgid "RegistrationMagic Login Button"
 msgstr ""
 
 #: public/widgets/class_rm_login_btn_widget.php:75
-#: public/widgets/class_rm_otp_widget.php:59
+#: public/widgets/class_rm_otp_widget.php:73
 msgid "Title:"
 msgstr ""
 
@@ -19937,7 +19939,7 @@ msgid "Displays user information card when user hovers cursor above the button."
 msgstr ""
 
 #: public/widgets/class_rm_otp_widget.php:15
-#: public/widgets/class_rm_otp_widget.php:56
+#: public/widgets/class_rm_otp_widget.php:70
 msgid "RegistrationMagic Login"
 msgstr ""
 

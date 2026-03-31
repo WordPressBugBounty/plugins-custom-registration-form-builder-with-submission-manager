@@ -3479,7 +3479,7 @@ class RM_UI_Strings {
                 return __("Set the minimum quantity of this product that the user can select.", 'custom-registration-form-builder-with-submission-manager');
 
             case 'HELP_PRICE_FIELD_MAX_QUANTITY' :
-                return __("Set the maximum quantity of this product that the user can select.", 'custom-registration-form-builder-with-submission-manager');
+                return esc_html__("Set the maximum quantity of this product that the user can select. Set the value to 0 for unlimited quantity.", 'custom-registration-form-builder-with-submission-manager');
 
             case 'LABEL_NEW_USER_EMAIL' :
                 return __('New User Email Body', 'custom-registration-form-builder-with-submission-manager');
