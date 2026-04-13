@@ -213,6 +213,7 @@ class Reg_Magic_Block {
         }
         wp_enqueue_style('rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.css');
         wp_register_style('rm_blocks_custom_tabs', RM_BASE_URL . 'public/css/rm_custom_tabs.css');
+        wp_register_style('rm_magic_front_style', RM_BASE_URL . 'public/css/style_rm_front_end.css', array(), $this->version, 'all');
         if (defined('REGMAGIC_ADDON')) {
             wp_register_style('rm_magic_front_style_addon', RM_ADDON_BASE_URL . 'public/css/style_rm_front_end.css');
         }
