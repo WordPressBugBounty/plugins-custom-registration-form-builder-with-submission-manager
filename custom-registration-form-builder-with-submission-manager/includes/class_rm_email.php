@@ -261,6 +261,11 @@ class RM_Email
         if(empty($this->to))
             return false;
         
+        // Filter empty attachments to avoid wp_mail failure
+        $this->attachments = array_filter((array)$this->attachments, function($attachment) {
+            return !empty($attachment);
+        });
+        
         add_action('phpmailer_init', array($this,'config_phpmailer'));
         
         if(empty($this->attachments))
