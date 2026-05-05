@@ -36,13 +36,19 @@ if(!isset($_SESSION['rm_dismiss_sale_banner']) || empty($_SESSION['rm_dismiss_sa
     </div>
     <button class="rm-sale-banner-close" aria-label="Close">&times;</button>
 </div>
-<?php } } elseif (empty(get_site_option('rm_dismiss_upgrade_notice', false))) { ?>
+<?php } } elseif (empty(get_site_option('rm_dismiss_upgrade_notice', false))) {
+$link_href = "admin.php?page=rm_support_premium_page";
+$screen = get_current_screen();
+if(isset($screen->id) && $screen->id === 'registrationmagic_page_rm_support_premium_page') {
+    $link_href = "https://registrationmagic.com/comparison/";
+}
+?>
 <div class="rm-upgrade-notice-info is-dismissible rm-text-dark rm-border-bottom">
     <?php esc_html_e('Unlock even more powerful features by upgrading to RegistrationMagic ', 'custom-registration-form-builder-with-submission-manager'); ?>
     <!--
     <a href="https://registrationmagic.com/comparison/?utm_source=wp_admin&utm_medium=top_alert&utm_campaign=admin_upgrade_premium" target="_blank" class="rm-premium-text">
     -->
-    <a href="admin.php?page=rm_support_premium_page" class="rm-premium-text">
+    <a href="<?php echo esc_url($link_href); ?>" class="rm-premium-text" target="_blank">
         <?php esc_html_e('Premium', 'custom-registration-form-builder-with-submission-manager'); ?>
     </a>
     <button class="button-link rm-promo-notice-dismiss rm-bg-light rm-text-dark rm-rounded-circle material-icons">close <span class="screen-reader-text">

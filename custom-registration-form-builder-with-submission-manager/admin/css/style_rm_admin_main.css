@@ -7439,6 +7439,14 @@ img.rm_feature_icon {
     box-sizing: border-box;
 }
 
+.rm-sidebanner-buttons .rm-sidebanner-button.rm-sidebanner-stater-guide a{
+    text-decoration: none;
+    border: 0px;
+    line-height: 28px;
+    outline: 0px;
+    box-shadow: none;
+}
+
 .rm-sidebanner-buttons .rm-sidebanner-button a:hover {
     text-decoration: none;
 }

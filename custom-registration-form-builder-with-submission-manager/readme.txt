@@ -1,18 +1,19 @@
-=== RegistrationMagic - Custom Registration Forms, User Registration, Payment, and User Login ===
+=== RegistrationMagic - User Registration Forms Plugin ===
 Contributors: registrationmagic, metagauss, registrationmagicforms
 Donate link: http://registrationmagic.com/
-Tags: user registration, registration, WooCommerce registration form, payment form, event registration
+Tags: user registration, registration, registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 6.9
-Stable tag: 6.0.8.4
+Stable tag: 6.0.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Create customized user registration forms, accept payments, track submissions, manage users, analyze stats, assign user roles and more!
+Create user registration forms, build advanced registration forms, accept payments, track submissions, manage users, assign user roles, analyze stats and more!
+
 
 == Description ==
 
-= WordPress User Registration Forms Plugin =
+= Custom User Registration Forms Plugin for WordPress =
 
 Create custom WordPress registration forms, publish signup and login pages, enable user registrations, approve new users, accept payments, track submissions, manage users, analyze user registration data, assign user roles, apply registration status, send bulk emails, automate registration form processes, launch event registration forms, integrate WooCommerce, and much more. If you are looking for a powerful WordPress user registration plugin with custom registration form builder, look no further than RegistrationMagic! 
 
@@ -48,7 +49,7 @@ Customer journey on your site starts with the sign-up process. There are multipl
 
 [Read our WordPress User Login Guide](https://registrationmagic.com/wordpress-user-login-plugin-guide/): The Login Form Dashboard is much more capable and scalable system. You can now edit both Username and Password fields including custom errors and labels. You get a multi-level login validation process that uses reCAPTCHA, IP Filters (Premium) and Two-Factor Authentication (Premium). As with other forms, you can tweak visual elements of the login form. We have included four new custom email templates attached to login events. We have further introduced a new, multipurpose Login Logout button Widget. It renders Login Logout buttons based on user login state, displays login form as a pop-up or page, and important information about the current user on cursor hovering. We have moved all external integration services specific to login under a single section and added Login Analytics with user login timeline under it. Login Timeline also features advance filtering. A new Login tab now appears on user pages inside User Manager, with a chronological list of login events specific to the user.
 
-= Payment Forms =
+= Registration Forms with Payment =
 
 A lot of professional and business users require collecting information along with payments. RegistrationMagic is tailor made for such users by acting as a powerful WordPress payment form system. With RegistrationMagic you can build PayPal forms, Stripe forms, registration forms with payment and more!
 
@@ -159,7 +160,7 @@ New overview feature introduces powerful bird's eye view of all registration rel
 * User Role based Access. Define roles that will have access to registration forms.
 * Custom Denial Message.
 
-= Registration form Custom Fields =
+= Custom Fields =
 
 * All common field types supported.
 * Special Custom Fields (33 in Premium).
@@ -324,28 +325,28 @@ Detailed instructions can be found here:
 
 == Frequently Asked Questions ==
 
-= Q: I am seeing following error message when visiting the registration form: "Submission limit reached for this form, please try back after 24 hours" =
+= Q: How to fix registration form error: "Submission limit reached for this form, please try back after 24 hours"? =
 Ans: This is an anti-spam measure built into RegistrationMagic. A registration form can be submitted only certain number of times from a given device within a period of 24 hours. You can define the limit from Global Settings → Security. Change the value of Form Submission Limit for a Device as required. Set the limit to zero in order to disable the feature altogether, i.e. allow unlimited submissions from a device. 
 
 Note that in RegistrationMagic Premium, a global override is also available for this setting in Form Settings → Global Overrides.
 
-= Q: "Access Denied" error when trying to view registration form? =
+= Q: How to fix "Access Denied" error when trying to view registration form? =
 Ans: Please make sure that you haven't accidentally blocked your own IP address! Confirm it from Global Settings → Security → Banned IP addresses from accessing the form.
 
 Also make sure that you are using latest version of RegistrationMagic, as this issue may arise from IPv6 connections, which were addressed in latest versions.
 
-= Q: Submit button not working/does nothing! =
+= Q: How to fix Submit button if it doesn't work/does nothing? =
 Ans: Most of the time this happens due to a javascript error from a third-party plugin or theme. You will need to check browser console and see if there are any errors pointing to a file outside of RegistrationMagic repository. If you are able to trace it to a plugin, try disabling it and reload the registration form.
 
 Another reason can be minification of JS files and inline scripts. Disable these if you are using a plugin for minification and try again.
 
-= Q: Form reloads on submitting and all fields are emptied! =
+= Q: How to fix registration form reloading issue (on submitting, all fields are emptied!)? =
 Ans: This may happen if you are using a caching plugin. RegistrationMagic form is a dynamic entity and many features such as analytics may not work properly if the form is served from a cached copy. You will need to exclude the form page from caching inside your cache plugin's configuration. After, that Purge the cache and try again.
 
-= Q: How do I change the text on the "submit" button? =
+= Q: How do I change the text on the registration form "submit" button? =
 Ans: You can easily do it from Form Settings → Design. Once inside, click on the animating circle on the submit button. A panel will show up where you can change the button label along with color and numerous other attributes.
 
-= Q: I want to translate some text, how can I do it? =
+= Q: How to translate registration form text? =
 Ans: RegistrationMagic uses standard WordPress po/mo files for maintaining translations. You can use any po editor to translate. We recommend Loco Translate, since it is a free Wordpress plugin and works directly from admin dashboard. [Click here to get it](https://wordpress.org/plugins/loco-translate/)
 
 As a nice little trick you can even modify texts using this, for example label of username and password fields.
@@ -361,10 +362,10 @@ Ans: RegistrationMagic allows resubmission of user registration forms. Therefore
 = Q: Can I create Wordpress registration form with payment field?
 Ans: Yes, you can create user registration WordPress form with payment option, which allows user registration only after payment has been received successfully. If payment is unsuccessful, user account will not be activated.
 
-= Q: Can I use PayPal with RegistrationMagic?
+= Q: Can I use PayPal with RegistrationMagic forms?
 Ans: Yes, RegistrationMagic is a powerful WordPress PayPal payment plugin which allows adding multiple payment fields with configurable options in your forms.
 
-= Q: Can I use Stripe with RegistrationMagic?
+= Q: Can I use Stripe with RegistrationMagic forms?
 Ans: Yes, Stripe integration is available in RegistrationMagic. Using pricing fields, you can create stripe checkout WordPress pages.
 
 = Q: Can I use RegistrationMagic for registering users for events? =
@@ -398,6 +399,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.0.8.5: May 5 2026 =
+* Minor UI improvements.
 
 = 6.0.8.4: April 24 2026 =
 * Fixed: Email issue with empty attachments.
@@ -1593,6 +1597,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * Fixed: Plugin's WooCommerce My Account page template removed for better translation support. (Premium Only).
 
 == Upgrade Notice ==
+
+= 6.0.8.5: May 5 2026 =
+* Minor UI improvements.
 
 = 6.0.8.4: April 24 2026 =
 * Fixed: Email issue with empty attachments.

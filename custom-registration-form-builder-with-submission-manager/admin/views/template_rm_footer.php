@@ -13,7 +13,14 @@ if(!empty($_GET['rm_form_id'])):
 <script>
     document.title = "<?php echo esc_html($form->form_name); ?>";
 </script>    
-<?php endif; ?>
+<?php
+endif;
+$link_href = "admin.php?page=rm_support_premium_page";
+$screen = get_current_screen();
+if(isset($screen->id) && $screen->id === 'registrationmagic_page_rm_support_premium_page') {
+    $link_href = "https://registrationmagic.com/comparison/";
+}
+?>
 <?php if(!defined('REGMAGIC_ADDON') && (isset($_GET['page']) && $_GET['page'] != 'rm_form_manage')) { ?>
 <!--Premium Banner-->
 <div class="rmagic rmagic-premium-banner rm-hide-version-number" style="opacity: 0">
@@ -114,7 +121,7 @@ if(!empty($_GET['rm_form_id'])):
                         <!--
                         <a href="https://registrationmagic.com/comparison/?utm_source=wp_admin&utm_medium=premium_banner_footer&utm_campaign=admin_upgrade_premium" target="_blank" class="rm-d-inline-block rm-box-w-100">
                         -->
-                        <a href="admin.php?page=rm_support_premium_page" class="rm-d-inline-block rm-box-w-100">
+                        <a href="<?php echo esc_url($link_href); ?>" target="_blank" class="rm-d-inline-block rm-box-w-100">
                             <button class="button button-primary rm-upgrade-button rm-px-4 rm-py-1 rm-box-w-100">
                                 <?php esc_html_e("Upgrade Now!", 'custom-registration-form-builder-with-submission-manager'); ?>
                             </button>
@@ -158,7 +165,7 @@ if($dismiss_icon == 0) { ?>
                 <!--
                 <a href="https://registrationmagic.com/comparison/?utm_source=wp_admin&utm_medium=floating_button&utm_campaign=admin_upgrade_premium" target="_blank" class="rm-d-flex rm-align-items-center rm-text-decoration-none rm-fw-bold rm-text-dark rm-px-3 rm-py-2">
                 -->
-                <a href="admin.php?page=rm_support_premium_page" class="rm-d-flex rm-align-items-center rm-text-decoration-none rm-fw-bold rm-text-dark rm-px-3 rm-py-2">
+                <a href="<?php echo esc_url($link_href); ?>" target="_blank" class="rm-d-flex rm-align-items-center rm-text-decoration-none rm-fw-bold rm-text-dark rm-px-3 rm-py-2">
                     <span class="material-icons rm-pr-2">workspace_premium</span>
                     <?php esc_html_e("Upgrade to Premium", 'custom-registration-form-builder-with-submission-manager'); ?>
                 </a>

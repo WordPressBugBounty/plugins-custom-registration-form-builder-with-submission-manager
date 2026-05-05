@@ -564,7 +564,7 @@ if($data->should_show_fb_footer) {
             </div>
             <div class="rm-sidebanner-buttons">
                 <div class="rm-sidebanner-button rm-sidebanner-stater-guide">
-                     <a target="_blank" href="https://registrationmagic.com/create-wordpress-registration-page-starter-guide/?utm_source=plugin&utm_medium=helpbox" class="button button-primary"> <?php esc_html_e('Starter Guide','custom-registration-form-builder-with-submission-manager'); ?></a>
+                     <a target="_blank" href="https://registrationmagic.com/create-wordpress-registration-page-starter-guide/?utm_source=plugin&utm_medium=helpbox" class="button "> <?php esc_html_e('Starter Guide','custom-registration-form-builder-with-submission-manager'); ?></a>
                     			
                 </div>
 
