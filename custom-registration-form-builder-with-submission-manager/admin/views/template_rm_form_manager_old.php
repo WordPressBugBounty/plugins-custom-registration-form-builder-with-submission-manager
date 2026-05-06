@@ -549,7 +549,7 @@ if($data->should_show_fb_footer) {
 
    <div class="rm-side-banner">
         <div class="rm-sidebanner-image">
-          <!--  <img src="<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . 'images/svg/rm-support-banner-icon.svg'; ?>"> -->
+           <img src="<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . 'images/svg/rm-support-banner.svg'; ?>">
         </div>
 
         <div class="sidebanner-content-wrapper">
