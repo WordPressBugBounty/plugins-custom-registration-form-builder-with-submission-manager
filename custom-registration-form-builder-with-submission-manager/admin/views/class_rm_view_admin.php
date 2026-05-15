@@ -43,7 +43,8 @@ class RM_View_Admin
             !str_contains($this->view_file,'template_rm_dashboard_widget') &&
             !str_contains($this->view_file,'template_rm_formflow_main') &&
             !str_contains($this->view_file,'template_rm_form_preview') &&
-            !str_contains($this->view_file,'template_rm_user_edit_widget')
+            !str_contains($this->view_file,'template_rm_user_edit_widget') &&
+            !str_contains($this->view_file,'template_rm_premium')
         ) {
             include_once 'template_rm_header.php';
         }
@@ -54,7 +55,8 @@ class RM_View_Admin
             !str_contains($this->view_file,'template_rm_dashboard_widget') &&
             !str_contains($this->view_file,'template_rm_formflow_main') &&
             !str_contains($this->view_file,'template_rm_form_preview') &&
-            !str_contains($this->view_file,'template_rm_user_edit_widget')
+            !str_contains($this->view_file,'template_rm_user_edit_widget') &&
+            !str_contains($this->view_file,'template_rm_premium')
         ) {
             include_once 'template_rm_promo_banner_bottom.php';
             include_once 'template_rm_footer.php';

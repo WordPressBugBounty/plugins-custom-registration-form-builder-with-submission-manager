@@ -13,9 +13,9 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
    $visits= array();
    foreach ($data->day_wise_stat as $date => $per_day) {
        array_push($date_labels,$date);
-       array_push($subs,$per_day->submissions);
-       array_push($visits,$per_day->visits);
-       if(empty($show_chart) && !empty($per_day->visits) && !empty($per_day->submissions)){
+       array_push($subs,absint($per_day->submissions));
+       array_push($visits,absint($per_day->visits));
+       if(empty($show_chart) && (!empty(absint($per_day->visits)) || !empty(absint($per_day->submissions)))){
            $show_chart=1;
        }
    }

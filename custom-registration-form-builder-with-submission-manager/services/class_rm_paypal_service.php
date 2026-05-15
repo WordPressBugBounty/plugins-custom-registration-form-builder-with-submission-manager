@@ -95,10 +95,8 @@ class RM_Paypal_Service implements RM_Gateway_Service
                             if ($log->log)
                             {
                                 $paypal_log = maybe_unserialize($log->log);
-                                $payment_status = $paypal_log['payment_status'];
-                                $cstm = $paypal_log["custom"];
-                                $abcd = explode("|", (string)$cstm);
-                                $user_id = (int) ($abcd[1]);
+                                $payment_status = isset($paypal_log['payment_status']) ? $paypal_log['payment_status'] : $log->status;
+                                $user_id = isset($exdata['user_id']) ? absint($exdata['user_id']) : 0;
                                 $form_id = $log->form_id;
 
                                 if ($payment_status == 'Completed')
@@ -141,14 +139,31 @@ class RM_Paypal_Service implements RM_Gateway_Service
                     return;
 
                 case 'ipn':
-                    $trasaction_id = sanitize_text_field($_POST["txn_id"]);
-                    $payment_status = sanitize_text_field($_POST["payment_status"]);
-                    $cstm = wp_kses_post((string)$_POST["custom"]);
-                    $abcd = explode("|", (string)$cstm);
-                    $user_id = (int) ($abcd[1]);
+                    if (!$this->paypal->validate_ipn())
+                    {
+                        return 'invalid_ipn';
+                    }
+
+                    $trasaction_id = isset($_POST["txn_id"]) ? sanitize_text_field(wp_unslash($_POST["txn_id"])) : '';
+                    $payment_status = isset($_POST["payment_status"]) ? sanitize_text_field(wp_unslash($_POST["payment_status"])) : '';
+                    $cstm = isset($_POST["custom"]) ? sanitize_text_field(wp_unslash($_POST["custom"])) : '';
                     $acbd = explode("|", (string)$cstm);
-                    $log_entry_id = (int) ($acbd[0]); //$_POST["custom"];
-                    $log_array = maybe_serialize(array_map('sanitize_text_field', $_POST));
+                    $log_entry_id = isset($acbd[0]) ? absint($acbd[0]) : 0; //$_POST["custom"];
+
+                    if (!$log_entry_id)
+                    {
+                        return 'invalid_log';
+                    }
+
+                    $log = RM_DBManager::get_row('PAYPAL_LOGS', $log_entry_id);
+                    if (!$log)
+                    {
+                        return 'invalid_log';
+                    }
+
+                    $exdata = maybe_unserialize($log->ex_data);
+                    $user_id = isset($exdata['user_id']) ? absint($exdata['user_id']) : 0;
+                    $log_array = maybe_serialize(array_map('sanitize_text_field', wp_unslash($_POST)));
 
                     $curr_date = RM_Utilities::get_current_time(); // date_i18n(get_option('date_format'));
 
@@ -167,42 +182,38 @@ class RM_Paypal_Service implements RM_Gateway_Service
                         $check_setting = "yes";
                     }
 
-                    if ($this->paypal->validate_ipn())
+                    //IPN is valid, check payment status and process logic
+                    if ($payment_status == 'Completed')
                     {
-                        //IPN is valid, check payment status and process logic
-                        if ($payment_status == 'Completed')
+                        if ($user_id)
                         {
-                            if ($user_id)
+                            $gopt = new RM_Options;
+                            if ($check_setting == "yes")
                             {
-                                $gopt = new RM_Options;
-                                if ($check_setting == "yes")
-                                {
-                                    $user_service = new RM_User_Services();
-                                    $user_service->activate_user_by_id($user_id);
-                                }
+                                $user_service = new RM_User_Services();
+                                $user_service->activate_user_by_id($user_id);
                             }
-                            $form = new RM_Forms();
-                            $form->load_from_db(sanitize_text_field($_GET["rm_fid"]));
-                            $user_email = !empty($user) ? $user->user_email : sanitize_email($_GET["rm_uemail"]);
-                            $sub_id = sanitize_text_field($_GET["rm_subid"]);
-                            do_action('rm_payment_completed', $user_email, $form, $sub_id);
-                            return 'success';
                         }
-                        else if ($payment_status == 'Denied' || $payment_status == 'Failed' || $payment_status == 'Refunded' || $payment_status == 'Reversed' || $payment_status == 'Voided')
-                        {
-                            return 'failed';
-                        } else if ($payment_status == 'In-Progress' || $payment_status == 'Pending' || $payment_status == 'Processed')
-                        {
-                            return 'pending';
-                        } else if ($payment_status == 'Canceled_Reversal')
-                        {
-                            return 'canceled_reversal';
-                        }
-
-                        return 'unknown';
+                        $form = new RM_Forms();
+                        $form->load_from_db($log->form_id);
+                        $user = $user_id ? get_user_by('ID', $user_id) : false;
+                        $user_email = !empty($user) ? $user->user_email : (isset($_GET["rm_uemail"]) ? sanitize_email(wp_unslash($_GET["rm_uemail"])) : '');
+                        $sub_id = !empty($log->submission_id) ? $log->submission_id : (isset($_GET["rm_subid"]) ? sanitize_text_field(wp_unslash($_GET["rm_subid"])) : '');
+                        do_action('rm_payment_completed', $user_email, $form, $sub_id);
+                        return 'success';
+                    }
+                    else if ($payment_status == 'Denied' || $payment_status == 'Failed' || $payment_status == 'Refunded' || $payment_status == 'Reversed' || $payment_status == 'Voided')
+                    {
+                        return 'failed';
+                    } else if ($payment_status == 'In-Progress' || $payment_status == 'Pending' || $payment_status == 'Processed')
+                    {
+                        return 'pending';
+                    } else if ($payment_status == 'Canceled_Reversal')
+                    {
+                        return 'canceled_reversal';
                     }
 
-                    return 'invalid_ipn';
+                    return 'unknown';
             }
     }
 
@@ -324,16 +335,22 @@ class RM_Paypal_Service implements RM_Gateway_Service
     public function process_paypal_sdk_payment() {
         if(check_ajax_referer('rm_ajax_secure','rm_sec_nonce')) {
             if(!isset($_POST['transaction']) || !is_array($_POST['transaction']) ) {
-                wp_send_json_error(array('msg'=>__('Transaction not valid.','custom-registration-form-builder-with-submission-manager')));
+                wp_send_json_error(array('msg'=>esc_html__('Transaction not valid.','custom-registration-form-builder-with-submission-manager')));
             }
             $submission_id= isset($_POST['submission_id']) ? absint($_POST['submission_id']) : 0;
-            empty($submission_id) ? wp_send_json_error(array('msg'=>__('Submission not valid.','custom-registration-form-builder-with-submission-manager'))) : '';
+            empty($submission_id) ? wp_send_json_error(array('msg'=>esc_html__('Submission not valid.','custom-registration-form-builder-with-submission-manager'))) : '';
             $submission = new RM_Submissions();
             if(!$submission->load_from_db($submission_id)) {
-                wp_send_json_error(array('msg'=>__('Submission not valid.','custom-registration-form-builder-with-submission-manager')));
+                wp_send_json_error(array('msg'=>esc_html__('Submission not valid.','custom-registration-form-builder-with-submission-manager')));
             }
             $transaction = $_POST['transaction'];
             $log_id = isset($_POST['payment_id']) ? absint($_POST['payment_id']) : 0;
+            $log = $log_id ? RM_DBManager::get_row('PAYPAL_LOGS', $log_id) : false;
+            if(!$log || (int)$log->submission_id !== (int)$submission_id) {
+                wp_send_json_error(array('msg'=>esc_html__('Submission not valid.','custom-registration-form-builder-with-submission-manager')));
+            }
+            $exdata = maybe_unserialize($log->ex_data);
+            $user_id = isset($exdata['user_id']) ? absint($exdata['user_id']) : 0;
             //$status = isset($transaction['status']) ? strtolower($transaction['status']) : 'Pending';
             //$status = ucfirst($status);
             $txn_id = isset($transaction['id']) ? $transaction['id'] : '';
@@ -350,10 +367,10 @@ class RM_Paypal_Service implements RM_Gateway_Service
                 $check_setting = "yes";
             }
             if($status == 'Completed') {
-                if ($_POST['user_id']){
+                if ($user_id){
                     if ($check_setting == "yes"){
                         $user_service = new RM_User_Services();
-                        $user_service->activate_user_by_id($_POST['user_id']);
+                        $user_service->activate_user_by_id($user_id);
                     }
                 }
                 $form_id = $submission->form_id;
@@ -368,7 +385,7 @@ class RM_Paypal_Service implements RM_Gateway_Service
             }
             wp_send_json_success($response);
         } else {
-            wp_send_json_error(array('msg'=>__('Submission not valid.','custom-registration-form-builder-with-submission-manager')));
+            wp_send_json_error(array('msg'=>esc_html__('Submission not valid.','custom-registration-form-builder-with-submission-manager')));
         }
     }
 
@@ -446,7 +463,7 @@ class RM_Paypal_Service implements RM_Gateway_Service
     public function demo(){
         $response['msg'] .= '<div id="rmform">';
         $response['msg'] .= "<br><br><div class='rm-post-sub-msg'>";
-        $response['msg'] .= $form->form_options->form_success_message != "" ? apply_filters('rm_form_success_msg',$form->form_options->form_success_message,$form_id,$sub_id) : $form->get_form_name() . " ". __('Submitted','custom-registration-form-builder-with-submission-manager');
+        $response['msg'] .= $form->form_options->form_success_message != "" ? apply_filters('rm_form_success_msg',$form->form_options->form_success_message,$form_id,$sub_id) : $form->get_form_name() . " ". esc_html__('Submitted','custom-registration-form-builder-with-submission-manager');
         $response['msg'] .= '</div>';
         
             
@@ -459,7 +476,7 @@ class RM_Paypal_Service implements RM_Gateway_Service
                 $page_id = $form->get_form_redirect_to_page();
                 $page = get_post($page_id);
                 if($page instanceof WP_Post)
-                    $redirection_page = $page->post_title ? $page->post_title : '#' . $page_id . ' '.__('(No Title)','custom-registration-form-builder-with-submission-manager');
+                    $redirection_page = $page->post_title ? $page->post_title : '#' . $page_id . ' '.esc_html__('(No Title)','custom-registration-form-builder-with-submission-manager');
             } else if($redirection_type==='url') {
                     $redirection_page = $form->get_form_redirect_to_url();
             }
