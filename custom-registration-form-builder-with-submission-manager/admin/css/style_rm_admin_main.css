@@ -284,14 +284,14 @@ body.admin_page_rm_field_manage{
 }
 
 .rmagic input[type=radio]:checked:before {
-    background-color: #fff;
+    /*background-color: #fff;
     margin: 4px 0px 0px 4px;
     content: "\2022";
     text-indent: -9999px;
     border-radius: 50px;
     font-size: 24px;
     width: 6px;
-    height: 6px;
+    height: 6px;*/
 }
 
 .rmagic .rmnotice {
@@ -7437,6 +7437,8 @@ img.rm_feature_icon {
     text-align: center;
     font-size: 13px;
     box-sizing: border-box;
+    background-color: #f6f6f6;
+    color: #2271b1;
 }
 
 .rm-sidebanner-buttons .rm-sidebanner-button.rm-sidebanner-stater-guide a{

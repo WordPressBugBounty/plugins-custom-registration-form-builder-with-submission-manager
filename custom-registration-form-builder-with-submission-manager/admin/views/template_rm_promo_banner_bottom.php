@@ -73,8 +73,10 @@ if(defined('REGMAGIC_ADDON') && $dismiss_banner == 0) { ?>
 .rm-banner-btn-wrap button.rm-customize-banner-btn {
     vertical-align: top;
     transition: .2s;
-    padding: 4px 20px;
-    font-size: 15px;
+    padding: 10px 14px;
+    min-height: 30px;
+    line-height: normal;
+    font-size: 14px;
 }
 
 .rm-banner-close-icon {

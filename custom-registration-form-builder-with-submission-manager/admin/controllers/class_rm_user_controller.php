@@ -118,8 +118,8 @@ class RM_USER_Controller
             
             $filter= new RM_User_Filter($request,$service);
             $view_data = new stdClass();
-            $view_data->filter= $filter;
             $all_users = $filter->get_records();
+            $view_data->filter= $filter;
             $view_data->users = array();
             $view_data->users = $all_users->get_results();
             $view_data->total_users = absint($all_users->total_users);

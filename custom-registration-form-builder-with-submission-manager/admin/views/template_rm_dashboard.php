@@ -412,15 +412,15 @@ $premium_class = 'rm-locked-section';
                                             <td>
                                                 <div class="rm-login-form-user">
                                                     <a href="#">
-                                                        <?php echo get_avatar($login_log->email) ? get_avatar($login_log->email) : '<img src="' . RM_IMG_URL . 'default_person.png">'; ?>
+                                                        <?php echo get_avatar($login_log->email ?? '') ? get_avatar($login_log->email ?? '') : '<img src="' . RM_IMG_URL . 'default_person.png">'; ?>
                                                     </a>
-                                                    <?php $user = get_user_by('email', (string)$login_log->email); ?>
+                                                    <?php $user = get_user_by('email', $login_log->email ?? ''); ?>
                                                     <?php if (!empty($user)): ?>
                                                         <span class="rm-login-user-status <?php echo (RM_Utilities::is_user_online($user->ID)) ? 'rm-login-user-online' : '' ?>"><i class="fa fa-circle"></i></span>
                                                     <?php else: ?>
                                                         <span class="rm-login-user-status"><i class="fa fa-circle"></i></span>
                                                     <?php endif; ?>
-                                                    <span class="rm-login-form-user-name" title="<?php echo ($user) ? esc_attr($user->display_name) : ($login_log->social_type == 'instagram' ? esc_attr($login_log->username_used) : esc_attr($login_log->email)); ?>"><?php echo ($user) ? esc_attr($user->display_name) : ($login_log->social_type == 'instagram' ? esc_attr($login_log->username_used) : esc_attr($login_log->email)); ?></span>
+                                                    <span class="rm-login-form-user-name" title="<?php echo ($user) ? esc_attr($user->display_name ?? '') : ($login_log->social_type == 'instagram' ? esc_attr($login_log->username_used ?? '') : esc_attr($login_log->email ?? '')); ?>"><?php echo ($user) ? esc_html($user->display_name ?? '') : ($login_log->social_type == 'instagram' ? esc_html($login_log->username_used ?? '') : esc_html($login_log->email ?? '')); ?></span>
                                                 </div>
                                             </td>
                                             <td><div class="rm-login-method rm-login-<?php echo esc_attr(strtolower($login_log->type)) ?>"><?php echo esc_html($login_log->type) ?></div></td>

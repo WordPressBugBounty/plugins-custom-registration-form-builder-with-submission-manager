@@ -29,6 +29,7 @@ class RM_User_Filter extends RM_Filter {
        $all_users  = $this->service->get_all_user_data($this->pagination->curr_page, $entries_per_page, $this->filters['rm_to_search'], $this->filters['rm_status'], $this->filters['rm_interval'], $this->filters['rm_sort'], $this->filters['rm_user_role']);
        $this->records = $all_users->get_results();
        $this->total_users = $all_users->total_users;
+       $this->total_entries = $all_users->total_users;
        return $all_users; 
       
     }

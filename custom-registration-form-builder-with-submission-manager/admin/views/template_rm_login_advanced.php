@@ -85,15 +85,15 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                                 <td>
                                     <div class="rm-login-form-user">
                                         <a href="#">
-                                            <?php echo get_avatar($login_log->email)?get_avatar($login_log->email):'<img src="'.esc_url(RM_IMG_URL).'default_person.png">'; ?>
+                                            <?php echo get_avatar($login_log->email ?? '') ? get_avatar($login_log->email ?? '') : '<img src="'.esc_url(RM_IMG_URL).'default_person.png">'; ?>
                                         </a>
-                                        <?php $user = get_user_by( 'email', $login_log->email ); ?>
+                                        <?php $user = get_user_by( 'email', $login_log->email ?? ''); ?>
                                         <?php if(!empty($user)): ?>
                                             <span class="rm-login-user-status <?php echo (RM_Utilities::is_user_online($user->ID))?'rm-login-user-online':'' ?>"><i class="fa fa-circle"></i></span>
                                         <?php else: ?>
                                             <span class="rm-login-user-status"><i class="fa fa-circle"></i></span>
                                         <?php endif; ?>
-                                            <span class="rm-login-form-user-name" title="<?php echo ($user)?esc_attr($user->display_name):($login_log->social_type=='instagram'?esc_attr($login_log->username_used):esc_attr($login_log->email)); ?>"><?php echo ($user)?esc_html($user->display_name):($login_log->social_type=='instagram'?esc_html($login_log->username_used):esc_html($login_log->email)); ?></span>
+                                            <span class="rm-login-form-user-name" title="<?php echo ($user) ? esc_attr($user->display_name ?? '') : ($login_log->social_type == 'instagram' ? esc_attr($login_log->username_used ?? '') : esc_attr($login_log->email ?? '')); ?>"><?php echo ($user) ? esc_html($user->display_name ?? '') : ($login_log->social_type == 'instagram' ?esc_html($login_log->username_used ?? '') : esc_html($login_log->email ?? '')); ?></span>
                                     </div>
                                 </td>
                                 <td>
@@ -141,7 +141,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                                             ?>
                                             <li class="rm_deactive_link_<?php echo esc_attr($user->ID); ?>" <?php echo ($user_status)?'style="display: none;"':'' ?>><a onclick="rm_login_suspend_user('<?php echo esc_attr($user->ID); ?>','<?php echo esc_attr($user->user_login); ?>')"><?php _e('Suspend User', 'custom-registration-form-builder-with-submission-manager'); ?></a></li>
                                             <li class="rm_active_link_<?php echo esc_attr($user->ID); ?>" <?php echo ($user_status)?'':'style="display: none;"' ?>><a onclick="rm_login_activate_user('<?php echo esc_attr($user->ID); ?>','<?php echo esc_attr($user->user_login); ?>')"><?php _e('Activate User', 'custom-registration-form-builder-with-submission-manager'); ?></a></li>
-                                            <li><a onclick="rm_login_reset_password('<?php echo esc_attr($user->ID); ?>','<?php echo esc_attr($login_log->email); ?>','<?php echo esc_attr($user->user_login); ?>')"><?php _e('Reset Password', 'custom-registration-form-builder-with-submission-manager'); ?></a></li>
+                                            <li><a onclick="rm_login_reset_password('<?php echo esc_attr($user->ID); ?>','<?php echo esc_attr($login_log->email ?? ''); ?>','<?php echo esc_attr($user->user_login); ?>')"><?php _e('Reset Password', 'custom-registration-form-builder-with-submission-manager'); ?></a></li>
                                             <?php endif; ?>
                                             
                                             <?php
@@ -153,7 +153,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                                             }
                                             
                                             ?>
-                                            <li><a href="#rm-send-email-<?php echo esc_attr($login_log->id); ?>" onclick="CallModalBoxEmail(this,'<?php echo esc_attr($login_log->email); ?>',<?php echo esc_attr($login_log->id); ?>)"><?php _e('Send Email', 'custom-registration-form-builder-with-submission-manager'); ?></a></li>
+                                            <li><a href="#rm-send-email-<?php echo esc_attr($login_log->id); ?>" onclick="CallModalBoxEmail(this,'<?php echo esc_attr($login_log->email ?? ''); ?>',<?php echo esc_attr($login_log->id); ?>)"><?php _e('Send Email', 'custom-registration-form-builder-with-submission-manager'); ?></a></li>
                                             <li><a href="#rm-login-user-details-<?php echo esc_attr($login_log->id); ?>" onclick="CallModalBox(this)"><?php _e('Details', 'custom-registration-form-builder-with-submission-manager'); ?></a></li>
                                         </ul>
                                     </div>
@@ -172,11 +172,11 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                                                 <div class="rm-login-user-profile">
                                                     <div class="rm-login-user-profile-avatar">
                                                         <a href="#">
-                                                            <?php echo get_avatar($login_log->email)?get_avatar($login_log->email):'<img src="'.esc_url(RM_IMG_URL).'default_person.png">'; ?>
+                                                            <?php echo get_avatar($login_log->email ?? '') ? get_avatar($login_log->email ?? '') : '<img src="'.esc_url(RM_IMG_URL).'default_person.png">'; ?>
                                                         </a>
                                                     </div> 
 
-                                                    <div class="rm-login-user-name"><?php echo ($user)?esc_html($user->display_name):esc_html($login_log->email); ?></div>
+                                                    <div class="rm-login-user-name"><?php echo ($user) ? esc_html($user->display_name) : esc_html($login_log->email ?? ''); ?></div>
                                                     
                                                     <?php if($user): ?>
                                                     <div class="rm-register-details">
@@ -189,7 +189,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                                             </div>
                                             <div class="rm-login-details-rf">
                                                 <div class="rm-login-user-info-wrap">
-                                                <div class="rm-login-user-info"><?php _e('Username Used', 'custom-registration-form-builder-with-submission-manager'); ?><span><?php echo ($login_log->username_used!='')?esc_html($login_log->username_used):esc_html($login_log->email); ?></span></div>
+                                                <div class="rm-login-user-info"><?php _e('Username Used', 'custom-registration-form-builder-with-submission-manager'); ?><span><?php echo ($login_log->username_used != '') ? esc_html($login_log->username_used) : esc_html($login_log->email ?? ''); ?></span></div>
                                                 <div class="rm-login-user-info"><?php _e('Login Attempted', 'custom-registration-form-builder-with-submission-manager'); ?><span><?php echo esc_html(date('h:i A j F Y', strtotime($login_log->time))); ?></span></div>
                                                 <div class="rm-login-user-info"><?php _e('Login From', 'custom-registration-form-builder-with-submission-manager'); ?><span><?php echo esc_html($login_log->login_url); ?></span></div>
                                                 <?php
@@ -230,13 +230,13 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                                     <div class="rm-modal-title rm-dbfl"><?php _e('Send Email','custom-registration-form-builder-with-submission-manager'); ?><div class="rm-modal-close">&times;</div></div>
                                     
                                     <div class="rm-modal-container rm-dbfl">
-                                        <div class="rm-dbfl rm-email-box-row"><span class="rm-field-lable rm-difl"><?php _e('To','custom-registration-form-builder-with-submission-manager'); ?>:</span><span class="rm-field-input rm-difl" ><span class="rm-message-username"><?php _e('@', 'custom-registration-form-builder-with-submission-manager'); ?><span><?php echo esc_html($login_log->email); ?></span></span></span></div>
+                                        <div class="rm-dbfl rm-email-box-row"><span class="rm-field-lable rm-difl"><?php _e('To','custom-registration-form-builder-with-submission-manager'); ?>:</span><span class="rm-field-input rm-difl" ><span class="rm-message-username"><?php _e('@', 'custom-registration-form-builder-with-submission-manager'); ?><span><?php echo esc_html($login_log->email ?? ''); ?></span></span></span></div>
                                         <div class="rm-dbfl rm-email-box-row"><span class="rm-field-lable rm-difl"><?php _e("Subject", 'custom-registration-form-builder-with-submission-manager'); ?>:</span><span class="rm-field-input rm-difl"><input name="rm-user-subject" value="<?php _e('RM LOGIN EMAIL','custom-registration-form-builder-with-submission-manager'); ?>" class="rm-user-subject-<?php echo esc_attr($login_log->id); ?>" placeholder="<?php _e('Type your subject here','custom-registration-form-builder-with-submission-manager'); ?>"/></span></div>
                                         <div class="rm-dbfl rm-email-box-row"><span class="rm-field-lable rm-difl"><?php _e('Message','custom-registration-form-builder-with-submission-manager'); ?>:</span><span class="rm-field-input rm-difl"><textarea name="rm-user-message" class="rm-user-message-<?php echo esc_attr($login_log->id); ?>" placeholder="<?php _e('Type your message here','custom-registration-form-builder-with-submission-manager'); ?>"></textarea></span></div>
                                     </div>
 
                                     <div class="rm-send-email-footer rm-dbfl">
-                                        <div class="rm-send-email- rm-difl"><a href="javascript:void(0)" onclick="rm_login_send_email('<?php echo esc_attr($login_log->email); ?>',<?php echo esc_attr($login_log->id); ?>)"><?php _e('Send','custom-registration-form-builder-with-submission-manager'); ?></a></div>
+                                        <div class="rm-send-email- rm-difl"><a href="javascript:void(0)" onclick="rm_login_send_email('<?php echo esc_attr($login_log->email ?? ''); ?>',<?php echo esc_attr($login_log->id); ?>)"><?php _e('Send','custom-registration-form-builder-with-submission-manager'); ?></a></div>
                                         <div class="rm-difl"><a href="javascript:void(0)" class="rm-model-cancel"><?php _e("Cancel", 'custom-registration-form-builder-with-submission-manager'); ?></a></div>
                                     </div>
                                 </div>

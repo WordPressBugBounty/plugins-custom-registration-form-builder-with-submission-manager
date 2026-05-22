@@ -69,9 +69,9 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                         <span class="rm-custom-status-box-nub"></span>
                         <div class="rm-custom-status-search"><input type="search" placeholder="Search Status"></div>
                             <?php
-                            foreach ($form_options->custom_status as $key => $value) { ?>
+                            if (isset($form_options->custom_status) && !empty($form_options->custom_status) && is_iterable($form_options->custom_status)) { foreach ($form_options->custom_status as $key => $value) { ?>
                                 <div class="rm-custom-status-value" onClick="rm_status_append('<?php echo esc_attr($value['label']); ?>','<?php echo esc_attr($value['color']); ?>','<?php echo esc_attr($key); ?>','<?php echo esc_attr($user_email); ?>')" style="background-color: #<?php echo esc_attr($value['color']); ?>;"><?php echo esc_html($value['label']); ?></div>
-                            <?php }
+                            <?php } }
                             //echo '<pre>'; print_r($form_options->custom_status);echo '</pre>';
                             ?>
                         </div>

@@ -132,12 +132,12 @@ $rm_premium_license_key = get_option( 'rm_premium_license_key','' );
                                             </select>
 
                                               <!--  <span class="rm-tooltips" tooltip="<?php esc_html_e( 'If you have purchased a Bundle, please select the name of the Bundle and enter its license key in the corresponding input box', 'custom-registration-form-builder-with-submission-manager' );?>" tooltip-position="top"></span>-->
-                                                <div class="rm-mt-1 rm-align-right rm-fw-bold"><a href="https://registrationmagic.com/how-to-activate-registrationmagic-licenses/" target="_blank" class="rm-text-small rm-text-decoration-underline"><?php esc_html_e('How to find the product I purchased?','custom-registration-form-builder-with-submission-manager');?></a></div>
+                                                <div class="rm-mt-1 rm-align-left rm-fw-bold"><a href="https://registrationmagic.com/how-to-activate-registrationmagic-licenses/" target="_blank" class="rm-text-small rm-text-decoration-underline"><?php esc_html_e('How to find the product I purchased?','custom-registration-form-builder-with-submission-manager');?></a></div>
                                             </div>
                                             </td>
                     <td>
                         <input id="<?php esc_attr_e($id);?>" name="<?php esc_attr_e($id);?>" type="text" class="rm-license-checker-box regular-text rm-license-block <?php echo $expire_class;?>" data-prefix="<?php esc_attr_e($bundle_id);?>" data-key="<?php esc_attr_e($key);?>" value="<?php esc_attr_e($rm_license_key); ?>" placeholder="<?php esc_html_e( 'Please Enter License Key', 'custom-registration-form-builder-with-submission-manager' );?>" <?php echo esc_attr($disabled2);?> />
-                        <div class="rm-mt-1 rm-align-right"><a href="https://registrationmagic.com/get-registrationmagic-premium-license-key/" target="_blank" class="rm-text-small rm-fw-bold rm-text-decoration-underline"><?php esc_html_e('Where do I find my key?','custom-registration-form-builder-with-submission-manager');?></a></div>
+                        <div class="rm-mt-1 rm-align-left"><a href="https://registrationmagic.com/get-registrationmagic-premium-license-key/" target="_blank" class="rm-text-small rm-fw-bold rm-text-decoration-underline"><?php esc_html_e('Where do I find my key?','custom-registration-form-builder-with-submission-manager');?></a></div>
                       </td>
                       <td class="rm-text-center">         
                         <div class="rm-license-validity-notice license-expire-date <?php echo $expire_class;?>" style="padding-bottom:2rem;" >
