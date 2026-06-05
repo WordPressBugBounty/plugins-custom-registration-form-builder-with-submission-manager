@@ -340,46 +340,51 @@ if($data->total_page > 1)
                                 <h3><?php _e('Field Columns','custom-registration-form-builder-with-submission-manager'); ?></h3>
                                 <ul>
                                     <li>
-                                        <div class="rm-fields-column">
-                                            <span style="width: 100%"></span>
-                                        </div>
-                                        <label> 
-                                            <input type="radio" class="rm-field-radio" value="1" name="columns" data-allowed-fields="1" onclick="rmColumnSelector(this)" /><?php _e('Single','custom-registration-form-builder-with-submission-manager'); ?></label>
+                                        <label>
+                                            <div class="rm-fields-column">
+                                                <span style="width: 100%"></span>
+                                            </div>
+                                            <input type="radio" class="rm-field-radio" value="1" name="columns" data-allowed-fields="1" onclick="rmColumnSelector(this)" /><?php esc_html_e('Single','custom-registration-form-builder-with-submission-manager'); ?>
+                                        </label>
                                     </li>
                                     <li>
-                                        <div class="rm-fields-column">
-                                            <span style="width: 50%"></span>
-                                            <span style="width: 50%"></span>
-                                        </div>
                                         <label>
-                                            <input type="radio" class="rm-field-radio" value="1:1" name="columns" data-allowed-fields="2" onclick="rmColumnSelector(this)" /><?php _e('1:1','custom-registration-form-builder-with-submission-manager'); ?></label>
+                                            <div class="rm-fields-column">
+                                                <span style="width: 50%"></span>
+                                                <span style="width: 50%"></span>
+                                            </div>
+                                            <input type="radio" class="rm-field-radio" value="1:1" name="columns" data-allowed-fields="2" onclick="rmColumnSelector(this)" /><?php esc_html_e('1:1','custom-registration-form-builder-with-submission-manager'); ?>
+                                        </label>
                                     </li>
                                     <li>
-                                        <div class="rm-fields-column">
-                                            <span style="width: 75%"></span>
-                                            <span style="width: 25%"></span>
-                                        </div>
                                         <label>
-                                            <input type="radio" class="rm-field-radio" value="2:1" name="columns" data-allowed-fields="2" onclick="rmColumnSelector(this)" /><?php _e('2:1','custom-registration-form-builder-with-submission-manager'); ?></label>
+                                            <div class="rm-fields-column">
+                                                <span style="width: 75%"></span>
+                                                <span style="width: 25%"></span>
+                                            </div>
+                                            <input type="radio" class="rm-field-radio" value="2:1" name="columns" data-allowed-fields="2" onclick="rmColumnSelector(this)" /><?php esc_html_e('2:1','custom-registration-form-builder-with-submission-manager'); ?>
+                                        </label>
                                     </li>
                                     <li>
-                                        <div class="rm-fields-column">
-                                            <span style="width: 33%"></span>
-                                            <span style="width: 33%"></span>
-                                            <span style="width: 33%"></span>
-                                        </div>
                                         <label>
-                                            <input type="radio" class="rm-field-radio" value="1:1:1" name="columns" data-allowed-fields="3" onclick="rmColumnSelector(this)" /><?php _e('1:1:1','custom-registration-form-builder-with-submission-manager'); ?></label>
+                                            <div class="rm-fields-column">
+                                                <span style="width: 33%"></span>
+                                                <span style="width: 33%"></span>
+                                                <span style="width: 33%"></span>
+                                            </div>
+                                            <input type="radio" class="rm-field-radio" value="1:1:1" name="columns" data-allowed-fields="3" onclick="rmColumnSelector(this)" /><?php esc_html_e('1:1:1','custom-registration-form-builder-with-submission-manager'); ?>
+                                        </label>
                                     </li>
                                     <li>
-                                        <div class="rm-fields-column">
-                                            <span style="width: 25%"></span>
-                                            <span style="width: 25%"></span>
-                                            <span style="width: 25%"></span>
-                                            <span style="width: 25%"></span>
-                                        </div>
                                         <label>
-                                            <input type="radio" class="rm-field-radio" value="1:1:1:1" name="columns" data-allowed-fields="4" onclick="rmColumnSelector(this)"/><?php _e('1:1:1:1','custom-registration-form-builder-with-submission-manager'); ?></label>
+                                            <div class="rm-fields-column">
+                                                <span style="width: 25%"></span>
+                                                <span style="width: 25%"></span>
+                                                <span style="width: 25%"></span>
+                                                <span style="width: 25%"></span>
+                                            </div>
+                                            <input type="radio" class="rm-field-radio" value="1:1:1:1" name="columns" data-allowed-fields="4" onclick="rmColumnSelector(this)"/><?php esc_html_e('1:1:1:1','custom-registration-form-builder-with-submission-manager'); ?>
+                                        </label>
                                     </li>
                                 </ul>
                             </div>

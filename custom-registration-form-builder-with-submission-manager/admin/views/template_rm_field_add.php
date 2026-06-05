@@ -13,6 +13,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
 wp_enqueue_script( 'jquery-ui-dialog', '', 'jquery' );
 wp_enqueue_script('rm_select2');
 wp_enqueue_style('rm_select2');
+
 if(isset($data->model->field_options->icon))
 {
     $f_icon = $data->model->field_options->icon;
@@ -282,7 +283,7 @@ if(empty($data->model->field_options->field_user_profile)){
     }
 }
 $non_meta_fields= array('Price','ImageV','Shortcode','MapV','SubCountV','Form_Chart','FormData','Feed','Username','UserPassword','Privacy','WCBilling','WCShipping','WCBillingPhone','Fname','Lname','BInfo','Nickname','SecEmail','Website');
-if(!in_array($data->selected_field, $non_meta_fields)){
+if(!in_array($data->selected_field, $non_meta_fields) && $data->is_registration_form){
     $form->addElement(new Element_HTML("<div id='rm_user_meta_options'>"));
         $form->addElement(new Element_Radio(__('Add Field to WordPress User Profile','custom-registration-form-builder-with-submission-manager').":", "field_user_profile",$meta_options, array("id" => "field_user_profile", "value" =>$data->model->field_options->field_user_profile, "longDesc"=>__('Saves the field value in a profile field in WordPress User Profile using User Meta. You can create new custom fields in the profile by selecting "Define new user meta key". Please note that this feature only works with user registration forms.','custom-registration-form-builder-with-submission-manager'))));
         $display_user_meta_options= $data->model->field_options->field_user_profile=='existing_user_meta' || $data->model->field_options->field_user_profile=='define_new_user_meta' ? '' : 'style="display:none"';

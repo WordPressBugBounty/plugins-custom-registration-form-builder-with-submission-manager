@@ -268,6 +268,20 @@
 
         });
 
+        RM_jQ("#rm_editor_add_admin_ns_email").change(function () {
+            tinymce.execCommand('mceFocus', false, 'form_admin_ns_notification');
+            if (RM_jQ(this).val() != 0) {
+                var shortcode = "{{" + RM_jQ(this).val() + "}}";
+
+                if (typeof send_to_editor == 'function')
+                    send_to_editor(shortcode);
+                else
+                    tinyMCE.get('form_admin_ns_notification').execCommand('mceInsertContent', false, shortcode);
+
+            }
+
+        });
+
         RM_jQ("#mce_rm_mail_body").change(function () {
             tinymce.execCommand('mceFocus', false, 'rm_mail_body');
             if (RM_jQ(this).val() != 0) {

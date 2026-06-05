@@ -858,11 +858,10 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                         $tooltip = '';
                   }else{
                         $deactivation_class = 'rm_transparent_deactivated';
-                        $tooltip = 'title="'.sprintf(RM_UI_Strings::get('FD_TOGGLE_TOOLTIP'),admin_url('admin.php?page=rm_form_sett_autoresponder&rm_form_id='.$data->form_id)).'"';
+                        $tooltip = sprintf(RM_UI_Strings::get('FD_TOGGLE_TOOLTIP'),admin_url('admin.php?page=rm_form_sett_autoresponder&rm_form_id='.$data->form_id));
                   }
-                
              ?>
-            <div   <?php echo wp_kses_post((string)$tooltip); ?> class="rm-grid-sidebar-row dbfl <?php echo esc_html($deactivation_class); ?>">
+            <div title="<?php echo esc_attr($tooltip); ?>" class="rm-grid-sidebar-row dbfl <?php echo esc_html($deactivation_class); ?>">
                 <div class="rm-grid-sidebar-row-icon difl">
                     <img src="<?php echo esc_url(RM_IMG_URL); ?>auto-responder.png">
                 </div>
@@ -890,11 +889,10 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                         $tooltip = '';
                   }else{
                         $deactivation_class = 'rm_transparent_deactivated';
-                        $tooltip = 'title="'.sprintf(RM_UI_Strings::get('FD_TOGGLE_TOOLTIP'),admin_url('admin.php?page=rm_form_sett_limits&rm_form_id='.$data->form_id)).'"';
+                        $tooltip = sprintf(RM_UI_Strings::get('FD_TOGGLE_TOOLTIP'),admin_url('admin.php?page=rm_form_sett_limits&rm_form_id='.$data->form_id));
                   }
-                
              ?>
-            <div <?php echo wp_kses_post((string)$tooltip);?> class="rm-grid-sidebar-row dbfl <?php echo esc_attr($deactivation_class); ?>">
+            <div title="<?php echo esc_attr($tooltip); ?>" class="rm-grid-sidebar-row dbfl <?php echo esc_attr($deactivation_class); ?>">
                 <div class="rm-grid-sidebar-row-icon difl">
                     <img src="<?php echo esc_url(RM_IMG_URL); ?>form-limits.png">
                 </div>

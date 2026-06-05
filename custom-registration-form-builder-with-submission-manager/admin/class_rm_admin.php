@@ -1552,13 +1552,17 @@ class RM_Admin {
 
 
 
-    function add_field_autoresponder() {
+    function add_field_autoresponder($editor_id = '') {
 
         if (is_admin()) {
 
             $screen = get_current_screen();
 
             if (!empty($screen) && $screen->base == 'admin_page_rm_form_sett_autoresponder') {
+
+                if ($editor_id !== '' && $editor_id !== 'form_email_content') {
+                    return;
+                }
 
                 if (self::$editor_counter == 1) {
 
@@ -1583,6 +1587,26 @@ class RM_Admin {
 
 
                 self::$editor_counter = self::$editor_counter + 1;
+
+            } elseif (!empty($screen) && $screen->base == 'admin_page_rm_form_sett_email_templates') {
+
+                if ($editor_id !== 'form_admin_ns_notification') {
+                    return;
+                }
+
+                $xml_loader = defined('REGMAGIC_ADDON') ? RM_XML_Loader::getInstance(RM_ADDON_INCLUDES_DIR . 'rm_config.xml'): RM_XML_Loader::getInstance(RM_INCLUDES_DIR . 'rm_config.xml');
+
+                $request = new RM_Request($xml_loader);
+
+                $request->setReqSlug('rm_editor_actions_add_email', true);
+
+                $request->req['editor_control_id'] = 'rm_editor_add_admin_ns_email';
+
+                $params = array('request' => $request, 'xml_loader' => $xml_loader);
+
+                $this->controller = new RM_Main_Controller($params);
+
+                $this->controller->run();
 
             } elseif (!empty($screen) && $screen->base == 'registrationmagic_page_rm_invitations_manage') {
 
@@ -1913,6 +1937,133 @@ class RM_Admin {
         $url = admin_url('update.php?action=install-plugin&plugin=' . $plugin_slug . '&_wpnonce=' . $nonce);
         return esc_url($url);
     }
+
+    protected function rm_get_eventprime_promo_data() {
+        $rival_plugins = array(
+            'tec' => array(
+                'label'     => 'The Events Calendar',
+                'plugins'   => array('the-events-calendar/the-events-calendar.php'),
+                'classes'   => array('Tribe__Events__Main'),
+                'constants' => array(),
+            ),
+            'wp_event_manager' => array(
+                'label'     => 'WP Event Manager',
+                'plugins'   => array('wp-event-manager/wp-event-manager.php'),
+                'classes'   => array('WP_Event_Manager'),
+                'constants' => array(),
+            ),
+            'modern_events_calendar' => array(
+                'label'     => 'Modern Events Calendar',
+                'plugins'   => array(
+                    'modern-events-calendar-lite/modern-events-calendar-lite.php',
+                    'modern-events-calendar/mec-init.php',
+                ),
+                'classes'   => array('MEC'),
+                'constants' => array('MEC_VERSION'),
+            ),
+            'eventin' => array(
+                'label'     => 'Eventin',
+                'plugins'   => array('wp-event-solution/eventin.php'),
+                'classes'   => array('Wpeventin'),
+                'constants' => array('EVENTIN_VERSION'),
+            ),
+            'amelia' => array(
+                'label'     => 'Amelia',
+                'plugins'   => array('ameliabooking/ameliabooking.php'),
+                'classes'   => array('AmeliaBooking\\Plugin'),
+                'constants' => array('AMELIA_VERSION'),
+            ),
+            'events_manager' => array(
+                'label'     => 'Events Manager',
+                'plugins'   => array('events-manager/events-manager.php'),
+                'classes'   => array('EM_Object'),
+                'constants' => array('EM_VERSION'),
+            ),
+        );
+
+        foreach ($rival_plugins as $plugin_key => $plugin_data) {
+            if ($this->rm_is_eventprime_rival_active($plugin_data)) {
+                return array(
+                    'key'   => $plugin_key,
+                    'label' => $plugin_data['label'],
+                    'url'   => $this->rm_get_eventprime_promo_url($plugin_key),
+                );
+            }
+        }
+
+        return false;
+    }
+
+    protected function rm_get_eventprime_promo_url($plugin_key) {
+        $homepage_url = 'https://theeventprime.com?utm_source=registrationmagic_plugin&utm_medium=admin_notice&utm_campaign=eventprime_promo';
+        $tec_url      = 'https://theeventprime.com/the-events-calendar-alternative?utm_source=registrationmagic_plugin&utm_medium=admin_notice&utm_campaign=eventprime_tec_promo';
+
+        if ('tec' === $plugin_key) {
+            return apply_filters('rm_eventprime_tec_promo_url', $tec_url, $plugin_key);
+        }
+
+        return apply_filters('rm_eventprime_promo_url', $homepage_url, $plugin_key);
+    }
+
+    protected function rm_is_eventprime_rival_active($plugin_data) {
+        if (!function_exists('is_plugin_active')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        if (!empty($plugin_data['plugins'])) {
+            foreach ($plugin_data['plugins'] as $plugin_file) {
+                if (is_plugin_active($plugin_file)) {
+                    return true;
+                }
+            }
+        }
+
+        if (!empty($plugin_data['classes'])) {
+            foreach ($plugin_data['classes'] as $class_name) {
+                if (class_exists($class_name)) {
+                    return true;
+                }
+            }
+        }
+
+        if (!empty($plugin_data['constants'])) {
+            foreach ($plugin_data['constants'] as $constant_name) {
+                if (defined($constant_name)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    protected function rm_should_suppress_eventprime_notice_for_profilegrid() {
+        if (!function_exists('is_plugin_active')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        return is_plugin_active('profilegrid-user-profiles-groups-and-communities/profile-magic.php');
+    }
+
+    protected function rm_should_show_eventprime_notice($ep_notice) {
+        if (!current_user_can('manage_options')) {
+            return false;
+        }
+
+        if (!isset($_GET['page']) || 'rm_form_manage' !== sanitize_text_field(wp_unslash($_GET['page']))) {
+            return false;
+        }
+
+        if ($this->rm_should_suppress_eventprime_notice_for_profilegrid()) {
+            return false;
+        }
+
+        if ((string) $ep_notice === '0') {
+            return false;
+        }
+
+        return (bool) $this->rm_get_eventprime_promo_data();
+    }
     
     public function admin_premium_sell_and_license_notices()
     {
@@ -2149,7 +2300,7 @@ class RM_Admin {
         $pg_notice= !is_null($g_opts->get_value_of('pg_notice'))?$g_opts->get_value_of('pg_notice'):'1';
         $rm_upgrade_notice = !is_null($g_opts->get_value_of('rm_upgrade_notice'))?$g_opts->get_value_of('rm_upgrade_notice'):'1';
         $rm_premium_notice = !is_null($g_opts->get_value_of('rm_premium_notice'))?$g_opts->get_value_of('rm_premium_notice'):'1';
-        if( ! class_exists( 'EventPrime', false ) && $ep_notice!=0 ) {
+        if(false && ! class_exists( 'EventPrime', false ) && $ep_notice!=0 ) {
             if(class_exists('WP_Event_Manager') || defined('EM_VERSION') || class_exists('Ai1ec_Front_Controller') || function_exists('vsel_add_rss_feed') || class_exists('Wpeventin') || function_exists('TotalSoft_Cal_Admin_Style') || defined('EVENT_ORGANISER_URL') || defined('TRIBE_EVENTS_FILE'))
             {
                 $ep_url = $this->generate_plugin_installation_url('eventprime-event-calendar-management');
@@ -2322,6 +2473,8 @@ class RM_Admin {
 
         $php_8_notice= $g_opts->get_value_of('php_8_notice');
 
+        $ep_notice = !is_null($g_opts->get_value_of('ep_notice')) ? $g_opts->get_value_of('ep_notice') : '1';
+
         $query_string= $_SERVER['QUERY_STRING'];
 
         if(empty($query_string)){
@@ -2352,6 +2505,20 @@ class RM_Admin {
 
             <?php endif; ?>
 
+        <?php endif; ?>
+
+        <?php if($this->rm_should_show_eventprime_notice($ep_notice)):
+            $promo_data = $this->rm_get_eventprime_promo_data();
+        ?>
+            <div class="rm_admin_notice_banner rm-notice-banner notice notice-info is-dismissible rm-py-2 rm-my-2">
+                <p>
+                    <?php $is_tec = 'tec' === $promo_data['key']; ?>
+                    <strong><?php echo esc_html($is_tec ? __('Using The Events Calendar?', 'custom-registration-form-builder-with-submission-manager') : __('Need an event plugin alternative?', 'custom-registration-form-builder-with-submission-manager')); ?></strong>
+                    <?php echo ' ' . esc_html($is_tec ? __('See how EventPrime handles events, registration, and paid event workflows inside WordPress.', 'custom-registration-form-builder-with-submission-manager') : __('Explore EventPrime for WordPress-native event management and paid event workflows.', 'custom-registration-form-builder-with-submission-manager')); ?>
+                    <a href="<?php echo esc_url($promo_data['url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($is_tec ? __('Discover Why Users Switch to EventPrime', 'custom-registration-form-builder-with-submission-manager') : __('Explore EventPrime', 'custom-registration-form-builder-with-submission-manager')); ?></a>
+                    <a class="rm_dismiss" href="<?php echo esc_url($query_string).'rm_disable_ep_notice=1'; ?>"><?php _e('Dismiss', 'custom-registration-form-builder-with-submission-manager'); ?></a>
+                </p>
+            </div>
         <?php endif; ?>
 
         <?php if($edd_notice!=0 &&  class_exists( 'Easy_Digital_Downloads')): ?>

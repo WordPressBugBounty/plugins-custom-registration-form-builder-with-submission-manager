@@ -121,6 +121,9 @@ class RM_Field_Controller {
                 }
                 
                 $data->form_id = $request->req['rm_form_id'];
+                $form = new RM_Forms();
+                $form->load_from_db($data->form_id);
+                $data->is_registration_form = absint($form->form_type) ? true : false;
                 $data->paypal_fields = RM_Utilities::get_paypal_field_types($service);
                 if(defined('REGMAGIC_ADDON'))
                     $data->validations_array = RM_Utilities::get_validations_array();

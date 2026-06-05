@@ -95,6 +95,7 @@ class RM_Email_Service
         }
         
         $notification_msg= str_replace('{{SUBMISSION_DATA}}', $email_content, $notification_msg);
+        $notification_msg = self::replace_submission_field_placeholders($notification_msg, $params);
         
         $is_wc_fields = 0;
         
@@ -196,6 +197,7 @@ class RM_Email_Service
         }
         
     }
+
     /*
      * Sending Username and Password credentials on new user registration.
      */
@@ -769,6 +771,7 @@ class RM_Email_Service
         $rm_email->send();
         return true;
     }
+
     /*
      * Reports Email Summary
      */
@@ -777,10 +780,90 @@ class RM_Email_Service
             return RM_Email_Service_Addon::notification_report_email($notification,$data);
         }
     }
+
     public static function notify_payment_invoice_to_user($user_email, $form, $sub_id){
         if(defined('REGMAGIC_ADDON') && class_exists('RM_Payments_Service_Addon')) {
             return RM_Email_Service_Addon::notify_payment_invoice_to_user($user_email, $form, $sub_id);
         }
         return false;
+    }
+
+    private static function replace_submission_field_placeholders($content, $params)
+    {
+        $submission_data = array();
+        if (!empty($params->db_data) && is_array($params->db_data)) {
+            $submission_data = $params->db_data;
+        } else if (!empty($params->sub_data) && is_array($params->sub_data)) {
+            $submission_data = $params->sub_data;
+        }
+
+        if (empty($submission_data)) {
+            return $content;
+        }
+
+        foreach ($submission_data as $field_id => $field_data) {
+            if (empty($field_data) || !isset($field_data->type)) {
+                continue;
+            }
+
+            $value = self::format_submission_field_value($field_id, $field_data);
+            $field_placeholder = '{{' . $field_data->type . '_' . $field_id . '}}';
+            $content = str_replace($field_placeholder, $value, $content);
+
+            if ($field_data->type === 'Username') {
+                $content = str_replace('{{Username}}', $value, $content);
+            } else if ($field_data->type === 'UserPassword') {
+                $content = str_replace('{{UserPassword}}', $value, $content);
+            }
+        }
+
+        return $content;
+    }
+
+    private static function format_submission_field_value($field_id, $field_data)
+    {
+        if (!isset($field_data->value) || is_null($field_data->value)) {
+            return '';
+        }
+
+        $value = $field_data->value;
+        $additional_fields = apply_filters('rm_additional_fields', array());
+
+        if (in_array($field_data->type, $additional_fields)) {
+            return apply_filters('rm_additional_fields_data_email', $value, $field_data->type);
+        }
+
+        if (is_array($value)) {
+            if (isset($value['rm_field_type']) && $value['rm_field_type'] == 'File') {
+                unset($value['rm_field_type']);
+                $links = '';
+                foreach ($value as $attachment_id) {
+                    $links .= wp_get_attachment_link($attachment_id) . ' ';
+                }
+                return $links;
+            }
+
+            if (isset($value['rm_field_type']) && $value['rm_field_type'] == 'Address') {
+                unset($value['rm_field_type']);
+                $value = array_filter($value);
+                return implode(', ', $value);
+            }
+
+            if ($field_data->type == 'Checkbox') {
+                return implode(', ', RM_Utilities::get_lable_for_option($field_id, $value));
+            }
+
+            if ($field_data->type == 'URL' && isset($value['url'])) {
+                return '<a href="' . esc_url($value['url']) . '">' . esc_html($value['url']) . '</a>';
+            }
+
+            return implode(', ', $value);
+        }
+
+        if ($field_data->type == 'Radio' || $field_data->type == 'Select') {
+            return RM_Utilities::get_lable_for_option($field_id, $value);
+        }
+
+        return nl2br($value);
     }
 }

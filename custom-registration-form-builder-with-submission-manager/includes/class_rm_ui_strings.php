@@ -3332,7 +3332,7 @@ class RM_UI_Strings {
                 return __("<b>Standard Edition Dashboard</b>", 'custom-registration-form-builder-with-submission-manager');
 
             case 'FD_TOGGLE_TOOLTIP':
-                return __("To toggle this setting you need to configure it first. <a href='%s'>Click here </a>to configure now.</span>", 'custom-registration-form-builder-with-submission-manager');
+                return __("To toggle this setting you need to configure it first. <a href='%s'>Click here</a> to configure now.", 'custom-registration-form-builder-with-submission-manager');
 
             case 'DASHBOARD_WIDGET_TABLE_CAPTION':
                 return __("Latest Submissions", 'custom-registration-form-builder-with-submission-manager');

@@ -38,6 +38,8 @@ class RM_Editor_Actions_Controller
             $data= new stdClass();
             if(isset($request->req['rm_form_id']) && is_numeric($request->req['rm_form_id']))
                 $data->emails= $service->add_email($request->req['rm_form_id']);
+            if(isset($request->req['editor_control_id']) && $request->req['editor_control_id'])
+                $data->editor_control_id = $request->req['editor_control_id'];
             $view = $this->mv_handler->setView('editor_add_email');
             $view->render($data);
         }

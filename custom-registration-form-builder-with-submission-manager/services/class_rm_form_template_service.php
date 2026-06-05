@@ -74,6 +74,7 @@ class RM_form_template_service{
     }
     public function create_contact_template_c1($form_id){
         // Name ($form_id, $page_no=1, $label='Name', $placeholder='', $required=0, $order=1)
+        /*
         $field_desc_id = $this->create_template_richtext_field($form_id, $page=1, "Smart Registration Contact Form", '<h1 style="color: #5e9ca0"><span style="color: #003300">User registration and Contact Form Together!&nbsp;</span></h1>
 <h2 style="color: #2e6c80">&nbsp;</h2>
 <h2 style="color: #2e6c80">Why use several forms when one form can do it all?&nbsp;</h2>
@@ -100,7 +101,7 @@ class RM_form_template_service{
         
         $field_div_id = $this->create_template_divider_field($form_id, $page=1, "Divider","",2);
         $this->create_template_row_structure($form_id, array($field_div_id), 1, '1');
-        
+        */
         $field_mood_id = $this->create_template_select_field($form_id, 1, 'What is your emotional state?', '', array('Happy', 'Excited', 'Sad','Confused','Upset'), 3);
         $this->create_template_row_structure($form_id, array($field_mood_id), 1, '1');
         

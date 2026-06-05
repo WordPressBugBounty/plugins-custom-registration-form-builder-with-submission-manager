@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 7.0
-Stable tag: 6.0.8.8
+Stable tag: 6.0.8.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -399,6 +399,11 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.0.8.9: June 3 2026 =
+* Added: Individual form field placeholders for new form submission email to admin.
+* Updated: “Quick Contact Form” template will now have better field ordering.
+* Minor UI improvements & bug fixes.
 
 = 6.0.8.8: May 23 2026 =
 * Multiple UI improvements & bug fixes.
@@ -1608,6 +1613,11 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * Fixed: Plugin's WooCommerce My Account page template removed for better translation support. (Premium Only).
 
 == Upgrade Notice ==
+
+= 6.0.8.9: June 3 2026 =
+* Added: Individual form field placeholders for new form submission email to admin.
+* Updated: “Quick Contact Form” template will now have better field ordering.
+* Minor UI improvements & bug fixes.
 
 = 6.0.8.8: May 23 2026 =
 * Multiple UI improvements & bug fixes.

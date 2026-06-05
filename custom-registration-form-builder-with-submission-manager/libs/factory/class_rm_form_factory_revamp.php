@@ -1060,6 +1060,8 @@ final class RM_Form_Factory_Revamp {
                         }
                     
                         $parameters = new stdClass;
+                        $parameters->req = $sub_data;
+                        $parameters->db_data = $db_data;
                         $parameters->sub_data = $submission->get_data();
                         $parameters->form_name = $form->form_name;
                         //Attachments for the mail
@@ -1075,6 +1077,8 @@ final class RM_Form_Factory_Revamp {
                         //do_action('rm_after_submission',$sub_detail,$sub_data,$sub_pdf_loc);
                     } else {
                         $parameters = new stdClass;
+                        $parameters->req = $sub_data;
+                        $parameters->db_data = $db_data;
                         $parameters->sub_data = $submission->get_data();
                         $parameters->form_name = $form->form_name;
                         $parameters->sub_id = $sub_id;
