@@ -36,7 +36,7 @@ if(!isset($_SESSION['rm_dismiss_sale_banner']) || empty($_SESSION['rm_dismiss_sa
     </div>
     <button class="rm-sale-banner-close" aria-label="Close">&times;</button>
 </div>
-<?php } } elseif (empty(get_site_option('rm_dismiss_upgrade_notice', false))) {
+<?php } } elseif (empty(get_site_option('rm_dismiss_upgrade_notice', false)) && false) {
 $link_href = "admin.php?page=rm_support_premium_page";
 $screen = get_current_screen();
 if(isset($screen->id) && $screen->id === 'registrationmagic_page_rm_support_premium_page') {

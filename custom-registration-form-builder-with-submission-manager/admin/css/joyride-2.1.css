@@ -10,7 +10,7 @@ body {
 /* Default styles for the container */
 .joyride-tip-guide {
     position: absolute;
-    background: #0087be;
+    background: #3858e9;
     display: none;
     color: #fff;
     width: 400px;
@@ -67,8 +67,8 @@ body {
     border-bottom-color so here we set the border-color
     and override the top,left,right colors below.
     */
-    border-color: #0287be;
-    border-color: rgb(2, 135, 190);
+    border-color: #3858e9;
+    border-color: rgb(56 88 233);
     border-top-color: transparent !important;
     border-left-color: transparent !important;
     border-right-color: transparent !important;

@@ -223,10 +223,9 @@
     display: inline-flex;
     width: fit-content;
     min-height: 28px;
-    padding: 0 12px;
+    padding: 0 0px;
     margin-top: 4px;
     border-radius: 999px;
-    background: #f7f9fc;
     color: #334155;
     font-size: 11px;
     font-weight: 700;
@@ -237,9 +236,8 @@
     display: inline-flex;
     width: fit-content;
     min-height: 24px;
-    padding: 0 10px;
+    padding: 0 0px;
     border-radius: 999px;
-    background: #eef2f7;
     color: #475467;
     font-size: 10.5px;
     font-weight: 800;
@@ -248,7 +246,6 @@
 }
 
 .rm_pr_page.rm-pr-revamp .rm_pr_plan_card_alt .rm_pr_plan_best_for {
-    background: #f3f4f6;
     color: #475467;
 }
 
@@ -265,7 +262,6 @@
 .rm_pr_page.rm-pr-revamp .rm_pr_plan_subline {
     color: var(--rm-pr-text);
     font-size: 1.03rem;
-    font-weight: 700;
     margin-top: 2px;
 }
 
@@ -274,22 +270,26 @@
     font-size: 0.88rem;
     line-height: 1.42;
     margin-top: 1px;
+
 }
 
 .rm_pr_page.rm-pr-revamp .rm_pr_plan_features {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 4px;
     margin-top: 0;
-    padding-top: 2px;
+    padding-top: 8px;
     min-height: 60px;
 }
 
 .rm_pr_page.rm-pr-revamp .rm_pr_plan_features span {
-    color: #475467;
+    color: #8c8c8c;
     font-size: 0.9rem;
     line-height: 1.38;
-    font-weight: 700;
+}
+#rm-pr-footer-plans .rm_pr_plan_card_footer .rm_pr_plan_subline,
+#rm-pr-footer-plans .rm_pr_plan_card_footer .rm_pr_plan_support{
+    font-size: 13px;
 }
 
 .rm_pr_page.rm-pr-revamp .rm_pr_plan_action_btn {
@@ -756,7 +756,7 @@
 }
 
 .rm_pr_page.rm-pr-revamp .rm_pr_plan_card_footer .rm_pr_plan_features span {
-    font-size: 0.88rem;
+    font-size: 13px;
     line-height: 1.4;
 }
 

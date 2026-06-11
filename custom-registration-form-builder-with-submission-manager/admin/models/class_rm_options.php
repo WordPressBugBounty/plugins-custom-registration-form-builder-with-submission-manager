@@ -68,6 +68,7 @@ class RM_Options
         $this->default['php_8_notice'] = '1';
         $this->default['ep_notice'] = '1';
         $this->default['pg_notice'] = '1';
+        $this->default['renewal_notice'] = '1';
         $this->default['rm_upgrade_notice'] = '1';
         $this->default['rm_premium_notice'] = '1';
         $this->default['auto_generated_password'] = 'no';
@@ -206,6 +207,7 @@ class RM_Options
             'php_8_notice' => null,
             'ep_notice' => null,
             'pg_notice' => null,
+            'renewal_notice' => null,
             'rm_upgrade_notice' => null,
             'rm_premium_notice' => null,
             'public_key' => null,

@@ -72,7 +72,7 @@ $rm_premium_license_key = get_option( 'rm_premium_license_key','' );
                                             
                                             <!-- Premium is not installed || No Premium key has been previously saved --->
                                             
-                                            <div class="rm_admin_notice_banner rm-notice-banner notice notice-error inline rm-py-2 rm-my-2">
+                                            <div class="rm_admin_notice_banner rm-notice-banner notice notice-error inline rm-py-2 rm-my-2 rm-mt-3">
                                                 <p>
                                                     <strong><?php esc_html_e( 'RegistrationMagic Premium not found!', 'custom-registration-form-builder-with-submission-manager' );?></strong> <br>
                                                     <?php echo esc_html__( 'If already purchased, please visit ', 'custom-registration-form-builder-with-submission-manager' ).'<a href="https://registrationmagic.com/checkout/order-history/" target="_blank">'.esc_html__('your orders page ','custom-registration-form-builder-with-submission-manager').'</a>'. esc_html__( 'to download the latest plugin zip file.', 'custom-registration-form-builder-with-submission-manager' ); ?>

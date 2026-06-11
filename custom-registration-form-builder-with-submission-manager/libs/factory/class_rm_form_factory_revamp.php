@@ -1910,6 +1910,9 @@ final class RM_Form_Factory_Revamp {
                     echo "<input type='hidden' name='form_id' value='".wp_kses_post((string)$form_id)."'>";
                     echo "<input type='hidden' name='form_no' value='".wp_kses_post((string)$rm_form_diary[$form_id])."'>";
                     echo "<input type='hidden' name='rm_cond_hidden_fields' id='rm_cond_hidden_fields' value=''>";
+                    if(defined('REGMAGIC_ADDON') && isset($form->form_options->access_control)) {
+                        echo "<input type='hidden' name='".esc_attr($this->get_access_control_token_field($form_id))."' value='".esc_attr($this->get_access_control_session_token($form_id, $form->form_options->access_control))."'>";
+                    }
                     if(!$prefilled) {
                         // Adding stat ID field
                         echo "<input type='hidden' name='stat_id' value='".wp_kses_post((string)$stat_id)."'>";
@@ -2446,21 +2449,28 @@ final class RM_Form_Factory_Revamp {
             $act_report->html_str = '';
             return $act_report;
         }
-        
+         
+        if($this->validate_access_control_session_token($form->form_id, $factrl, $request)) {
+            $act_report->status = 'allowed';
+            $act_report->html_str = '';
+            $_SESSION[$tresp] = 'allowed';
+            $_SESSION[$tstamp] = time();
+            return $act_report;
+        }
+
         if(isset($_SESSION[$tresp], $_SESSION[$tstamp])) {
             $t2 = time();
             $t1 = intval($_SESSION[$tstamp]);
+            $session_age = $t2 - $t1;
             
-            if(($t2-$t1) < 300) { //Session value is valid only for 300 seconds.
-                if($_SESSION[$tresp] === 'allowed') {
-                    $act_report->status = 'allowed';
-                    $act_report->html_str = '';
-                    return $act_report;
-                } else if(!isset($factrl->passphrase)) { //Allow reentry in case it was a pssphrase fail
-                    $act_report->status = 'failed';
-                    $act_report->html_str = '<div class="rm_fac_resp">'.$fail_msg.'</div>';
-                    return $act_report;
-                }                
+            if($_SESSION[$tresp] === 'allowed' && $session_age < DAY_IN_SECONDS) {
+                $act_report->status = 'allowed';
+                $act_report->html_str = '';
+                return $act_report;
+            } else if($session_age < 300 && !isset($factrl->passphrase)) { //Allow reentry in case it was a pssphrase fail
+                $act_report->status = 'failed';
+                $act_report->html_str = '<div class="rm_fac_resp">'.$fail_msg.'</div>';
+                return $act_report;
             }
         }
         
@@ -2475,6 +2485,7 @@ final class RM_Form_Factory_Revamp {
                 $act_report->status = 'failed';
                 $_SESSION[$tresp] = 'failed';
                 $_SESSION[$tstamp] = time();
+                $this->clear_access_control_session_token($form->form_id);
                 $act_report->html_str = '<div class="rm_fac_resp">'.$fail_msg.'</div>';
                 return $act_report;
             }
@@ -2493,8 +2504,104 @@ final class RM_Form_Factory_Revamp {
         
         $act_report->status = 'transient';
         $act_report->html_str = '';
-        
+
         return $act_report;
+    }
+
+    private function get_access_control_token_field($form_id) {
+        return 'rm_fac_token_' . absint($form_id);
+    }
+
+    private function get_access_control_token_session_key($form_id) {
+        return 'RM_FAC_TOKEN_' . absint($form_id);
+    }
+
+    private function get_access_control_config_session_key($form_id) {
+        return 'RM_FAC_TOKEN_CFG_' . absint($form_id);
+    }
+
+    private function get_access_control_config_hash($factrl) {
+        return wp_hash(maybe_serialize($factrl));
+    }
+
+    private function get_access_control_session_token($form_id, $factrl) {
+        $token_key = $this->get_access_control_token_session_key($form_id);
+        $config_key = $this->get_access_control_config_session_key($form_id);
+        $config_hash = $this->get_access_control_config_hash($factrl);
+
+        if(empty($_SESSION[$token_key]) || !isset($_SESSION[$config_key]) || $_SESSION[$config_key] !== $config_hash) {
+            $_SESSION[$token_key] = wp_generate_password(32, false, false);
+            $_SESSION[$config_key] = $config_hash;
+        }
+
+        set_transient(
+            $this->get_access_control_transient_key($_SESSION[$token_key]),
+            array(
+                'form_id' => absint($form_id),
+                'config_hash' => $config_hash,
+                'fingerprint' => $this->get_access_control_request_fingerprint(),
+            ),
+            DAY_IN_SECONDS
+        );
+
+        if(!headers_sent()) {
+            nocache_headers();
+        }
+
+        return $_SESSION[$token_key];
+    }
+
+    private function validate_access_control_session_token($form_id, $factrl, $request) {
+        $token_field = $this->get_access_control_token_field($form_id);
+        if(!isset($request[$token_field])) {
+            return false;
+        }
+
+        $request_token = sanitize_text_field(wp_unslash($request[$token_field]));
+        $token_key = $this->get_access_control_token_session_key($form_id);
+        $config_key = $this->get_access_control_config_session_key($form_id);
+        if(!empty($_SESSION[$token_key]) && !empty($_SESSION[$config_key])) {
+            if($_SESSION[$config_key] === $this->get_access_control_config_hash($factrl) && hash_equals((string)$_SESSION[$token_key], $request_token)) {
+                return true;
+            }
+        }
+
+        return $this->validate_access_control_transient_token($form_id, $factrl, $request_token);
+    }
+
+    private function clear_access_control_session_token($form_id) {
+        $token_key = $this->get_access_control_token_session_key($form_id);
+        if(!empty($_SESSION[$token_key])) {
+            delete_transient($this->get_access_control_transient_key($_SESSION[$token_key]));
+        }
+        unset($_SESSION[$token_key]);
+        unset($_SESSION[$this->get_access_control_config_session_key($form_id)]);
+    }
+
+    private function get_access_control_transient_key($token) {
+        return 'rm_fac_' . hash('sha256', (string)$token);
+    }
+
+    private function get_access_control_request_fingerprint() {
+        $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : '';
+        $user_id = get_current_user_id();
+
+        return wp_hash($user_id . '|' . $user_agent);
+    }
+
+    private function validate_access_control_transient_token($form_id, $factrl, $token) {
+        if(empty($token)) {
+            return false;
+        }
+
+        $token_data = get_transient($this->get_access_control_transient_key($token));
+        if(empty($token_data) || !is_array($token_data)) {
+            return false;
+        }
+
+        return absint($token_data['form_id']) === absint($form_id)
+            && hash_equals((string)$token_data['config_hash'], $this->get_access_control_config_hash($factrl))
+            && hash_equals((string)$token_data['fingerprint'], $this->get_access_control_request_fingerprint());
     }
 
     private function check_access_control($factrl, $request) {

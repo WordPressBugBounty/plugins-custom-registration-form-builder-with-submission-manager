@@ -331,13 +331,13 @@
     line-height: 10px;
 }
 .rm-formflow-top-action span a {    
-    color: #2271B1;
+    color: #3858e9;
     outline: 0px;
     box-shadow: none;
 }
 
 .rm-formflow-top-action span.rm-formflow-top-left {
-    border-color: #2271B1;
+    border-color: #3858e9;
     vertical-align: top;
     font-size: 13px;
     height: 36px;
@@ -360,7 +360,7 @@
 
 
 .rm-formflow-top-action span.rm-formflow-top-right {   
-    border-color: #2271B1;
+    border-color: #3858e9;
     vertical-align: top;
     font-size: 13px;
     height: 36px;

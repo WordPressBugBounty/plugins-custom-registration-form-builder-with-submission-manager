@@ -312,10 +312,10 @@ $json_table = RM_Utilities::create_json_for_chart(RM_UI_Strings::get('LABEL_SUBM
             height: 300,
             fontName: 'Titillium Web',
             pieSliceTextStyle: {fontSize: 12},
-            titleTextStyle: {fontSize: 18, color: '#87c2db', bold: false},
+            titleTextStyle: {fontSize: 18, color: '#3858e9', bold: false},
             legend: {position: 'bottom', maxLines: 1, textStyle: {fontSize: 12}},
             /*chartArea: {left:20,top:0,width:'50%',height:'75%'},*/
-            colors: ['#8FACBF', '#004F84', '#00A9DE']};
+            colors: ['#d7defa', '#3858e9', '#1d2327']};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('rm_conversion_chart_div'));
@@ -347,7 +347,17 @@ $json_table = RM_Utilities::create_json_for_chart(RM_UI_Strings::get('LABEL_BROW
             height: 300,
             fontName: 'Titillium Web',
             pieSliceTextStyle: {fontSize: 12},
-            colors: ['#00A9DE', '#FF777C', '#8FACBF', '#C8D7E2', '#004F84', '#C2F4FF', '#D2DCE4', '#647A88', '#74DCFC']};
+            colors: [
+            '#3858e9',
+            '#72aee6',
+            '#1d2327',
+            '#8c8f94',
+            '#c3c4c7',
+            '#4f94d4',
+            '#dcdcde',
+            '#2271b1',
+            '#b8c6ff']
+    };
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('rm_browser_usage_chart_div'));
@@ -391,7 +401,7 @@ $data_string = substr($data_string, 2);
                 title: '<?php echo RM_UI_Strings::get('LABEL_BROWSER'); ?>'
             },
             legend: {position: 'top', maxLines: 3},
-            colors: ['#485566', '#00A9DE'],
+            colors: ['#1d2327', '#3858e9'],
             bar: {
                 groupWidth: 20
             }
@@ -443,7 +453,7 @@ $data_string = substr($data_string, 2);
                 minValue: 4,
             },
             legend: {position: 'top', maxLines: 3},
-            colors: ['#485566', '#00A9DE'],
+             colors: ['#1d2327', '#3858e9']
             
         };
         

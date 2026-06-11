@@ -107,7 +107,7 @@ class Element_Textboxsortable extends Element
         if ($type === "start")
             echo '<ul class = "rm_sortable_elements" id = "rm_sortable_elements_'.esc_attr($suffix).'">';
         if ($type === "prepend")
-            echo '<li class="appendable_options rm-deletable-options"><span class="rm_sortable_handle"><img alt="" src="'.  esc_url(plugin_dir_url(dirname(dirname(dirname(__FILE__))))).'images/rm-drag-label.png"></span>';
+            echo '<li class="appendable_options rm-deletable-options"><span class="rm_sortable_handle"><img alt="" src="'.  esc_url(plugin_dir_url(dirname(dirname(dirname(__FILE__))))).'images/rm-drag.png"></span>';
         if ($type === "append")
             echo '<div class="rm_actions" onClick ="rm_delete_appended_field(this,rm_sortable_elements_'.esc_attr($suffix).')"><a href="javascript:void(0)">' . wp_kses_post((string)RM_UI_Strings::get("LABEL_DELETE")) . '</a></div></li>';
         if ($type === "close")

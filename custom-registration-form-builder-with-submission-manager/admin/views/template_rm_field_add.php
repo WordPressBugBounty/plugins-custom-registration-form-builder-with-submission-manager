@@ -47,6 +47,10 @@ $bg_g = intval(substr($f_icon->bg_color,2,2),16);
 $bg_b = intval(substr($f_icon->bg_color,4,2),16);
 
 $icon_style = "style=\"padding:5px;color:#{$f_icon->fg_color};background-color:rgba({$bg_r},{$bg_g},{$bg_b},{$f_icon->bg_alpha});border-radius:{$radius};\"";
+$is_icon_selected = !empty($f_icon->codepoint);
+$field_icon_action_label = $is_icon_selected ? RM_UI_Strings::get('LABEL_FIELD_ICON_CHANGE') : RM_UI_Strings::get('LABEL_SELECT');
+$remove_icon_style = $is_icon_selected ? '' : ' style="display:none"';
+$selected_icon_style = $is_icon_selected ? $icon_style : rtrim($icon_style, '"') . 'display:none;"';
 $field_types_array = RM_Utilities::get_field_types(false);
 
 wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.css' );
@@ -203,7 +207,7 @@ $form->addElement(new Element_HTML('</div>'));
 $form->addElement(new Element_HTML('<div class="rmrow rm_field_settings_group_header rm_icon_sett_collapsed" id="rm_icon_field_settings_header" onclick="rm_toggle_icon_settings()"><a>' . RM_UI_Strings::get('ICON_FIELD_SETTINGS') . '<span class="rm-toggle-settings"></span></a></div>'));
 $form->addElement(new Element_HTML('<div id="rm_icon_field_settings_container" style="display:none">'));
 $form->addElement(new Element_HTML('<div id="rm_icon_setting_container">'));
-$form->addElement(new Element_HTML('<div class="rmrow" id="rm_jqnotice_row_date_type"><div class="rmfield" for="rm_field_value_options_textarea"><label>'.RM_UI_Strings::get('LABEL_FIELD_ICON').'</label></div><div class="rminput" id="rm_field_icon_chosen"><i class="material-icons" '.$icon_style.' id="id_show_selected_icon">'.$f_icon->codepoint.'</i><div class="rm-icon-action"><div class="rm_show_icons" onclick="show_icon_reservoir()"><a>'.RM_UI_Strings::get('LABEL_FIELD_ICON_CHANGE').'</a></div> <div class="rm_remove_icon" onclick="rm_remove_icon()"><a>'.RM_UI_Strings::get('LABEL_REMOVE').'</a></div></div></div><div class="rmnote"><div class="rmprenote"></div><div class="rmnotecontent">'.RM_UI_Strings::get('HELP_FIELD_ICON').'</div></div></div>'));
+$form->addElement(new Element_HTML('<div class="rmrow" id="rm_jqnotice_row_date_type"><div class="rmfield" for="rm_field_value_options_textarea"><label>'.RM_UI_Strings::get('LABEL_FIELD_ICON').'</label></div><div class="rminput" id="rm_field_icon_chosen"><i class="material-icons" '.$selected_icon_style.' id="id_show_selected_icon">'.$f_icon->codepoint.'</i><div class="rm-icon-action"><div class="rm_show_icons" onclick="show_icon_reservoir()"><a>'.$field_icon_action_label.'</a></div> <div class="rm_remove_icon" onclick="rm_remove_icon()"'.$remove_icon_style.'><a>'.RM_UI_Strings::get('LABEL_REMOVE').'</a></div></div></div><div class="rmnote"><div class="rmprenote"></div><div class="rmnotecontent">'.RM_UI_Strings::get('HELP_FIELD_ICON').'</div></div></div>'));
 $form->addElement(new Element_Hidden('input_selected_icon_codepoint', $f_icon->codepoint, array('id'=>'id_input_selected_icon')));
 $form->addElement(new Element_Color(RM_UI_Strings::get('LABEL_FIELD_ICON_FG_COLOR'), "icon_fg_color", array("id" => "rm_", "value" => $f_icon->fg_color, "onchange" => "change_icon_fg_color(this)", "longDesc" => RM_UI_Strings::get('HELP_FIELD_ICON_FG_COLOR'))));
 
@@ -405,6 +409,9 @@ endforeach;
 </div>
 
 <pre class='rm-pre-wrapper-for-script-tags'><script>
+var rmFieldIconChangeLabel = '<?php echo esc_js(RM_UI_Strings::get('LABEL_FIELD_ICON_CHANGE')); ?>';
+var rmFieldIconSelectLabel = '<?php echo esc_js(RM_UI_Strings::get('LABEL_SELECT')); ?>';
+
 function show_icon_reservoir(){
     jQuery('#id_rm_field_icon_reservoir').show();
     //jQuery(".rm_field_icon_reservoir").dialog();
@@ -458,7 +465,10 @@ function rm_remove_icon(){
             
         //jQuery('#rm-icon_'+ico_cp).addClass('rm_active_icon');
         jQuery('#id_show_selected_icon').html('');
+        jQuery('#id_show_selected_icon').hide();
         jQuery('#id_input_selected_icon').val('');
+        jQuery('.rm_show_icons a').html(rmFieldIconSelectLabel);
+        jQuery('.rm_remove_icon').hide();
 }
 
 function rm_select_icon(e){
@@ -478,7 +488,10 @@ function rm_select_icon(e){
             
         jQuery('#rm-icon_'+ico_cp).addClass('rm_active_icon');
         jQuery('#id_show_selected_icon').html('&#x'+ico_cp);
+        jQuery('#id_show_selected_icon').show();
         jQuery('#id_input_selected_icon').val('&#x'+ico_cp);
+        jQuery('.rm_show_icons a').html(rmFieldIconChangeLabel);
+        jQuery('.rm_remove_icon').show();
         jQuery('#id_rm_field_icon_reservoir').hide();
     }
 }

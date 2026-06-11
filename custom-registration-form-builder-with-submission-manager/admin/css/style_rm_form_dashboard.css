@@ -4,6 +4,13 @@
     box-sizing: border-box;
 }
 
+body.admin-color-modern .rmagic,
+body.admin-color-modern .rm-form-configuration-wrapper{
+    --rm-admin-theme-color: #3858e9;
+    --rm-admin-theme-color-rgb: 56, 88, 233;
+}
+
+
 div {
     outline: 0px solid cyan;
 }
@@ -181,7 +188,7 @@ span.rm-grid-button {
     padding: 0 4px;
     line-height: 24px;
     border: 2px solid #ddd;
-    color: #00aadc;
+    color: #3858e9;
     vertical-align: top;
     font-weight: 600;
 }
@@ -263,7 +270,7 @@ span.rm-grid-quick-task a {
     background-color: #fafafa;
     border-width: 1px 0px 1px 3px;
     border-color: #e1e1e1;
-    border-left-color: #00aadc;
+    border-left-color: var(--rm-admin-theme-color);
 }
 
 .rm-grid-card-profile-image {
@@ -345,7 +352,7 @@ span.rm-grid-quick-task a {
 .rmnotice-container .rm-counter-box {
     font-size: 50px;
     text-align: center;
-    color: #2271b1;
+    color: var(--rm-admin-theme-color);
     border-radius: 2px;
     -ms-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -416,8 +423,7 @@ span.rm-grid-quick-task a {
 }
 
 .rm-grid-sidebar-row-value a {
-    color: #2271b1;
-    border-bottom: 1px dotted #00a0d2;
+    border-bottom: 1px dotted #3858e9;
     text-decoration: none;
     margin-left: 10px;
     font-weight: 400;
@@ -521,7 +527,7 @@ input.rm-toggle-round-flat + label:after {
 }
 
 input.rm-toggle-round-flat:checked + label {
-    background-color: #2271b1;
+    background-color: var(--rm-admin-theme-color);
     border: 9px solid transparent;
 }
 
@@ -719,7 +725,7 @@ input.rm-toggle-round-flat:checked + label:after {
     width: 90%;
     margin: 7px auto;
     background-color: #fafafa;
-    border-left: 4px solid #00aadc;
+    border-left: 4px solid var(--rm-admin-theme-color);
 }
 
 
@@ -796,7 +802,7 @@ input.rm-toggle-round-flat:checked + label:after {
 }
 
 .rm-grid-sidebar-1 .rm-grid-section-cards .rm-grid-sidebar-card a:hover {
-    color: #00a0d2;
+    color: var(--rm-admin-theme-color);
 }
 
 
@@ -842,7 +848,7 @@ input.rm-toggle-round-flat:checked + label:after {
 }
 
 .rm-form-configuration-wrapper .rm-grid-section > .rm-grid-icon a:hover {
-    color: #135e96;
+    color: var(--rm-admin-theme-color)
 }
 
 

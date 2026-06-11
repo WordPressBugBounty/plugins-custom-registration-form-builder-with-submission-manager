@@ -225,10 +225,6 @@ if($dismiss_icon == 0) { ?>
     }
     
     .rmagic.rmagic-premium-banner .rm-upgrade-button{
-        font-size: 14px;
-        padding: 8px 58px !important;
-        background: #0260ff;
-        border-color: #0260ff;
         border-radius: 8px;
         font-weight: 500;
     }

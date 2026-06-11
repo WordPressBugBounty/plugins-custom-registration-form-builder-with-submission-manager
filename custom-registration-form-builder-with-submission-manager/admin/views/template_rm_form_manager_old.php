@@ -221,12 +221,14 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                               <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#1f1f1f"><rect fill="none" height="24" width="24"/><path d="M3,14h4v-4H3V14z M3,19h4v-4H3V19z M3,9h4V5H3V9z M8,14h13v-4H8V14z M8,19h13v-4H8V19z M8,5v4h13V5H8z"/></svg>
                             </a>
                         </div>
+                        <!--
                           <div class="rm-box-card-setting-item">
                               <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Login Analytics', 'custom-registration-form-builder-with-submission-manager'); ?></div>
                                 <a class="rm-form-settings rm-d-flex rm-align-items-center rm-justify-content-center" href="<?php echo esc_url(admin_url('admin.php?page=rm_login_analytics')); ?>">
                                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#1f1f1f"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"/></svg>
                                 </a>
                         </div>
+                        -->
                         
                         <!--
                            <div class="rm-box-card-setting-item rm-login-validation">
@@ -367,26 +369,29 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                     <span class="rm-shortcode-tour rm-shortcode-copy">[RM_Forms id='<?php echo esc_html($entry->form_id); ?>']</span></div>
                     <div class="rm-form-links">
                         <div class="rm-btn-pill-wrap rm-d-flex">
+                            
                               <div class="rm-box-card-setting-item">
                                  <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Dashboard', 'custom-registration-form-builder-with-submission-manager'); ?></div>
                                 <a class="rm-form-settings" href="admin.php?page=rm_form_sett_manage&rm_form_id=<?php echo $entry->form_id; ?>" class="rm-form-settings rm-d-flex rm-align-items-center rm-justify-content-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#1f1f1f"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
                                 </a>
                             </div>   
-                            
+                           
                             <div class="rm-box-card-setting-item">
                                 <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Fields Manager', 'custom-registration-form-builder-with-submission-manager'); ?></div>
                                 <a class="rm-form-fields" href="admin.php?page=rm_field_manage&rm_form_id=<?php echo $entry->form_id; ?>">
                                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#1f1f1f"><rect fill="none" height="24" width="24"/><path d="M3,14h4v-4H3V14z M3,19h4v-4H3V19z M3,9h4V5H3V9z M8,14h13v-4H8V14z M8,19h13v-4H8V19z M8,5v4h13V5H8z"/></svg>
                                 </a>
                             </div> 
-                             
+                            
+                              <!--
                             <div class="rm-box-card-setting-item">
                                 <div class="rm-box-card-setting-info" style="display:none"><?php esc_html_e('Form Analytics', 'custom-registration-form-builder-with-submission-manager'); ?></div>
                                 <a href="?page=rm_analytics_show_form&rm_form_id=<?php echo esc_attr($entry->form_id); ?>" class="rm-form-fields rm-d-flex rm-align-items-center rm-justify-content-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#2271b1"><rect fill="none" height="24" width="24"/><g><path d="M7.5,21H2V9h5.5V21z M14.75,3h-5.5v18h5.5V3z M22,11h-5.5v10H22V11z"/></g></svg>
                                 </a>
                             </div>
+                               -->
                              
                             <!--
                             <div class="rm-box-card-setting-item">

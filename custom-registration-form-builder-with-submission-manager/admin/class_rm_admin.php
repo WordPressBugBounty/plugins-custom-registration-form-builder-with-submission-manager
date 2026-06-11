@@ -2072,6 +2072,10 @@ class RM_Admin {
         {
             $g_opts->set_value_of('rm_premium_notice', 0);
         }
+        if(!empty($_GET['rm_disable_renewal_notice']))
+        {
+            $g_opts->set_value_of('renewal_notice', 0);
+        }
         $query_string= $_SERVER['QUERY_STRING'];
 
         if(empty($query_string)){
@@ -2084,6 +2088,7 @@ class RM_Admin {
         
         $rm_premium_notice = !is_null($g_opts->get_value_of('rm_premium_notice'))?$g_opts->get_value_of('rm_premium_notice'):'1';
         $rm_upgrade_notice = !is_null($g_opts->get_value_of('rm_upgrade_notice'))?$g_opts->get_value_of('rm_upgrade_notice'):'1';
+        $rm_renewal_notice = !is_null($g_opts->get_value_of('renewal_notice')) ? $g_opts->get_value_of('renewal_notice') : '1';
         
        /* if(!defined('REGMAGIC_ADDON') && RM_Utilities::site_has_submissions() && $rm_premium_notice!=0) { 
             ?>
@@ -2186,35 +2191,35 @@ class RM_Admin {
         $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
         if(defined('REGMAGIC_ADDON') && $page != 'rm_licensing') { 
             
-            if($premium_id=='')
+            if($premium_id=='' && $rm_renewal_notice)
             {
                 ?>
-            <div class="rm_admin_notice_banner rm-notice-banner notice notice-error inline rm-py-2 rm-my-2">
+            <div class="rm_admin_notice_banner rm-renew-notice rm-notice-banner notice notice-error inline rm-py-2 rm-my-2 rm-mt-3">
 
-                <p><?php printf(__( 'You have invalid or expired license keys for RegistrationMagic. You can renew license at %s discount for a limited time!<br/> <a href="%s" class="button action rm-mt-2">Activate License </a> <a href="%s" target="_blank" class="button action button-primary rm-mt-2">Renew License </a>','custom-registration-form-builder-with-submission-manager'),'50%',esc_url( admin_url('admin.php?page=rm_licensing') ),esc_url($renew_link)); ?> </p>
+                <p><?php printf(__( 'You have invalid or expired license keys for RegistrationMagic. You can renew license at %s discount for a limited time!<br/> <a href="%s" class="button action rm-mt-2">Activate License </a> <a href="%s" target="_blank" class="button action button-primary rm-mt-2">Renew License </a>','custom-registration-form-builder-with-submission-manager'),'50%',esc_url( admin_url('admin.php?page=rm_licensing') ),esc_url($renew_link)); ?> <a class="rm_dismiss rm_renewal_notice_dismiss" href="<?php echo esc_url($query_string).'rm_disable_renewal_notice=1' ?>"><span class="material-icons"> close </span></a></p>
 
             </div>
                 <?php
             }
             else
             {
-                if($status=='invalid')
+                if($status=='invalid' && $rm_renewal_notice)
                 {
                     ?>
                     <div class="rm_admin_notice_banner rm-notice-banner notice notice-error inline rm-py-2 rm-my-2">
 
-                        <p><?php printf(__( 'You have invalid or expired license keys for RegistrationMagic. You can renew license at %s discount for a limited time! <a href="%s" class="button action">Activate License </a> <a href="%s" target="_blank" class="button action">Renew License </a>','custom-registration-form-builder-with-submission-manager'),'50%',esc_url( admin_url('admin.php?page=rm_licensing') ),esc_url($renew_link)); ?> </p>
+                        <p><?php printf(__( 'You have invalid or expired license keys for RegistrationMagic. You can renew license at %s discount for a limited time! <a href="%s" class="button action">Activate License </a> <a href="%s" target="_blank" class="button action">Renew License </a>','custom-registration-form-builder-with-submission-manager'),'50%',esc_url( admin_url('admin.php?page=rm_licensing') ),esc_url($renew_link)); ?> <a class="rm_dismiss" href="<?php echo esc_url($query_string).'rm_disable_renewal_notice=1' ?>"><?php esc_html_e('Dismiss','custom-registration-form-builder-with-submission-manager'); ?></p>
 
                     </div>
                     <?php
                 }
                 
-                if($status=='expired')
+                if($status=='expired' && $rm_renewal_notice)
                 {
                     ?>
                     <div class="rm_admin_notice_banner rm-notice-banner notice notice-error inline rm-py-2 rm-my-2">
 
-                        <p><?php printf(__( "Your license key for RegistrationMagic has expired and it's no longer receiving updates. Renew now at %s discount for a limited time! <a href='%s' class='button action' target='_blank'>Renew License </a>",'custom-registration-form-builder-with-submission-manager'),'50%',esc_url($renew_link)); ?> </p>
+                        <p><?php printf(__( "Your license key for RegistrationMagic has expired and it's no longer receiving updates. Renew now at %s discount for a limited time! <a href='%s' class='button action' target='_blank'>Renew License </a>",'custom-registration-form-builder-with-submission-manager'),'50%',esc_url($renew_link)); ?> <a class="rm_dismiss" href="<?php echo esc_url($query_string).'rm_disable_renewal_notice=1' ?>"><?php esc_html_e('Dismiss','custom-registration-form-builder-with-submission-manager'); ?></p>
 
                     </div>
                 <?php
