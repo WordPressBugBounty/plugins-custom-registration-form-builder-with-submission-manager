@@ -40,8 +40,9 @@ $rm_premium_plus_purchase_url = 'https://registrationmagic.com/checkout/checkout
                         <span class="rm_pr_plan_label"><?php esc_html_e('Premium', 'custom-registration-form-builder-with-submission-manager'); ?></span>
                         <span class="rm_pr_plan_best_for"><?php esc_html_e('Best for single sites', 'custom-registration-form-builder-with-submission-manager'); ?></span>
                         <strong class="rm_pr_plan_price">$89</strong>
-                        <span class="rm_pr_plan_subline"><?php echo wp_kses_post( __('License: <strong>1</strong> Site', 'custom-registration-form-builder-with-submission-manager'));?></span>
                         <span class="rm_pr_plan_support"><?php echo wp_kses_post( __('<strong>1 Year</strong> of Updates and Support', 'custom-registration-form-builder-with-submission-manager'));?></span>
+                        <span class="rm_pr_plan_subline"><?php echo wp_kses_post( __('License: <strong>1</strong> Site', 'custom-registration-form-builder-with-submission-manager'));?></span>
+                        
                     </div>
                     <div class="rm_pr_plan_features">
                         <span><?php esc_html_e('Full Premium feature set', 'custom-registration-form-builder-with-submission-manager'); ?></span>
@@ -58,8 +59,9 @@ $rm_premium_plus_purchase_url = 'https://registrationmagic.com/checkout/checkout
 
                         <span class="rm_pr_plan_best_for"><?php esc_html_e('Best for unlimited sites', 'custom-registration-form-builder-with-submission-manager'); ?></span>
                         <strong class="rm_pr_plan_price">$189</strong>
-                <span class="rm_pr_plan_subline"><?php echo wp_kses_post( __('License: <strong>Unlimited</strong> Site', 'custom-registration-form-builder-with-submission-manager'));?></span>
                         <span class="rm_pr_plan_support"><?php echo wp_kses_post( __('<strong>Lifetime</strong> of Update and Support', 'custom-registration-form-builder-with-submission-manager'));?></span>
+                        <span class="rm_pr_plan_subline"><?php echo wp_kses_post( __('License: <strong>Unlimited</strong> Site', 'custom-registration-form-builder-with-submission-manager'));?></span>
+
                     </div>
                     <div class="rm_pr_plan_features">
                         <span><?php esc_html_e('Everything in Premium', 'custom-registration-form-builder-with-submission-manager'); ?></span>
@@ -539,8 +541,9 @@ $rm_premium_plus_purchase_url = 'https://registrationmagic.com/checkout/checkout
                             <span class="rm_pr_plan_label"><?php esc_html_e('Premium', 'custom-registration-form-builder-with-submission-manager'); ?></span>
                             <span class="rm_pr_plan_best_for"><?php esc_html_e('Best for single sites', 'custom-registration-form-builder-with-submission-manager'); ?></span>
                             <strong class="rm_pr_plan_price">$89</strong>
-                        <span class="rm_pr_plan_subline"><?php echo wp_kses_post( __('License: <strong>1</strong> Site', 'custom-registration-form-builder-with-submission-manager'));?></span>
-                        <span class="rm_pr_plan_support"><?php echo wp_kses_post( __('<strong>1 Year</strong> of Updates and Support', 'custom-registration-form-builder-with-submission-manager'));?></span>
+                            <span class="rm_pr_plan_support"><?php echo wp_kses_post( __('<strong>1 Year</strong> of Updates and Support', 'custom-registration-form-builder-with-submission-manager'));?></span>
+                            <span class="rm_pr_plan_subline"><?php echo wp_kses_post( __('License: <strong>1</strong> Site', 'custom-registration-form-builder-with-submission-manager'));?></span>
+                        
                         </div>
                         <div class="rm_pr_plan_features">
                             <span><?php esc_html_e('Full Premium feature set', 'custom-registration-form-builder-with-submission-manager'); ?></span>
@@ -556,8 +559,9 @@ $rm_premium_plus_purchase_url = 'https://registrationmagic.com/checkout/checkout
                          
                             <span class="rm_pr_plan_best_for"><?php esc_html_e('Best for unlimited sites', 'custom-registration-form-builder-with-submission-manager'); ?></span>
                             <strong class="rm_pr_plan_price">$189</strong>
-                            <span class="rm_pr_plan_subline"><?php echo wp_kses_post(__('License: <strong>Unlimited</strong> Site', 'custom-registration-form-builder-with-submission-manager')); ?></span>
                             <span class="rm_pr_plan_support"><?php echo wp_kses_post(__('<strong>Lifetime</strong> of Update and Support', 'custom-registration-form-builder-with-submission-manager')); ?></span>
+                            <span class="rm_pr_plan_subline"><?php echo wp_kses_post(__('License: <strong>Unlimited</strong> Site', 'custom-registration-form-builder-with-submission-manager')); ?></span>
+                            
                         </div>
                         <div class="rm_pr_plan_features">
                             <span><?php esc_html_e('Everything in Premium', 'custom-registration-form-builder-with-submission-manager'); ?></span>

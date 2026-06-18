@@ -2,7 +2,8 @@
 
 body.admin-color-modern .rmagic,
 body.admin-color-modern .rmdialog,
-body.admin-color-modern .rm-formflow-top-bar{
+body.admin-color-modern .rm-formflow-top-bar,
+body.admin-color-modern .rm-side-banner{
     --rm-admin-theme-color: #3858e9;
     --rm-admin-theme-color-rgb: 56, 88, 233;
     --rm-admin-theme-color-darker: #183ad6;
@@ -7438,10 +7439,10 @@ img.rm_feature_icon {
     text-decoration: none;
     line-height: 26px;
     width: 100%;
-    padding: 8px 6px;
+    padding: 0px 0px;
     border-radius: 6px;
     text-align: left;
-    font-size: 13px;
+    font-size: 12px;
     box-sizing: border-box;
     background-color: transparent;
     color: var( --rm-admin-theme-color);
@@ -7450,7 +7451,6 @@ img.rm_feature_icon {
 .rm-sidebanner-buttons .rm-sidebanner-button.rm-sidebanner-stater-guide a{
     text-decoration: none;
     border: 0px;
-    line-height: 28px;
     outline: 0px;
     box-shadow: none;
 }
@@ -7458,6 +7458,7 @@ img.rm_feature_icon {
 .rm-sidebanner-buttons .rm-sidebanner-button a:hover {
     text-decoration: none;
     background-color: transparent;
+    color: #2145e6;
 }
 
 .rm-wp-role-selector-wrap .rm-wp-role-selector {
@@ -8071,7 +8072,8 @@ li.rm-show-divider a{
     }
 
     .sidebanner-help-text {
-        font-size: 16px;
+        font-size: 13px;
+        font-weight: normal;
     }
 
  
@@ -12589,3 +12591,17 @@ span.rm-submission-time:after {
     }
 }
 
+.rm_admin_notice_banner.rm-renew-notice{
+    position: relative;
+}
+
+a.rm_dismiss.rm_renewal_notice_dismiss {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    color: #000;
+}
+
+a.rm_dismiss.rm_renewal_notice_dismiss span{
+    font-size: 20px;
+}
