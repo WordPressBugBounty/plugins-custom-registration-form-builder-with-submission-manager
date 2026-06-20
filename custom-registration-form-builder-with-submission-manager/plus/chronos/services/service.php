@@ -1,6 +1,36 @@
 <?php
 
 class RM_Chronos_Service extends RM_Services {
+    public static function get_allowed_assignable_roles() {
+        if (!function_exists('get_editable_roles'))
+            require_once ABSPATH . 'wp-admin/includes/user.php';
+
+        $roles = get_editable_roles();
+        $privileged_caps = array('manage_options', 'promote_users', 'edit_users', 'delete_users', 'create_users');
+        $allowed_roles = array();
+
+        foreach($roles as $role_key => $role_data) {
+            if($role_key === 'administrator')
+                continue;
+
+            $capabilities = isset($role_data['capabilities']) && is_array($role_data['capabilities']) ? $role_data['capabilities'] : array();
+            $has_privileged_cap = false;
+            foreach($privileged_caps as $cap) {
+                if(!empty($capabilities[$cap])) {
+                    $has_privileged_cap = true;
+                    break;
+                }
+            }
+
+            if($has_privileged_cap)
+                continue;
+
+            $allowed_roles[$role_key] = isset($role_data['name']) ? $role_data['name'] : $role_key;
+        }
+
+        return $allowed_roles;
+    }
+
     public function process_request($req) {
         $task_conf = array();
         if(!isset($req['rm_form_id']))
@@ -38,9 +68,17 @@ class RM_Chronos_Service extends RM_Services {
                                        'email_template' => RM_Chronos_Toolkit::safe_array_fetch($req, 'rmc_action_send_mail_body')
                                     );                    
         }
-        if(isset($req['rmc_assign_user_role_action'])) {
-            $task_conf['actions'][] = RM_Chronos_Action_Interface::ACTION_TYPE_ASSIGN_ROLE;
-            $task_conf['meta']['user_roles'] = RM_Chronos_Toolkit::safe_array_fetch($req, 'rmc_assign_user_role_action');
+        if(isset($req['rmc_assign_user_role_action']) && (!is_admin() || current_user_can('promote_users'))) {
+            $allowed_roles = array_keys(self::get_allowed_assignable_roles());
+            $submitted_roles = RM_Chronos_Toolkit::safe_array_fetch($req, 'rmc_assign_user_role_action', array());
+            $submitted_roles = is_array($submitted_roles) ? $submitted_roles : array($submitted_roles);
+            $submitted_roles = array_map('sanitize_key', $submitted_roles);
+            $valid_roles = array_values(array_intersect($submitted_roles, $allowed_roles));
+
+            if(!empty($valid_roles)) {
+                $task_conf['actions'][] = RM_Chronos_Action_Interface::ACTION_TYPE_ASSIGN_ROLE;
+                $task_conf['meta']['user_roles'] = $valid_roles;
+            }
         }
         $task_conf['meta']['rmc_task_type'] = RM_Chronos_Toolkit::safe_array_fetch($req, 'rmc_task_type');
         $task_conf['meta']['rmc_task_first_execution'] = RM_Chronos_Toolkit::safe_array_fetch($req, 'rmc_task_first_execution') !== '' ? strtotime(get_gmt_from_date(RM_Chronos_Toolkit::safe_array_fetch($req, 'rmc_task_first_execution'))) : '';

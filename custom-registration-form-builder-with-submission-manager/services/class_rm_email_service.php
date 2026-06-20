@@ -484,6 +484,11 @@ class RM_Email_Service
             }
         }
 
+        // Add submission ID to email content if available
+        if (isset($params->sub_id)) {
+            $email_content = str_replace('{{SUBMISSION_ID}}', (string)$params->sub_id, $email_content);
+        }
+
         $out = array();
         $preg_result = preg_match_all('/{{(.*?)}}/', $email_content, $out);
 

@@ -60,6 +60,8 @@ class RM_Chronos_Task_Controller
     public function edit_task($req)
     {
         if(isset($req['rmc-task-edit-form-subbed']) && $req['rmc-task-edit-form-subbed'] == 'yes') {
+            $retrieved_nonce = isset($req['_wpnonce']) ? $req['_wpnonce'] : '';
+            if (!wp_verify_nonce($retrieved_nonce, 'rm_chronos_edit_task' ) ) die( esc_html__('Failed security check','custom-registration-form-builder-with-submission-manager') );
             $this->service->process_request($req);
             $form_id = absint(RM_Chronos_Toolkit::safe_array_fetch($req, 'rm_form_id'));
             RM_Utilities::redirect(admin_url("admin.php?page=rm_ex_chronos_manage_tasks&rm_form_id={$form_id}"));            

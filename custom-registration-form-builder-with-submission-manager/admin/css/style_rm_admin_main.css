@@ -2,8 +2,7 @@
 
 body.admin-color-modern .rmagic,
 body.admin-color-modern .rmdialog,
-body.admin-color-modern .rm-formflow-top-bar,
-body.admin-color-modern .rm-side-banner{
+body.admin-color-modern .rm-formflow-top-bar{
     --rm-admin-theme-color: #3858e9;
     --rm-admin-theme-color-rgb: 56, 88, 233;
     --rm-admin-theme-color-darker: #183ad6;
@@ -7439,10 +7438,10 @@ img.rm_feature_icon {
     text-decoration: none;
     line-height: 26px;
     width: 100%;
-    padding: 0px 0px;
+    padding: 8px 6px;
     border-radius: 6px;
     text-align: left;
-    font-size: 12px;
+    font-size: 13px;
     box-sizing: border-box;
     background-color: transparent;
     color: var( --rm-admin-theme-color);

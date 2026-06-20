@@ -14,6 +14,7 @@ $action_data = $data->init_field_config->action_data;
         <div class="rmheader"><?php _e('Task Settings','custom-registration-form-builder-with-submission-manager'); ?></div>
    
         <form name="rmc_task_settings_form" id="rmc_task_settings_form" action="" method="post" style="display:none">
+            <?php wp_nonce_field('rm_chronos_edit_task'); ?>
             <input type="hidden" name="rmc-task-edit-form-subbed" value="yes">
  
             <input type="radio" name="rm-task-slide" class="rm-slide-radio1 rm-task-slide-radio" checked id="rm-task-slide-1"> 
@@ -351,8 +352,7 @@ $action_data = $data->init_field_config->action_data;
                     <div class="rminput">
                         <div class="rm-wp-role-selector-wrap">
                         <?php
-                            global $wp_roles;
-                            $roles = $wp_roles->get_names();
+                            $roles = RM_Chronos_Service::get_allowed_assignable_roles();
                             foreach($roles as $role_key => $role_val) {
                                 $tag_attr = defined('REGMAGIC_ADDON') ? 'name=rmc_assign_user_role_action[]' : 'name=buy_pro_2[] disabled';
                                 if(in_array($role_key, $action_data['g_assign_user_role_action']['roles']))
