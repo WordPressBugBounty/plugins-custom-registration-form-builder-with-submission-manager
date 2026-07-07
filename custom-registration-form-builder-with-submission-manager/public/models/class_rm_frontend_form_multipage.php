@@ -125,6 +125,10 @@ class RM_Frontend_Form_Multipage extends RM_Frontend_Form_Base
             $form->addElement(new Element_HTML('<div id="rm_stat_container" style="display:none">'));
             $form->addElement(new Element_Textbox('RM_Slug', 'rm_slug', array('value' => 'rm_user_form_edit_sub', 'style' => 'display:none')));
             $form->addElement(new Element_Textbox('RM_form_id', 'form_id', array('value' => $this->form_id, 'style' => 'display:none')));
+            $form->addElement(new Element_Textbox('RM_Submission_Id', 'submission_id', array('value' => absint($data['submission_id']), 'style' => 'display:none')));
+            $front_service = new RM_Front_Service();
+            $user_email = strtolower((string) $front_service->get_user_email());
+            $form->addElement(new Element_Textbox('RM_Edit_Sub_Nonce', 'rm_edit_sub_nonce', array('value' => wp_create_nonce('rm_edit_submission_' . absint($data['submission_id']) . '_' . $user_email), 'style' => 'display:none')));
             $form->addElement(new Element_HTML('</div>'));
             if(defined('REGMAGIC_ADDON'))
                 $editing_sub=true;

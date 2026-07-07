@@ -37,12 +37,59 @@ function rm_send_dummy_ajax_request(url){
     });            
 }
 
-function scroll_down_end(element) {
+function rm_get_terms_scroll_checkbox(element) {
+    var textarea = jQuery(element).first();
+    var checkbox = textarea.closest('.rm_terms_textarea').siblings('.rm_terms_checkbox').find('input.rm_terms_scroll_required');
+    if (checkbox.length === 0) {
+        checkbox = textarea.closest('.rmform-terms-textarea').siblings('.rmform-terms-checkbox').find('input.rm_terms_scroll_required');
+    }
+    return checkbox;
+}
 
-    if (element.scrollTop + element.offsetHeight >= element.scrollHeight)
+function rm_mark_terms_scroll_complete(element) {
+    var checkbox = rm_get_terms_scroll_checkbox(element);
+    checkbox.attr('data-rm-terms-scroll-complete', '1').attr('aria-disabled', 'false').removeClass('rm_terms_scroll_pending');
+}
+
+function rm_is_terms_scroll_complete(element) {
+    var el = jQuery(element).first().get(0);
+    if (!el) {
+        return false;
+    }
+    return el.scrollHeight <= el.offsetHeight || el.scrollTop + el.offsetHeight >= el.scrollHeight - 1;
+}
+
+function rm_bind_terms_scroll_guard(context) {
+    jQuery(context || document).find('input.rm_terms_scroll_required').each(function () {
+        var checkbox = jQuery(this);
+        if (checkbox.attr('data-rm-terms-scroll-complete') !== '1') {
+            checkbox.addClass('rm_terms_scroll_pending').attr('aria-disabled', 'true');
+        }
+    }).off('click.rmTermsScroll change.rmTermsScroll').on('click.rmTermsScroll change.rmTermsScroll', function (event) {
+        var checkbox = jQuery(this);
+        if (checkbox.attr('data-rm-terms-scroll-complete') !== '1') {
+            this.checked = false;
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return false;
+        }
+    });
+}
+
+function scroll_down_end(element) {
+    var termsArea = jQuery(element).first().get(0);
+    if (!termsArea) {
+        return;
+    }
+
+    if (rm_is_terms_scroll_complete(element)) {
+        rm_mark_terms_scroll_complete(element);
+        return;
+    }
+
+    if (termsArea.scrollTop + termsArea.offsetHeight >= termsArea.scrollHeight)
     {
-        var div = jQuery(element).parent().siblings();
-        jQuery(div).children().removeAttr('disabled');
+        rm_mark_terms_scroll_complete(element);
 
     }
     else
@@ -71,9 +118,7 @@ function scroll_down_end(element) {
         
         if ((count * field_height) <= field_height) {
 
-            var div = jQuery(element).parent().siblings();
-
-               jQuery(div).children().removeAttr('disabled');
+            rm_mark_terms_scroll_complete(element);
 
         }
     }
@@ -146,11 +191,12 @@ jQuery(document).ready(function () {
     if(tab_container.length>0){
         tab_container.tabs();
     }
-    jQuery('.rm_terms_textarea').each(function () {
+    jQuery('.rm_terms_textarea, .rmform-terms-textarea').each(function () {
         var a = jQuery(this).children('textarea');
           if (a.length > 0)
                 scroll_down_end(a);
        });
+    rm_bind_terms_scroll_guard(document);
        
     jQuery(".rm_floating_action").click(function(){
        jQuery(".rm_floating_box").toggle('medium');

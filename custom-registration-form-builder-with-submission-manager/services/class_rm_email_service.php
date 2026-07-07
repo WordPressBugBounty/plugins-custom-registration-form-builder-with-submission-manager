@@ -131,8 +131,12 @@ class RM_Email_Service
         }
     
         $subject= $form->form_options->form_admin_ns_notification_sub;
-        if(empty($subject))
+        if(empty($subject)) {
             $subject = $params->form_name . " " . RM_UI_Strings::get('LABEL_NEWFORM_NOTIFICATION') . " ";
+        } else {
+            $subject = self::replace_submission_field_placeholders((string)$subject, $params, true);
+            $subject = wp_strip_all_tags($subject);
+        }
         $rm_email->subject($subject);
         $rm_email->useAdminFrom= false;
         
@@ -215,7 +219,7 @@ class RM_Email_Service
             $page_id= $recovery_options['recovery_page'];
             if(!empty($page_id)){
                 $recovery_link= get_permalink($page_id);
-                $token= wp_generate_password(8,false);
+                $token= wp_generate_password(32,false);
                 update_user_meta($user_id,'rm_pass_token',$token);
                 $hours= $recovery_options['rec_link_expiry'];
                 if(!empty($hours)){
@@ -756,7 +760,7 @@ class RM_Email_Service
         }
         
         $recovery_link= get_permalink($page_id);
-        $token= wp_generate_password(8,false );
+        $token= wp_generate_password(32,false );
         update_user_meta($user->ID,'rm_pass_token',$token);
         $hours= $recovery_options['rec_link_expiry'];
         if(!empty($hours)){
@@ -793,7 +797,7 @@ class RM_Email_Service
         return false;
     }
 
-    private static function replace_submission_field_placeholders($content, $params)
+    private static function replace_submission_field_placeholders($content, $params, $plain_text = false)
     {
         $submission_data = array();
         if (!empty($params->db_data) && is_array($params->db_data)) {
@@ -811,7 +815,7 @@ class RM_Email_Service
                 continue;
             }
 
-            $value = self::format_submission_field_value($field_id, $field_data);
+            $value = self::format_submission_field_value($field_id, $field_data, $plain_text);
             $field_placeholder = '{{' . $field_data->type . '_' . $field_id . '}}';
             $content = str_replace($field_placeholder, $value, $content);
 
@@ -825,7 +829,7 @@ class RM_Email_Service
         return $content;
     }
 
-    private static function format_submission_field_value($field_id, $field_data)
+    private static function format_submission_field_value($field_id, $field_data, $plain_text = false)
     {
         if (!isset($field_data->value) || is_null($field_data->value)) {
             return '';
@@ -843,7 +847,11 @@ class RM_Email_Service
                 unset($value['rm_field_type']);
                 $links = '';
                 foreach ($value as $attachment_id) {
-                    $links .= wp_get_attachment_link($attachment_id) . ' ';
+                    if ($plain_text) {
+                        $links .= wp_get_attachment_url($attachment_id) . ' ';
+                    } else {
+                        $links .= wp_get_attachment_link($attachment_id) . ' ';
+                    }
                 }
                 return $links;
             }
@@ -859,6 +867,9 @@ class RM_Email_Service
             }
 
             if ($field_data->type == 'URL' && isset($value['url'])) {
+                if ($plain_text) {
+                    return $value['url'];
+                }
                 return '<a href="' . esc_url($value['url']) . '">' . esc_html($value['url']) . '</a>';
             }
 
@@ -869,6 +880,6 @@ class RM_Email_Service
             return RM_Utilities::get_lable_for_option($field_id, $value);
         }
 
-        return nl2br($value);
+        return $plain_text ? $value : nl2br($value);
     }
 }

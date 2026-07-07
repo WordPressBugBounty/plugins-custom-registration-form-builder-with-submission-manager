@@ -825,13 +825,62 @@ class RM_Front_Form_Service extends RM_Services {
             } elseif ($type === 'pm_user_avatar') {
                 $return = update_user_meta( $user_id, $type, $pr[0] );
             } else {
-              $return = update_user_meta( $user_id, $type, $pr );
+              $meta_key = is_string($type) ? sanitize_key($type) : '';
+              if (!$this->is_profile_meta_key_allowed($type, $meta_key)) {
+                  continue;
+              }
+              $return = update_user_meta( $user_id, $meta_key, $pr );
             }
         }
         if(!empty($name)){
             wp_update_user(array('ID'=>$user_id,'display_name'=>$name));
         }
         return $return;
+    }
+
+    private function is_profile_meta_key_allowed($original_key, $sanitized_key) {
+        global $wpdb;
+
+        if (empty($sanitized_key) || $original_key !== $sanitized_key) {
+            return false;
+        }
+
+        $key = strtolower($sanitized_key);
+        $denied_exact = array(
+            'capabilities',
+            'user_level',
+            $wpdb->prefix . 'capabilities',
+            $wpdb->prefix . 'user_level',
+            'session_tokens',
+            'application_passwords',
+            'rm_pass_token',
+            'rm_pass_expiry_token'
+        );
+
+        if (in_array($key, array_map('strtolower', $denied_exact), true)) {
+            return false;
+        }
+
+        $denied_patterns = array(
+            '/(^|_)capabilities$/',
+            '/(^|_)user_level$/',
+            '/session/',
+            '/(^|_)auth(_|$)/',
+            '/auth_token/',
+            '/authentication/',
+            '/password/',
+            '/pass_token/',
+            '/reset/',
+            '/application_password/'
+        );
+
+        foreach ($denied_patterns as $pattern) {
+            if (preg_match($pattern, $key)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function set_properties(stdClass $options) {

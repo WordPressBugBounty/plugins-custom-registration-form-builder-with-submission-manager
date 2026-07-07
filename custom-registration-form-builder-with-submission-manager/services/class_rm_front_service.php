@@ -13,6 +13,8 @@
  */
 class RM_Front_Service extends RM_Services {
 
+    private $authorized_front_user = null;
+
     public function set_otp($email, $key = null) {
         $response = new stdClass();
         $response->error = false;
@@ -108,16 +110,20 @@ class RM_Front_Service extends RM_Services {
         if (!is_user_logged_in() && isset($_COOKIE['rm_secure_otp'])) {
             $this->delete_front_user('10', 'm', true);
 
-            $rm_user = $this->get('FRONT_USERS', array('otp_code' => $_COOKIE['rm_secure_otp']), array('%s'), 'row');
+            $otp_code = sanitize_text_field(wp_unslash($_COOKIE['rm_secure_otp']));
+            $rm_user = $this->get('FRONT_USERS', array('otp_code' => $otp_code), array('%s'), 'row');
 
             if (empty($rm_user)) {
+                $this->authorized_front_user = null;
                 $this->unset_auth_params();
                 return false;
             } else {
-                $this->update_last_activity();
+                $this->authorized_front_user = $rm_user;
+                $this->update_last_activity($otp_code);
                 return true;
             }
         }
+        $this->authorized_front_user = null;
         return false;
     }
 
@@ -139,9 +145,10 @@ class RM_Front_Service extends RM_Services {
     }
 
     public function set_auth_params($key, $email) {
-        setcookie("rm_secure_otp", $key, time() + (3600), "/");
-        setcookie("rm_autorized_otp", "true", time() + (3600), "/");
-        setcookie("rm_autorized_email", $email, time() + (3600), "/");
+        $expires = time() + (3600);
+        $this->set_front_cookie("rm_secure_otp", $key, $expires, true);
+        $this->set_front_cookie("rm_autorized_otp", "true", $expires, true);
+        $this->set_front_cookie("rm_autorized_email", $email, $expires, true);
     }
 
     public function delete_front_user($interval, $time_format, $by_last_activity = false) {
@@ -150,13 +157,14 @@ class RM_Front_Service extends RM_Services {
     }
 
     public function unset_auth_params() {
-        setcookie("rm_secure_otp", '', time() - (3600), "/");
-        setcookie("rm_autorized_otp", "true", time() - (3600), "/");
-        setcookie("rm_autorized_email", '', time() - (3600), "/");
+        $expires = time() - (3600);
+        $this->set_front_cookie("rm_secure_otp", '', $expires, true);
+        $this->set_front_cookie("rm_autorized_otp", "true", $expires, true);
+        $this->set_front_cookie("rm_autorized_email", '', $expires, true);
     }
 
-    public function update_last_activity() {
-        return RM_DBManager::update_last_activity();
+    public function update_last_activity($otp_code = null) {
+        return RM_DBManager::update_last_activity($otp_code);
     }
 
     public function get_user_email() {
@@ -166,12 +174,27 @@ class RM_Front_Service extends RM_Services {
         if (is_user_logged_in()) {
             $user = wp_get_current_user();
             $user_email = isset($user->user_email) ? $user->user_email : null;
-        } elseif (isset($_COOKIE['rm_autorized_email']) && $this->is_authorized()) {
-            $user_email = $_COOKIE['rm_autorized_email'];
+        } elseif ($this->is_authorized() && !empty($this->authorized_front_user->email)) {
+            $user_email = $this->authorized_front_user->email;
         }
 
 
         return $user_email;
+    }
+
+    private function set_front_cookie($name, $value, $expires, $http_only = true) {
+        if (PHP_VERSION_ID >= 70300) {
+            setcookie($name, $value, array(
+                'expires' => $expires,
+                'path' => '/',
+                'secure' => is_ssl(),
+                'httponly' => $http_only,
+                'samesite' => 'Lax'
+            ));
+            return;
+        }
+
+        setcookie($name, $value, $expires, '/', '', is_ssl(), $http_only);
     }
     
     public function get_user_login_name() {

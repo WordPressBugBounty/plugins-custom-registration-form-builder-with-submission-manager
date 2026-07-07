@@ -302,10 +302,37 @@ class RM_Front_Form_Controller
 
         /*if (count($rm_form_diary) > 0 && !isset($params['force_enable_multiform']))
             return;*/
-        $params['form_id'] = $request->req['form_id'];
-        if (isset($params['form_id'],$request->req['submission_id']) && $params['form_id'] && $request->req['submission_id']) {
+        $front_service = new RM_Front_Service;
+        $authorized_email = $front_service->get_user_email();
+        if (empty($authorized_email)) {
+            return;
+        }
+
+        $params['form_id'] = isset($request->req['form_id']) ? absint($request->req['form_id']) : 0;
+        $requested_submission_id = isset($request->req['submission_id']) ? absint($request->req['submission_id']) : 0;
+        if (isset($params['form_id'], $request->req['submission_id']) && $params['form_id'] && $requested_submission_id) {
             $form_id = $params['form_id'];
-            $request->req['submission_id'] = $service->get_latest_submission_from_group($request->req['submission_id']);
+            $latest_submission_id = absint($service->get_latest_submission_from_group($requested_submission_id));
+            if (!$latest_submission_id) {
+                return;
+            }
+
+            $submission = new RM_Submissions;
+            if (!$submission->load_from_db($latest_submission_id)) {
+                return;
+            }
+
+            $nonce_email = strtolower((string) $authorized_email);
+            if ((int) $submission->get_form_id() !== (int) $form_id || strtolower((string) $submission->get_user_email()) !== $nonce_email) {
+                return;
+            }
+
+            $nonce = isset($request->req['rm_edit_sub_nonce']) ? sanitize_text_field(wp_unslash($request->req['rm_edit_sub_nonce'])) : '';
+            if (!wp_verify_nonce($nonce, 'rm_edit_submission_' . $latest_submission_id . '_' . $nonce_email)) {
+                return;
+            }
+
+            $request->req['submission_id'] = $latest_submission_id;
             $fe_form = $this->form_factory->create_form_prefilled($form_id,$request->req['submission_id']);
             $form_name = 'form_' . $fe_form->get_form_id();
         } else {
@@ -334,8 +361,8 @@ class RM_Front_Form_Controller
 
             $db_data = $fe_form->get_prepared_data($request->req, 'dbonly');
 
-            $sub_detail = $service->save_edited_submission($form_id, $request->req['submission_id'], $db_data, $primary_data['user_email']->value);
-            do_action('rm_submission_edited', $primary_data['user_email']->value);
+            $sub_detail = $service->save_edited_submission($form_id, $request->req['submission_id'], $db_data, $authorized_email);
+            do_action('rm_submission_edited', $authorized_email);
             
             $form_options = $fe_form->get_form_options();
 
@@ -373,7 +400,7 @@ class RM_Front_Form_Controller
 
             $params['paystate'] = 'na';
             $fe_form->post_sub_proc($request->req, $params);
-            $this->update_user_profile($primary_data['user_email']->value, $db_data, $service);
+            $this->update_user_profile($authorized_email, $db_data, $service);
 
             //redirect user to new submissions page
             $form_options->redirection_type = 'url';

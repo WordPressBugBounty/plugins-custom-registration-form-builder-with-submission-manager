@@ -12624,3 +12624,13 @@ a.rm_dismiss.rm_renewal_notice_dismiss {
 a.rm_dismiss.rm_renewal_notice_dismiss span{
     font-size: 20px;
 }
+
+
+.rm-notification-sb-wrap {
+    display: inline-flex;
+    width: 96%;
+}
+
+.rm-notification-sb-wrap select#rm_editor_add_admin_ns_email_subject{
+    width: 110px;
+}

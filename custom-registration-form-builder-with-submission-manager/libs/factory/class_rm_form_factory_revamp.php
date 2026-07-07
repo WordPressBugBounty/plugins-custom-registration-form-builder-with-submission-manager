@@ -568,6 +568,10 @@ final class RM_Form_Factory_Revamp {
                         if(in_array($form->fields[$field_id]->field_type, array('WCBilling','WCShipping'))) {
                             $field_name = strtolower($field_name);
                         }
+                        if(!$save_submission && $form->fields[$field_id]->field_type == 'Terms' && absint($form->fields[$field_id]->field_options->field_is_required) == 1 && (!isset($sub_data[$field_name]) || $sub_data[$field_name] !== 'on')) {
+                            array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
+                            continue;
+                        }
                         if(isset($sub_data[$field_name])) {
                             // Validating social fields
                             if(!empty($sub_data[$field_name])) {

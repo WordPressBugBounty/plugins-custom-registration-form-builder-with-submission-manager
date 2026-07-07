@@ -1202,16 +1202,17 @@ class RM_DBManager
             __FUNCTION__ . " needs the second argument to be an array or 1,'" . gettype($where) . "'is passed.");
         }
 
-        if ($descending === false) {
-            if (!$limit)
-                $qry .= "ORDER BY `$sort_by`";
-            else
-                $qry .= "ORDER BY `$sort_by` LIMIT $limit OFFSET $offset";
-        } else {
-            if (!$limit)
-                $qry .= "ORDER BY `$sort_by` DESC";
-            else
-                $qry .= "ORDER BY `$sort_by` DESC LIMIT $limit OFFSET $offset";
+        $sort_by = is_string($sort_by) ? trim($sort_by) : '';
+        $limit = absint($limit);
+        $offset = absint($offset);
+        if ($sort_by !== '' && preg_match('/^[A-Za-z0-9_]+$/', $sort_by)) {
+            $qry .= " ORDER BY `$sort_by`";
+            if ($descending !== false)
+                $qry .= " DESC";
+        }
+
+        if ($limit) {
+            $qry .= " LIMIT $limit OFFSET $offset";
         }
 
         if ($result_type === 'results' || $result_type === 'row' || $result_type === 'var' || $result_type === 'col') {
@@ -1720,13 +1721,17 @@ class RM_DBManager
         return $wpdb->query($qry);
     }
 
-    public static function update_last_activity() {
+    public static function update_last_activity($otp_code = null) {
 
         global $wpdb;
 
         $table_name = RM_Table_Tech::get_table_name_for('FRONT_USERS');
 
-        return $wpdb->query("UPDATE $table_name set `last_activity_time`= '" . RM_Utilities::get_current_time() . "'");
+        if (!empty($otp_code)) {
+            return $wpdb->query($wpdb->prepare("UPDATE $table_name set `last_activity_time`= %s WHERE `otp_code` = %s", RM_Utilities::get_current_time(), $otp_code));
+        }
+
+        return $wpdb->query($wpdb->prepare("UPDATE $table_name set `last_activity_time`= %s", RM_Utilities::get_current_time()));
     }
 
     public static function delete_rows($model_identifier, $where, $where_format = null) {

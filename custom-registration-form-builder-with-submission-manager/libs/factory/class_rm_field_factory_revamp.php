@@ -1798,8 +1798,12 @@ final class RM_Field_Factory_Revamp {
         if (isset($field->field_options->field_css_class)){
             $attributes['class'] .= " ".$field->field_options->field_css_class;
         }
-        if (isset($field->field_options->field_is_required_scroll) && $field->field_options->field_is_required_scroll == 1){
-            $attributes['disabled'] = "disabled";
+        $requires_scroll = isset($field->field_options->field_is_required_scroll) && $field->field_options->field_is_required_scroll == 1;
+        if ($requires_scroll) {
+            $attributes['class'] .= ' rm_terms_scroll_required';
+            $attributes['data-rm-terms-scroll-required'] = '1';
+            $attributes['data-rm-terms-scroll-complete'] = '0';
+            $attributes['aria-disabled'] = 'true';
         }
         $meta_value = "";
         if(isset($old_value)) {
@@ -1814,6 +1818,10 @@ final class RM_Field_Factory_Revamp {
         }
         if($meta_value == $attributes['value']) {
             $attributes['checked'] = 'checked';
+            if ($requires_scroll) {
+                $attributes['data-rm-terms-scroll-complete'] = '1';
+                $attributes['aria-disabled'] = 'false';
+            }
         }
 
         $text = $field->field_label;
@@ -1851,11 +1859,11 @@ final class RM_Field_Factory_Revamp {
             echo "</div>";
 
             echo "<div class='rmform-terms-textarea'>";
-            echo "<textarea onscroll='scroll_down_end(this);' readonly class='rmform-terms-text-area' >".wp_kses_post((string)$field->field_value)."</textarea>";
+            echo "<textarea onscroll='scroll_down_end(this);' readonly class='rmform-terms-text-area rm_terms_area' >".wp_kses_post((string)$field->field_value)."</textarea>";
             echo "</div>";
         } else {
             echo "<div class='rmform-terms-textarea'>";
-            echo "<textarea onscroll='scroll_down_end(this);' readonly class='rmform-terms-text-area' >".wp_kses_post((string)$field->field_value)."</textarea>";
+            echo "<textarea onscroll='scroll_down_end(this);' readonly class='rmform-terms-text-area rm_terms_area' >".wp_kses_post((string)$field->field_value)."</textarea>";
             echo "</div>";
 
             echo "<div class='rmform-terms-checkbox'>";

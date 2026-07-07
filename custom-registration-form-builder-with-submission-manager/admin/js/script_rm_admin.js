@@ -282,6 +282,28 @@
 
         });
 
+        RM_jQ("#rm_editor_add_admin_ns_email_subject").change(function () {
+            if (RM_jQ(this).val() != 0) {
+                var shortcode = "{{" + RM_jQ(this).val() + "}}";
+                var subjectField = RM_jQ("#form_admin_ns_notification_sub").get(0);
+
+                if (subjectField && typeof subjectField.selectionStart == 'number') {
+                    var start = subjectField.selectionStart;
+                    var end = subjectField.selectionEnd;
+                    var value = subjectField.value;
+                    subjectField.value = value.substring(0, start) + shortcode + value.substring(end);
+                    subjectField.selectionStart = subjectField.selectionEnd = start + shortcode.length;
+                    subjectField.focus();
+                } else if (subjectField) {
+                    subjectField.value += shortcode;
+                    subjectField.focus();
+                }
+
+                RM_jQ(this).val(0);
+            }
+
+        });
+
         RM_jQ("#mce_rm_mail_body").change(function () {
             tinymce.execCommand('mceFocus', false, 'rm_mail_body');
             if (RM_jQ(this).val() != 0) {

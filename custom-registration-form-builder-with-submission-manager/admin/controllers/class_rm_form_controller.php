@@ -38,6 +38,13 @@ class RM_Form_Controller {
             $search_term = isset($request->req['rm_form_search']) ? $request->req['rm_form_search'] : null;
             $form_filter = isset($request->req['rm_form_filter']) ? $request->req['rm_form_filter'] : null;
             $sort_by = (isset($request->req['rm_sortby'])) ? $request->req['rm_sortby'] : null;
+            $allowed_sort_columns = array(
+                'form_name' => 'form_name',
+                'created_on' => 'created_on',
+                'form_id' => 'form_id',
+                'form_submissions' => 'form_submissions'
+            );
+            $sort_by = isset($allowed_sort_columns[$sort_by]) ? $allowed_sort_columns[$sort_by] : 'created_on';
             $descending = (isset($request->req['rm_descending']) && absint($request->req['rm_descending']) == 0) ? false : true;
             $req_page = (isset($request->req['rm_reqpage']) && $request->req['rm_reqpage'] > 0) ? $request->req['rm_reqpage'] : 1;
             $url_params = array(

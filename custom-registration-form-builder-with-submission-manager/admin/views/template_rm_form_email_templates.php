@@ -40,7 +40,26 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
         $form->addElement(new Element_HTML('<div class="rmrow"><h3>Notification Templates for Admin</h3></div>'));
         
         //$form->addElement(new Element_TinyMCEWP("<b>" . RM_UI_Strings::get('LABEL_ACTIVATE_USER_EMAIL') . "</b>(Mail Merge and HTML Supported):", $data->model->get_notification_messages('form_activate_user_notification'), "form_activate_user_notification", array('editor_class' => 'rm_TinydMCE', 'editor_height' => '100px'), array("longDesc" => RM_UI_Strings::get('HELP_ADD_FORM_ACTIVATE_USER_MSG'))));
-        $form->addElement(new Element_Textbox("<b>" . RM_UI_Strings::get('LABEL_ADMIN_NEW_SUBMISSION_EMAIL_SUB') . "</b>", "form_admin_ns_notification_sub", array("class" => "rm_static_field", "value" =>  $data->model->form_options->form_admin_ns_notification_sub, "longDesc"=>RM_UI_Strings::get('HELP_ADD_FORM_ADMIN_NS_SUB'))));
+        $admin_ns_subject_field_service = new RM_Editor_Actions_Service();
+        $admin_ns_subject_fields = $admin_ns_subject_field_service->add_email($data->model->form_id);
+        $admin_ns_subject_field_select = '';
+        if (!empty($admin_ns_subject_fields)) {
+            $admin_ns_subject_field_options = '<option value="0">' . esc_html(RM_UI_Strings::get("LABEL_ADD_EMAIL")) . '</option>';
+            foreach ($admin_ns_subject_fields as $admin_ns_subject_field) {
+                $admin_ns_subject_field_value = $admin_ns_subject_field->field_type . '_' . $admin_ns_subject_field->field_id;
+                $admin_ns_subject_field_type = strtolower($admin_ns_subject_field->field_type);
+                if ($admin_ns_subject_field_type == 'username') {
+                    $admin_ns_subject_field_value = 'Username';
+                } else if ($admin_ns_subject_field_type == 'userpassword') {
+                    $admin_ns_subject_field_value = 'UserPassword';
+                }
+                $admin_ns_subject_field_options .= '<option value="' . esc_attr($admin_ns_subject_field_value) . '">' . esc_html($admin_ns_subject_field->field_label) . '</option>';
+            }
+            $admin_ns_subject_field_select = '<select id="rm_editor_add_admin_ns_email_subject">' . $admin_ns_subject_field_options . '</select>';
+        }
+        $form->addElement(new Element_HTML(
+            '<div class="rmrow"><div class="rmfield" for="form_admin_ns_notification_sub"><label><b>' . RM_UI_Strings::get('LABEL_ADMIN_NEW_SUBMISSION_EMAIL_SUB') . '</b></label></div><div class="rminput"><div class="rm-notification-sb-wrap"><input type="text" name="form_admin_ns_notification_sub" id="form_admin_ns_notification_sub" class="rm_static_field" value="' . esc_attr($data->model->form_options->form_admin_ns_notification_sub) . '">' . $admin_ns_subject_field_select . '</div></div><div class="rmnote"><div class="rmprenote"></div><div class="rmnotecontent">' . RM_UI_Strings::get('HELP_ADD_FORM_ADMIN_NS_SUB') . '</div></div></div>'
+        ));
         $form->addElement(new Element_TinyMCEWP("<b>" . RM_UI_Strings::get('LABEL_ADMIN_NEW_SUBMISSION_EMAIL') . "</b>(".__('Mail Merge and HTML Supported', 'custom-registration-form-builder-with-submission-manager')."):", $data->model->get_notification_messages('form_admin_ns_notification'), "form_admin_ns_notification", array('editor_class' => 'rm_TinydMCE', 'editor_height' => '100px'), array("longDesc" => RM_UI_Strings::get('HELP_ADD_FORM_ADMIN_NS_MSG').RM_UI_Strings::get('MSG_BUY_PRO_INLINE'))));
         
         $form->addElement(new Element_HTMLL('&#8592; &nbsp; '.__('Cancel','custom-registration-form-builder-with-submission-manager'), '?page='.$data->next_page.'&rm_form_id=' . $data->model->form_id, array('class' => 'cancel')));

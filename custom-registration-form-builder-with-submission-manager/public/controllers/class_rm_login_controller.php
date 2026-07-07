@@ -193,10 +193,12 @@ class RM_Login_Controller{
             } else {
                 $tk = get_user_meta($users[0]->ID,'rm_pass_expiry_token', true);
                 $token_expired = false;
-                if(!empty($tk) && $tk<time()) {
+                if($tk === '' || (!empty($tk) && $tk<time())) {
                     $token_expired= true;
                 }
                 if($token_expired) {
+                    delete_user_meta($users[0]->ID,'rm_pass_token');
+                    delete_user_meta($users[0]->ID,'rm_pass_expiry_token');
                     $data->expired_token = 1;
                     $data->form_type= 'rm_recovery_form';
                 } else {
@@ -244,13 +246,25 @@ class RM_Login_Controller{
                         } else {
                             $users = get_users(array('meta_key' => 'rm_pass_token', 'meta_value' => $token));
                             if(!empty($users)){
-                                $user_id = wp_update_user(array('ID'=>$users[0]->ID,'user_pass' => $request->req['password']));
-                                if(is_wp_error($user_id)) {
-                                    $data->password_updated = 0;
-                                } else {
+                                $tk = get_user_meta($users[0]->ID,'rm_pass_expiry_token', true);
+                                $token_expired = false;
+                                if($tk === '' || (!empty($tk) && $tk<time())) {
+                                    $token_expired= true;
+                                }
+                                if($token_expired) {
                                     delete_user_meta($users[0]->ID,'rm_pass_token');
                                     delete_user_meta($users[0]->ID,'rm_pass_expiry_token');
-                                    $data->password_updated = 1;
+                                    $data->expired_token = 1;
+                                    $data->form_type= 'rm_recovery_form';
+                                } else {
+                                    $user_id = wp_update_user(array('ID'=>$users[0]->ID,'user_pass' => $request->req['password']));
+                                    if(is_wp_error($user_id)) {
+                                        $data->password_updated = 0;
+                                    } else {
+                                        delete_user_meta($users[0]->ID,'rm_pass_token');
+                                        delete_user_meta($users[0]->ID,'rm_pass_expiry_token');
+                                        $data->password_updated = 1;
+                                    }
                                 }
                             }
                         }

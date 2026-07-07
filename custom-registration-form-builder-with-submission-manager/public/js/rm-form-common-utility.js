@@ -471,10 +471,58 @@ function rm_get_country_code_by_name(country_list,selected_country) {
     return country_code;
 }
 
+function rm_get_terms_scroll_checkbox(element) {
+    var textarea = jQuery(element).first();
+    var checkbox = textarea.closest('.rm_terms_textarea').siblings('.rm_terms_checkbox').find('input.rm_terms_scroll_required');
+    if (checkbox.length === 0) {
+        checkbox = textarea.closest('.rmform-terms-textarea').siblings('.rmform-terms-checkbox').find('input.rm_terms_scroll_required');
+    }
+    return checkbox;
+}
+
+function rm_mark_terms_scroll_complete(element) {
+    var checkbox = rm_get_terms_scroll_checkbox(element);
+    checkbox.attr('data-rm-terms-scroll-complete', '1').attr('aria-disabled', 'false').removeClass('rm_terms_scroll_pending');
+}
+
+function rm_is_terms_scroll_complete(element) {
+    var el = jQuery(element).first().get(0);
+    if (!el) {
+        return false;
+    }
+    return el.scrollHeight <= el.offsetHeight || el.scrollTop + el.offsetHeight >= el.scrollHeight - 1;
+}
+
+function rm_bind_terms_scroll_guard(context) {
+    jQuery(context || document).find('input.rm_terms_scroll_required').each(function () {
+        var checkbox = jQuery(this);
+        if (checkbox.attr('data-rm-terms-scroll-complete') !== '1') {
+            checkbox.addClass('rm_terms_scroll_pending').attr('aria-disabled', 'true');
+        }
+    }).off('click.rmTermsScroll change.rmTermsScroll').on('click.rmTermsScroll change.rmTermsScroll', function (event) {
+        var checkbox = jQuery(this);
+        if (checkbox.attr('data-rm-terms-scroll-complete') !== '1') {
+            this.checked = false;
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return false;
+        }
+    });
+}
+
 function scroll_down_end(element) {
-    if (element.scrollTop + element.offsetHeight >= element.scrollHeight) {
-        var div = jQuery(element).parent().siblings();
-        jQuery(div).children().removeAttr('disabled');
+    var termsArea = jQuery(element).first().get(0);
+    if (!termsArea) {
+        return;
+    }
+
+    if (rm_is_terms_scroll_complete(element)) {
+        rm_mark_terms_scroll_complete(element);
+        return;
+    }
+
+    if (termsArea.scrollTop + termsArea.offsetHeight >= termsArea.scrollHeight) {
+        rm_mark_terms_scroll_complete(element);
     } else {
         var text_height = jQuery(element).css('font-size').replace('px', '');
         text_height = Math.ceil(parseInt(text_height));
@@ -498,11 +546,20 @@ function scroll_down_end(element) {
         }
         
         if ((count * field_height) <= field_height) {
-            var div = jQuery(element).parent().siblings();
-            jQuery(div).children().removeAttr('disabled');
+            rm_mark_terms_scroll_complete(element);
         }
     }
 }
+
+jQuery(document).ready(function () {
+    jQuery('.rm_terms_textarea, .rmform-terms-textarea').each(function () {
+        var textarea = jQuery(this).children('textarea');
+        if (textarea.length > 0) {
+            scroll_down_end(textarea);
+        }
+    });
+    rm_bind_terms_scroll_guard(document);
+});
 
 function rm_get_state(el, url, data) {
     jQuery.post(url, data, function(response) {

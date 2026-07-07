@@ -262,6 +262,8 @@ if ($data->form_type_status == "1" && !empty($data->user)) {
                 <form id="rmeditsubmission" method="post" action="">
                     <input type="hidden" name="rm_slug" value="rm_user_form_edit_sub">
                     <input type="hidden" name="form_id" value="<?php echo esc_attr($data->submission->get_form_id()); ?>">
+                    <input type="hidden" name="submission_id" value="<?php echo esc_attr($data->submission->get_submission_id()); ?>">
+                    <input type="hidden" name="rm_edit_sub_nonce" value="<?php echo esc_attr(wp_create_nonce('rm_edit_submission_' . $data->submission->get_submission_id() . '_' . strtolower((string) $data->submission->get_user_email()))); ?>">
                 </form>
                 <!--
                 <div id="rm_edit_sub_link">
