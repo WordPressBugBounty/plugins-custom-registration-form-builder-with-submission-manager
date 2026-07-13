@@ -62,6 +62,40 @@ class RM_Paypal_Service implements RM_Gateway_Service
         return $this->options;
     }
 
+    private function has_positive_priced_billing_item($pricing_details) {
+        if (empty($pricing_details->billing) || !is_array($pricing_details->billing))
+            return false;
+
+        foreach ($pricing_details->billing as $item) {
+            if (isset($item->price) && floatval($item->price) > 0.0 && empty($item->zero_quantity_checkout))
+                return true;
+        }
+
+        return false;
+    }
+
+    private function sanitize_payment_log_data($data) {
+        if (is_array($data))
+            return array_map(array($this, 'sanitize_payment_log_data'), $data);
+
+        if (is_object($data))
+            return $this->sanitize_payment_log_data(get_object_vars($data));
+
+        return sanitize_text_field((string)$data);
+    }
+
+    private function normalize_amount($amount) {
+        return number_format((float)$amount, 2, '.', '');
+    }
+
+    private function is_sdk_capture_replayed($transaction_id, $current_log_id) {
+        global $wpdb;
+        $table_name = RM_Table_Tech::get_table_name_for('PAYPAL_LOGS');
+
+        $existing_log_id = $wpdb->get_var($wpdb->prepare("SELECT id FROM `$table_name` WHERE txn_id = %s AND id <> %d LIMIT 1", $transaction_id, $current_log_id));
+        return !empty($existing_log_id);
+    }
+
     function setPaypal($paypal) {
         $this->paypal = $paypal;
     }
@@ -285,7 +319,7 @@ class RM_Paypal_Service implements RM_Gateway_Service
         //$curr_date = RM_Utilities::get_current_time(); //date_i18n(get_option('date_format'));
         $curr_date = gmdate('Y-m-d H:i:s');
 
-        if ($total_amount <= 0.0)
+        if ($total_amount <= 0.0 && !$this->has_positive_priced_billing_item($pricing_details))
         {
             $log_entry_id = RM_DBManager::insert_row('PAYPAL_LOGS', array('submission_id' => $data->submission_id,
                         'form_id' => $form_id,
@@ -349,17 +383,36 @@ class RM_Paypal_Service implements RM_Gateway_Service
             if(!$log || (int)$log->submission_id !== (int)$submission_id) {
                 wp_send_json_error(array('msg'=>esc_html__('Submission not valid.','custom-registration-form-builder-with-submission-manager')));
             }
+            if (strtolower((string)$log->status) === 'completed' || !empty($log->txn_id)) {
+                wp_send_json_error(array('msg'=>esc_html__('Transaction not valid.','custom-registration-form-builder-with-submission-manager')));
+            }
             $exdata = maybe_unserialize($log->ex_data);
             $user_id = isset($exdata['user_id']) ? absint($exdata['user_id']) : 0;
             //$status = isset($transaction['status']) ? strtolower($transaction['status']) : 'Pending';
             //$status = ucfirst($status);
-            $txn_id = isset($transaction['id']) ? $transaction['id'] : '';
-            $status = $this->validate_sdk_payment( $txn_id );
-            $log_entry_id = RM_DBManager::update_row('PAYPAL_LOGS', $log_id, array(
-                        'status' => $status,
-                        'txn_id' => $txn_id,
-                        'posted_date' => RM_Utilities::get_current_time(),
-                        'log' => maybe_serialize($transaction)), array('%s', '%s', '%s', '%s'));
+            $txn_id = isset($transaction['id']) ? sanitize_text_field(wp_unslash($transaction['id'])) : '';
+            $validation = $this->validate_sdk_payment($txn_id, $log);
+            $status = $validation['status'];
+            $log_data = array('browser_transaction' => $this->sanitize_payment_log_data(wp_unslash($transaction)));
+            if (!empty($validation['payment_data'])) {
+                $log_data['paypal_capture'] = $this->sanitize_payment_log_data($validation['payment_data']);
+            }
+            if (!empty($validation['reason'])) {
+                $log_data['validation_reason'] = sanitize_text_field($validation['reason']);
+            }
+
+            $update_data = array(
+                'status' => $status,
+                'posted_date' => RM_Utilities::get_current_time(),
+                'log' => maybe_serialize($log_data)
+            );
+            $update_format = array('%s', '%s', '%s');
+            if ($status === 'Completed') {
+                $update_data['txn_id'] = $txn_id;
+                $update_format[] = '%s';
+            }
+
+            $log_entry_id = RM_DBManager::update_row('PAYPAL_LOGS', $log_id, $update_data, $update_format);
             if(defined('REGMAGIC_ADDON')) {
                 $addon_service = new RM_Paypal_Service_Addon;
                 $check_setting = $addon_service->check_approval_settings($txn_id);
@@ -389,7 +442,25 @@ class RM_Paypal_Service implements RM_Gateway_Service
         }
     }
 
-    public function validate_sdk_payment( $transaction_id ) {
+    public function validate_sdk_payment( $transaction_id, $log ) {
+        $validation = array('status' => 'Pending', 'reason' => '', 'payment_data' => array());
+
+        $transaction_id = sanitize_text_field((string)$transaction_id);
+        if (empty($transaction_id)) {
+            $validation['reason'] = 'missing_capture_id';
+            return $validation;
+        }
+
+        if (!$log || empty($log->id)) {
+            $validation['reason'] = 'missing_local_log';
+            return $validation;
+        }
+
+        if ($this->is_sdk_capture_replayed($transaction_id, absint($log->id))) {
+            $validation['reason'] = 'replayed_capture';
+            return $validation;
+        }
+
         $gopts = new RM_Options;
         $sandbox =  $gopts->get_value_of('paypal_test_mode') === 'yes' ? true : false;
 
@@ -415,21 +486,23 @@ class RM_Paypal_Service implements RM_Gateway_Service
         ]);
 
         if ( is_wp_error( $token_response ) ) {
-            return 'Pending';
+            $validation['reason'] = 'token_request_failed';
+            return $validation;
         }
 
         $token_body = json_decode( wp_remote_retrieve_body( $token_response ), true );
 
         if ( empty( $token_body['access_token'] ) ) {
-            return 'Pending';
+            $validation['reason'] = 'missing_access_token';
+            return $validation;
         }
 
         $access_token = $token_body['access_token'];
 
         /*
-        * 2. Fetch transaction details (only to check if it exists)
+        * 2. Fetch capture details from PayPal and validate them against the local log.
         */
-        $payment_response = wp_remote_get( "$paypal_api/v2/payments/captures/$transaction_id", [
+        $payment_response = wp_remote_get( "$paypal_api/v2/payments/captures/" . rawurlencode($transaction_id), [
             'timeout' => 60,
             'headers' => [
                 'Authorization' => "Bearer $access_token",
@@ -438,26 +511,62 @@ class RM_Paypal_Service implements RM_Gateway_Service
         ]);
         
         if ( is_wp_error( $payment_response ) ) {
-            return 'Pending';
+            $validation['reason'] = 'capture_request_failed';
+            return $validation;
         }
 
         $payment_data = json_decode( wp_remote_retrieve_body( $payment_response ), true );
+        $validation['payment_data'] = is_array($payment_data) ? $payment_data : array();
 
         if ( empty( $payment_data['status'] ) ) {
-            return 'Pending';
+            $validation['reason'] = 'missing_capture_status';
+            return $validation;
         }
 
         /*
-        * 3. Validate PayPal status only
+        * 3. Fail closed unless the capture is complete and bound to this local payment.
         */
         if ( $payment_data['status'] !== 'COMPLETED' ) {
-            return 'Pending';
+            $validation['reason'] = 'capture_not_completed';
+            return $validation;
+        }
+
+        if (!isset($payment_data['amount']['value']) || $payment_data['amount']['value'] === '' || empty($payment_data['amount']['currency_code'])) {
+            $validation['reason'] = 'missing_capture_amount';
+            return $validation;
+        }
+
+        if ($this->normalize_amount($payment_data['amount']['value']) !== $this->normalize_amount($log->total_amount)) {
+            $validation['reason'] = 'amount_mismatch';
+            return $validation;
+        }
+
+        if (strtoupper((string)$payment_data['amount']['currency_code']) !== strtoupper((string)$log->currency)) {
+            $validation['reason'] = 'currency_mismatch';
+            return $validation;
+        }
+
+        $exdata = maybe_unserialize($log->ex_data);
+        $expected_payment_key = is_array($exdata) && !empty($exdata['sdk_payment_key']) ? (string)$exdata['sdk_payment_key'] : '';
+        $capture_custom_id = isset($payment_data['custom_id']) ? (string)$payment_data['custom_id'] : '';
+        if (empty($expected_payment_key) || empty($capture_custom_id) || !hash_equals($expected_payment_key, $capture_custom_id)) {
+            $validation['reason'] = 'custom_id_mismatch';
+            return $validation;
+        }
+
+        $expected_invoice_id = !empty($log->invoice) ? (string)$log->invoice : '';
+        $capture_invoice_id = isset($payment_data['invoice_id']) ? (string)$payment_data['invoice_id'] : '';
+        if (empty($expected_invoice_id) || empty($capture_invoice_id) || !hash_equals($expected_invoice_id, $capture_invoice_id)) {
+            $validation['reason'] = 'invoice_id_mismatch';
+            return $validation;
         }
 
         /*
         * SUCCESS
         */
-        return 'Completed';
+        $validation['status'] = 'Completed';
+        $validation['reason'] = 'validated';
+        return $validation;
     }
 
     public function demo(){
@@ -509,6 +618,42 @@ class RM_Paypal_Service implements RM_Gateway_Service
             $this_script = admin_url('admin-ajax.php?action=registrationmagic_embedform&form_id='.$data->form_id);
         }
         $sign = strpos($this_script, '?') ? '&' : '?';
+        $total_amount = $pricing_details->total_price;
+        $invoice = (string) date("His") . rand(1234, 9632);
+        $ex_data['sdk_payment_key'] = wp_generate_password(24, false);
+
+        $curr_date = RM_Utilities::get_current_time(); //date_i18n(get_option('date_format'));
+
+        if ($total_amount <= 0.0 && !$this->has_positive_priced_billing_item($pricing_details))
+        {
+            $log_entry_id = RM_DBManager::insert_row('PAYPAL_LOGS', array('submission_id' => $data->submission_id,
+                        'form_id' => $form_id,
+                        'invoice' => $invoice,
+                        'status' => 'Completed',
+                        'total_amount' => $total_amount,
+                        'currency' => $this->currency,
+                        'posted_date' => $curr_date,
+                        'pay_proc' => 'paypal',
+                        'bill' => maybe_serialize($pricing_details),
+                        'ex_data' => maybe_serialize($ex_data)), array('%d', '%d', '%s', '%s', '%f', '%s', '%s', '%s', '%s', '%s'));
+
+            return true;
+        } else {
+            $log_entry_id = RM_DBManager::insert_row('PAYPAL_LOGS', array('submission_id' => $data->submission_id,
+                        'form_id' => $form_id,
+                        'invoice' => $invoice,
+                        'status' => 'Pending',
+                        'total_amount' => $total_amount,
+                        'currency' => $this->currency,
+                        'posted_date' => $curr_date,
+                        'pay_proc' => 'paypal',
+                        'bill' => maybe_serialize($pricing_details),
+                        'ex_data' => maybe_serialize($ex_data)), array('%d', '%d', '%s', '%s', '%f', '%s', '%s', '%s', '%s', '%s'));
+        }
+
+        if (empty($log_entry_id))
+            return false;
+
         $order_items = array();
         foreach( $pricing_details->billing as $item){
             $items = array();
@@ -537,44 +682,11 @@ class RM_Paypal_Service implements RM_Gateway_Service
                 )
             ),
             'items'=>$order_items,
-            'custom_id'=>12345
+            'custom_id'=>$ex_data['sdk_payment_key'],
+            'invoice_id'=>$invoice
         );
         
         $order_details = json_encode(array('purchase_units'=>array($purchase_units)));
-        
-        
-        $total_amount = $pricing_details->total_price;
-        $invoice = (string) date("His") . rand(1234, 9632);
-
-
-        $curr_date = RM_Utilities::get_current_time(); //date_i18n(get_option('date_format'));
-
-        if ($total_amount <= 0.0)
-        {
-            $log_entry_id = RM_DBManager::insert_row('PAYPAL_LOGS', array('submission_id' => $data->submission_id,
-                        'form_id' => $form_id,
-                        'invoice' => $invoice,
-                        'status' => 'Completed',
-                        'total_amount' => $total_amount,
-                        'currency' => $this->currency,
-                        'posted_date' => $curr_date,
-                        'pay_proc' => 'paypal',
-                        'bill' => maybe_serialize($pricing_details),
-                        'ex_data' => maybe_serialize($ex_data)), array('%d', '%d', '%s', '%s', '%f', '%s', '%s', '%s', '%s', '%s'));
-
-            return true;
-        } else {
-            $log_entry_id = RM_DBManager::insert_row('PAYPAL_LOGS', array('submission_id' => $data->submission_id,
-                        'form_id' => $form_id,
-                        'invoice' => $invoice,
-                        'status' => 'Pending',
-                        'total_amount' => $total_amount,
-                        'currency' => $this->currency,
-                        'posted_date' => $curr_date,
-                        'pay_proc' => 'paypal',
-                        'bill' => maybe_serialize($pricing_details),
-                        'ex_data' => maybe_serialize($ex_data)), array('%d', '%d', '%s', '%s', '%f', '%s', '%s', '%s', '%s', '%s'));
-        }
         
         $user_id = isset($data->user_id) ? $data->user_id : 0;
         $data=array();

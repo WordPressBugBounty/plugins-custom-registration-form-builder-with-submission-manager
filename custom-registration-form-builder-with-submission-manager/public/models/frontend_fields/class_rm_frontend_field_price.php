@@ -83,7 +83,7 @@ class RM_Frontend_Field_Price extends RM_Frontend_Field_Base
 
             $properties['data-rmfieldtype'] = 'price';
             
-            $quantity_field = ($paypal_field->get_extra_options('allow_quantity') == 'yes') ? new Element_Number('&times;',$name."_qty", array('title' => 'Quantity', 'value' => 1, 'min' => 0, 'step' => 1, 'class' => 'rm_price_field_quantity')) : null;
+            $quantity_field = null;
             
             $element = null;
             switch ($paypal_field->get_type())
@@ -128,10 +128,7 @@ class RM_Frontend_Field_Price extends RM_Frontend_Field_Base
         switch ($paypal_field->get_type())
         {
             case "fixed":
-                if(isset($request[$this->field_name."_qty"]))
-                    $quantity = intval($request[$this->field_name."_qty"]);
-                else
-                    $quantity = 1;
+                $quantity = 1;
                 $value = isset($request[$this->field_name]) ? $request[$this->field_name] : null;
                 $value = $value ? "$value &times; $quantity" : null;
                 $data = new stdClass;
@@ -171,10 +168,7 @@ class RM_Frontend_Field_Price extends RM_Frontend_Field_Base
                     break;
                 }
 
-                if(isset($request[$this->field_name."_qty"]) && intval($request[$this->field_name."_qty"]) > -1)
-                    $quantity = intval($request[$this->field_name."_qty"]);
-                else
-                    $quantity = 1;
+                $quantity = 1;
 
                 $price = floatval($paypal_field->get_value());
                 $total_price = $price * $quantity;

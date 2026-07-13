@@ -46,6 +46,10 @@ final class RM_Form_Factory_Revamp {
         echo "</div>";
     }
 
+    private function is_required_field_empty($value) {
+        return $value === '' || (is_array($value) && empty($value));
+    }
+
     private function save_submission($sub_data = array(), $form = null, $form_no = null, $prefilled = false, $submission_id = null) {
         // Getting form ID
         $form_id = absint($form->form_id);
@@ -702,7 +706,7 @@ final class RM_Form_Factory_Revamp {
                             }
 
                             if(!$save_submission) {
-                                if(absint($form->fields[$field_id]->field_options->field_is_required) == 1 && (!isset($sub_data[$field_name]) || empty($sub_data[$field_name]))) {
+                                if(absint($form->fields[$field_id]->field_options->field_is_required) == 1 && (!isset($sub_data[$field_name]) || $this->is_required_field_empty($sub_data[$field_name]))) {
                                     array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
                                 }
                             }

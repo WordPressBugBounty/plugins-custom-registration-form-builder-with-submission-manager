@@ -793,7 +793,7 @@ final class RM_Field_Factory_Revamp {
         echo "<div class='rm-fixed-price-field-wrap'>";
         echo "<input ".$this->print_attributes($attributes)." >";
 
-        if (isset($price_field->extra_options) && $price_field->extra_options['allow_quantity'] == "yes") {
+        if (defined('REGMAGIC_ADDON') && isset($price_field->extra_options) && $price_field->extra_options['allow_quantity'] == "yes") {
             echo "<span>×</span>";
             $fixed_qnt_attributes = array(
                 'type' => 'Number',
@@ -896,7 +896,7 @@ final class RM_Field_Factory_Revamp {
             echo "<div class='rm-multiselect-price-wrap'>";
             echo "<input ".$this->print_attributes($attributes).">";
             echo "<span ".$this->print_attributes($price_options_label_attributes)." > $price_drop </span>";    
-            if (isset($price_field->extra_options) && $price_field->extra_options['allow_quantity'] == "yes") {
+            if (defined('REGMAGIC_ADDON') && isset($price_field->extra_options) && $price_field->extra_options['allow_quantity'] == "yes") {
                 echo "<span>×</span>";
                 $multiselect_qnt_attributes = array(
                     'type' => 'Number',
@@ -996,7 +996,7 @@ final class RM_Field_Factory_Revamp {
         }
         echo "</select>";
 
-        if (isset($price_field->extra_options) && $price_field->extra_options['allow_quantity'] == "yes") {
+        if (defined('REGMAGIC_ADDON') && isset($price_field->extra_options) && $price_field->extra_options['allow_quantity'] == "yes") {
             echo "<span>×</span>";
 
             $qnt_attributes = array(
