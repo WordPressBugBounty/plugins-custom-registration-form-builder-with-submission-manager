@@ -527,7 +527,7 @@ class RM_Submissions extends RM_Base_Model
         if (null !== $result)
         {       
             if($should_set_id)
-                $this->submission_id = $submission_id;
+                $this->submission_id = absint($result->submission_id);
             $this->form_id = $result->form_id;
             $this->data = $result->data;
             $this->user_email = $result->user_email;
@@ -535,7 +535,7 @@ class RM_Submissions extends RM_Base_Model
             $this->unique_token = $result->unique_token;
             $this->is_read= $result->is_read;
             $this->child_id = $result->child_id;
-            $this->last_child = $result->last_child ? $result->last_child : $submission_id;
+            $this->last_child = $result->last_child ? absint($result->last_child) : absint($result->submission_id);
             if(defined('RM_SAVE_SUBMISSION_BASENAME')) {
                 $this->is_pending = $result->is_pending;
             } else {

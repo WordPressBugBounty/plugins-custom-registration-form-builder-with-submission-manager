@@ -3162,7 +3162,7 @@ class RM_DBManager
         global $wpdb;
         $table_name = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
         $payments_table_name = RM_Table_Tech::get_table_name_for('PAYPAL_LOGS');
-        $qry = "SELECT SUM($payments_table_name.total_amount) as total_revenue FROM $table_name INNER JOIN `$payments_table_name` ON $table_name.submission_id = $payments_table_name.submission_id WHERE $table_name.user_email = '$email' AND $payments_table_name.status in('Completed','succeeded','Succeeded')";
+        $qry = $wpdb->prepare("SELECT SUM($payments_table_name.total_amount) as total_revenue FROM $table_name INNER JOIN `$payments_table_name` ON $table_name.submission_id = $payments_table_name.submission_id WHERE $table_name.user_email = %s AND $payments_table_name.status in('Completed','succeeded','Succeeded')", $email);
         $result = $wpdb->get_var($qry);
         if (empty($result))
             return 0;
@@ -3172,9 +3172,11 @@ class RM_DBManager
 
     public static function get_recents_payments_by_formid($form_id, $current_submission_id){
         global $wpdb;
+        $form_id = absint($form_id);
+        $current_submission_id = absint($current_submission_id);
         $table_name = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
         $payments_table_name = RM_Table_Tech::get_table_name_for('PAYPAL_LOGS');
-        $qry = "SELECT $table_name.submission_id, $table_name.submitted_on, $table_name.user_email, $payments_table_name.bill, $payments_table_name.total_amount, $payments_table_name.status FROM $table_name INNER JOIN `$payments_table_name` ON $table_name.submission_id = $payments_table_name.submission_id WHERE $table_name.submission_id NOT IN ($current_submission_id) AND $table_name.form_id = $form_id ORDER BY $table_name.submitted_on DESC LIMIT 5";
+        $qry = $wpdb->prepare("SELECT $table_name.submission_id, $table_name.submitted_on, $table_name.user_email, $payments_table_name.bill, $payments_table_name.total_amount, $payments_table_name.status FROM $table_name INNER JOIN `$payments_table_name` ON $table_name.submission_id = $payments_table_name.submission_id WHERE $table_name.submission_id NOT IN (%d) AND $table_name.form_id = %d ORDER BY $table_name.submitted_on DESC LIMIT 5", $current_submission_id, $form_id);
         return $wpdb->get_results($qry);
         
     }
@@ -3184,9 +3186,10 @@ class RM_DBManager
         $payments_table_name = RM_Table_Tech::get_table_name_for('PAYPAL_LOGS');
         $forms_table_name = RM_Table_Tech::get_table_name_for('FORMS');
         if(!empty($current_submission_id)){
-            $qry = "SELECT $table_name.submission_id, $table_name.submitted_on,$forms_table_name.form_name, $payments_table_name.bill, $payments_table_name.total_amount, $payments_table_name.status, $payments_table_name.pay_proc FROM $table_name INNER JOIN `$payments_table_name` ON $table_name.submission_id = $payments_table_name.submission_id INNER JOIN $forms_table_name on $forms_table_name.form_id = $payments_table_name.form_id WHERE $table_name.submission_id NOT IN ($current_submission_id) AND $table_name.user_email = '$email' ORDER BY $table_name.submitted_on DESC LIMIT 5";
+            $current_submission_id = absint($current_submission_id);
+            $qry = $wpdb->prepare("SELECT $table_name.submission_id, $table_name.submitted_on,$forms_table_name.form_name, $payments_table_name.bill, $payments_table_name.total_amount, $payments_table_name.status, $payments_table_name.pay_proc FROM $table_name INNER JOIN `$payments_table_name` ON $table_name.submission_id = $payments_table_name.submission_id INNER JOIN $forms_table_name on $forms_table_name.form_id = $payments_table_name.form_id WHERE $table_name.submission_id NOT IN (%d) AND $table_name.user_email = %s ORDER BY $table_name.submitted_on DESC LIMIT 5", $current_submission_id, $email);
         }else{
-            $qry = "SELECT $table_name.submission_id, $table_name.submitted_on,$forms_table_name.form_name, $payments_table_name.bill, $payments_table_name.total_amount, $payments_table_name.status, $payments_table_name.pay_proc, $payments_table_name.invoice, $table_name.unique_token FROM $table_name INNER JOIN `$payments_table_name` ON $table_name.submission_id = $payments_table_name.submission_id INNER JOIN $forms_table_name on $forms_table_name.form_id = $payments_table_name.form_id WHERE $table_name.user_email = '$email' ORDER BY $table_name.submitted_on DESC";
+            $qry = $wpdb->prepare("SELECT $table_name.submission_id, $table_name.submitted_on,$forms_table_name.form_name, $payments_table_name.bill, $payments_table_name.total_amount, $payments_table_name.status, $payments_table_name.pay_proc, $payments_table_name.invoice, $table_name.unique_token FROM $table_name INNER JOIN `$payments_table_name` ON $table_name.submission_id = $payments_table_name.submission_id INNER JOIN $forms_table_name on $forms_table_name.form_id = $payments_table_name.form_id WHERE $table_name.user_email = %s ORDER BY $table_name.submitted_on DESC", $email);
             
         }
         return $wpdb->get_results($qry);
@@ -3197,24 +3200,31 @@ class RM_DBManager
         $table_name = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
         $payments_table_name = RM_Table_Tech::get_table_name_for('PAYPAL_LOGS');
         $forms_table_name = RM_Table_Tech::get_table_name_for('FORMS');
-        $qry = "SELECT $table_name.submission_id, $table_name.submitted_on,$forms_table_name.form_name, $payments_table_name.bill, $payments_table_name.total_amount, $payments_table_name.status, $payments_table_name.pay_proc, $payments_table_name.invoice, $table_name.unique_token FROM $table_name INNER JOIN `$payments_table_name` ON $table_name.submission_id = $payments_table_name.submission_id INNER JOIN $forms_table_name on $forms_table_name.form_id = $payments_table_name.form_id WHERE $table_name.user_email = '$email' ";
+        $qry = "SELECT $table_name.submission_id, $table_name.submitted_on,$forms_table_name.form_name, $payments_table_name.bill, $payments_table_name.total_amount, $payments_table_name.status, $payments_table_name.pay_proc, $payments_table_name.invoice, $table_name.unique_token FROM $table_name INNER JOIN `$payments_table_name` ON $table_name.submission_id = $payments_table_name.submission_id INNER JOIN $forms_table_name on $forms_table_name.form_id = $payments_table_name.form_id WHERE $table_name.user_email = %s ";
+        $qry_args = array($email);
         if(!empty($status)){
-            $qry .= " && $payments_table_name.status = '$status'"; 
+            $qry .= " && $payments_table_name.status = %s";
+            $qry_args[] = $status;
         }
         if(!empty($start_date) && !empty($end_date)){
             $start_date = date('Y-m-d',strtotime($start_date));
             $end_date = date('Y-m-d', strtotime($end_date));
-            $qry .= " && $payments_table_name.posted_date BETWEEN '$start_date' AND '$end_date' ";
+            $qry .= " && $payments_table_name.posted_date BETWEEN %s AND %s ";
+            $qry_args[] = $start_date;
+            $qry_args[] = $end_date;
         }elseif(!empty($start_date) && empty($end_date)){
             $start_date = date('Y-m-d',strtotime($start_date));
             $end_date = date('Y-m-d');
-            $qry .= " && $payments_table_name.posted_date BETWEEN '$start_date' AND '$end_date' ";
+            $qry .= " && $payments_table_name.posted_date BETWEEN %s AND %s ";
+            $qry_args[] = $start_date;
+            $qry_args[] = $end_date;
         }elseif(empty($start_date) && !empty($end_date)){
             $end_date = date('Y-m-d',strtotime($end_date));
-            $qry .= " && $payments_table_name.posted_date <= '$end_date' ";
+            $qry .= " && $payments_table_name.posted_date <= %s ";
+            $qry_args[] = $end_date;
         }
         $qry .=" ORDER BY $table_name.submitted_on DESC";
         
-        return $wpdb->get_results($qry);
+        return $wpdb->get_results($wpdb->prepare($qry, $qry_args));
     }
 }

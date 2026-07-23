@@ -253,7 +253,8 @@ class RM_Field_Controller {
                     $dField->update_into_db(); 
             } else{
             foreach($request->req['cfields'] as $index=>$cf_id){
-                    if((int)$cf_id==0 || $cf_id==$dField->field_id)
+                    $cf_id = absint($cf_id);
+                    if($cf_id==0 || $cf_id==absint($dField->field_id))
                         continue;
                     $cField->load_from_db($cf_id);
                     $cType= $cField->get_field_type();

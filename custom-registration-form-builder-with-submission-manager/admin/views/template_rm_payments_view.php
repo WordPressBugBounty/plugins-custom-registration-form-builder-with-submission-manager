@@ -450,36 +450,11 @@ $form_type_status = $data->form_type_status;
                         <span  class="rm-modal-close">&times;</span>
                     </div>
                     <div class="rm-modal-container rm-payments-logs-container">
-                        <?php if($data->payment->log):?>
-                                <table class="rm-payments-logs-table rmagic-table"><?php
-                                    $logs = $data->payment->log;
-                                    foreach($logs as $key=>$log):?>
-                                    <tr>
-                                        <td><?php echo wp_kses_post((string)$key);?></td>
-                                        <td><?php 
-                                            if(is_array($log) || is_object($log)):?>
-                                            <table class="table-logs-<?php echo $key;?>">
-                                            <?php foreach($log as $ky => $log_a): ?>
-                                                <tr>
-                                                    <td><?php echo wp_kses_post((string)$ky); ?></td>
-                                                    <td><?php echo is_array($log_a) ? implode(', ', array_map('esc_html', $log_a)) : esc_html($log_a); ?></td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                            </table>
-                                            <?php
-                                            else:
-                                                echo wp_kses_post((string)$log);
-                                            endif;
-                                        ?></td>
-                                    </tr>
-                                    <?php
-                                    endforeach;?>
-                                </table>
-                        <?php
-                            else:?>
-                            <div class="rm-reports-no-data-found rmnotice rm-box-border rm-box-mb-25 rm-box-mt-16">No logs found.</div>
-                            <?php
-                             endif;?>
+                        <?php if($data->payment->log):
+                            RM_Utilities::echo_multilevel_payment_log($data->payment->log, 0, true, "rm-payments-logs-table rmagic-table");
+                        else: ?>
+                            <div class="rm-reports-no-data-found rmnotice rm-box-border rm-box-mb-25 rm-box-mt-16"><?php esc_html_e('No logs found','custom-registration-form-builder-with-submission-manager'); ?></div>
+                        <?php endif; ?>
                     </div>
                 </div>
         </div>

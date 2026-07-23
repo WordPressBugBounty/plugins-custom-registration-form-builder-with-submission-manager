@@ -3501,6 +3501,36 @@ class RM_Utilities {
         
         return $data;
     }
+
+    public static function echo_multilevel_payment_log($array, $level = 0, $table_format = false, $table_class = '') {
+        if ($table_format) {
+            echo '<table class="' . esc_attr($table_class) . '">';
+        }
+        foreach ($array as $key => $value) {
+            if ($table_format) {
+                echo '<tr>';
+                echo '<td>' . esc_html($key) . '</td>';
+                echo '<td>';
+            } else {
+                echo esc_html($key) . ': ';
+            }
+            if (is_iterable($value)) {
+                echo '<br>';
+                self::echo_multilevel_payment_log($value, $level + 1, $table_format, "table-logs-" . $key);
+            } else {
+                echo esc_html($value);
+            }
+            if ($table_format) {
+                echo '</td>';
+                echo '</tr>';
+            } else {
+                echo '<br>';
+            }
+        }
+        if ($table_format) {
+            echo '</table>';
+        }
+    }
     
     public static function rm_user_payments_details($user_email, $start_date='', $end_date='', $status=''){
         $payment_service = new RM_Payments_Service(); 

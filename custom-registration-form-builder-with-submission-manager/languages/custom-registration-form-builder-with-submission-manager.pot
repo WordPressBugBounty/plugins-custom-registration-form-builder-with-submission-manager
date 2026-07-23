@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RegistrationMagic Basic v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2026-07-13 11:35+0530\n"
+"POT-Creation-Date: 2026-07-22 17:02+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: RegistrationMagic Support <support@registrationmagic.com>\n"
@@ -713,8 +713,8 @@ msgstr ""
 #: admin/views/html/wc_shipping_field.php:220
 #: includes/class_rm_utilities.php:2301
 #: includes/class_rm_utilities_revamp.php:505
-#: libs/factory/class_rm_field_factory_revamp.php:2326
-#: libs/factory/class_rm_field_factory_revamp.php:2451
+#: libs/factory/class_rm_field_factory_revamp.php:2329
+#: libs/factory/class_rm_field_factory_revamp.php:2454
 msgid "United States"
 msgstr ""
 
@@ -723,8 +723,8 @@ msgstr ""
 #: admin/views/html/wc_shipping_field.php:220
 #: includes/class_rm_utilities.php:2107
 #: includes/class_rm_utilities_revamp.php:311
-#: libs/factory/class_rm_field_factory_revamp.php:2327
-#: libs/factory/class_rm_field_factory_revamp.php:2452
+#: libs/factory/class_rm_field_factory_revamp.php:2330
+#: libs/factory/class_rm_field_factory_revamp.php:2455
 msgid "Canada"
 msgstr ""
 
@@ -991,7 +991,7 @@ msgstr ""
 #: admin/views/template_rm_options_user.php:55
 #: admin/views/template_rm_options_user_privacy.php:36
 #: admin/views/template_rm_options_user_privacy.php:64
-#: admin/views/template_rm_payments_view.php:565
+#: admin/views/template_rm_payments_view.php:540
 #: admin/views/template_rm_paypal_field_add.php:74
 #: admin/views/template_rm_primary_field_add.php:111
 #: admin/views/template_rm_user_edit.php:38
@@ -2305,7 +2305,7 @@ msgstr ""
 #: admin/views/template_rm_field_picker.php:302
 #: includes/class_rm_utilities.php:190
 #: libs/factory/class_rm_field_factory.php:1016
-#: libs/factory/class_rm_field_factory_revamp.php:2860
+#: libs/factory/class_rm_field_factory_revamp.php:2863
 msgid "Privacy Policy"
 msgstr ""
 
@@ -6714,7 +6714,7 @@ msgstr ""
 
 #: admin/views/template_rm_payments_view.php:283
 #: admin/views/template_rm_payments_view.php:339
-#: admin/views/template_rm_payments_view.php:539
+#: admin/views/template_rm_payments_view.php:514
 #: admin/views/template_rm_reports_login.php:60
 #: includes/class_registration_magic.php:422
 #: includes/class_rm_ui_strings.php:736 includes/class_rm_ui_strings.php:3249
@@ -6750,57 +6750,61 @@ msgstr ""
 msgid "Payment Log"
 msgstr ""
 
-#: admin/views/template_rm_payments_view.php:494
+#: admin/views/template_rm_payments_view.php:456
+msgid "No logs found"
+msgstr ""
+
+#: admin/views/template_rm_payments_view.php:469
 msgid "All Products"
 msgstr ""
 
-#: admin/views/template_rm_payments_view.php:502
+#: admin/views/template_rm_payments_view.php:477
 msgid "Product Name"
 msgstr ""
 
-#: admin/views/template_rm_payments_view.php:503 external/PayPal/paypal.php:119
+#: admin/views/template_rm_payments_view.php:478 external/PayPal/paypal.php:119
 msgid "Quantity"
 msgstr ""
 
-#: admin/views/template_rm_payments_view.php:504
+#: admin/views/template_rm_payments_view.php:479
 #: admin/views/template_rm_widget_picker.php:79 external/PayPal/paypal.php:120
 msgid "Price"
 msgstr ""
 
-#: admin/views/template_rm_payments_view.php:505 external/PayPal/paypal.php:140
+#: admin/views/template_rm_payments_view.php:480 external/PayPal/paypal.php:140
 msgid "Total"
 msgstr ""
 
-#: admin/views/template_rm_payments_view.php:531
+#: admin/views/template_rm_payments_view.php:506
 msgid "Update Payment Status"
 msgstr ""
 
-#: admin/views/template_rm_payments_view.php:556
+#: admin/views/template_rm_payments_view.php:531
 msgid "Note"
 msgstr ""
 
-#: admin/views/template_rm_payments_view.php:558
+#: admin/views/template_rm_payments_view.php:533
 msgid ""
 "Enter details such as Check number etc. These notes will show up in "
 "transaction details."
 msgstr ""
 
-#: admin/views/template_rm_payments_view.php:564
+#: admin/views/template_rm_payments_view.php:539
 msgid "Status Successfully Updated."
 msgstr ""
 
-#: admin/views/template_rm_payments_view.php:564
+#: admin/views/template_rm_payments_view.php:539
 msgid "Error Occured"
 msgstr ""
 
-#: admin/views/template_rm_payments_view.php:564
+#: admin/views/template_rm_payments_view.php:539
 #: admin/views/template_rm_user_roles_manager.php:141
 #: libs/factory/class_rm_form_factory_revamp.php:13
 #: public/models/class_rm_frontend_form_multipage.php:384
 msgid "Update"
 msgstr ""
 
-#: admin/views/template_rm_payments_view.php:586
+#: admin/views/template_rm_payments_view.php:561
 msgid "No payment found."
 msgstr ""
 
@@ -12823,7 +12827,7 @@ msgid "Choose MailChip List"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1080
-#: libs/factory/class_rm_field_factory_revamp.php:200
+#: libs/factory/class_rm_field_factory_revamp.php:203
 msgid "Enter password again"
 msgstr ""
 
@@ -12832,7 +12836,7 @@ msgid "Enter email again"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:1092
-#: libs/factory/class_rm_field_factory_revamp.php:188
+#: libs/factory/class_rm_field_factory_revamp.php:191
 msgid "Repeat your password"
 msgstr ""
 
@@ -16233,7 +16237,7 @@ msgid "Has Attachment(s)"
 msgstr ""
 
 #: includes/class_rm_ui_strings.php:3443
-#: libs/factory/class_rm_field_factory_revamp.php:6845
+#: libs/factory/class_rm_field_factory_revamp.php:6848
 #: libs/factory/class_rm_form_factory_revamp.php:2043
 #, php-format
 msgid "Total Price: %s"
@@ -19283,13 +19287,13 @@ msgstr ""
 msgid "This field is required"
 msgstr ""
 
-#: libs/factory/class_rm_field_factory_revamp.php:732
-#: libs/factory/class_rm_field_factory_revamp.php:736
+#: libs/factory/class_rm_field_factory_revamp.php:735
+#: libs/factory/class_rm_field_factory_revamp.php:739
 msgid "Invalid price field"
 msgstr ""
 
-#: libs/factory/class_rm_field_factory_revamp.php:5916
-#: libs/factory/class_rm_field_factory_revamp.php:6772
+#: libs/factory/class_rm_field_factory_revamp.php:5919
+#: libs/factory/class_rm_field_factory_revamp.php:6775
 msgid "Loading States..."
 msgstr ""
 

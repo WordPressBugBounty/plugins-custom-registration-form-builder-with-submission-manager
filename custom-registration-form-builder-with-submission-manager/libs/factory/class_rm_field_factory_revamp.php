@@ -28,8 +28,11 @@ final class RM_Field_Factory_Revamp {
             $data_cond_value = "";
             $data_cond_action = isset($conditions['action']) ? $conditions['action'] : "";
             foreach ($conditions['rules'] as $rule) {
-                $controlling_field_id = $rule['controlling_field'];
-                $fields = $wpdb->get_results("SELECT field_type FROM {$wpdb->prefix}rm_fields WHERE field_id = $controlling_field_id");
+                $controlling_field_id = absint($rule['controlling_field']);
+                if ($controlling_field_id === 0) {
+                    continue;
+                }
+                $fields = $wpdb->get_results($wpdb->prepare("SELECT field_type FROM {$wpdb->prefix}rm_fields WHERE field_id = %d", $controlling_field_id));
 
                 if(isset($fields[0]->field_type)) {
                     if($fields[0]->field_type == "Username") {

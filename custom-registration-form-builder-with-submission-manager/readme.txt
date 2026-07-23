@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 7.0
-Stable tag: 6.0.9.5
+Stable tag: 6.0.9.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -400,15 +400,23 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 
 == Changelog ==
 
+= 6.0.9.6: July 22 2026 =
+* Security patches.
+* Minor UI improvements & bug fixes.
+
 = 6.0.9.5: July 13 2026 =
 * Fixed: Required fields not accepting "0" as input.
-* Security patches.
+* Security: Fixed unauthenticated payment bypass vulnerability.
+* Credit: Thanks to Pedro Pinho for responsibly reporting the security vulnerability.
 
 = 6.0.9.4: July 6 2026 =
 * New: Included option to add form field data to new submission email subject.
 * Fixed: Required attribute not working for T&C field when scrolling is mandatory.
-* Security patches.
-* Minor UI improvements & bug fixes.
+* Security: Fixed an IDOR vulnerability.
+* Security: Fixed an authorization vulnerability.
+* Security: Fixed a privilege escalation vulnerability.
+* Security: Fixed a SQL injection vulnerability.
+* Credit: Thanks to Artus KG for responsibly reporting these vulnerabilities.
 
 = 6.0.9.3: June 22 2026 =
 * Minor design adjustments.
@@ -1637,15 +1645,23 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 
 == Upgrade Notice ==
 
+= 6.0.9.6: July 22 2026 =
+* Security patches.
+* Minor UI improvements & bug fixes.
+
 = 6.0.9.5: July 13 2026 =
 * Fixed: Required fields not accepting "0" as input.
-* Security patches.
+* Security: Fixed unauthenticated payment bypass vulnerability.
+* Credit: Thanks to Pedro Pinho for responsibly reporting the security vulnerability.
 
 = 6.0.9.4: July 6 2026 =
 * New: Included option to add form field data to new submission email subject.
 * Fixed: Required attribute not working for T&C field when scrolling is mandatory.
-* Security patches.
-* Minor UI improvements & bug fixes.
+* Security: Fixed an IDOR vulnerability.
+* Security: Fixed an authorization vulnerability.
+* Security: Fixed a privilege escalation vulnerability.
+* Security: Fixed a SQL injection vulnerability.
+* Credit: Thanks to Artus KG for responsibly reporting these vulnerabilities.
 
 = 6.0.9.3: June 22 2026 =
 * Minor design adjustments.
