@@ -576,6 +576,16 @@ final class RM_Form_Factory_Revamp {
                             array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
                             continue;
                         }
+                        if($form->fields[$field_id]->field_type == 'Checkbox') {
+                            if(isset($sub_data[$field_name]) && !is_array($sub_data[$field_name])) {
+                                unset($sub_data[$field_name]);
+                                unset($sub_data[$field_name.'_other_input']);
+                            }
+                            if(!$save_submission && absint($form->fields[$field_id]->field_options->field_is_required) == 1 && (!isset($sub_data[$field_name]) || $this->is_required_field_empty($sub_data[$field_name]))) {
+                                array_push($errors, sprintf(esc_html__('%s is a required field','custom-registration-form-builder-with-submission-manager'), $form->fields[$field_id]->field_label));
+                                continue;
+                            }
+                        }
                         if(isset($sub_data[$field_name])) {
                             // Validating social fields
                             if(!empty($sub_data[$field_name])) {
@@ -698,6 +708,9 @@ final class RM_Form_Factory_Revamp {
                             if(in_array($form->fields[$field_id]->field_type, array('Fname','Lname','BInfo','Nickname','Website','SecEmail','PGAvatar'))) {
                                 $user_meta_fields[$profile_meta_arr[$form->fields[$field_id]->field_type]] = $data_block->value;
                             } else if(isset($form->fields[$field_id]->field_options->field_user_profile)) {
+                                if($form->fields[$field_id]->field_type == 'Checkbox' && !is_array($data_block->value) && !is_null($data_block->value)) {
+                                    continue;
+                                }
                                 if ($form->fields[$field_id]->field_options->field_user_profile == 'existing_user_meta') {
                                     $user_meta_fields[$form->fields[$field_id]->field_options->existing_user_meta_key] = $data_block->value;
                                 } else if ($form->fields[$field_id]->field_options->field_user_profile == 'define_new_user_meta') {

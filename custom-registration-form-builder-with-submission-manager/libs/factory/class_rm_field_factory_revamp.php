@@ -1348,7 +1348,6 @@ final class RM_Field_Factory_Revamp {
                 $checked = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
-        $checked = maybe_unserialize($checked);
 
         $label = "<span ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){

@@ -262,10 +262,13 @@ class RM_Front_Form_Controller
                         $meta_key= $fields->field_options->field_meta_add;
                     }
                     if(!empty($meta_key)){
+                        if($field->type === 'Checkbox' && !is_array($field->value) && !is_null($field->value)){
+                            continue;
+                        }
                         $profile_array[$meta_key] = $field->value;
                     }
                 }
- 
+
             }
         }
         $service->update_user_profile($email, $profile_array, true);

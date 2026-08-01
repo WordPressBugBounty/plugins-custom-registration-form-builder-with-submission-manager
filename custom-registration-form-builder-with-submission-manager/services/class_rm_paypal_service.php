@@ -63,15 +63,31 @@ class RM_Paypal_Service implements RM_Gateway_Service
     }
 
     private function has_positive_priced_billing_item($pricing_details) {
-        if (empty($pricing_details->billing) || !is_array($pricing_details->billing))
-            return false;
-
-        foreach ($pricing_details->billing as $item) {
-            if (isset($item->price) && floatval($item->price) > 0.0 && empty($item->zero_quantity_checkout))
+        foreach ($this->get_checkout_billing_items($pricing_details) as $item) {
+            if (isset($item->price) && floatval($item->price) > 0.0)
                 return true;
         }
 
         return false;
+    }
+
+    private function get_checkout_billing_items($pricing_details) {
+        if (empty($pricing_details->billing) || !is_array($pricing_details->billing))
+            return array();
+
+        $checkout_items = array();
+        foreach ($pricing_details->billing as $item) {
+            if (!empty($item->zero_quantity_checkout))
+                continue;
+
+            $qty = isset($item->qty) ? intval($item->qty) : 1;
+            if ($qty <= 0)
+                continue;
+
+            $checkout_items[] = $item;
+        }
+
+        return $checkout_items;
     }
 
     private function sanitize_payment_log_data($data) {
@@ -273,30 +289,35 @@ class RM_Paypal_Service implements RM_Gateway_Service
         }
         $sign = strpos($this_script, '?') ? '&' : '?';
 
+        $checkout_billing_items = $this->get_checkout_billing_items($pricing_details);
+
         $i = 1;
-        foreach ($pricing_details->billing as $item)
+        foreach ($checkout_billing_items as $item)
         {
             $this->paypal->add_field('item_name_' . $i, $item->label);
             $i++;
         }
-        $this->paypal->add_field('item_name_' . $i, $gopts->get_value_of('tax_rename'));
+        if ($pricing_details->tax > 0)
+            $this->paypal->add_field('item_name_' . $i, $gopts->get_value_of('tax_rename'));
         
         $i = 1;
-        foreach ($pricing_details->billing as $item)
+        foreach ($checkout_billing_items as $item)
         {
             $this->paypal->add_field('amount_' . $i, $item->price);
             $i++;
         }
-        $this->paypal->add_field('amount_' . $i, $pricing_details->tax);
+        if ($pricing_details->tax > 0)
+            $this->paypal->add_field('amount_' . $i, $pricing_details->tax);
                 
         $i = 1;
-        foreach ($pricing_details->billing as $item)
+        foreach ($checkout_billing_items as $item)
         {
             $qty = isset($item->qty) ? $item->qty : 1;
             $this->paypal->add_field('quantity_' . $i, $qty);
             $i++;
         }
-        $this->paypal->add_field('quantity_' . $i, 1);
+        if ($pricing_details->tax > 0)
+            $this->paypal->add_field('quantity_' . $i, 1);
         
         $total_amount = $pricing_details->total_price;
         $invoice = (string) date("His") . rand(1234, 9632);
@@ -655,7 +676,7 @@ class RM_Paypal_Service implements RM_Gateway_Service
             return false;
 
         $order_items = array();
-        foreach( $pricing_details->billing as $item){
+        foreach( $this->get_checkout_billing_items($pricing_details) as $item){
             $items = array();
             $items['name'] = $item->label;
             $items['unit_amount'] = array('currency_code'=>$this->currency,'value'=>$item->price);

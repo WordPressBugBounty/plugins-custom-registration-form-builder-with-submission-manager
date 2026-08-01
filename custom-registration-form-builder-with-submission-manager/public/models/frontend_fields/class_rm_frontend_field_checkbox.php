@@ -15,4 +15,33 @@ class RM_Frontend_Field_Checkbox extends RM_Frontend_Field_Multivalue
         $this->field_value = RM_Utilities::process_field_options($value);
     }
 
+    public function get_prepared_data($request)
+    {
+        $data = new stdClass;
+        $data->field_id = $this->get_field_id();
+        $data->type = $this->get_field_type();
+        $data->label = $this->get_field_label();
+
+        if (!isset($request[$this->field_name])) {
+            $data->value = null;
+            return $data;
+        }
+
+        if (!is_array($request[$this->field_name])) {
+            $data->value = null;
+            return $data;
+        }
+
+        $data->value = array();
+        foreach ($request[$this->field_name] as $val) {
+            if (is_array($val)) {
+                continue;
+            }
+
+            $data->value[] = sanitize_textarea_field($val);
+        }
+
+        return $data;
+    }
+
 }
