@@ -1212,12 +1212,12 @@ class RM_Migrator
 
                                             $dst_data_sub[$s->submission_id]['data'][$f_id] = new stdClass;
                                             $dst_data_sub[$s->submission_id]['data'][$f_id]->label = stripslashes((string)$fields[$f_id]->Name);
-                                            $dst_data_sub[$s->submission_id]['data'][$f_id]->value = maybe_unserialize($s->value);
+                                            $dst_data_sub[$s->submission_id]['data'][$f_id]->value = RM_Utilities::safe_maybe_unserialize($s->value);
                                         } else
                                         {
                                             $dst_data_sub[$s->submission_id]['data'][$f_id] = new stdClass;
                                             $dst_data_sub[$s->submission_id]['data'][$f_id]->label = stripslashes((string)$label);
-                                            $dst_data_sub[$s->submission_id]['data'][$f_id]->value = maybe_unserialize($s->value);
+                                            $dst_data_sub[$s->submission_id]['data'][$f_id]->value = RM_Utilities::safe_maybe_unserialize($s->value);
                                         }
                                     } else
                                         $is_row_valid = false;
@@ -1960,7 +1960,7 @@ class RM_Migrator
             if (!$row['value'])
                 continue;
 
-            $sub_data = maybe_unserialize($row['value']);
+            $sub_data = RM_Utilities::safe_maybe_unserialize($row['value']);
             if (!$sub_data)
             {
                 error_log("Damaged data found, trying to repair..");

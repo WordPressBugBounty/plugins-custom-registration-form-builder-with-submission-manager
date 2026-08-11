@@ -313,7 +313,8 @@ class Registration_Magic
         //echo '<pre>';print_r($related_subs);die;
         
         foreach($related_subs as $related_sub){
-            $submission_data = unserialize($related_sub->data);
+            $submission_data = RM_Utilities::safe_maybe_unserialize($related_sub->data);
+            $submission_data = is_array($submission_data) ? $submission_data : array();
             $data = '';
             foreach($submission_data as $submission){
                 if(is_array($submission->value)){
@@ -378,7 +379,8 @@ class Registration_Magic
             if(!empty($payment_detail)){
                 $payer_name = '';
                 $payer_email = '';
-                $payment_data = unserialize($payment_detail->log);
+                $payment_data = RM_Utilities::safe_maybe_unserialize($payment_detail->log);
+                $payment_data = is_array($payment_data) ? $payment_data : array();
                 
                 if(!empty($payment_data['payer']->name)){
                     $payer_name = $payment_data['payer']->name;
@@ -526,7 +528,8 @@ class Registration_Magic
         $rm_sr=new RM_Services;
         $related_subs=$rm_sr->get_submissions_by_email($email_address);
         foreach($related_subs as $related_sub){
-            $form_data = unserialize($related_sub->data);
+            $form_data = RM_Utilities::safe_maybe_unserialize($related_sub->data);
+            $form_data = is_array($form_data) ? $form_data : array();
             foreach($form_data as $key=>$value){
                 if($value->type=='File'){
                     wp_delete_attachment( $value->value[0] , true );

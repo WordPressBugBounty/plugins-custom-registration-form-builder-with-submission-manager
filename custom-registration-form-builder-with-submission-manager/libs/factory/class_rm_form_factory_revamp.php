@@ -1295,7 +1295,8 @@ final class RM_Form_Factory_Revamp {
         } else {
             if(!empty($submission_id)) {
                 $old_submission = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_submissions WHERE submission_id = %d", $submission_id));
-                $old_db_data = maybe_unserialize($old_submission->data);
+                $old_db_data = RM_Utilities::safe_maybe_unserialize($old_submission->data);
+                $old_db_data = is_array($old_db_data) ? $old_db_data : array();
                 $db_data = array_replace($old_db_data, $db_data);
                 foreach($db_data as $fid => $new_data) {
                     $result = $wpdb->update(

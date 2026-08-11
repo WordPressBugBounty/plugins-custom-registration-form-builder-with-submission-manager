@@ -146,7 +146,7 @@ class RM_Submissions extends RM_Base_Model
 
     public function get_data()
     {
-        return RM_Utilities::get_formatted_sub_data($this->form_id, maybe_unserialize($this->data));
+        return RM_Utilities::get_formatted_sub_data($this->form_id, RM_Utilities::safe_maybe_unserialize($this->data));
     }
 
     public function get_submitted_on()

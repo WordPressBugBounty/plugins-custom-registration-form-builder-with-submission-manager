@@ -92,7 +92,7 @@ class Element_Address extends Element
     {
         @ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
         $name = $this->_attributes['name'];
-        $value = wp_parse_args(maybe_unserialize($this->getAttribute('value')), $this->default_add);
+        $value = wp_parse_args(RM_Utilities::safe_maybe_unserialize($this->getAttribute('value')), $this->default_add);
         if($this->isRequired())
             $required = 'required';
         else

@@ -603,7 +603,8 @@ class RM_Services {
                 if (empty($attr_value)) {
                     $data[$row_attr_name] = '';
                 } elseif($row_attr_name == 'field_ids') {
-                    $old_field_ids = @unserialize(trim((string)$attr_value));
+                    $old_field_ids = RM_Utilities::safe_unserialize((string)$attr_value);
+                    $old_field_ids = is_array($old_field_ids) ? $old_field_ids : array();
                     $new_field_ids = array();
                     foreach($old_field_ids as $old_field_id) {
                         if(!empty($old_field_id)) {
@@ -652,7 +653,8 @@ class RM_Services {
 
                 $val = $attr_value;
 
-                $val = maybe_unserialize((string) $val);
+                $val = RM_Utilities::safe_maybe_unserialize((string) $val);
+                $val = is_array($val) ? $val : array();
                 $new_val = array();
                 foreach ($val as $key => $data) {
                     if (isset($this->field_id_array[$key]))
@@ -1852,7 +1854,7 @@ class RM_Services {
         $WCBilling_str = '';
         $WCShipping_str = '';
         foreach ($submissions as $submission) {
-            $value = maybe_unserialize($submission->value);
+            $value = RM_Utilities::safe_maybe_unserialize($submission->value);
             if (is_array($value)) {
                 if (isset($value['rm_field_type']) && $value['rm_field_type'] == 'File') {
                     unset($value['rm_field_type']);

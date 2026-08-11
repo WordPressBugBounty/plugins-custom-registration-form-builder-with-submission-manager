@@ -79,7 +79,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_PUBLIC_DIR . 'widgets/html/a
             if(!isset($sub->type)){
                                 $sub->type = '';
                             }
-            $meta = RM_Utilities::strip_slash_array(maybe_unserialize($meta));
+            $meta = RM_Utilities::strip_slash_array(RM_Utilities::safe_maybe_unserialize($meta));
             ?>
             <div class="rm-panel-row dbfl">
 

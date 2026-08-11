@@ -126,7 +126,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
                             <?php
                             if (is_array($data->payments) || is_object($data->payments))
                                 foreach ($data->payments as $payment):
-                                    $payment->data_us = RM_Utilities::strip_slash_array(maybe_unserialize($payment->data));
+                                    $payment->data_us = RM_Utilities::strip_slash_array(RM_Utilities::safe_maybe_unserialize($payment->data));
                                     $read_status= $payment->is_read==1 ? 'readed': 'unreaded';
                                 ?>
                                 <tr  class="<?php echo $read_status; ?>">

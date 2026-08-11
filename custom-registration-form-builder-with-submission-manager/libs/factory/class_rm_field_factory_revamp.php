@@ -19,6 +19,30 @@ final class RM_Field_Factory_Revamp {
         return $str;
     }
 
+    private function safely_unserialize_form_value($value) {
+        return RM_Utilities::safe_maybe_unserialize($value);
+    }
+
+    private function normalize_checkbox_checked_value($value) {
+        $value = $this->safely_unserialize_form_value($value);
+
+        if (is_array($value)) {
+            $checked = array();
+            foreach ($value as $item) {
+                if (is_scalar($item) || is_null($item)) {
+                    $checked[] = (string)$item;
+                }
+            }
+            return $checked;
+        }
+
+        if (is_scalar($value) || is_null($value)) {
+            return (string)$value;
+        }
+
+        return '';
+    }
+
     private function conditional_attributes($attributes, $field) {
         if (!empty($field->field_options->conditions['rules'])){
             global $wpdb;
@@ -1348,6 +1372,7 @@ final class RM_Field_Factory_Revamp {
                 $checked = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
+        $checked = $this->normalize_checkbox_checked_value($checked);
 
         $label = "<span ".$this->print_attributes($main_label_attributes).">$icon {$field->field_label}";
         if (isset($field->field_options->field_is_required) && $field->field_options->field_is_required == 1){
@@ -1895,6 +1920,7 @@ final class RM_Field_Factory_Revamp {
 
     public function create_address_field($field = null, $ex_sub_id = 0) {
         $meta_value = "";
+        $decode_meta_value = false;
         $attributes = array(
             'type' => 'text',
             'class' => 'rmform-control',
@@ -1912,6 +1938,7 @@ final class RM_Field_Factory_Revamp {
         }
         if(isset($old_value)) {
             $meta_value = $old_value;
+            $decode_meta_value = true;
         }
         if (is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
             if ($field->field_options->field_user_profile == 'existing_user_meta') {
@@ -1920,7 +1947,12 @@ final class RM_Field_Factory_Revamp {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
-        $meta_value = maybe_unserialize($meta_value);
+        if ($decode_meta_value) {
+            $meta_value = $this->safely_unserialize_form_value($meta_value);
+        }
+        if (!is_array($meta_value)) {
+            $meta_value = array();
+        }
 
         if ($field->field_options->field_address_type === "ca") {
             $field_ca_address1_en = $field->field_options->field_ca_address1_en ;
@@ -3989,8 +4021,10 @@ final class RM_Field_Factory_Revamp {
         echo "<div class= 'rminput'>";
         echo "<div class= 'rm_field_type_repeatable_container' id='rm_field_type_repeatable_container_".$field->field_id."'>";
 
+        $decode_value = false;
         if(isset($old_value)) {
             $value = $old_value;
+            $decode_value = true;
         }
         if(is_user_logged_in() && isset($field->field_options->field_user_profile) && !isset($old_value)) {
             if($field->field_options->field_user_profile == 'existing_user_meta') {
@@ -3999,7 +4033,12 @@ final class RM_Field_Factory_Revamp {
                 $value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
-        $value = maybe_unserialize($value);
+        if ($decode_value) {
+            $value = $this->safely_unserialize_form_value($value);
+        }
+        if (!is_array($value)) {
+            $value = array($value);
+        }
 		if(empty($value)) {
 			$value = array('');
 		}
@@ -4612,6 +4651,7 @@ final class RM_Field_Factory_Revamp {
         $input_id = 'input_id_'.$field->field_type . '_' . $field->field_id;
         $label_id = 'label_id_'.$field->field_type . '_' . $field->field_id;
         $meta_value = "";
+        $decode_meta_value = false;
         $attributes = array (
             'name' => $field->field_type . '_' . $field->field_id . "[]",
             'class' => 'rmform-control '. 'select_'.$field->field_id,
@@ -4638,6 +4678,7 @@ final class RM_Field_Factory_Revamp {
 
         if(isset($old_value)) {
             $meta_value = $old_value;
+            $decode_meta_value = true;
         } elseif(isset($field->field_options->field_default_value)) {
             $meta_value = $field->field_options->field_default_value;
         }
@@ -4648,7 +4689,9 @@ final class RM_Field_Factory_Revamp {
                 $meta_value = get_user_meta(get_current_user_id(), $field->field_options->field_meta_add, true);
             }
         }
-        $meta_value = maybe_unserialize($meta_value);
+        if ($decode_meta_value) {
+            $meta_value = $this->safely_unserialize_form_value($meta_value);
+        }
 
         // conditional attributes
         $attributes = $this->conditional_attributes($attributes, $field);

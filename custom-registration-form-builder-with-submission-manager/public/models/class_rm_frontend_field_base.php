@@ -156,6 +156,9 @@ class RM_Frontend_Field_Base
             // Check if this is primary email field (To implement the real time validation)
             if(strtolower($this->field_type)=="email" && $this->is_primary())
                 $class_name= "Element_UserEmail";
+
+            if(class_exists($class_name) === false)
+                $class_name = "Element_Textbox";
             
             $this->set_conditional_properties();
             $label = $this->get_formatted_label();

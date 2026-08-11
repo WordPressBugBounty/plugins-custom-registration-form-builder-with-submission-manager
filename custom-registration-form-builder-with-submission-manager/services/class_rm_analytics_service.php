@@ -179,7 +179,7 @@ class RM_Analytics_Service extends RM_Services
 
                             foreach($temp as $single_sub)
                             {
-                                $sub_values=maybe_unserialize($single_sub->value);
+                                $sub_values=RM_Utilities::safe_maybe_unserialize($single_sub->value);
                                 if(is_array($sub_values))
                                 {
                                     foreach($sub_values as $values)
@@ -208,7 +208,7 @@ class RM_Analytics_Service extends RM_Services
                         $res['N/A'] = 0;
                         foreach($temp as $single_sub)
                         {
-                            $sub_values = is_object($single_sub) ? maybe_unserialize($single_sub->value) : $single_sub;
+                            $sub_values = is_object($single_sub) ? RM_Utilities::safe_maybe_unserialize($single_sub->value) : $single_sub;
                             
                             if(is_array($sub_values))
                             {

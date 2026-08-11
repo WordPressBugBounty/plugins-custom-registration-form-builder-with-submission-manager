@@ -181,7 +181,7 @@ class RM_Reports_Service extends RM_Services
         $WCBilling_str = '';
         $WCShipping_str = '';
         foreach ($submissions as $submission) {
-            $value = maybe_unserialize($submission->value);
+            $value = RM_Utilities::safe_maybe_unserialize($submission->value);
             if (is_array($value)) {
                 if (isset($value['rm_field_type']) && $value['rm_field_type'] == 'File') {
                     unset($value['rm_field_type']);

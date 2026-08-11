@@ -113,7 +113,8 @@ class RM_Job_Manager {
             if (!empty($results)) {
                 foreach ($results as $result) {
                     //error_log("Doing a job, email: " . $result->user_email);
-                    $sub_values = maybe_unserialize($result->data);
+                    $sub_values = RM_Utilities::safe_maybe_unserialize($result->data);
+                    $sub_values = is_array($sub_values) ? $sub_values : array();
                     $processed_msg = $job->mail_packet['message'];
 
                     foreach ($job->form_fields as $field_placeholder) {

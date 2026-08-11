@@ -51,7 +51,7 @@ class RM_Submission_Fields extends RM_Base_Model
 
     public function get_value()
     {
-        return maybe_unserialize($this->value);
+        return RM_Utilities::safe_maybe_unserialize($this->value);
     }
 
     public function get_form_id()

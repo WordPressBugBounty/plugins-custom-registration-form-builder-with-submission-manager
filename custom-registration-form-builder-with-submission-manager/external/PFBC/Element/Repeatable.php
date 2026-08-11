@@ -51,7 +51,7 @@ class Element_Repeatable extends Element
 			$this->_attributes["name"] .= "[]";
         
         $this->renderRepeatable('start');
-        $counter = (isset($this->_attributes["value"]) && !empty($this->_attributes["value"])) ? count(maybe_unserialize($this->_attributes["value"])) : 1;
+        $counter = (isset($this->_attributes["value"]) && !empty($this->_attributes["value"])) ? count(RM_Utilities::safe_maybe_unserialize($this->_attributes["value"])) : 1;
         for ($i = 0; $i <= $counter-1; $i++)
         {
             $this->renderRepeatable("prepend");

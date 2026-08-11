@@ -132,7 +132,7 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                                 $sub->type = '';
                             }
                             $type = $sub->type;
-                            $meta = RM_Utilities::strip_slash_array(maybe_unserialize($meta));
+                            $meta = RM_Utilities::strip_slash_array(RM_Utilities::safe_maybe_unserialize($meta));
                             ?>
                             <div class="rm-profile-field-row">
 

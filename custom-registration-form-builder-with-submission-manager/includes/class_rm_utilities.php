@@ -23,6 +23,46 @@ class RM_Utilities {
         
     }
 
+    public static function safe_unserialize($value) {
+        if (!is_string($value)) {
+            return false;
+        }
+
+        $unserialized_value = @unserialize(trim($value), array('allowed_classes' => array('stdClass')));
+        return self::remove_incomplete_unserialized_objects($unserialized_value);
+    }
+
+    public static function safe_maybe_unserialize($value) {
+        if (is_string($value) && is_serialized($value)) {
+            $unserialized_value = self::safe_unserialize($value);
+            return $unserialized_value === false && trim($value) !== serialize(false) ? $value : $unserialized_value;
+        }
+
+        return $value;
+    }
+
+    private static function remove_incomplete_unserialized_objects($value) {
+        if (is_object($value)) {
+            if (get_class($value) === '__PHP_Incomplete_Class') {
+                return '';
+            }
+
+            foreach ($value as $key => $item) {
+                $value->$key = self::remove_incomplete_unserialized_objects($item);
+            }
+
+            return $value;
+        }
+
+        if (is_array($value)) {
+            foreach ($value as $key => $item) {
+                $value[$key] = self::remove_incomplete_unserialized_objects($item);
+            }
+        }
+
+        return $value;
+    }
+
     public static function get_instance() {
         if (!isset(self::$instance) && !( self::$instance instanceof RM_Utilities )) {
             self::$instance = new RM_Utilities();
@@ -2469,7 +2509,8 @@ class RM_Utilities {
                     $submissions= RM_DBManager::get_latest_submission_for_user($user->user_email,array($form_id));
                     if(!empty($submissions) && is_array($submissions))
                     {
-                        $data= maybe_unserialize($submissions[0]->data);
+                        $data= self::safe_maybe_unserialize($submissions[0]->data);
+                        $data = is_array($data) ? $data : array();
                         $country='';
                         $country_field= RM_DBManager::get_field_by_type($form_id,'Country');
                         if(!empty($country_field) && isset($data[$country_field->field_id])){
@@ -2504,7 +2545,8 @@ class RM_Utilities {
                 $initial= ' User ';
             }
             foreach($submissions as $submission){ 
-                $data= maybe_unserialize($submission->data);
+                $data= self::safe_maybe_unserialize($submission->data);
+                $data = is_array($data) ? $data : array();
                 $html .= "<div class='rm-rgfeed'> ";
             
                   if($field->field_options->show_gravatar){
@@ -2515,7 +2557,8 @@ class RM_Utilities {
                     $html .= RM_UI_Strings::get("LABEL_SUBMITTED_ON")." <b>". self::format_on_time($submission->submitted_on)."</b>";
                 }
                 if(!$field->field_options->hide_country){
-                    $data= maybe_unserialize($submission->data);
+                    $data= self::safe_maybe_unserialize($submission->data);
+                    $data = is_array($data) ? $data : array();
                     $country='';
                     $country_field= RM_DBManager::get_field_by_type($form_id,'Country');
                     if(!empty($country_field) && isset($data[$country_field->field_id])){

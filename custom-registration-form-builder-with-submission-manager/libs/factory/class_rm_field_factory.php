@@ -160,8 +160,8 @@ class RM_Field_Factory {
     public function create_url_field(){
         if(is_user_logged_in() && !$this->prevent_value_update && !isset($_GET['form_prev']) && !empty($this->field_options->field_meta_add)){
             $current_user = wp_get_current_user();  
-            $url_info = maybe_unserialize(get_user_meta($current_user->ID,$this->get_user_meta_key(), true));
-            $this->opts['value'] = empty($url_info) ? $this->opts['value'] : $url_info['url'];
+            $url_info = get_user_meta($current_user->ID,$this->get_user_meta_key(), true);
+            $this->opts['value'] = is_array($url_info) && !empty($url_info['url']) ? $url_info['url'] : $this->opts['value'];
         }
         return new RM_Frontend_Field_URL($this->db_field->field_id,'Url', '', $this->db_field->field_label, $this->opts, $this->db_field->page_no, $this->db_field->is_field_primary, $this->x_opts);
     }
