@@ -22,7 +22,7 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
             container: '#rm_front_sub_tabs',
             animation: 'fade',
             accentColor: g_rm_acc_color,
-            activeTabIndex: <?php echo esc_html($data->active_tab_index); ?>
+            activeTabIndex: <?php echo absint($data->active_tab_index); ?>
         });
     });
 

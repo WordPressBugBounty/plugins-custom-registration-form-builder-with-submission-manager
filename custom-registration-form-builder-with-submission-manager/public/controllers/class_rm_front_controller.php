@@ -290,9 +290,9 @@ class RM_Front_Controller {
                     }
                     if(isset($request->req['activetab']) && $request->req['activetab'] != ''){
                         $distinct = true;
-                        $active_tabs = $request->req['activetab'];
+                        $active_tabs = is_numeric($request->req['activetab']) ? absint($request->req['activetab']) : 0;
                     }
-                    $data->active_tab_index = $distinct ? $active_tabs : (isset($request->req['rm_tab']) ? (int) $request->req['rm_tab'] : 0);
+                    $data->active_tab_index = $distinct ? absint($active_tabs) : ((isset($request->req['rm_tab']) && is_numeric($request->req['rm_tab'])) ? absint($request->req['rm_tab']) : 0);
                     if($layout_view != '') {$data->section_style="display:block;";}
                     switch($layout_view){
                         case 'registrations': $view = $this->mv_handler->setView('registrations_view', true); break;

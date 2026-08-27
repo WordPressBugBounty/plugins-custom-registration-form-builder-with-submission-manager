@@ -228,7 +228,7 @@ function rm_calc_total_pricing(form_id){
                 ele_price = 0;
             }   
             qty = parseInt(qty);
-            if(isNaN(qty) || Math.sign(qty) == -1)
+            if(isNaN(qty) || qty < 1)
                 qty = 1;
            tot_price += parseFloat(ele_price)*qty;
         });     

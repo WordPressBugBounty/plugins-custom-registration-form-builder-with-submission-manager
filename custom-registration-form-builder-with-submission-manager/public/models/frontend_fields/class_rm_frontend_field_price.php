@@ -129,8 +129,11 @@ class RM_Frontend_Field_Price extends RM_Frontend_Field_Base
         {
             case "fixed":
                 $quantity = 1;
-                $value = isset($request[$this->field_name]) ? $request[$this->field_name] : null;
-                $value = $value ? "$value &times; $quantity" : null;
+                if ($this->currency_pos == 'before')
+                    $value = $paypal_field->get_name() . " (" . $this->curr_symbol . " " . $paypal_field->get_value() . ")";
+                else
+                    $value = $paypal_field->get_name() . " (" . $paypal_field->get_value() . " " . $this->curr_symbol . ")";
+                $value = "$value &times; $quantity";
                 $data = new stdClass;
                 $data->field_id = $this->get_field_id();
                 $data->type = 'Price';
@@ -164,10 +167,6 @@ class RM_Frontend_Field_Price extends RM_Frontend_Field_Base
         switch ($paypal_field->get_type())
         {
             case "fixed":
-                if(!isset($request[$this->field_name])) {
-                    break;
-                }
-
                 $quantity = 1;
 
                 $price = floatval($paypal_field->get_value());

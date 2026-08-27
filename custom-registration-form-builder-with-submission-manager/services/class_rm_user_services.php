@@ -856,6 +856,99 @@ FB.api('/me',{fields: 'first_name,email'}, function (response) {
 
         return false;
     }
+
+    private function log_failed_facebook_login($failure_reason, $username_used = '', $email = '') {
+        $login_service = new RM_Login_Service();
+        $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+        $login_service->insert_login_log(array(
+            'email' => sanitize_email($email),
+            'username_used' => sanitize_text_field($username_used),
+            'ip' => $ip,
+            'time' => current_time('timestamp'),
+            'status' => 0,
+            'type' => 'social',
+            'result' => 'failure',
+            'failure_reason' => sanitize_text_field($failure_reason),
+            'social_type' => 'facebook'
+        ));
+    }
+
+    private function validate_facebook_token($access_token) {
+        $result = array(
+            'valid' => false,
+            'reason' => 'facebook_invalid_token',
+            'email' => '',
+            'first_name' => '',
+            'app_id' => ''
+        );
+
+        $access_token = is_scalar($access_token) ? trim((string)$access_token) : '';
+        if ($access_token === '')
+            return $result;
+
+        $gopts = new RM_Options;
+        if ($gopts->get_value_of('enable_facebook') !== 'yes') {
+            $result['reason'] = 'facebook_disabled';
+            return $result;
+        }
+
+        $fb_app_id = trim((string)$gopts->get_value_of('facebook_app_id'));
+        $fb_app_secret = trim((string)$gopts->get_value_of('facebook_app_secret'));
+        if ($fb_app_id === '' || $fb_app_secret === '') {
+            $result['reason'] = 'facebook_config_missing';
+            return $result;
+        }
+
+        $appsecret_proof = hash_hmac('sha256', $access_token, $fb_app_secret);
+        $debug_url = add_query_arg(array(
+            'input_token' => $access_token,
+            'access_token' => $fb_app_id . '|' . $fb_app_secret,
+            'appsecret_proof' => $appsecret_proof
+        ), 'https://graph.facebook.com/v2.12/debug_token');
+
+        $debug_response = wp_remote_get($debug_url);
+        if (is_wp_error($debug_response))
+            return $result;
+
+        $debug_body = json_decode(wp_remote_retrieve_body($debug_response));
+        if (!is_object($debug_body) || empty($debug_body->data) || !is_object($debug_body->data))
+            return $result;
+
+        $token_data = $debug_body->data;
+        $result['app_id'] = isset($token_data->app_id) ? (string)$token_data->app_id : '';
+        if (empty($token_data->is_valid))
+            return $result;
+
+        if ($result['app_id'] !== $fb_app_id) {
+            $result['reason'] = 'facebook_app_mismatch';
+            return $result;
+        }
+
+        if (isset($token_data->expires_at) && intval($token_data->expires_at) > 0 && intval($token_data->expires_at) < time())
+            return $result;
+
+        $me_url = add_query_arg(array(
+            'fields' => 'id,first_name,email',
+            'access_token' => $access_token,
+            'appsecret_proof' => $appsecret_proof
+        ), 'https://graph.facebook.com/v2.12/me');
+
+        $me_response = wp_remote_get($me_url);
+        if (is_wp_error($me_response))
+            return $result;
+
+        $me_body = json_decode(wp_remote_retrieve_body($me_response));
+        if (!is_object($me_body) || empty($me_body->email) || !is_email($me_body->email)) {
+            $result['reason'] = 'facebook_email_missing';
+            return $result;
+        }
+
+        $result['valid'] = true;
+        $result['reason'] = '';
+        $result['email'] = sanitize_email($me_body->email);
+        $result['first_name'] = isset($me_body->first_name) ? sanitize_text_field($me_body->first_name) : '';
+        return $result;
+    }
     
     public function social_login_using_email($user_email = null, $user_fname = null, $type = null, $token = null) {
         $user_email = isset($_POST['email']) ? sanitize_email($_POST['email']) : $user_email;
@@ -865,21 +958,16 @@ FB.api('/me',{fields: 'first_name,email'}, function (response) {
         $resp = array('code' => 'denied', 'msg' => '');
         switch ($type) {
             case 'facebook':
-                $accessToken = sanitize_text_field($_POST['token']);
-                if(empty($accessToken))
-                    break;
-
-                
-                $gopts = new RM_Options;
-                $fb_app_id = $gopts->get_value_of('facebook_app_id');
-                $fb_app_secret = $gopts->get_value_of('facebook_app_secret');
-
-                $response = wp_remote_get('https://graph.facebook.com/v2.12/me?fields=email&access_token='.$accessToken);
-                $response =  json_decode(wp_remote_retrieve_body($response));
-
-                if(is_object($response) && isset($response->email)) {
-                    $user_email = $response->email;
+                $accessToken = isset($_POST['token']) ? sanitize_text_field($_POST['token']) : $token;
+                $facebook_validation = $this->validate_facebook_token($accessToken);
+                if(!empty($facebook_validation['valid'])) {
+                    $user_email = $facebook_validation['email'];
+                    $user_fname = $facebook_validation['first_name'];
                     $login_success = true;
+                } else {
+                    $this->log_failed_facebook_login($facebook_validation['reason'], $user_email);
+                    $resp['msg'] = __('Invalid Facebook token','custom-registration-form-builder-with-submission-manager');
+                    echo wp_kses_post((string)json_encode($resp)); die;
                 }
                 break;
             case 'google':

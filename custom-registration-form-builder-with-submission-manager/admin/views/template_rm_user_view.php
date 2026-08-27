@@ -181,7 +181,7 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                                     } else {
                                         if($type=='Rating')
                                         {
-                                           echo '<div class="rateit" id="rateit5" data-rateit-min="0" data-rateit-max="5" data-rateit-value="'.$meta.'" data-rateit-ispreset="true" data-rateit-readonly="true"></div>';
+                                           echo '<div class="rateit" id="rateit5" data-rateit-min="0" data-rateit-max="5" data-rateit-value="'.esc_attr($meta).'" data-rateit-ispreset="true" data-rateit-readonly="true"></div>';
                                  
                                         }
                                         elseif ($sub->type == 'Radio' || $sub->type == 'Select') {   

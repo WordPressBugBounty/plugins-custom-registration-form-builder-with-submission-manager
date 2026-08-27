@@ -208,7 +208,7 @@ if ($data->is_user) {
                                                     $rf = new Element_Rating("", "", $r_sub);
                                                     $rf->render();
                                                 } else {
-                                                    echo '<div class="rateit" id="rateit5" data-rateit-min="0" data-rateit-max="5" data-rateit-value="' . wp_kses_post((string)$meta) . '" data-rateit-ispreset="true" data-rateit-readonly="true"></div>';
+                                                    echo '<div class="rateit" id="rateit5" data-rateit-min="0" data-rateit-max="5" data-rateit-value="' . esc_attr($meta) . '" data-rateit-ispreset="true" data-rateit-readonly="true"></div>';
                                                 }
                                             } elseif ($sub->type == 'Radio' || $sub->type == 'Select') {
                                                 echo wp_kses_post((string)RM_Utilities::get_lable_for_option($field_id, $meta));

@@ -26,9 +26,9 @@ $user_id = isset($data->user) ? $data->user->ID : null;
             container: '#rm_front_sub_tabs',
             animation: 'fade',
             accentColor: g_rm_acc_color,
-            activeTabIndex: <?php echo wp_kses_post((string)$data->active_tab_index); ?>
+            activeTabIndex: <?php echo absint($data->active_tab_index); ?>
         });
-        redirecttosametab(<?php echo wp_kses_post((string)$data->active_tab_index); ?>);
+        redirecttosametab(<?php echo absint($data->active_tab_index); ?>);
     });
 
     function get_tab_and_redirect(reqpagestr) {

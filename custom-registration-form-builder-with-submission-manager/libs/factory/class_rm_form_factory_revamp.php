@@ -50,6 +50,19 @@ final class RM_Form_Factory_Revamp {
         return $value === '' || (is_array($value) && empty($value));
     }
 
+    private function normalize_price_quantity($qty, &$errors, $field_label) {
+        if($qty === null || $qty === '') {
+            return 1;
+        }
+
+        if(!is_scalar($qty) || !ctype_digit((string)$qty) || intval($qty) < 1) {
+            array_push($errors, sprintf(esc_html__('%s quantity must be a positive whole number', 'custom-registration-form-builder-with-submission-manager'), $field_label));
+            return null;
+        }
+
+        return intval($qty);
+    }
+
     private function save_submission($sub_data = array(), $form = null, $form_no = null, $prefilled = false, $submission_id = null) {
         // Getting form ID
         $form_id = absint($form->form_id);
@@ -449,90 +462,86 @@ final class RM_Form_Factory_Revamp {
                         $price_field_name = $field_name."_{$price_field->field_id}";
                         $curr_pos = get_option('rm_option_currency_symbol_position', 'before');
                         $curr_sym = RM_Utilities_Revamp::get_currency_symbol(get_option('rm_option_currency', 'USD'));
-                        if(isset($sub_data[$price_field_name]) && !empty($sub_data[$price_field_name])) {
-                            $price_field->extra_options = maybe_unserialize($price_field->extra_options);
-                            switch($price_field->type) {
-                                case "fixed":
-                                    if(isset($sub_data[$price_field_name."_qty"]) && intval($sub_data[$price_field_name."_qty"]) > -1)
-                                        $quantity = intval($sub_data[$price_field_name."_qty"]);
-                                    else
-                                        $quantity = 1;
-                                    
-                                    $price = floatval($price_field->value);
-                                    $pricing_details->total_price += $price * $quantity;
-                                    $tmp_billing = (object) array('label'=>$price_field->name, 'price'=>$price, 'qty'=>$quantity);
-                                    $pricing_details->billing[] = apply_filters('rm_field_product_billing_'.$price_field->field_id, $tmp_billing);
+                        $price_field->extra_options = maybe_unserialize($price_field->extra_options);
+                        switch($price_field->type) {
+                            case "fixed":
+                                $quantity = $this->normalize_price_quantity(isset($sub_data[$price_field_name."_qty"]) ? $sub_data[$price_field_name."_qty"] : null, $errors, $form->fields[$field_id]->field_label);
+                                if($quantity === null)
+                                    break;
+                                 
+                                $price = floatval($price_field->value);
+                                $pricing_details->total_price += $price * $quantity;
+                                $tmp_billing = (object) array('label'=>$price_field->name, 'price'=>$price, 'qty'=>$quantity);
+                                $pricing_details->billing[] = apply_filters('rm_field_product_billing_'.$price_field->field_id, $tmp_billing);
 
+                                $data_block->label = $form->fields[$field_id]->field_label;
+                                $data_block->value = $curr_pos == 'before' ? "{$price_field->name} ({$curr_sym}{$price}) &times; $quantity" : "{$price_field->name} ({$price}{$curr_sym}) &times; $quantity";
+                                $data_block->type = $form->fields[$field_id]->field_type;
+                                $data_block->meta = null;
+                                $db_data[$field_id] = $data_block;
+                                break;
+                            case "userdef":
+                                if(defined('REGMAGIC_ADDON') && isset($sub_data[$price_field_name]) && $sub_data[$price_field_name] !== '') {
+                                    $total_price = floatval($sub_data[$price_field_name]);
+                                    $pricing_details->total_price += round($total_price, 2);
+                                    $pricing_details->billing[] = (object) array('label'=>$price_field->name, 'price'=>$total_price, 'qty' => 1);
+                                    
                                     $data_block->label = $form->fields[$field_id]->field_label;
-                                    $data_block->value = $curr_pos == 'before' ? "{$price_field->name} ({$curr_sym}{$price}) &times; $quantity" : "{$price_field->name} ({$price}{$curr_sym}) &times; $quantity";
+                                    $data_block->value = $curr_pos == 'before' ? "{$price_field->name} ({$curr_sym}{$total_price})" : "{$price_field->name} ({$total_price}{$curr_sym})";
                                     $data_block->type = $form->fields[$field_id]->field_type;
                                     $data_block->meta = null;
                                     $db_data[$field_id] = $data_block;
-                                    break;
-                                case "userdef":
-                                    if(defined('REGMAGIC_ADDON')) {
-                                        $total_price = floatval($sub_data[$price_field_name]);
-                                        $pricing_details->total_price += round($total_price, 2);
-                                        $pricing_details->billing[] = (object) array('label'=>$price_field->name, 'price'=>$total_price, 'qty' => 1);
+                                }
+                                break;
+                            case "multisel":
+                                if(defined('REGMAGIC_ADDON') && isset($sub_data[$price_field_name]) && !empty($sub_data[$price_field_name])) {
+                                    $tmp_v = maybe_unserialize($price_field->option_price);
+                                    $tmp_l = maybe_unserialize($price_field->option_label);
+                                    $price_val_arr = array();
+                                    foreach($sub_data[$price_field_name] as $pf_single_val) {
+                                        $index = (int)substr($pf_single_val, 1);
+                                        if(!isset($tmp_v[$index]))
+                                            continue;
                                         
-                                        $data_block->label = $form->fields[$field_id]->field_label;
-                                        $data_block->value = $curr_pos == 'before' ? "{$price_field->name} ({$curr_sym}{$total_price})" : "{$price_field->name} ({$total_price}{$curr_sym})";
-                                        $data_block->type = $form->fields[$field_id]->field_type;
-                                        $data_block->meta = null;
-                                        $db_data[$field_id] = $data_block;
-                                    }
-                                    break;
-                                case "multisel":
-                                    if(defined('REGMAGIC_ADDON')) {
-                                        $tmp_v = maybe_unserialize($price_field->option_price);
-                                        $tmp_l = maybe_unserialize($price_field->option_label);
-                                        $price_val_arr = array();
-                                        foreach($sub_data[$price_field_name] as $pf_single_val) {
-                                            $index = (int)substr($pf_single_val, 1);
-                                            if(!isset($tmp_v[$index]))
-                                                continue;
-                                            
-                                            if(isset($sub_data[$price_field_name."_qty"], $sub_data[$price_field_name."_qty"][$pf_single_val]) && intval($sub_data[$price_field_name."_qty"][$pf_single_val]) > -1)
-                                                $quantity = intval($sub_data[$price_field_name."_qty"][$pf_single_val]);
-                                            else
-                                                $quantity = 1;
-                                            
-                                            $pricing_details->total_price += floatval($tmp_v[$index]) * $quantity;
-                                            $pricing_details->billing[] = (object)array('label'=>$tmp_l[$index], 'price'=>floatval($tmp_v[$index]),'qty' => $quantity);
-                                            $price_val_arr[] = $curr_pos == 'before' ? "{$tmp_l[$index]} ({$curr_sym}{$tmp_v[$index]}) &times; $quantity" : "{$tmp_l[$index]} ({$tmp_v[$index]}{$curr_sym}) &times; $quantity"; 
-                                        }
-
-                                        $data_block->label = $form->fields[$field_id]->field_label;
-                                        $data_block->value = $price_val_arr;
-                                        $data_block->type = $form->fields[$field_id]->field_type;
-                                        $data_block->meta = null;
-                                        $db_data[$field_id] = $data_block;
-                                    }
-                                    break;
-                                case "dropdown":
-                                    if(defined('REGMAGIC_ADDON')) {
-                                        $tmp_v = maybe_unserialize($price_field->option_price);
-                                        $tmp_l = maybe_unserialize($price_field->option_label);
-                                        $index = (int) substr($sub_data[$price_field_name], 1);
-                                        if (!isset($tmp_v[$index]))
-                                            break;
-                                        
-                                        if(isset($sub_data[$price_field_name."_qty"]) && intval($sub_data[$price_field_name."_qty"]) > -1)
-                                            $quantity = intval($sub_data[$price_field_name."_qty"]);
-                                        else
-                                            $quantity = 1;
+                                        $submitted_quantity = isset($sub_data[$price_field_name."_qty"], $sub_data[$price_field_name."_qty"][$pf_single_val]) ? $sub_data[$price_field_name."_qty"][$pf_single_val] : null;
+                                        $quantity = $this->normalize_price_quantity($submitted_quantity, $errors, $form->fields[$field_id]->field_label);
+                                        if($quantity === null)
+                                            continue;
                                         
                                         $pricing_details->total_price += floatval($tmp_v[$index]) * $quantity;
-                                        $pricing_details->billing[] = (object)array('label'=>$tmp_l[$index], 'price'=>floatval($tmp_v[$index]), 'qty' => $quantity);
-                                        
-                                        $data_block->label = $form->fields[$field_id]->field_label;
-                                        $data_block->value = $curr_pos == 'before' ? "{$tmp_l[$index]} ({$curr_sym}{$tmp_v[$index]}) &times; $quantity" : "{$tmp_l[$index]} ({$tmp_v[$index]}{$curr_sym}) &times; $quantity";
-                                        $data_block->type = $form->fields[$field_id]->field_type;
-                                        $data_block->meta = null;
-                                        $db_data[$field_id] = $data_block;
+                                        $pricing_details->billing[] = (object)array('label'=>$tmp_l[$index], 'price'=>floatval($tmp_v[$index]),'qty' => $quantity);
+                                        $price_val_arr[] = $curr_pos == 'before' ? "{$tmp_l[$index]} ({$curr_sym}{$tmp_v[$index]}) &times; $quantity" : "{$tmp_l[$index]} ({$tmp_v[$index]}{$curr_sym}) &times; $quantity"; 
                                     }
-                                    break;
-                            }
+
+                                    $data_block->label = $form->fields[$field_id]->field_label;
+                                    $data_block->value = $price_val_arr;
+                                    $data_block->type = $form->fields[$field_id]->field_type;
+                                    $data_block->meta = null;
+                                    $db_data[$field_id] = $data_block;
+                                }
+                                break;
+                            case "dropdown":
+                                if(defined('REGMAGIC_ADDON') && isset($sub_data[$price_field_name]) && $sub_data[$price_field_name] !== '') {
+                                    $tmp_v = maybe_unserialize($price_field->option_price);
+                                    $tmp_l = maybe_unserialize($price_field->option_label);
+                                    $index = (int) substr($sub_data[$price_field_name], 1);
+                                    if (!isset($tmp_v[$index]))
+                                        break;
+                                    
+                                    $quantity = $this->normalize_price_quantity(isset($sub_data[$price_field_name."_qty"]) ? $sub_data[$price_field_name."_qty"] : null, $errors, $form->fields[$field_id]->field_label);
+                                    if($quantity === null)
+                                        break;
+                                    
+                                    $pricing_details->total_price += floatval($tmp_v[$index]) * $quantity;
+                                    $pricing_details->billing[] = (object)array('label'=>$tmp_l[$index], 'price'=>floatval($tmp_v[$index]), 'qty' => $quantity);
+                                    
+                                    $data_block->label = $form->fields[$field_id]->field_label;
+                                    $data_block->value = $curr_pos == 'before' ? "{$tmp_l[$index]} ({$curr_sym}{$tmp_v[$index]}) &times; $quantity" : "{$tmp_l[$index]} ({$tmp_v[$index]}{$curr_sym}) &times; $quantity";
+                                    $data_block->type = $form->fields[$field_id]->field_type;
+                                    $data_block->meta = null;
+                                    $db_data[$field_id] = $data_block;
+                                }
+                                break;
                         }
                     }else if($form->fields[$field_id]->field_type == 'Subscription'){
                         if (defined('REGMAGIC_ADDON') && class_exists('RMSubscriptions')) {

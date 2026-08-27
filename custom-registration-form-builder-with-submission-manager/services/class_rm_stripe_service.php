@@ -27,6 +27,19 @@ class RM_Stripe_Service implements RM_Gateway_Service
         $this->options = $options;
     }
 
+    private function has_positive_priced_billing_item($pricing_details) {
+        if (empty($pricing_details->billing) || !is_array($pricing_details->billing))
+            return false;
+
+        foreach ($pricing_details->billing as $item) {
+            $qty = isset($item->qty) ? intval($item->qty) : 1;
+            if ($qty > 0 && isset($item->price) && floatval($item->price) > 0.0)
+                return true;
+        }
+
+        return false;
+    }
+
     public function cancel() {
 
     }
@@ -68,7 +81,7 @@ class RM_Stripe_Service implements RM_Gateway_Service
             if($stripe_api_key == null)
                 return false;
 
-            if($pricing_details->total_price <=0.0)
+            if($pricing_details->total_price <=0.0 && !$this->has_positive_priced_billing_item($pricing_details))
                 return true;            //Zero amount case.
 
             $global_options= new RM_Options();
