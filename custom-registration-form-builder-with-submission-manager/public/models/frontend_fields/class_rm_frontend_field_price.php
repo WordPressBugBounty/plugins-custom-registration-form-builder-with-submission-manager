@@ -23,6 +23,16 @@ class RM_Frontend_Field_Price extends RM_Frontend_Field_Base
         $this->curr_symbol = $currency_symbol;
     }
 
+    /**
+     * Determine conditional product state from server-side field configuration.
+     * Client-controlled field presence and rm_cond_hidden_fields must never decide
+     * whether a configured product is billed.
+     */
+    public function is_active_for_pricing($request)
+    {
+        return $this->is_active_for_submission($request);
+    }
+
     public function get_pfbc_field()
     {
         if(defined('REGMAGIC_ADDON')) {
@@ -128,6 +138,10 @@ class RM_Frontend_Field_Price extends RM_Frontend_Field_Base
         switch ($paypal_field->get_type())
         {
             case "fixed":
+                if (!$this->is_active_for_pricing($request)) {
+                    return null;
+                }
+
                 $quantity = 1;
                 if ($this->currency_pos == 'before')
                     $value = $paypal_field->get_name() . " (" . $this->curr_symbol . " " . $paypal_field->get_value() . ")";
@@ -167,6 +181,10 @@ class RM_Frontend_Field_Price extends RM_Frontend_Field_Base
         switch ($paypal_field->get_type())
         {
             case "fixed":
+                if (!$this->is_active_for_pricing($request)) {
+                    break;
+                }
+
                 $quantity = 1;
 
                 $price = floatval($paypal_field->get_value());

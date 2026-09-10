@@ -698,6 +698,14 @@ class RM_Front_Form_Service extends RM_Services {
             $addon_service = new RM_Front_Form_Service_Addon();
             return $addon_service->process_payment($form, $request, $params, $this);
         }
+
+        // Treat the payment boundary as authoritative. Form validation and
+        // extension hooks may restore readonly defaults after the controller's
+        // first pass, so remove conditionally hidden products again here.
+        if (!$form->secure_conditional_price_validation($request->req)) {
+            return false;
+        }
+
         if (isset($request->req['rm_payment_method']))
             $payment_method = $request->req['rm_payment_method'];
         else {

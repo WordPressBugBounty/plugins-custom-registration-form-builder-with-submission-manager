@@ -59,7 +59,6 @@ class RM_Front_Form_Controller
         }             
         
         $fopts = $fe_form->get_form_options();
-        $total_price = $fe_form->get_pricing_detail($request->req);
         
         if($fe_form->is_expired()) {
             if($fopts->post_expiry_action == 'switch_to_another_form') {
@@ -68,6 +67,7 @@ class RM_Front_Form_Controller
                     $fe_form = $this->form_factory->create_form($form_id);
                     $form_name = 'form_' . $form_id;
                     $params['form_id'] = $form_id;
+                    $fopts = $fe_form->get_form_options();
                 } else {
                     return;
                 }
@@ -78,6 +78,9 @@ class RM_Front_Form_Controller
                     return '<div class="rm-no-default-from-notification">'.RM_UI_Strings::get('MSG_FORM_EXPIRY').'</div>';
             }
         }
+
+        $fe_form->secure_conditional_price_validation($request->req);
+        $total_price = $fe_form->get_pricing_detail($request->req);
         
         if (isset($request->req['rm_pproc'], $request->req['rm_fid'], $request->req['rm_fno'], $rm_form_diary[$form_id], $request->req['sh'])
                 && $request->req['rm_fid'] == $form_id && $request->req['rm_fno'] == $rm_form_diary[$form_id])
@@ -111,7 +114,15 @@ class RM_Front_Form_Controller
         $form_object_for_test = $fe_form->get_form_object();
             
         if ($subbed_form_no && ($fe_form->get_form_number() == $subbed_form_no) && $form_preproc_response && $this->mv_handler->validateForm($form_name."_".$subbed_form_no, $form_object_for_test) /*&& !$service->is_browser_reload_duplication($stat_id)*/)
-        { 
+        {
+            // PFBC restores readonly fixed-price defaults while validating the
+            // form. Rebuild conditional visibility afterwards so hidden product
+            // values cannot be persisted or passed to the payment processor.
+            if (!$fe_form->secure_conditional_price_validation($request->req)) {
+                return '<div class="rminfotextfront">' . esc_html__('Please provide a valid selection for all product condition fields.','custom-registration-form-builder-with-submission-manager') . '</div>';
+            }
+            $total_price = $fe_form->get_pricing_detail($request->req);
+
             $primary_data = $fe_form->get_prepared_data($request->req, 'primary');
             $db_data = $fe_form->get_prepared_data($request->req, 'dbonly');
             $sub_detail = $service->save_submission($form_id, $db_data, $primary_data['user_email']->value);

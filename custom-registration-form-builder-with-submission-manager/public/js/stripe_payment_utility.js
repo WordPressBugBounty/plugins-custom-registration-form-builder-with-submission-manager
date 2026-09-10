@@ -45,7 +45,7 @@
                     return;
                 }
                 pay_btn.addClass('rm_req_in_progress');
-                var data = {action: 'rm_get_intent_from_stripe', sub_id: sub_id, total_price: total_price};
+                var data = {action: 'rm_get_intent_from_stripe', rm_sec_nonce: rm_ajax.nonce, sub_id: sub_id, log_id: log_id};
                 $.ajax({
                     url: rm_ajax.url,
                     type: 'POST',
@@ -61,7 +61,7 @@
                                 payment_error.html(result.error.message);
                                 pay_btn.removeClass('rm_req_in_progress');
                             } else {
-                                var data = {action: 'rm_stripe_after_intent', intent_status: result.paymentIntent.status, intent: response.data.intent_json, total_price: total_price, sub_id: sub_id, current_url: get_current_url(), log_id: log_id, description: description};
+                                var data = {action: 'rm_stripe_after_intent', rm_sec_nonce: rm_ajax.nonce, intent: response.data.intent_json, sub_id: sub_id, current_url: get_current_url(), log_id: log_id};
                                 $.ajax({
                                     url: rm_ajax.url,
                                     type: 'POST',
@@ -128,7 +128,7 @@
                                 $.ajax({
                                     url: rm_ajax.url,
                                     type: 'POST',
-                                    data: {payment_method_id: result.paymentMethod.id, action: 'rm_charge_amount_from_stripe', sub_id: sub_id, current_url: get_current_url(), log_id: log_id,total_price: total_price},
+                                    data: {payment_intent_id: response.data.payment_intent_id, action: 'rm_charge_amount_from_stripe', rm_sec_nonce: rm_ajax.nonce, sub_id: sub_id, current_url: get_current_url(), log_id: log_id},
                                     async: true,
                                     success: function (result) {
                                         charge_op_response(result, container);

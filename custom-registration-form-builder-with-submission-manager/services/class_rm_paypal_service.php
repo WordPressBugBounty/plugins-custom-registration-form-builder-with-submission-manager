@@ -112,6 +112,51 @@ class RM_Paypal_Service implements RM_Gateway_Service
         return !empty($existing_log_id);
     }
 
+    private function validate_legacy_ipn_payment($log, $transaction_id, $payment_status) {
+        if (!$log || empty($log->id) || empty($transaction_id))
+            return false;
+
+        $incoming_status = strtolower((string) $payment_status);
+        $current_status = strtolower((string) $log->status);
+        $completion_states = array('pending', 'in-progress', 'processed');
+        $known_states = array('completed', 'denied', 'failed', 'refunded', 'reversed', 'voided', 'in-progress', 'pending', 'processed', 'canceled_reversal');
+        if (strtolower((string) $log->pay_proc) !== 'paypal' ||
+            !in_array($incoming_status, $known_states, true) ||
+            ($incoming_status === 'completed' && !in_array($current_status, $completion_states, true)))
+            return false;
+
+        $invoice = isset($_POST['invoice']) ? sanitize_text_field(wp_unslash($_POST['invoice'])) : '';
+        $gross = isset($_POST['mc_gross']) ? wp_unslash($_POST['mc_gross']) : '';
+        $currency = isset($_POST['mc_currency']) ? sanitize_text_field(wp_unslash($_POST['mc_currency'])) : '';
+        $receiver = isset($_POST['receiver_email']) ? sanitize_email(wp_unslash($_POST['receiver_email'])) : '';
+        $parent_transaction = isset($_POST['parent_txn_id']) ? sanitize_text_field(wp_unslash($_POST['parent_txn_id'])) : '';
+        $gross_is_valid = is_scalar($gross) && is_numeric($gross);
+        $comparison_gross = $gross_is_valid && in_array($incoming_status, array('refunded', 'reversed'), true) ? abs((float) $gross) : $gross;
+
+        if (empty($invoice) || !hash_equals((string) $log->invoice, $invoice) ||
+            !$gross_is_valid ||
+            $this->normalize_amount($comparison_gross) !== $this->normalize_amount($log->total_amount) ||
+            strtoupper($currency) !== strtoupper((string) $log->currency) ||
+            empty($receiver) || strtolower($receiver) !== strtolower(trim((string) $this->paypal_email)))
+            return false;
+
+        if (!empty($log->txn_id) && !hash_equals((string) $log->txn_id, (string) $transaction_id) &&
+            (empty($parent_transaction) || !hash_equals((string) $log->txn_id, $parent_transaction)))
+            return false;
+
+        return !$this->is_sdk_capture_replayed($transaction_id, absint($log->id));
+    }
+
+    private function claim_legacy_ipn_completion($log_id, $transaction_id) {
+        global $wpdb;
+        $table_name = RM_Table_Tech::get_table_name_for('PAYPAL_LOGS');
+        return 1 === $wpdb->query($wpdb->prepare(
+            "UPDATE `$table_name` SET status = 'Verifying' WHERE id = %d AND LOWER(status) IN ('pending','in-progress','processed') AND (txn_id IS NULL OR txn_id = '' OR txn_id = %s)",
+            $log_id,
+            $transaction_id
+        ));
+    }
+
     function setPaypal($paypal) {
         $this->paypal = $paypal;
     }
@@ -211,17 +256,30 @@ class RM_Paypal_Service implements RM_Gateway_Service
                         return 'invalid_log';
                     }
 
+                    if (!$this->validate_legacy_ipn_payment($log, $trasaction_id, $payment_status))
+                    {
+                        return 'invalid_ipn';
+                    }
+                    if ($payment_status === 'Completed' && !$this->claim_legacy_ipn_completion($log_entry_id, $trasaction_id))
+                    {
+                        return 'invalid_ipn';
+                    }
+
                     $exdata = maybe_unserialize($log->ex_data);
                     $user_id = isset($exdata['user_id']) ? absint($exdata['user_id']) : 0;
                     $log_array = maybe_serialize(array_map('sanitize_text_field', wp_unslash($_POST)));
 
                     $curr_date = RM_Utilities::get_current_time(); // date_i18n(get_option('date_format'));
 
-                    RM_DBManager::update_row('PAYPAL_LOGS', $log_entry_id, array(
+                    $ipn_update = RM_DBManager::update_row('PAYPAL_LOGS', $log_entry_id, array(
                         'status' => $payment_status,
                         'txn_id' => $trasaction_id,
                         'posted_date' => $curr_date,
                         'log' => $log_array), array('%s', '%s', '%s', '%s'));
+                    if ($ipn_update === false)
+                    {
+                        return 'invalid_ipn';
+                    }
                 
                     if(defined('REGMAGIC_ADDON')) {
                         //$check_setting = apply_filters('rm_addon_paypal_callback',$trasaction_id);

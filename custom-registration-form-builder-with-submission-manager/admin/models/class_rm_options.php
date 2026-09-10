@@ -233,7 +233,7 @@ class RM_Options
             'smtp_port' => null,
             'smtp_auth' => 'sanitize_checkbox',
             'smtp_user_name' => null,
-            'smtp_senders_email' => null,
+            'smtp_senders_email' => 'sanitize_email',
             'smtp_password' => 'sanitize_password',
             'theme' => null,
             'form_layout' => null,

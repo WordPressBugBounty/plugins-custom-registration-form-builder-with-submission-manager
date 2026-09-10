@@ -817,33 +817,29 @@
             'rm_sec_nonce': rm_admin_vars.nonce,
             'test_email': RM_jQ("#id_rm_test_email_tb").val(),
             'smtp_host': RM_jQ("#id_rm_smtp_host_tb").val(),
-            'SMTPAuth': RM_jQ("#id_rm_smtp_auth_cb-0").val(),
+            'SMTPAuth': RM_jQ("#id_rm_smtp_auth_cb-0").prop('checked') ? 'yes' : 'no',
             'Port': RM_jQ("#id_rm_smtp_port_num").val(),
             'Username': RM_jQ("#id_rm_smtp_username_tb").val(),
             'Password': RM_jQ("#id_rm_smtp_password_tb").val(),
             'SMTPSecure': RM_jQ("#id_rm_smtp_enctype_dd").val(),
-            'From': RM_jQ("#id_rm_from_email_tb").val(),
-            'FromName': RM_jQ("#id_rm_from_tb").val()
+            'From': RM_jQ("#smtp_senders_email").val(),
+            'FromName': RM_jQ("#senders_display_name").val()
         };
 
-        RM_jQ.post(ajaxurl, data, function (response) {
-           
-            if(response.indexOf("blank_email") >= 0){
-              response = response.split('blank_email')[1];
-             
-              RM_jQ("#rm_smtp_test_response").html(response);
-              RM_jQ("#rm_smtp_test_response").removeClass();
-              RM_jQ("#rm_smtp_test_response").addClass('rm_response rm_failed');
-          }
-          else{
-            RM_jQ("#rm_smtp_test_response").html(response);
-            RM_jQ("#rm_smtp_test_response").removeClass();
-            response = response.split("!")[0];
-            if(response!=='Failed')
-                RM_jQ("#rm_smtp_test_response").addClass('rm_response rm_success');
-            else
-                RM_jQ("#rm_smtp_test_response").addClass('rm_response rm_failed');
-        }
+        var responseElement = RM_jQ("#rm_smtp_test_response");
+        RM_jQ("#rm_f_loading").show();
+
+        RM_jQ.post(ajaxurl, data).done(function (response) {
+            var succeeded = response && response.success;
+            var message = response && response.data && response.data.message ? response.data.message : '';
+
+            responseElement.text(message);
+            responseElement.removeClass().addClass('rm_response ' + (succeeded ? 'rm_success' : 'rm_failed'));
+        }).fail(function () {
+            responseElement.text(rm_admin_vars.smtp_test_request_failed);
+            responseElement.removeClass().addClass('rm_response rm_failed');
+        }).always(function () {
+            RM_jQ("#rm_f_loading").hide();
         });
     };
     

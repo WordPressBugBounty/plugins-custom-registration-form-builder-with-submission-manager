@@ -570,6 +570,10 @@ class RM_Email_Service
     public static function notify_user_on_activation($params)
     {
         $gopt = new RM_Options();
+        if ($gopt->get_value_of('send_act_email') !== 'yes') {
+            return;
+        }
+
         $rm_email= new RM_Email();
         $notification_msg= self::get_notification_message($params->form_id,'form_user_activated_notification'); 
         $notification_msg = str_replace('{{SITE_NAME}}',get_bloginfo('name', 'display'), $notification_msg);

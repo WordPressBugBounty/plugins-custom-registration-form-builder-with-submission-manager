@@ -89,6 +89,39 @@ final class RM_Form_Factory_Revamp {
         } else {
             $form->fields = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}rm_fields WHERE form_id = %d", $form_id), OBJECT_K);
         }
+
+        // RM_Forms has its own renderer and pricing loop, so it does not pass
+        // through the legacy controller's conditional-field canonicalization.
+        // Derive visibility from the stored rules here and never trust the
+        // client-provided rm_cond_hidden_fields value for payment decisions.
+        $conditionally_hidden_fields = array();
+        if(!$prefilled) {
+            global $rm_form_diary;
+            $had_form_diary_entry = isset($rm_form_diary) && array_key_exists($form_id, $rm_form_diary);
+            $previous_form_number = $had_form_diary_entry ? $rm_form_diary[$form_id] : null;
+            $conditional_form_factory = defined('REGMAGIC_ADDON') ? new RM_Form_Factory_Addon() : new RM_Form_Factory();
+            $conditional_form = $conditional_form_factory->create_form($form_id);
+            if($had_form_diary_entry) {
+                $rm_form_diary[$form_id] = $previous_form_number;
+            } else {
+                unset($rm_form_diary[$form_id]);
+            }
+            if($conditional_form) {
+                if(!$conditional_form->secure_conditional_price_validation($sub_data)) {
+                    return array(esc_html__('Please provide a valid selection for all product condition fields.', 'custom-registration-form-builder-with-submission-manager'));
+                }
+                if(!empty($sub_data['rm_cond_hidden_fields'])) {
+                    foreach(explode(',', $sub_data['rm_cond_hidden_fields']) as $hidden_field_name) {
+                        if($hidden_field_name !== '') {
+                            $conditionally_hidden_fields[$hidden_field_name] = true;
+                        }
+                    }
+                }
+            } else {
+                return array(esc_html__('Unable to validate product conditions. Please try again.', 'custom-registration-form-builder-with-submission-manager'));
+            }
+        }
+
         $db_data = array();
         $service = new RM_Front_Form_Service();
         $user_email = null;
@@ -460,6 +493,11 @@ final class RM_Form_Factory_Revamp {
                         if(empty($price_field))
                             continue;
                         $price_field_name = $field_name."_{$price_field->field_id}";
+                        if(isset($conditionally_hidden_fields[$price_field_name]) ||
+                            isset($conditionally_hidden_fields[$price_field_name.'[]'])) {
+                            unset($sub_data[$price_field_name], $sub_data[$price_field_name.'_qty']);
+                            continue;
+                        }
                         $curr_pos = get_option('rm_option_currency_symbol_position', 'before');
                         $curr_sym = RM_Utilities_Revamp::get_currency_symbol(get_option('rm_option_currency', 'USD'));
                         $price_field->extra_options = maybe_unserialize($price_field->extra_options);

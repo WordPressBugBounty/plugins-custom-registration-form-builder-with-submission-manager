@@ -442,6 +442,261 @@ abstract class RM_Frontend_Form_Base
         return $price_flag ? $data : null;
     }
 
+    /**
+     * Replace the client-supplied conditional-field list with the state derived
+     * from the trusted form definition. Hidden submitted values are discarded so
+     * they cannot influence another condition or the calculated price.
+     */
+    public function secure_conditional_price_validation(&$request)
+    {
+        $field_map = array();
+        foreach ($this->fields as $field_group) {
+            $fields = is_array($field_group) ? $field_group : array($field_group);
+            foreach ($fields as $field) {
+                if ($field instanceof RM_Frontend_Field_Base) {
+                    $field_map[(int) $field->get_field_id()] = $field;
+                }
+            }
+        }
+
+        $controllers_valid = $this->sanitize_conditional_controller_values($request, $field_map);
+
+        $states = array();
+        $resolving = array();
+        $forced_visible = array();
+        foreach ($field_map as $field) {
+            $this->resolve_server_field_visibility($field, $request, $field_map, $states, $resolving, $forced_visible);
+        }
+
+        // Circular condition graphs are invalid. Keep every participant visible
+        // so a cycle can never be used to suppress validation or payment.
+        foreach ($forced_visible as $field_id => $unused) {
+            $states[$field_id] = true;
+        }
+
+        $hidden_fields = array();
+        foreach ($field_map as $field_id => $field) {
+            if (!isset($states[$field_id]) || $states[$field_id]) {
+                continue;
+            }
+
+            $field_name = $field->get_field_name();
+            $hidden_fields[] = $field_name;
+            $hidden_fields[] = $field_name . '[]';
+            unset($request[$field_name], $request[$field_name . '[]']);
+            unset($_POST[$field_name], $_POST[$field_name . '[]']);
+        }
+
+        $request['rm_cond_hidden_fields'] = implode(',', array_values(array_unique($hidden_fields)));
+        if ((isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') || !empty($_POST)) {
+            $_POST['rm_cond_hidden_fields'] = $request['rm_cond_hidden_fields'];
+        }
+
+        return $controllers_valid;
+    }
+
+    /**
+     * Reject forged values for option fields used as condition controllers.
+     * PFBC's required validator only checks for a non-empty value; without this
+     * allow-list an attacker could submit a nonexistent radio/select option to
+     * make every paid branch false.
+     */
+    private function sanitize_conditional_controller_values(&$request, $field_map)
+    {
+        $controller_ids = array();
+        $required_price_controller_ids = array();
+        foreach ($field_map as $field) {
+            if ($field instanceof RM_Frontend_Field_Price) {
+                $controller_ids[(int) $field->get_field_id()] = true;
+            }
+            $conditions = $field->field_model->get_field_conditions();
+            if (empty($conditions['rules']) || !is_array($conditions['rules'])) {
+                continue;
+            }
+            foreach ($conditions['rules'] as $rule) {
+                if (isset($rule['controlling_field'])) {
+                    $controller_id = absint($rule['controlling_field']);
+                    $controller_ids[$controller_id] = true;
+                    if ($field instanceof RM_Frontend_Field_Price && (!isset($rule['op']) || $rule['op'] !== '_blank')) {
+                        $required_price_controller_ids[$controller_id] = true;
+                    }
+                }
+            }
+        }
+
+        $controllers_valid = true;
+        foreach ($controller_ids as $controller_id => $unused) {
+            if (!isset($field_map[$controller_id])) {
+                if (isset($required_price_controller_ids[$controller_id])) {
+                    $controllers_valid = false;
+                }
+                continue;
+            }
+
+            $controller = $field_map[$controller_id];
+            $field_name = $controller->get_field_name();
+            $is_required_price_controller = isset($required_price_controller_ids[$controller_id]);
+            if ($is_required_price_controller && !$this->has_condition_controller_value($request, $field_name)) {
+                $controllers_valid = false;
+            }
+
+            if ($controller instanceof RM_Frontend_Field_Price) {
+                $product = new RM_PayPal_Fields();
+                if (!$product->load_from_db($controller->pp_field_id)) {
+                    if ($is_required_price_controller) {
+                        $controllers_valid = false;
+                    }
+                    unset($request[$field_name], $request[$field_name . '[]']);
+                    unset($_POST[$field_name], $_POST[$field_name . '[]']);
+                    continue;
+                }
+
+                $product_type = $product->get_type();
+                if ($product_type === 'userdef') {
+                    $amount = array_key_exists($field_name, $request) && is_scalar($request[$field_name]) && is_numeric($request[$field_name])
+                        ? (float) $request[$field_name] : 0.0;
+                    if (!is_finite($amount) || $amount <= 0.0) {
+                        if ($is_required_price_controller) {
+                            $controllers_valid = false;
+                        }
+                        unset($request[$field_name], $request[$field_name . '[]']);
+                        unset($_POST[$field_name], $_POST[$field_name . '[]']);
+                    }
+                    continue;
+                }
+
+                if (($product_type === 'multisel' && array_key_exists($field_name, $request) && !is_array($request[$field_name])) ||
+                    ($product_type === 'dropdown' && array_key_exists($field_name, $request) && !is_scalar($request[$field_name]))) {
+                    if ($is_required_price_controller) {
+                        $controllers_valid = false;
+                    }
+                    unset($request[$field_name], $request[$field_name . '[]']);
+                    unset($_POST[$field_name], $_POST[$field_name . '[]']);
+                    continue;
+                }
+            }
+
+            $allow_other = !empty($controller->field_options['rm_is_other_option']) ||
+                (!empty($controller->field_model->field_options->field_is_other_option));
+
+            $element = $controller->get_pfbc_field();
+            $elements = is_array($element) ? $element : array($element);
+            $option_element = null;
+            foreach ($elements as $candidate) {
+                if (!is_object($candidate)) {
+                    continue;
+                }
+
+                if (method_exists($candidate, 'getAttribute') && $candidate->getAttribute('readonly')) {
+                    $request[$field_name] = $candidate->getAttribute('value');
+                    if ((isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') || !empty($_POST)) {
+                        $_POST[$field_name] = $request[$field_name];
+                    }
+                    continue 2;
+                }
+
+                if (isset($candidate->options) && is_array($candidate->options)) {
+                    $option_element = $candidate;
+                    break;
+                }
+            }
+
+            if ($allow_other || !array_key_exists($field_name, $request) || $option_element === null) {
+                continue;
+            }
+
+            $allowed_values = array();
+            foreach (array_keys($option_element->options) as $option_value) {
+                if (method_exists($option_element, 'getOptionValue')) {
+                    $option_value = $option_element->getOptionValue($option_value);
+                }
+                $allowed_values[] = (string) $option_value;
+            }
+
+            $submitted_values = is_array($request[$field_name]) ? $request[$field_name] : array($request[$field_name]);
+            $valid = true;
+            foreach ($submitted_values as $submitted_value) {
+                if (!is_scalar($submitted_value) || !in_array((string) $submitted_value, $allowed_values, true)) {
+                    $valid = false;
+                    break;
+                }
+            }
+
+            if (!$valid) {
+                if ($is_required_price_controller) {
+                    $controllers_valid = false;
+                }
+                unset($request[$field_name], $request[$field_name . '[]']);
+                unset($_POST[$field_name], $_POST[$field_name . '[]']);
+            }
+        }
+
+        return $controllers_valid;
+    }
+
+    private function has_condition_controller_value($request, $field_name)
+    {
+        if (!array_key_exists($field_name, $request)) {
+            return false;
+        }
+
+        $values = is_array($request[$field_name]) ? $request[$field_name] : array($request[$field_name]);
+        foreach ($values as $value) {
+            if (!is_scalar($value) || trim((string) $value) === '') {
+                continue;
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    private function resolve_server_field_visibility($field, $request, $field_map, &$states, &$resolving, &$forced_visible)
+    {
+        $field_id = (int) $field->get_field_id();
+        if (array_key_exists($field_id, $states)) {
+            return $states[$field_id];
+        }
+
+        if (isset($resolving[$field_id])) {
+            foreach ($resolving as $cycle_field_id => $unused) {
+                $forced_visible[$cycle_field_id] = true;
+            }
+            $forced_visible[$field_id] = true;
+            return true;
+        }
+
+        $resolving[$field_id] = true;
+        $condition_request = $request;
+        $conditions = $field->field_model->get_field_conditions();
+        if (!empty($conditions['rules']) && is_array($conditions['rules'])) {
+            foreach ($conditions['rules'] as $rule) {
+                if (!isset($rule['controlling_field'])) {
+                    unset($resolving[$field_id]);
+                    $states[$field_id] = true;
+                    return true;
+                }
+
+                $controller_id = absint($rule['controlling_field']);
+                if (!isset($field_map[$controller_id])) {
+                    unset($resolving[$field_id]);
+                    $states[$field_id] = true;
+                    return true;
+                }
+
+                $controller = $field_map[$controller_id];
+                if (!$this->resolve_server_field_visibility($controller, $request, $field_map, $states, $resolving, $forced_visible)) {
+                    $controller_name = $controller->get_field_name();
+                    unset($condition_request[$controller_name], $condition_request[$controller_name . '[]']);
+                }
+            }
+        }
+
+        unset($resolving[$field_id]);
+        $states[$field_id] = isset($forced_visible[$field_id]) ? true : $field->is_active_for_submission($condition_request);
+        return $states[$field_id];
+    }
+
     public function has_price_field()
     {
         foreach ($this->fields as $field)

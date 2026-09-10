@@ -401,8 +401,9 @@ class RM_Admin {
 
                         'nonce'=>wp_create_nonce('rm_ajax_secure'),
 
-        );
+                        'smtp_test_request_failed' => esc_html__("Unable to complete the SMTP test request.",'custom-registration-form-builder-with-submission-manager'),
 
+        );
         wp_localize_script($this->plugin_name,'rm_admin_vars',$rm_admin_vars);
 
         wp_localize_script('rm-utilities','rm_admin_vars',$rm_admin_vars);

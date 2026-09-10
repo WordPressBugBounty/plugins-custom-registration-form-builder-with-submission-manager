@@ -266,14 +266,17 @@ class RM_Email
             return !empty($attachment);
         });
         
-        add_action('phpmailer_init', array($this,'config_phpmailer'));
-        
-        if(empty($this->attachments))
-            $return = wp_mail($this->to, $this->subject, $this->body, $this->header_str);
-        else
-            $return = wp_mail($this->to, $this->subject, $this->body, $this->header_str, $this->attachments);
-        
-        remove_action('phpmailer_init', array($this,'config_phpmailer'));
+        $phpmailer_callback = array($this, 'config_phpmailer');
+        add_action('phpmailer_init', $phpmailer_callback);
+
+        try {
+            if(empty($this->attachments))
+                $return = wp_mail($this->to, $this->subject, $this->body, $this->header_str);
+            else
+                $return = wp_mail($this->to, $this->subject, $this->body, $this->header_str, $this->attachments);
+        } finally {
+            remove_action('phpmailer_init', $phpmailer_callback);
+        }
         
         return $return;
    }
@@ -281,19 +284,8 @@ class RM_Email
     public function config_phpmailer($phpmailer) {
         $options = new RM_Options;
         if ($options->get_value_of('enable_smtp') == 'yes') {
-            $phpmailer->isSMTP();
-            $phpmailer->SMTPDebug = 0;
-            $phpmailer->Host = $options->get_value_of('smtp_host');
-            $phpmailer->SMTPAuth = $options->get_value_of('smtp_auth') == 'yes' ? true : false;
-            $phpmailer->Port = $options->get_value_of('smtp_port');
-            $phpmailer->Username = $options->get_value_of('smtp_user_name');
-            $phpmailer->Password = $options->get_value_of('smtp_password');
-            $phpmailer->SMTPSecure = ($options->get_value_of('smtp_encryption_type') == 'enc_tls') ? 'tls' : (($options->get_value_of('smtp_encryption_type') == 'enc_ssl') ? 'ssl' : '' );
-            $phpmailer->From = $options->get_value_of('smtp_senders_email');
-            if(!empty($this->from_name))	
-                $phpmailer->FromName = $this->from_name;
-            else
-                $phpmailer->FromName = $options->get_value_of('senders_display_name');
+            $from_name = !empty($this->from_name) ? $this->from_name : $options->get_value_of('senders_display_name');
+            RM_Utilities::apply_smtp_config($phpmailer, RM_Utilities::get_smtp_settings($options), $from_name);
         }
         /*
         else {

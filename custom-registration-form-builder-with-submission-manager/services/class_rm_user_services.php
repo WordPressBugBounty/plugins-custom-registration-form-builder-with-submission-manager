@@ -156,7 +156,7 @@ class RM_User_Services extends RM_Services
                 $params->sub_id = get_user_meta($id, 'RM_UMETA_SUB_ID', true);
                 $params->form_id = get_user_meta($id, 'RM_UMETA_FORM_ID', true);
                 $send_act_email = get_option('rm_option_send_act_email');
-                if($send_act_email == 'yes' || $send_act_email == false)
+                if($send_act_email === 'yes' || $send_act_email === false)
                     RM_Email_Service::notify_user_on_activation($params);
             }
         }

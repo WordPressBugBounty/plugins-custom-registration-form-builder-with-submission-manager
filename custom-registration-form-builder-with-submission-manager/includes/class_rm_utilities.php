@@ -763,27 +763,30 @@ class RM_Utilities {
     }
 
     public static function send_mail($email) {
-        add_action('phpmailer_init', 'RM_Utilities::config_phpmailer');
-
-        $success = true;
-
         if (!$email->to)
             return false;
 
+        $phpmailer_callback = 'RM_Utilities::config_phpmailer';
+        add_action('phpmailer_init', $phpmailer_callback);
+
+        $success = true;
         //Just in case if data has not been supplied, set proper default values so email function does not fail.
         $exdata = property_exists($email, 'exdata') ? $email->exdata : null;
         //Checking using isset instead of property_exists as we do not want to get null value getting passed as attachments.
         $attachments = isset($email->attachments) ? $email->attachments : array();
 
-        if (is_array($email->to)) {
-            foreach ($email->to as $to) {
-
-                if (!self::rm_wp_mail($email->type, $to, $email->subject, $email->message, $email->header, $exdata, $attachments))
-                    $success = false;
+        try {
+            if (is_array($email->to)) {
+                foreach ($email->to as $to) {
+                    if (!self::rm_wp_mail($email->type, $to, $email->subject, $email->message, $email->header, $exdata, $attachments))
+                        $success = false;
+                }
+            } else {
+                $success = self::rm_wp_mail($email->type, $email->to, $email->subject, $email->message, $email->header, $exdata, $attachments);
             }
-        } else
-            $success = self::rm_wp_mail($email->type, $email->to, $email->subject, $email->message, $email->header, $exdata, $attachments);
-
+        } finally {
+            remove_action('phpmailer_init', $phpmailer_callback);
+        }
         return $success;
     }
 
@@ -930,75 +933,159 @@ class RM_Utilities {
         }
     }
 
+    public static function get_smtp_settings($options = null) {
+        if (!$options) {
+            $options = new RM_Options;
+        }
+
+        return array(
+            'host' => $options->get_value_of('smtp_host'),
+            'port' => $options->get_value_of('smtp_port'),
+            'auth' => $options->get_value_of('smtp_auth') === 'yes',
+            'username' => $options->get_value_of('smtp_user_name'),
+            'password' => $options->get_value_of('smtp_password'),
+            'encryption' => $options->get_value_of('smtp_encryption_type'),
+            'sender_email' => $options->get_value_of('smtp_senders_email'),
+        );
+    }
+
+    public static function apply_smtp_config($phpmailer, $settings, $from_name = '') {
+        $encryption = isset($settings['encryption']) ? $settings['encryption'] : 'enc_none';
+
+        $phpmailer->isSMTP();
+        $phpmailer->SMTPDebug = 0;
+        $phpmailer->Host = isset($settings['host']) ? (string)$settings['host'] : '';
+        $phpmailer->Port = isset($settings['port']) ? (int)$settings['port'] : 0;
+        $phpmailer->SMTPAuth = !empty($settings['auth']);
+        $phpmailer->Username = isset($settings['username']) ? (string)$settings['username'] : '';
+        $phpmailer->Password = isset($settings['password']) ? (string)$settings['password'] : '';
+        $phpmailer->SMTPSecure = $encryption === 'enc_tls' ? 'tls' : ($encryption === 'enc_ssl' ? 'ssl' : '');
+        $phpmailer->SMTPAutoTLS = $encryption !== 'enc_none';
+
+        $sender_email = isset($settings['sender_email']) ? $settings['sender_email'] : '';
+        if (is_email($sender_email)) {
+            $phpmailer->setFrom($sender_email, (string)$from_name, false);
+        }
+    }
+
     public static function config_phpmailer($phpmailer) {
         $options = new RM_Options;
+        $from_name = $options->get_value_of('senders_display_name');
 
         if ($options->get_value_of('enable_smtp') == 'yes') {
-            $phpmailer->isSMTP();
-            $phpmailer->SMTPDebug = 0;
-            $phpmailer->Host = $options->get_value_of('smtp_host');
-            $phpmailer->SMTPAuth = $options->get_value_of('smtp_auth') == 'yes' ? true : false;
-            $phpmailer->Port = $options->get_value_of('smtp_port');
-            $phpmailer->Username = $options->get_value_of('smtp_user_name');
-            $phpmailer->Password = $options->get_value_of('smtp_password');
-            $phpmailer->SMTPSecure = ($options->get_value_of('smtp_encryption_type') == 'enc_tls') ? 'tls' : (($options->get_value_of('smtp_encryption_type') == 'enc_ssl') ? 'ssl' : '' );
-            $phpmailer->From = $options->get_value_of('smtp_senders_email');  
-        }
-        else
-        {
+            self::apply_smtp_config($phpmailer, self::get_smtp_settings($options), $from_name);
+        } else {
             $phpmailer->From = $options->get_value_of('senders_email');
+            $phpmailer->FromName = $from_name;
         }
-        $phpmailer->FromName = $options->get_value_of('senders_display_name');
-        
-        $phpmailer->addReplyTo($phpmailer->From, $phpmailer->FromName);
-        
-        //if(empty($phpmailer->AltBody))
-            //$phpmailer->AltBody = self::html_to_text_email($phpmailer->Body);
 
-        return;
+        if (is_email($phpmailer->From)) {
+            $phpmailer->addReplyTo($phpmailer->From, $phpmailer->FromName);
+        }
+    }
+
+    private static function sanitize_smtp_error($error, $settings) {
+        $message = is_wp_error($error) ? $error->get_error_message() : (string)$error;
+        $message = html_entity_decode($message, ENT_QUOTES, get_bloginfo('charset') ?: 'UTF-8');
+        $message = wp_strip_all_tags($message);
+
+        foreach (array('username', 'password') as $secret_key) {
+            if (!empty($settings[$secret_key])) {
+                $message = str_ireplace((string)$settings[$secret_key], '[redacted]', $message);
+            }
+        }
+
+        $message = preg_replace('/[\r\n\t ]+/', ' ', $message);
+        return wp_html_excerpt(sanitize_text_field(trim((string)$message)), 500, '...');
     }
 
     public static function check_smtp() {
-        if(check_ajax_referer('rm_ajax_secure','rm_sec_nonce') && current_user_can('manage_options')) {
-
-            $options = new RM_Options;
-
-            $bckup = $options->get_all_options();
-
-            $email = isset($_POST['test_email']) ? sanitize_email($_POST['test_email']) : null;
-
-            $options->set_values(array(
-                'enable_smtp' => 'yes',
-                'smtp_host' => isset($_POST['smtp_host']) ? sanitize_text_field($_POST['smtp_host']) : null,
-                'smtp_auth' => isset($_POST['SMTPAuth']) ? sanitize_text_field($_POST['SMTPAuth']) : null,
-                'smtp_port' => isset($_POST['Port']) ? sanitize_text_field($_POST['Port']) : null,
-                'smtp_user_name' => isset($_POST['Username']) ? sanitize_text_field($_POST['Username']) : null,
-                'smtp_password' => isset($_POST['Password']) ? sanitize_text_field($_POST['Password']) : null,
-                'smtp_encryption_type' => isset($_POST['SMTPSecure']) ? sanitize_text_field($_POST['SMTPSecure']) : null,
-                'senders_email' => isset($_POST['From']) ? sanitize_email($_POST['From']) : null,
-                'senders_display_name' => isset($_POST['FromName']) ? sanitize_text_field($_POST['FromName']) : null
+        if (!check_ajax_referer('rm_ajax_secure', 'rm_sec_nonce', false) || !current_user_can('manage_options')) {
+            wp_send_json_error(array(
+                'message' => __('Security check failed. Please refresh the page and try again.', 'custom-registration-form-builder-with-submission-manager'),
             ));
-            if (!$email) {
-                echo 'blank_email ' . wp_kses_post((string)RM_UI_Strings::get('LABEL_WORDPRESS_DEFAULT_EMAIL_REQUIRED_MESSAGE'));
-                $options->set_values($bckup);
-                die;
-            }
-
-            $test_email = new stdClass();
-            $test_email->type = RM_EMAIL_TEST;
-            $test_email->to = $email;
-            $test_email->subject = __('Test SMTP Connection','custom-registration-form-builder-with-submission-manager');
-            $test_email->message = __('Test', 'custom-registration-form-builder-with-submission-manager');
-            $test_email->header = '';
-            $test_email->attachments = array();
-            if (self::send_mail($test_email))
-                echo wp_kses_post((string)RM_UI_Strings::get('LABEL_SMTP_SUCCESS_MESSAGE'));
-            else
-                echo wp_kses_post((string)RM_UI_Strings::get('LABEL_SMTP_FAIL_MESSAGE'));
-
-            $options->set_values($bckup);
         }
-        die;
+
+        $email = isset($_POST['test_email']) && is_string($_POST['test_email']) ? sanitize_email(wp_unslash($_POST['test_email'])) : '';
+        $host = isset($_POST['smtp_host']) && is_string($_POST['smtp_host']) ? sanitize_text_field(wp_unslash($_POST['smtp_host'])) : '';
+        $port_value = isset($_POST['Port']) && is_string($_POST['Port']) ? trim(wp_unslash($_POST['Port'])) : '';
+        $sender_email = isset($_POST['From']) && is_string($_POST['From']) ? sanitize_email(wp_unslash($_POST['From'])) : '';
+        $encryption = isset($_POST['SMTPSecure']) && is_string($_POST['SMTPSecure']) ? sanitize_key(wp_unslash($_POST['SMTPSecure'])) : 'enc_none';
+        $auth_value = isset($_POST['SMTPAuth']) && is_string($_POST['SMTPAuth']) ? sanitize_key(wp_unslash($_POST['SMTPAuth'])) : 'no';
+        $auth = $auth_value === 'yes';
+        $username = isset($_POST['Username']) && is_string($_POST['Username']) ? sanitize_text_field(wp_unslash($_POST['Username'])) : '';
+        $password = isset($_POST['Password']) && is_string($_POST['Password']) ? wp_unslash($_POST['Password']) : '';
+        $from_name = isset($_POST['FromName']) && is_string($_POST['FromName']) ? sanitize_text_field(wp_unslash($_POST['FromName'])) : '';
+
+        if (!is_email($email)) {
+            wp_send_json_error(array('message' => __('Enter a valid test email address.', 'custom-registration-form-builder-with-submission-manager')));
+        }
+        if ($host === '') {
+            wp_send_json_error(array('message' => __('Enter an SMTP host.', 'custom-registration-form-builder-with-submission-manager')));
+        }
+        if ($port_value === '' || !ctype_digit($port_value) || (int)$port_value < 1 || (int)$port_value > 65535) {
+            wp_send_json_error(array('message' => __('Enter an SMTP port between 1 and 65535.', 'custom-registration-form-builder-with-submission-manager')));
+        }
+        if (!is_email($sender_email)) {
+            wp_send_json_error(array('message' => __('Enter a valid SMTP sender email address.', 'custom-registration-form-builder-with-submission-manager')));
+        }
+        if (!in_array($encryption, array('enc_none', 'enc_tls', 'enc_ssl'), true)) {
+            wp_send_json_error(array('message' => __('Select a valid SMTP encryption type.', 'custom-registration-form-builder-with-submission-manager')));
+        }
+        if ($auth && ($username === '' || $password === '')) {
+            wp_send_json_error(array('message' => __('Enter both the SMTP username and password when authentication is enabled.', 'custom-registration-form-builder-with-submission-manager')));
+        }
+
+        $settings = array(
+            'host' => $host,
+            'port' => (int)$port_value,
+            'auth' => $auth,
+            'username' => $username,
+            'password' => $password,
+            'encryption' => $encryption,
+            'sender_email' => $sender_email,
+        );
+        $mail_error = null;
+        $phpmailer_callback = function ($phpmailer) use ($settings, $from_name) {
+            RM_Utilities::apply_smtp_config($phpmailer, $settings, $from_name);
+        };
+        $failure_callback = function ($error) use (&$mail_error) {
+            $mail_error = $error;
+        };
+
+        add_action('phpmailer_init', $phpmailer_callback);
+        add_action('wp_mail_failed', $failure_callback);
+
+        try {
+            $sent = wp_mail(
+                $email,
+                __('Test SMTP Connection', 'custom-registration-form-builder-with-submission-manager'),
+                __('Test', 'custom-registration-form-builder-with-submission-manager'),
+                array('From: ' . $sender_email)
+            );
+        } finally {
+            remove_action('phpmailer_init', $phpmailer_callback);
+            remove_action('wp_mail_failed', $failure_callback);
+        }
+
+        if ($sent) {
+            wp_send_json_success(array(
+                'message' => wp_strip_all_tags((string)RM_UI_Strings::get('LABEL_SMTP_SUCCESS_MESSAGE')),
+            ));
+        }
+
+        $error_message = self::sanitize_smtp_error($mail_error, $settings);
+        if ($error_message === '') {
+            $error_message = __('No additional error details were provided by the mail server.', 'custom-registration-form-builder-with-submission-manager');
+        }
+
+        wp_send_json_error(array(
+            'message' => sprintf(
+                /* translators: %s: sanitized SMTP error message. */
+                __('SMTP test failed: %s', 'custom-registration-form-builder-with-submission-manager'),
+                $error_message
+            ),
+        ));
     }
 
     public static function check_wordpress_default_mail() {

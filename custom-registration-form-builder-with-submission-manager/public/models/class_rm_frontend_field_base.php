@@ -91,6 +91,198 @@ class RM_Frontend_Field_Base
         $this->field_label = $field_label;
     }
 
+    /**
+     * Evaluate this field's configured conditional rules using submitted values.
+     *
+     * This is deliberately server-side and fails visible when a rule cannot be
+     * evaluated. Failing visible prevents malformed configuration or request
+     * data from suppressing required validation or a configured charge.
+     */
+    public function is_active_for_submission($request)
+    {
+        $conditions = $this->field_model->get_field_conditions();
+        if (empty($conditions['rules']) || !is_array($conditions['rules'])) {
+            return true;
+        }
+
+        $results = array();
+        foreach ($conditions['rules'] as $rule) {
+            if (!isset($rule['controlling_field'], $rule['op'], $rule['values']) || !is_array($rule['values'])) {
+                return true;
+            }
+
+            $controlling_field = new RM_Fields();
+            if (!$controlling_field->load_from_db(absint($rule['controlling_field']))) {
+                return true;
+            }
+
+            $field_type = $controlling_field->get_field_type();
+            if ($field_type === 'Username') {
+                $field_name = 'username';
+            } elseif ($field_type === 'UserPassword') {
+                $field_name = 'pwd';
+            } else {
+                $field_name = $field_type . '_' . absint($rule['controlling_field']);
+            }
+
+            $actual = array_key_exists($field_name, $request) ? $request[$field_name] : '';
+            $expected = $rule['values'];
+            $expected = array(implode(',', $this->normalize_condition_values($field_type, $expected)));
+            if ($expected === array('')) {
+                $expected = array('_');
+            }
+
+            $result = $this->evaluate_submission_condition($actual, $expected, $rule['op'], $field_type);
+            if ($result === null) {
+                return true;
+            }
+            $results[] = $result;
+        }
+
+        $combinator = isset($conditions['settings']['combinator']) ? strtoupper($conditions['settings']['combinator']) : 'OR';
+        $matched = $combinator === 'AND' ? !in_array(false, $results, true) : in_array(true, $results, true);
+        $action = isset($conditions['action']) ? $conditions['action'] : 'show';
+
+        if ($action === 'show') {
+            return $matched;
+        }
+        if ($action === 'hide' || $action === 'disable') {
+            return !$matched;
+        }
+
+        return true;
+    }
+
+    private function normalize_condition_values($field_type, $values)
+    {
+        if ($field_type === 'Country' && class_exists('Element_Country')) {
+            $options = (new Element_Country('country', 'country'))->getOptions();
+        } elseif ($field_type === 'Timezone' && class_exists('Element_Timezone')) {
+            $options = (new Element_Timezone('timezone', 'timezone'))->getOptions();
+        } elseif ($field_type === 'Language' && method_exists('RM_Utilities', 'get_language_array')) {
+            $options = RM_Utilities::get_language_array();
+        } else {
+            return $values;
+        }
+
+        foreach ($values as $key => $value) {
+            $option_key = array_search($value, $options, true);
+            if ($option_key !== false) {
+                $values[$key] = $option_key;
+            }
+        }
+        return $values;
+    }
+
+    private function evaluate_submission_condition($actual, $expected, $operator, $field_type)
+    {
+        if (is_array($actual)) {
+            foreach ($actual as $value) {
+                if (!is_scalar($value) && $value !== null) {
+                    return null;
+                }
+            }
+        } elseif (!is_scalar($actual) && $actual !== null) {
+            return null;
+        }
+
+        $actual_is_array = is_array($actual);
+        $actual_values = is_array($actual) ? $actual : array($actual);
+        $actual_values = array_map(function ($value) {
+            return strtolower(trim((string) $value));
+        }, $actual_values);
+        $expected_values = array_map(function ($value) {
+            return strtolower(trim((string) $value));
+        }, $expected);
+
+        if ($operator === '_blank' || $operator === '_not_blank') {
+            $has_value = count(array_filter($actual_values, 'strlen')) > 0;
+            return $operator === '_blank' ? !$has_value : $has_value;
+        }
+
+        if ($field_type === 'jQueryUIDate' || $field_type === 'Bdate') {
+            $actual_values = array_map('strtotime', $actual_values);
+            $expected_values = array_map('strtotime', $expected_values);
+            if (in_array(false, $actual_values, true) || in_array(false, $expected_values, true)) {
+                return false;
+            }
+        }
+
+        switch ($operator) {
+            case '==':
+                foreach ($actual_values as $actual_value) {
+                    foreach ($expected_values as $expected_value) {
+                        if ((is_numeric($actual_value) && is_numeric($expected_value) && (float) $actual_value === (float) $expected_value) ||
+                            (!is_numeric($actual_value) && !is_numeric($expected_value) && $actual_value === $expected_value)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            case '!=':
+                return !$this->evaluate_submission_condition($actual, $expected, '==', $field_type);
+            case 'in':
+                $expected_parts = explode(',', reset($expected_values));
+                if ($actual_is_array || count($expected_parts) > 1) {
+                    return count(array_intersect($actual_values, $expected_parts)) > 0;
+                }
+                foreach ($actual_values as $actual_value) {
+                    $expected_value = reset($expected_values);
+                    if ($expected_value !== '' && strpos((string) $actual_value, (string) $expected_value) !== false) {
+                        return true;
+                    }
+                }
+                return false;
+            case '<':
+            case '<=':
+            case '>':
+            case '>=':
+                if ($actual_values === array('') || empty($expected_values)) {
+                    return false;
+                }
+                foreach ($actual_values as $actual_value) {
+                    $expected_value = reset($expected_values);
+                    if (($operator === '<' && !($actual_value < $expected_value)) ||
+                        ($operator === '<=' && !($actual_value <= $expected_value)) ||
+                        ($operator === '>' && !($actual_value > $expected_value)) ||
+                        ($operator === '>=' && !($actual_value >= $expected_value))) {
+                        return false;
+                    }
+                }
+                return true;
+            case 'start_char':
+            case 'start_word':
+                foreach ($actual_values as $actual_value) {
+                    foreach ($expected_values as $expected_value) {
+                        if ($expected_value !== '' && strpos((string) $actual_value, (string) $expected_value) === 0) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            case 'end_char':
+            case 'end_word':
+                foreach ($actual_values as $actual_value) {
+                    foreach ($expected_values as $expected_value) {
+                        if ($expected_value !== '' && substr((string) $actual_value, -strlen((string) $expected_value)) === (string) $expected_value) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            case 'domain_match':
+                foreach ($actual_values as $actual_value) {
+                    $parts = explode('@', (string) $actual_value);
+                    if (count($parts) === 2 && in_array($parts[1], $expected_values, true)) {
+                        return true;
+                    }
+                }
+                return false;
+        }
+
+        return null;
+    }
+
 //    public function set_field_value($field_value)
 //    {
 //        $this->field_value = $field_value;
