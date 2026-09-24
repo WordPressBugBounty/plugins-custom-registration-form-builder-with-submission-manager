@@ -24,7 +24,7 @@ class Element_WCAddress extends Element {
 
     public function render() {
         $name = $this->_attributes['name'];
-        $values = $this->_attributes['value'];
+        $values = isset($this->_attributes['value']) && is_array($this->_attributes['value']) ? $this->_attributes['value'] : array();
         $submission_id= isset($_REQUEST['submission_id']) ? absint(sanitize_text_field($_REQUEST['submission_id'])) : '';
         $user= wp_get_current_user();
         if(!empty($submission_id)){

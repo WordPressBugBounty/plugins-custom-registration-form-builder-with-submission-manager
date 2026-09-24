@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 7.1
-Stable tag: 6.1.0.0
+Stable tag: 6.1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -399,6 +399,15 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.1.0.1: September 23 2026 =
+* Fixed: Conditional radio and checkbox fields could remain hidden from submission after becoming visible.
+* Fixed: Required choice fields could report a false validation error after conditional changes.
+* Fixed: WooCommerce billing and shipping state fields did not update correctly when the country changed in revamped forms.
+* Fixed: WooCommerce address and rich-text fields could trigger warnings when optional values were unavailable.
+* Fixed: PHP deprecation warnings in analytics, form sorting, and legacy data migration.
+* Improved conditional-field tracking for forms displayed together on the same page.
+* Security: Stripe payment return requests are now validated against the stored payment, submission, and form records. (Premium Only)
 
 = 6.1.0.0: September 10 2026 =
 * Fixed: Conditions on product fields not working properly.
@@ -1664,6 +1673,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * Fixed: Plugin's WooCommerce My Account page template removed for better translation support. (Premium Only).
 
 == Upgrade Notice ==
+
+= 6.1.0.1: September 23 2026 =
+* Recommended update: Improves Stripe payment validation (Premium only) and fixes conditional choice fields, WooCommerce state fields, and PHP compatibility warnings.
 
 = 6.1.0.0: September 10 2026 =
 * Fixed: Conditions on product fields not working properly.

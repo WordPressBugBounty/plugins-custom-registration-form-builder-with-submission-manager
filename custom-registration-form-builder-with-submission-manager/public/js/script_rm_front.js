@@ -444,7 +444,7 @@ var rm_user_exists= function(el,url,data){
 }
 
 var rm_get_state= function(el,url,data,conditions=''){ 
-    jQuery.post(url, data, function(response) {
+    var render_state_field = function(response) {
         elementId= jQuery(el).attr('id');
         //console.log(response);
         //console.log(data.state_field_id);
@@ -470,6 +470,9 @@ var rm_get_state= function(el,url,data,conditions=''){
         }else{
             jQuery('#'+data.state_field_id).html('<input type="text" name="'+name+'" style="'+style+'" placeholder="'+placeholder+'" class="'+class_val+'" value="'+value+'" '+required_attr+' '+conditions+'>');
         }
+    };
+    jQuery.post(url, data).done(render_state_field).fail(function() {
+        render_state_field('');
     });
 }
 

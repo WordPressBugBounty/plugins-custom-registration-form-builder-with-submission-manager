@@ -5970,7 +5970,7 @@ final class RM_Field_Factory_Revamp {
                             'state_field_id': 'wcbilling_".esc_js((string)$field->field_id).'_state'."',
                             'type': 'billing'
                         };
-                        rm_get_state(this, '".admin_url('admin-ajax.php')."', data);
+                        rm_get_state_revamp(this, '".admin_url('admin-ajax.php')."', data);
                     }
                 });
                 jQuery(\"[name='wcbilling_".esc_js((string)$field->field_id)."[country]']\").trigger('change');
@@ -6826,7 +6826,7 @@ final class RM_Field_Factory_Revamp {
                             'state_field_id': 'wcshipping_".esc_js((string)$field->field_id).'_state'."',
                             'type': 'shipping'
                         };
-                        rm_get_state(this, '".admin_url('admin-ajax.php')."', data);
+                        rm_get_state_revamp(this, '".admin_url('admin-ajax.php')."', data);
                     }
                 });
                 jQuery(\"[name='wcshipping_".esc_js((string)$field->field_id)."[country]']\").trigger('change');

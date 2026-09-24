@@ -117,7 +117,7 @@ class RM_Analytics_Controller
             $failed_submission = (int)$service->count('STATS', array('form_id' => (int)$form_id, 'submitted_on' => null));
             
             if($total_entries != 0 )
-                $data->failure_rate = round((double)$failed_submission*100.00/(double)$total_entries, 2);
+                $data->failure_rate = round((float)$failed_submission*100.00/(float)$total_entries, 2);
             else
                 $data->failure_rate = 0.00;
 

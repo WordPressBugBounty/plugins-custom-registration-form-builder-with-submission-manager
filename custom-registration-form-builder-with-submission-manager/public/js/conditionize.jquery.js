@@ -407,7 +407,7 @@
              }
             //console.log($section.parent().parent().parent().siblings().children(':visible'));
             $section.prop('disabled',true);
-            $.fn.updateConditionalFieldsIds(subject.attr('name'),0);
+            $.fn.updateConditionalFieldsIds(subject.attr('name'),0,subject);
         }
         else if(action == 'disable'){
             $section.removeClass('ignore');
@@ -426,7 +426,7 @@
                     $(this).removeAttr('required');
                 }
             });
-            $.fn.updateConditionalFieldsIds(subject.attr('name'),1);
+            $.fn.updateConditionalFieldsIds(subject.attr('name'),1,subject);
             $section.closest('.rmrow :input, .rmagic-field :input').each(function(){
                 if($(this).prop('initial-state')){
                     $(this).removeAttr('required');
@@ -449,7 +449,7 @@
                     $(this).attr('required','required');
                 }
             });
-            $.fn.updateConditionalFieldsIds(subject.attr('name'),1);
+            $.fn.updateConditionalFieldsIds(subject.attr('name'),1,subject);
             $section.closest('.rmrow :input, .rmagic-field :input').each(function(){
                 if($(this).prop('initial-state')){
                     $(this).attr('required');
@@ -476,7 +476,7 @@
                     $(this).attr('required','required');
                 }
             });
-            $.fn.updateConditionalFieldsIds(subject.attr('name'),1);
+            $.fn.updateConditionalFieldsIds(subject.attr('name'),1,subject);
             $section.closest('.rmrow :input, .rmagic-field :input').each(function(){
                 if($(this).prop('initial-state')){
                     $(this).attr('required');
@@ -495,7 +495,7 @@
                  $section.parents('.rmagic-row').css('margin-bottom',0);
             }
             $section.prop('disabled',false);
-            $.fn.updateConditionalFieldsIds(subject.attr('name'),0);
+            $.fn.updateConditionalFieldsIds(subject.attr('name'),0,subject);
         }else{
             $section.addClass('ignore');
             $section.closest(".rmagic-row").addClass('rm-hidden-row');
@@ -511,27 +511,33 @@
              }
             //console.log($section.parent().parent().parent().siblings().children(':visible'));
             $section.prop('disabled',true);
-            $.fn.updateConditionalFieldsIds(subject.attr('name'),0);
+            $.fn.updateConditionalFieldsIds(subject.attr('name'),0,subject);
         }
     }
     rm_init_total_pricing();
     }
     
      // Add hidden field names for server side tracking
-    $.fn.updateConditionalFieldsIds= function(fieldName,add)
-    { 
-        var fieldsArr=[];
-        var currentFields= $("#rm_cond_hidden_fields");
-        if(currentFields!="")
-        fieldsArr= currentFields.val().split(",");
-        var pos= $.inArray(fieldName,fieldsArr);
-        
-        if(add==1 && pos>=0)
-                fieldsArr.splice(pos, 1); 
-        else if(pos==-1)
-                fieldsArr.push(fieldName);
-       
-        fieldsArr.length==0 ? currentFields.val(""): currentFields.val(fieldsArr.join());
+    $.fn.updateConditionalFieldsIds= function(fieldName,add,subject)
+    {
+        if(!fieldName || !subject || !subject.length)
+            return;
+
+        var currentFields = subject.closest('form').find('input[name="rm_cond_hidden_fields"]').first();
+        if(!currentFields.length)
+            return;
+
+        var fieldsArr = (currentFields.val() || '').split(',').filter(function(value, index, values) {
+            return value !== '' && values.indexOf(value) === index;
+        });
+
+        if(add == 1) {
+            fieldsArr = fieldsArr.filter(function(value) { return value !== fieldName; });
+        } else if($.inArray(fieldName,fieldsArr) === -1) {
+            fieldsArr.push(fieldName);
+        }
+
+        currentFields.val(fieldsArr.join(','));
     }
     
     return this.each( function() {

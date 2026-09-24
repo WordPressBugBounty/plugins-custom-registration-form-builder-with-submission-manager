@@ -44,12 +44,25 @@ window.addEventListener("load", (event) => {
             }
         }
 
+        function rmChoiceGroupKey(field) {
+            let type = field.getAttribute('type');
+            let name = field.getAttribute('name');
+            if((type != 'radio' && type != 'checkbox') || name == null || field.hasAttribute('disabled') || field.classList.contains('ignore') || field.closest('.rm-hidden-row') != null) {
+                return null;
+            }
+
+            if(name.endsWith('[]')) {
+                name = name.slice(0, -2);
+            }
+            return type + ':' + name;
+        }
+
         function rmValidateField(field, saveSub = false) {
             let elName = field.getAttribute("name");
             let valid = true;
             let fieldErrors = [];
             if(elName != null) {
-                if(field.getAttribute("type") == 'hidden' || field.hasAttribute("disabled")) {
+                if(field.getAttribute("type") == 'hidden' || field.hasAttribute("disabled") || field.classList.contains('ignore') || field.closest('.rm-hidden-row') != null) {
                     return true;
                 }
                 if(primaryFields.includes(elName) && rmValidationJS.login == 1) {
@@ -71,21 +84,19 @@ window.addEventListener("load", (event) => {
                         if(field.getAttribute("type") == 'radio' || field.getAttribute("type") == 'checkbox') {
                             valid = false;
                             let fieldName = field.getAttribute("name");
-                            let siblings = [];
-                            if(field.getAttribute("type") == 'checkbox') {
-                                if(fieldName.endsWith("[]")) {
-                                    fieldName = fieldName.slice(0, -2);
-                                }
-                                siblings = rmForm.querySelectorAll('input.'+fieldName.toLowerCase());
-                            } else {
-                                siblings = rmForm.querySelectorAll('input[name='+fieldName+']');
-                            }
+                            let normalizedName = fieldName.endsWith("[]") ? fieldName.slice(0, -2) : fieldName;
+                            let siblings = Array.from(rmForm.querySelectorAll('input[type="radio"], input[type="checkbox"]')).filter(function(sibling) {
+                                let siblingName = sibling.getAttribute('name') || '';
+                                siblingName = siblingName.endsWith("[]") ? siblingName.slice(0, -2) : siblingName;
+                                return siblingName === normalizedName && !sibling.hasAttribute('disabled') && !sibling.classList.contains('ignore') && sibling.closest('.rm-hidden-row') == null;
+                            });
                             
                             if(siblings.length > 0) {
                                 for(i = 0; i < siblings.length; i++) {
                                     if(siblings[i].checked == true) {
                                         if(siblings[i].value == '') {
-                                            let otherVal = rmForm.querySelector('#'+fieldName+'_other_input').value;
+                                            let otherInput = rmForm.querySelector('#'+normalizedName+'_other_input');
+                                            let otherVal = otherInput == null ? '' : otherInput.value;
                                             valid = otherVal == '' ? false : true;
                                         } else {
                                             valid = true;
@@ -468,7 +479,15 @@ window.addEventListener("load", (event) => {
         function rmFormSubmitHandler(event, saveSub = false) {
             event.preventDefault();
             let invalidFields = [];
+            let validatedChoiceGroups = new Set();
             for(let i = 0; i < rmFormFields.length; i++) {
+                let choiceGroup = rmChoiceGroupKey(rmFormFields[i]);
+                if(choiceGroup != null && validatedChoiceGroups.has(choiceGroup)) {
+                    continue;
+                }
+                if(choiceGroup != null) {
+                    validatedChoiceGroups.add(choiceGroup);
+                }
                 if(rmFormFields[i].getAttribute("aria-invalid") == "true" && (rmFormFields[i].dataset.primary == '1' || rmFormFields[i].name == 'username' || rmFormFields[i].name == 'pwd' || rmFormFields[i].name == 'password_confirmation' || rmFormFields[i].name == 'email_confirmation')) {
                     rmBlockFormSubmission();
                     invalidFields.push(rmFormFields[i]);
@@ -530,7 +549,15 @@ window.addEventListener("load", (event) => {
                 for(let i = 0; i < rmFormPages.length; i++) {
                     if(rmFormPages[i].style.display != "none") {
                         let pageFields = rmFormPages[i].querySelectorAll("input, select, textarea");
+                        let validatedChoiceGroups = new Set();
                         for(let j = 0; j < pageFields.length; j++) {
+                            let choiceGroup = rmChoiceGroupKey(pageFields[j]);
+                            if(choiceGroup != null && validatedChoiceGroups.has(choiceGroup)) {
+                                continue;
+                            }
+                            if(choiceGroup != null) {
+                                validatedChoiceGroups.add(choiceGroup);
+                            }
                             if(pageFields[j].getAttribute("aria-invalid") == "true" && (pageFields[j].dataset.primary == '1' || pageFields[j].name == 'username' || pageFields[j].name == 'pwd' || pageFields[j].name == 'password_confirmation' || pageFields[j].name == 'email_confirmation')) {
                                 rmBlockFormSubmission();
                                 invalidFields.push(pageFields[j]);

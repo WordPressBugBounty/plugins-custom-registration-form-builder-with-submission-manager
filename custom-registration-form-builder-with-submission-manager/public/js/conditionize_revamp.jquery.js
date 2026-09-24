@@ -318,11 +318,19 @@
       var to,type,valueIs,valueShould;
       var skip= false;
       var results= []; //console.log(listenForValues);
+      var fieldName = subject.attr('name');
+      var $fieldControls = $section;
+      if($section.is(':radio, :checkbox') && fieldName) {
+          $fieldControls = subject.closest('form').find(':input').filter(function() {
+              return this.name === fieldName;
+          });
+      }
       for(var i=0;i<listenForValues.length;i++){ 
         to = "[name=" + listenTo[i] + "]";
+        var $listenField = subject.closest('form').find(to);
       
         type= listenTo[i].split("_")[0];
-        valueIs= $(to).val();
+        valueIs= $listenField.val();
         valueShould= listenForValues[i];
         if(type=='jQueryUIDate' || type=='Bdate')
         {  
@@ -331,15 +339,15 @@
                     continue;
             }
               
-            if($(to).datepicker( "getDate" )!=null){ 
-                valueIs= $(to).datepicker( "getDate" ).getTime();
+            if($listenField.datepicker( "getDate" )!=null){
+                valueIs= $listenField.datepicker( "getDate" ).getTime();
                 if(operators[i]=='_not_blank' && listenTo[i]=="_"){
                     results.push(false);
                     continue;
                 }
                 else{
                     valueShould= listenForValues[i];
-                    var dateFormat= $(to).datepicker('option', 'dateFormat');
+                    var dateFormat= $listenField.datepicker('option', 'dateFormat');
                     if(valueShould!="_")
                     valueShould= $.datepicker.parseDate(dateFormat,valueShould).getTime(); 
                 } 
@@ -355,22 +363,22 @@
             valueIs= parseFloat(valueIs);
             valueShould= parseFloat(valueShould);
         }else{
-            valueIs= $(to).val()!==undefined && $(to).val()!==null ? $(to).val().toString().toLowerCase() : $(to).val();
+            valueIs= $listenField.val()!==undefined && $listenField.val()!==null ? $listenField.val().toString().toLowerCase() : $listenField.val();
             valueShould= $.fn.isNumber(listenForValues[i])? listenForValues[i]: listenForValues[i].toLowerCase();
         }
         
-        if($(to).is('input[type=text],input[type=url],input[type=number],input[type=password],input[type=email],textarea') && $.fn.eval(valueIs, valueShould, operators[i]) && !$(to).is(':radio')){
+        if($listenField.is('input[type=text],input[type=url],input[type=number],input[type=password],input[type=email],textarea') && $.fn.eval(valueIs, valueShould, operators[i]) && !$listenField.is(':radio')){
             results.push(true);
         }
-        else if($(to).is('select') && $.fn.eval(valueIs, valueShould, operators[i],true)){
+        else if($listenField.is('select') && $.fn.eval(valueIs, valueShould, operators[i],true)){
             results.push(true);
         }
-        else if (($(to).is(':radio') || $(to).is(':checkbox')) && !$(to).is(':checked') && $.fn.eval('', valueShould, operators[i],true)){
+        else if (($listenField.is(':radio') || $listenField.is(':checkbox')) && !$listenField.is(':checked') && $.fn.eval('', valueShould, operators[i],true)){
              results.push(true);
         }
-        else if($(to + ":checked").filter(function(idx, elem)
+        else if($listenField.filter(":checked").filter(function(idx, elem)
              { values= [];
-                $(to + ":checked").each(function(){
+                $listenField.filter(":checked").each(function(){
                     values.push($(this).val());
                 }); 
                return $.fn.eval(values.toString().toLowerCase(), valueShould, operators[i],true);
@@ -382,174 +390,78 @@
      var pass= combinator=='AND' ? $.fn.rmAnd(results) : $.fn.rmOr(results);
          
        
-     if (pass && !skip) {
-        if(action == 'hide'){
-            $section.addClass('ignore');
-             $section.parents(".rmform-row").addClass('rm-hidden-row');
-            //$section.val('');
-            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
-                if($(this).attr('initial-state')){
-                    $(this).removeAttr('required');
-                }
-            });
-            $section.parents('.rmform-row, .rmform-field').slideUp();
-             if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
-                 $section.parents('.rmform-row').css('margin-bottom',0);
-             }
-            //console.log($section.parent().parent().parent().siblings().children(':visible'));
-            if(typeof $section.attr('name') !== 'undefined' && $section.attr('name').startsWith('Repeatable')) {
-                $section.parents(".rmform-row").find('input').prop('disabled',true);
-            } else {
-                $section.prop('disabled',true);
-            }
-            $.fn.updateConditionalFieldsIds(subject.attr('name'),0);
-        }
-        else if(action == 'disable'){
-            $section.removeClass('ignore');
-            //$section.parents('.rmform-row, .rmform-field').slideDown();
-            $section.parents(".rmform-row").removeClass('rm-hidden-row');
-            if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
-                var bmargin = $section.parents('.rmform-row').data('bmargin');
-                if(bmargin > 0)
-                    $section.parents('.rmform-row').css('margin-bottom',bmargin);
-                else
-                    $section.parents('.rmform-row').css('margin-bottom',14);
-            }
-            if(typeof $section.attr('name') !== 'undefined' && $section.attr('name').startsWith('Repeatable')) {
-                $section.parents(".rmform-row").find('input').prop('disabled',true);
-            } else {
-                $section.prop('disabled',true);
-            }
-            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
-                if($(this).attr('initial-state')){
-                    $(this).removeAttr('required');
-                }
-            });
-            $.fn.updateConditionalFieldsIds(subject.attr('name'),1);
-            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
-                if($(this).prop('initial-state')){
-                    $(this).removeAttr('required');
-                }
-            });
-        }else {
-            $section.removeClass('ignore');
-            $section.parents(".rmform-row").removeClass('rm-hidden-row');
-            $section.parents('.rmform-row, .rmform-field').slideDown();
-            if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
-                var bmargin = $section.parents('.rmform-row').data('bmargin');
-                if(bmargin > 0)
-                    $section.parents('.rmform-row').css('margin-bottom',bmargin);
-                else
-                    $section.parents('.rmform-row').css('margin-bottom',14);
-            }
-            if(typeof $section.attr('name') !== 'undefined' && $section.attr('name').startsWith('Repeatable')) {
-                $section.parents(".rmform-row").find('input').prop('disabled',false);
-            } else {
-                $section.prop('disabled',false);
-            }
-            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
-                if($(this).attr('initial-state')){
-                    $(this).attr('required','required');
-                }
-            });
-            $.fn.updateConditionalFieldsIds(subject.attr('name'),1);
-            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
-                if($(this).prop('initial-state')){
-                    $(this).attr('required');
-                }
-            });
-        }
+     var conditionMet = pass && !skip;
+     var shouldHide = action == 'hide' ? conditionMet : (action == 'disable' ? false : !conditionMet);
+     var shouldDisable = action == 'disable' ? conditionMet : shouldHide;
+     var $row = $section.parents('.rmform-row');
+     var $displayContainers = $section.parents('.rmform-row, .rmform-field');
+
+     $fieldControls.toggleClass('ignore', shouldDisable);
+     $row.toggleClass('rm-hidden-row', shouldHide);
+
+     if(shouldHide) {
+         $displayContainers.stop(true, true).slideUp();
+         $row.css('margin-bottom', 0);
+     } else {
+         $displayContainers.stop(true, true).slideDown();
+         var bmargin = $row.data('bmargin');
+         $row.css('margin-bottom', bmargin > 0 ? bmargin : 14);
      }
-     else {
-        
-        if(action == 'hide'){
-            $section.removeClass('ignore');
-            $section.parents(".rmform-row").removeClass('rm-hidden-row');
-            $section.parents('.rmform-row, .rmform-field').slideDown();
-            if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
-                var bmargin = $section.parents('.rmform-row').data('bmargin');
-                if(bmargin > 0)
-                    $section.parents('.rmform-row').css('margin-bottom',bmargin);
-                else
-                    $section.parents('.rmform-row').css('margin-bottom',14);
-            }
-            if(typeof $section.attr('name') !== 'undefined' && $section.attr('name').startsWith('Repeatable')) {
-                $section.parents(".rmform-row").find('input').prop('disabled',false);
-            } else {
-                $section.prop('disabled',false);
-            }
-            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
-                if($(this).attr('initial-state')){
-                    $(this).attr('required','required');
-                }
-            });
-            $.fn.updateConditionalFieldsIds(subject.attr('name'),1);
-            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
-                if($(this).prop('initial-state')){
-                    $(this).attr('required');
-                }
-            });
-        } else if(action == 'disable'){
-            $section.addClass('ignore');
-            $section.parents(".rmform-row").addClass('rm-hidden-row');
-            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
-                if($(this).attr('initial-state')){
-                    $(this).attr('required');
-                }
-            });
-            //$section.parents('.rmform-row, .rmform-field').slideUp();
-            if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
-                 $section.parents('.rmform-row').css('margin-bottom',0);
-            }
-            if(typeof $section.attr('name') !== 'undefined' && $section.attr('name').startsWith('Repeatable')) {
-                $section.parents(".rmform-row").find('input').prop('disabled',false);
-            } else {
-                $section.prop('disabled',false);
-            }
-            $.fn.updateConditionalFieldsIds(subject.attr('name'),0);
-        }else{
-            $section.addClass('ignore');
-            $section.parents(".rmform-row").addClass('rm-hidden-row');
-            //$section.val('');
-            $section.parents('.rmform-row :input, .rmform-field :input').each(function(){
-                if($(this).attr('initial-state')){
-                    $(this).removeAttr('required');
-                }
-            });
-            $section.parents('.rmform-row, .rmform-field').slideUp();
-             if($section.parents('.rmform-col').siblings().children(':visible').length <= 0) {
-                 $section.parents('.rmform-row').css('margin-bottom',0);
+
+     if(fieldName && fieldName.startsWith('Repeatable')) {
+         $row.find('input').prop('disabled', shouldDisable);
+     } else {
+         $fieldControls.prop('disabled', shouldDisable);
+     }
+
+     $fieldControls.each(function() {
+         if($(this).attr('initial-state')) {
+             if(shouldDisable) {
+                 $(this).removeAttr('required');
+             } else {
+                 $(this).attr('required', 'required');
              }
-            //console.log($section.parent().parent().parent().siblings().children(':visible'));
-            if(typeof $section.attr('name') !== 'undefined' && $section.attr('name').startsWith('Repeatable')) {
-                $section.parents(".rmform-row").find('input').prop('disabled',true);
-            } else {
-                $section.prop('disabled',true);
-            }
-            $.fn.updateConditionalFieldsIds(subject.attr('name'),0);
-        }
-    }
+         }
+     });
+
+     $.fn.updateConditionalFieldsIds(fieldName, shouldDisable ? 0 : 1, subject);
     rm_init_total_pricing();
     }
     
      // Add hidden field names for server side tracking
-    $.fn.updateConditionalFieldsIds= function(fieldName,add)
-    { 
-        var fieldsArr=[];
-        var currentFields= $("#rm_cond_hidden_fields");
-        if(currentFields!="")
-        fieldsArr= currentFields.val().split(",");
-        var pos= $.inArray(fieldName,fieldsArr);
-        
-        if(add==1 && pos>=0)
-                fieldsArr.splice(pos, 1); 
-        else if(pos==-1)
-                fieldsArr.push(fieldName);
-       
-        fieldsArr.length==0 ? currentFields.val(""): currentFields.val(fieldsArr.join());
+    $.fn.updateConditionalFieldsIds= function(fieldName,add,subject)
+    {
+        if(!fieldName || !subject || !subject.length)
+            return;
+
+        var currentFields = subject.closest('form').find('input[name="rm_cond_hidden_fields"]').first();
+        if(!currentFields.length)
+            return;
+
+        var fieldsArr = (currentFields.val() || '').split(',').filter(function(value, index, values) {
+            return value !== '' && values.indexOf(value) === index;
+        });
+
+        if(add == 1) {
+            fieldsArr = fieldsArr.filter(function(value) { return value !== fieldName; });
+        } else if($.inArray(fieldName,fieldsArr) === -1) {
+            fieldsArr.push(fieldName);
+        }
+
+        currentFields.val(fieldsArr.join(','));
     }
     
     return this.each( function() {
+       var $logicalSubject = $(this);
+       var logicalName = $logicalSubject.attr('name');
+       if($logicalSubject.is(':radio, :checkbox') && logicalName) {
+           var $logicalGroup = $logicalSubject.closest('form').find('.data-conditional-revamp').filter(function() {
+               return this.name === logicalName;
+           });
+           if($logicalGroup.length && $logicalGroup.first()[0] !== this) {
+               return;
+           }
+       }
        var cleanSelectors= $(this).data('cond-option').toString().replace(/(:|\.|\[|\]|,)/g, "\\$1").split("|");
         for(var i=0;i<cleanSelectors.length;i++){
         var cleanSelector = cleanSelectors[i]; 
@@ -561,7 +473,7 @@
         var $section = $(this);
         var subject= $(this);
         //Set up event listener
-        $(listenTo).on('change', function() { 
+        subject.closest('form').find(listenTo).on('change', function() {
           $.fn.showOrHide(cleanSelectors, listenFor, operator,combinator, action, $section,subject,false);
         }); 
         // if action is hide than it will default show and on condition meet hide it
@@ -569,19 +481,6 @@
         // if action is disable than it will default enable and on condition meet disable it
         // if setting was chosen, hide everything first...
         
-        if(action == 'hide'){
-            $(this).parents('.rmform-row, .rmform-field').show();
-            $(this).removeClass('ignore');
-             $(this).parents(".rmform-row").removeClass('rm-hidden-row');
-        }else if(action == 'disable'){
-            $(this).parents('.rmform-row, .rmform-field').show();
-            $(this).addClass('ignore');
-            $(this).parents(".rmform-row").addClass('rm-hidden-row');
-        }else{
-            $(this).parents('.rmform-row, .rmform-field').hide();
-            $(this).addClass('ignore');
-            $(this).parents(".rmform-row").addClass('rm-hidden-row');
-        }
         // commented by devilal
         /*if (settings.hideJS) {
           $(this).parents('.rmform-row, .rmform-field').hide();

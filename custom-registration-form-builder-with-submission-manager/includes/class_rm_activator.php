@@ -699,7 +699,7 @@ class RM_Activator
 
         $table_name = $wpdb->prefix . 'crf_paypal_log';
         $total_subs = $wpdb->get_var("SELECT COUNT(`id`) FROM $table_name WHERE 1");
-        $total_loop_count = ceil((double) $total_subs / $step);
+        $total_loop_count = ceil((float) $total_subs / $step);
         for ($i = 0; $i <= $total_loop_count; $i++)
             $mig->migrate_paypal_logs($i * $step, $step);
 
@@ -710,7 +710,7 @@ class RM_Activator
 
         $table_name = $wpdb->prefix . 'crf_stats';
         $total_subs = $wpdb->get_var("SELECT COUNT(`id`) FROM $table_name WHERE 1");
-        $total_loop_count = ceil((double) $total_subs / $step);
+        $total_loop_count = ceil((float) $total_subs / $step);
         for ($i = 0; $i <= $total_loop_count; $i++)
             $mig->migrate_stats($i * $step, $step);
 
@@ -726,7 +726,7 @@ class RM_Activator
 
         $table_name = $wpdb->prefix . 'crf_users';
         $total_subs = $wpdb->get_var("SELECT COUNT(`id`) FROM $table_name WHERE 1");
-        $total_loop_count = ceil((double) $total_subs / $step);
+        $total_loop_count = ceil((float) $total_subs / $step);
         for ($i = 0; $i <= $total_loop_count; $i++)
             $mig->migrate_front_users($i * $step, $step);
 

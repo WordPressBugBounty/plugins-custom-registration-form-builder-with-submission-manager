@@ -44,7 +44,7 @@ class RM_Form_Controller {
                 'form_id' => 'form_id',
                 'form_submissions' => 'form_submissions'
             );
-            $sort_by = isset($allowed_sort_columns[$sort_by]) ? $allowed_sort_columns[$sort_by] : 'created_on';
+            $sort_by = is_null($sort_by) || !isset($allowed_sort_columns[$sort_by]) ? 'created_on' : $allowed_sort_columns[$sort_by];
             $descending = (isset($request->req['rm_descending']) && absint($request->req['rm_descending']) == 0) ? false : true;
             $req_page = (isset($request->req['rm_reqpage']) && $request->req['rm_reqpage'] > 0) ? $request->req['rm_reqpage'] : 1;
             $url_params = array(

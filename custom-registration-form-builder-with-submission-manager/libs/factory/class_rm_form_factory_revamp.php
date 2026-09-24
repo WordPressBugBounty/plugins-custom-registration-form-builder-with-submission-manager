@@ -1596,22 +1596,33 @@ final class RM_Form_Factory_Revamp {
                 }
 
                 // Handling Stripe payment
-                if (isset($_REQUEST['payment_intent_client_secret'])) {
+                if (isset($_GET['payment_intent_client_secret'])) {
+                    $log_entry_id = isset($_GET['log_id']) ? absint($_GET['log_id']) : 0;
+                    $submission_id = isset($_GET['sub_id']) ? absint($_GET['sub_id']) : 0;
+                    $intent_id = isset($_GET['payment_intent']) ? sanitize_text_field(wp_unslash($_GET['payment_intent'])) : '';
+                    $payment_log = $log_entry_id ? RM_DBManager::get_row('PAYPAL_LOGS', $log_entry_id) : false;
+
+                    if (!$payment_log || !$submission_id || !$intent_id ||
+                        absint($payment_log->submission_id) !== $submission_id ||
+                        absint($payment_log->form_id) !== $form_id ||
+                        strtolower((string) $payment_log->pay_proc) !== 'stripe' ||
+                        empty($payment_log->txn_id) ||
+                        !hash_equals((string) $payment_log->txn_id, $intent_id)) {
+                        echo '<div class="rm-post-sub-msg">'.esc_html__('Payment request is invalid.', 'custom-registration-form-builder-with-submission-manager').'</div>';
+                        return;
+                    }
+
                     wp_enqueue_script('rm_stripe_script','https://js.stripe.com/v3/');
                     wp_enqueue_script('rm_stripe_status_utility',RM_ADDON_BASE_URL. 'public/js/stripe_status_utility.js');
                     $rm_admin_vars = array('nonce'=>wp_create_nonce('rm_ajax_secure'));
                     wp_localize_script('rm_stripe_status_utility','rm_admin_vars',$rm_admin_vars);
                     wp_enqueue_style('rm_stripe_checkout_style', RM_ADDON_BASE_URL . 'public/css/rm_stripe_checkout.css');
-                    
-                    $log_entry_id = absint($_REQUEST['log_id']);
-                    $total_price = sanitize_text_field($_REQUEST['total_price']);
-                    $submission_id = absint($_REQUEST['sub_id']);
-                    $description = sanitize_text_field($_REQUEST['description']);
+
                     $label = esc_html__('Please enter the details to complete the payment:','custom-registration-form-builder-with-submission-manager');
-                    $btn_label = esc_html__('Pay','custom-registration-form-builder-with-submission-manager').' '.$total_price;
+                    $btn_label = esc_html__('Pay','custom-registration-form-builder-with-submission-manager');
                     echo "<div class=\"rm_stripe_fields\">
                             <div class=\"rm_stripe_label\" style=\"display:none\">".wp_kses_post((string)$label)."</div>
-                            <form id=\"rm-stripe-payment-form\" data-log-id=\"".wp_kses_post((string)$log_entry_id)."\" data-total-price=\"".wp_kses_post((string)$total_price)."\" data-submission-id=\"".wp_kses_post((string)$submission_id)."\" data-description=\"".wp_kses_post((string)$description)."\">
+                            <form id=\"rm-stripe-payment-form\" data-log-id=\"".esc_attr((string)$log_entry_id)."\" data-submission-id=\"".esc_attr((string)$submission_id)."\">
                             <div id=\"rm-stripe-payment-element\" style=\"display:none\">
                                 <!--Stripe.js injects the Payment Element-->
                             </div>

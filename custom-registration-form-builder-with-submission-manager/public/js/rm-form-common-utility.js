@@ -561,8 +561,8 @@ jQuery(document).ready(function () {
     rm_bind_terms_scroll_guard(document);
 });
 
-function rm_get_state(el, url, data) {
-    jQuery.post(url, data, function(response) {
+function rm_get_state_revamp(el, url, data) {
+    var render_state_field = function(response) {
         var name = jQuery('#'+data.state_field_id).attr('data-name');
         var placeholder = jQuery('#'+data.state_field_id).attr('data-placeholder');
         var class_val = jQuery.trim(jQuery('#'+data.state_field_id).attr('data-class'));
@@ -596,6 +596,9 @@ function rm_get_state(el, url, data) {
             jQuery('#'+data.state_field_id).children().first().replaceWith('<input type="text" name="'+name+'" style="'+style+'" placeholder="'+placeholder+'" class="'+class_val+'" value="'+value+'" '+required_attr+' '+conditions+'>');
         }
         jQuery('#'+data.state_field_id).children().first().conditionizeRevamp({});
+    };
+    jQuery.post(url, data).done(render_state_field).fail(function() {
+        render_state_field('');
     });
 }
 
