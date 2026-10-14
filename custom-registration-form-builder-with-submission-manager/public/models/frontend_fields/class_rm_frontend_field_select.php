@@ -29,10 +29,10 @@ class RM_Frontend_Field_Select extends RM_Frontend_Field_Multivalue
         $options = RM_Utilities::process_field_options($value);
         
         if($multiple=='multiple')
-              $options = array(null => RM_UI_Strings::get('SELECT_FIELD_MULTI_OPTION')) + $options;
+              $options = array('' => RM_UI_Strings::get('SELECT_FIELD_MULTI_OPTION')) + $options;
         else
-            $options = array(null => $this->field_model->field_options->field_select_label) + $options;
-            //$options = array(null => RM_UI_Strings::get('SELECT_FIELD_FIRST_OPTION')) + $options;
+            $options = array('' => $this->field_model->field_options->field_select_label) + $options;
+            //$options = array('' => RM_UI_Strings::get('SELECT_FIELD_FIRST_OPTION')) + $options;
         
         $this->field_value = $options;        
     }

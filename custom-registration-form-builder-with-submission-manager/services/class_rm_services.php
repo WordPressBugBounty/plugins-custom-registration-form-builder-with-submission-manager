@@ -1139,7 +1139,7 @@ class RM_Services {
 
     public function get_mailchimp_list() {
         $result = $this->mailchimpService->get_list();
-        $lists = array(null => RM_UI_Strings::get('OPTION_SELECT_LIST'));
+        $lists = array('' => RM_UI_Strings::get('OPTION_SELECT_LIST'));
         if (!empty($result)) {
             foreach ($result['lists'] as $key => $list) {
                 $lists[$list['id']] = $list['name'];

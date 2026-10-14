@@ -182,7 +182,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_PUBLIC_DIR . 'views/template
                                 else
                                 {
                                     if (!isset($field_data->properties['required']))
-                                        $vals = array(null => RM_UI_Strings::get('SELECT_FIELD_FIRST_OPTION')) + $vals;
+                                        $vals = array('' => RM_UI_Strings::get('SELECT_FIELD_FIRST_OPTION')) + $vals;
                                     $element = new Element_Select($label, $name, $vals, $properties);
                                 }
                                 break;
@@ -199,7 +199,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_PUBLIC_DIR . 'views/template
                     }
                     else if ($field_data->field_type == 'Select')
                     {
-                        $options = array(null => RM_UI_Strings::get('SELECT_FIELD_FIRST_OPTION')) + $options;
+                        $options = array('' => RM_UI_Strings::get('SELECT_FIELD_FIRST_OPTION')) + $options;
                         $form->addElement(new $element_class($label, $name, $options, $field_data->properties));
                     } else if ($field_data->field_type == 'Radio' || $field_data->field_type == 'Checkbox' || $field_data->field_type == 'Terms')
                     {

@@ -29,7 +29,7 @@ class Element_HTMLH extends Element
     
     public function renderTag($type = "prepend"){
         if($type === "prepend")
-            echo '<h1 class="rm_form_field_type_heading',$this->_attributes["class"] ? ' '.esc_attr($this->_attributes["class"]):null,'">';
+            echo '<h1 class="rm_form_field_type_heading',!empty($this->_attributes["class"]) ? ' '.esc_attr($this->_attributes["class"]):null,'">';
         if($type === "append")
             echo '</h1>';
     }

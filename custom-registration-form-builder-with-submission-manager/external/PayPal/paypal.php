@@ -23,6 +23,12 @@ if(!defined('SSL_P_URL'))
 if(!defined('SSL_SAND_URL'))
 	define('SSL_SAND_URL','https://www.sandbox.paypal.com/cgi-bin/webscr');
 
+if(!defined('SSL_P_IPN_URL'))
+	define('SSL_P_IPN_URL', 'https://ipnpb.paypal.com/cgi-bin/webscr');
+
+if(!defined('SSL_SAND_IPN_URL'))
+	define('SSL_SAND_IPN_URL', 'https://ipnpb.sandbox.paypal.com/cgi-bin/webscr');
+
 class rm_paypal_class {
 	
 	public $ipn_status;                // holds the last status
@@ -48,7 +54,7 @@ class rm_paypal_class {
 		$this->ipn_log = true;
 		$this->ipn_response = '';
 		$this->ipn_debug = false;
-		$this->sandbox = 'no';
+		$this->sandbox = false;
                 $this->paypal_client_id = null;
                 $this->paypal_modern_method = false;
 	}
@@ -167,80 +173,89 @@ class rm_paypal_class {
  * @return bool IPN validation result
  */
 	public function validate_ipn() {
-		
-		$hostname = gethostbyaddr ( $_SERVER ['REMOTE_ADDR'] );
-        
-        /*
-		if (! preg_match ( '/paypal\.com$/', $hostname )) {
-			$this->ipn_status = 'Validation post isn\'t from PayPal';
-			$this->log_ipn_results ( false );
+		$is_sandbox = $this->sandbox === true || $this->sandbox === 1 || $this->sandbox === '1' || $this->sandbox === 'yes';
+		$test_ipn_present = array_key_exists('test_ipn', $_POST);
+		$test_ipn = $test_ipn_present && is_scalar($_POST['test_ipn'])
+			? (string) wp_unslash($_POST['test_ipn'])
+			: '';
+
+		// The verification environment is a server-side trust decision. Never
+		// allow incoming IPN data to redirect live verification to the sandbox.
+		if (($is_sandbox && $test_ipn !== '1') || (!$is_sandbox && $test_ipn_present)) {
+			$this->ipn_status = 'IPN Environment Mismatch';
+			$this->log_ipn_results(false);
 			return false;
 		}
-        */
-		
-		if (isset($this->paypal_mail) && strtolower ( $_POST['receiver_email'] ) != strtolower(trim( (string)$this->paypal_mail ))) {
-			$this->ipn_status = "Receiver Email Not Match";
-			$this->log_ipn_results ( false );
-			return false;
+
+		if (!empty($this->paypal_mail)) {
+			$receiver_email = isset($_POST['receiver_email']) && is_scalar($_POST['receiver_email'])
+				? sanitize_email(wp_unslash($_POST['receiver_email']))
+				: '';
+			if (strtolower($receiver_email) != strtolower(trim((string)$this->paypal_mail))) {
+				$this->ipn_status = "Receiver Email Not Match";
+				$this->log_ipn_results(false);
+				return false;
+			}
 		}
-		
-		if (isset($this->txn_id)&& in_array($_POST['txn_id'],$this->txn_id)) {
+
+		$transaction_id = isset($_POST['txn_id']) && is_scalar($_POST['txn_id'])
+			? sanitize_text_field(wp_unslash($_POST['txn_id']))
+			: '';
+		if (isset($this->txn_id) && in_array($transaction_id, $this->txn_id, true)) {
 			$this->ipn_status = "txn_id have a duplicate";
-			$this->log_ipn_results ( false );
+			$this->log_ipn_results(false);
 			return false;
 		}
-		// parse the paypal URL
-		$paypal_url = ($_POST['test_ipn'] == 1) ? SSL_SAND_URL : SSL_P_URL;
-		$url_parsed = parse_url($paypal_url);        
-		
-		// generate the post string from the _POST vars aswell as load the
-		// _POST vars into an arry so we can play with them from the calling
-		// script.
-		$post_string = '';    
-		foreach ($_POST as $field=>$value) { 
-			$this->ipn_data["$field"] = sanitize_text_field($value);
-			$post_string .= $field.'='.urlencode(stripslashes((string)$value)).'&'; 
+
+		$post_fields = array();
+		foreach ($_POST as $field => $value) {
+			if (!is_scalar($value)) {
+				$this->ipn_status = 'Invalid IPN Payload';
+				$this->log_ipn_results(false);
+				return false;
+			}
+
+			$value = (string) wp_unslash($value);
+			$this->ipn_data[(string)$field] = sanitize_text_field($value);
+			$post_fields[] = urlencode((string)$field) . '=' . urlencode($value);
 		}
-		$post_string.="cmd=_notify-validate"; // append ipn command
-		
-		// open the connection to paypal
-		if (isset($_POST['test_ipn']) )
-			$fp = fsockopen ( 'ssl://www.sandbox.paypal.com', "443", $err_num, $err_str, 60 );
-		else
-			$fp = fsockopen ( 'ssl://www.paypal.com', "443", $err_num, $err_str, 60 );
- 
-		if(!$fp) {
-			// could not open the connection.  If logging is on, the error message
-			// will be in the log.
-			$this->ipn_status = "fsockopen error no. $err_num: $err_str";
-			$this->log_ipn_results(false);       
+
+		$post_string = 'cmd=_notify-validate';
+		if (!empty($post_fields)) {
+			$post_string .= '&' . implode('&', $post_fields);
+		}
+
+		$paypal_url = $is_sandbox ? SSL_SAND_IPN_URL : SSL_P_IPN_URL;
+		$response = wp_safe_remote_post($paypal_url, array(
+			'timeout' => 60,
+			'redirection' => 0,
+			'httpversion' => '1.1',
+			'headers' => array(
+				'Content-Type' => 'application/x-www-form-urlencoded',
+				'Connection' => 'close'
+			),
+			'body' => $post_string,
+			'data_format' => 'body'
+		));
+
+		if (is_wp_error($response)) {
+			$this->ipn_status = 'IPN Validation Request Failed';
+			$this->log_ipn_results(false);
 			return false;
-		} else { 
-			// Post the data back to paypal
-			fputs($fp, "POST $url_parsed[path] HTTP/1.1\r\n"); 
-			fputs($fp, "Host: $url_parsed[host]\r\n"); 
-			fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n"); 
-			fputs($fp, "Content-length: ".strlen($post_string)."\r\n"); 
-			fputs($fp, "Connection: close\r\n\r\n"); 
-			fputs($fp, $post_string . "\r\n\r\n"); 
-		
-			// loop through the response from the server and append to variable
-			while(!feof($fp)) { 
-		   	$this->ipn_response .= fgets($fp, 1024); 
-		   } 
-		  fclose($fp); // close connection
 		}
-		
-		// Invalid IPN transaction.  Check the $ipn_status and log for details.
-		if (! preg_match("/VERIFIED/i",$this->ipn_response)) {
+
+		$response_code = wp_remote_retrieve_response_code($response);
+		$this->ipn_response = trim((string) wp_remote_retrieve_body($response));
+
+		if ($response_code !== 200 || $this->ipn_response !== 'VERIFIED') {
 			$this->ipn_status = 'IPN Validation Failed';
-			$this->log_ipn_results(false);   
+			$this->log_ipn_results(false);
 			return false;
-		} else {
-			$this->ipn_status = "IPN VERIFIED";
-			$this->log_ipn_results(true); 
-			return true;
 		}
+
+		$this->ipn_status = "IPN VERIFIED";
+		$this->log_ipn_results(true);
+		return true;
 	} 
    
 	public function log_ipn_results($success) {

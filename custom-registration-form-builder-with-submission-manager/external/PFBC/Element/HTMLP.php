@@ -46,7 +46,7 @@ class Element_HTMLP extends Element
                     }
                 }
             }
-            echo '<p '.wp_kses_post((string)$style_str).' class="rm_form_field_type_paragraph',$this->_attributes["class"]? ' '.esc_attr($this->_attributes["class"]):null,'">';
+            echo '<p '.wp_kses_post((string)$style_str).' class="rm_form_field_type_paragraph',!empty($this->_attributes["class"])? ' '.esc_attr($this->_attributes["class"]):null,'">';
         }
         if($type === "append")
             echo '</p>';

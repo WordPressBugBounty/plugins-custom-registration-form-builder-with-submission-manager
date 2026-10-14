@@ -17,7 +17,7 @@ class Element_Timezone extends Element_Select
     public function __construct($label, $name, $properties = null)
     {
         $options = array(
-            null => __('--Select Timezone--','custom-registration-form-builder-with-submission-manager'),
+            '' => __('--Select Timezone--','custom-registration-form-builder-with-submission-manager'),
             'Africa/Abidjan' => __('Abidjan','custom-registration-form-builder-with-submission-manager'),
             'Africa/Accra' => __('Accra','custom-registration-form-builder-with-submission-manager'),
             'Africa/Addis_Ababa' => __('Addis Ababa','custom-registration-form-builder-with-submission-manager'),

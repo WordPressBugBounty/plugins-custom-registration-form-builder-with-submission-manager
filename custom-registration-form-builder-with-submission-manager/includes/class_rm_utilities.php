@@ -118,7 +118,7 @@ class RM_Utilities {
         }
         $roles = array();
         if ($placeholder)
-            $roles[null] = RM_UI_Strings::get('PH_USER_ROLE_DD');
+            $roles[''] = RM_UI_Strings::get('PH_USER_ROLE_DD');
 
         if (!function_exists('get_editable_roles'))
             require_once ABSPATH . 'wp-admin/includes/user.php';
@@ -170,7 +170,7 @@ class RM_Utilities {
 
     public static function get_field_types($include_widgets= true,$form_type=1) {
         $field_types = array(
-             null => 'Select A Field',
+             '' => 'Select A Field',
             'Textbox' => __('Text','custom-registration-form-builder-with-submission-manager'),
             'Select' => __('Drop Down','custom-registration-form-builder-with-submission-manager'),
             'Radio' => __('Radio Button','custom-registration-form-builder-with-submission-manager'),
@@ -444,7 +444,7 @@ class RM_Utilities {
             foreach ($pricing_fields as $field)
                 $field_dropdown_array[$field->field_id] = $field->name;
         else
-            $field_dropdown_array[null] = RM_UI_Strings::get('MSG_CREATE_PRICE_FIELD');
+            $field_dropdown_array[''] = RM_UI_Strings::get('MSG_CREATE_PRICE_FIELD');
 
         return $field_dropdown_array;
     }
@@ -2192,7 +2192,7 @@ class RM_Utilities {
 
     public static function get_countries() {
         $list= array(
-            null => RM_UI_Strings::get("LABEL_SELECT_COUNTRY"),
+            '' => RM_UI_Strings::get("LABEL_SELECT_COUNTRY"),
             "Afghanistan[AF]" => __("Afghanistan","custom-registration-form-builder-with-submission-manager"),
             "Aland Islands[AX]" => __("Aland Islands","custom-registration-form-builder-with-submission-manager"),
             "Albania[AL]" => __("Albania","custom-registration-form-builder-with-submission-manager"),

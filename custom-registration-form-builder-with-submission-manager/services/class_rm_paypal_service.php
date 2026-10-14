@@ -52,6 +52,9 @@ class RM_Paypal_Service implements RM_Gateway_Service
             $this->paypal->toggle_client_id($this->paypal_client_id);
         }
         $this->paypal->admin_mail = get_option('admin_email');
+        if (!empty($this->paypal_email)) {
+            $this->paypal->paypal_mail = $this->paypal_email;
+        }
     }
 
     function getPaypal() {

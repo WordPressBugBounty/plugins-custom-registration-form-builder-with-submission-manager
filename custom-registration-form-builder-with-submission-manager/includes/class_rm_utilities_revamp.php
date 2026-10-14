@@ -520,13 +520,13 @@ class RM_Utilities_Revamp {
           $list = apply_filters('rm_country_list',$list);
           setlocale(LC_COLLATE, get_locale().'.UTF-8');
           asort($list, SORT_LOCALE_STRING);
-          $def_element = array(null => RM_UI_Strings::get("LABEL_SELECT_COUNTRY"));
+          $def_element = array('' => RM_UI_Strings::get("LABEL_SELECT_COUNTRY"));
           return array_merge($def_element, $list);
     }
 
     public static function get_timezones() {
         $timezones = array(
-            null => __('--Select Timezone--','custom-registration-form-builder-with-submission-manager'),
+            '' => __('--Select Timezone--','custom-registration-form-builder-with-submission-manager'),
             'Africa/Abidjan' => __('Abidjan','custom-registration-form-builder-with-submission-manager'),
             'Africa/Accra' => __('Accra','custom-registration-form-builder-with-submission-manager'),
             'Africa/Addis_Ababa' => __('Addis Ababa','custom-registration-form-builder-with-submission-manager'),
