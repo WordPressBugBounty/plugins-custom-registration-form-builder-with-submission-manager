@@ -12,6 +12,7 @@ window.addEventListener("load", (event) => {
         let rmFormProgBar = rmForm.querySelectorAll('ul#rmagic-progressbar li');
         let rmFormFields = rmForm.querySelectorAll('input, select, textarea');
         let rmFormType = rmForm.dataset.type;
+        let rmSubmissionInProgress = false;
         for(let i = 0; i < rmFormFields.length; i++) {
             if(rmFormFields[i].getAttribute("type") == 'email' && rmFormFields[i].dataset.primary == 1) {
                 primaryFields.push(rmFormFields[i].getAttribute("name"));
@@ -42,6 +43,33 @@ window.addEventListener("load", (event) => {
                     rmFormSaveBtn.removeAttribute("disabled");
                 }, 4000);
             }
+        }
+
+        function rmBeginFormSubmission(activeButton) {
+            if(rmSubmissionInProgress) {
+                return false;
+            }
+
+            rmSubmissionInProgress = true;
+            rmForm.setAttribute('aria-busy', 'true');
+            [rmFormNextBtn, rmFormPrevBtn, rmFormSubmitBtn, rmFormSaveBtn].forEach(function(button) {
+                if(button != null) {
+                    button.setAttribute('disabled', true);
+                }
+            });
+
+            if(activeButton != null && activeButton !== rmForm && typeof activeButton.value != 'undefined') {
+                activeButton.dataset.rmOriginalLabel = activeButton.value;
+                activeButton.value = (typeof rmValidationJS != 'undefined' && rmValidationJS.texts.uploading) ? rmValidationJS.texts.uploading : 'Please wait...';
+            }
+
+            let status = rmForm.querySelector('.rm-form-processing-status');
+            if(status != null) {
+                status.textContent = (typeof rmValidationJS != 'undefined' && rmValidationJS.texts.uploading) ? rmValidationJS.texts.uploading : 'Please wait...';
+                status.hidden = false;
+            }
+
+            return true;
         }
 
         function rmChoiceGroupKey(field) {
@@ -478,6 +506,9 @@ window.addEventListener("load", (event) => {
 
         function rmFormSubmitHandler(event, saveSub = false) {
             event.preventDefault();
+            if(rmSubmissionInProgress) {
+                return false;
+            }
             let invalidFields = [];
             let validatedChoiceGroups = new Set();
             for(let i = 0; i < rmFormFields.length; i++) {
@@ -510,6 +541,21 @@ window.addEventListener("load", (event) => {
                 saveSubInput.setAttribute("type", "hidden");
                 saveSubInput.setAttribute("name", "rm_save_submission");
                 saveSubInput.setAttribute("value", "1");
+                let submitForm = function() {
+                    if(saveSub) {
+                        rmForm.appendChild(saveSubInput);
+                    }
+                    let activeButton = event.submitter || event.currentTarget || (saveSub ? rmFormSaveBtn : rmFormSubmitBtn);
+                    if(!rmBeginFormSubmission(activeButton)) {
+                        return false;
+                    }
+                    window.requestAnimationFrame(function() {
+                        window.requestAnimationFrame(function() {
+                            HTMLFormElement.prototype.submit.call(rmForm);
+                        });
+                    });
+                    return true;
+                };
                 if(typeof grecaptcha != 'undefined') {
                     let recaptchaField = rmForm.querySelector('div.g-recaptcha');
                     if(recaptchaField != null) {
@@ -523,22 +569,13 @@ window.addEventListener("load", (event) => {
                             rmForm.querySelector('#rm-recaptcha-error').innerText = "";
                             recaptchaField.setAttribute("aria-invalid", "false");
                             recaptchaField.closest("div.rmform-field").classList.remove('rmform-has-error');
-                            if(saveSub) {
-                                rmForm.appendChild(saveSubInput);
-                            }
-                            rmForm.submit();
+                            submitForm();
                         }
                     } else {
-                        if(saveSub) {
-                            rmForm.appendChild(saveSubInput);
-                        }
-                        rmForm.submit();
+                        submitForm();
                     }
                 } else {
-                    if(saveSub) {
-                        rmForm.appendChild(saveSubInput);
-                    }
-                    rmForm.submit();
+                    submitForm();
                 }
             }
         }
@@ -618,6 +655,16 @@ window.addEventListener("load", (event) => {
                 rmFormSubmitHandler(e, true);
             });
         }
+
+
+        rmForm.addEventListener("submit", function(e) {
+            if(rmSubmissionInProgress) {
+                e.preventDefault();
+                return false;
+            }
+            let saveSub = rmFormSaveBtn != null && e.submitter === rmFormSaveBtn;
+            return rmFormSubmitHandler(e, saveSub);
+        });
 
         if(rmFormPrevBtn != null) {
             rmFormPrevBtn.addEventListener("click", function() {

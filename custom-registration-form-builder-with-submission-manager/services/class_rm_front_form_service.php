@@ -11,6 +11,21 @@
  *
  * @author CMSHelplive
  */
+if (!class_exists('RM_Duplicate_Submission_Exception')) {
+    class RM_Duplicate_Submission_Exception extends RuntimeException {
+        private $submission_id;
+
+        public function __construct($submission_id) {
+            $this->submission_id = absint($submission_id);
+            parent::__construct('Duplicate form submission');
+        }
+
+        public function get_submission_id() {
+            return $this->submission_id;
+        }
+    }
+}
+
 class RM_Front_Form_Service extends RM_Services {
 
     public $user_service;
@@ -410,15 +425,62 @@ class RM_Front_Form_Service extends RM_Services {
         }
     }
 
-    public function save_submission($form_id, $data, $email, $modified_by = null, $unique_token = null) {
+    public static function normalize_submission_key($submission_key, $form_id, $stat_id = null) {
+        $submission_key = sanitize_text_field(wp_unslash((string)$submission_key));
+        if (preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i', $submission_key)) {
+            return strtolower($submission_key);
+        }
+
+        if (is_numeric($stat_id) && absint($stat_id) > 0) {
+            $hash = md5('registrationmagic|' . absint($form_id) . '|' . absint($stat_id));
+            return substr($hash, 0, 8) . '-' . substr($hash, 8, 4) . '-4' . substr($hash, 13, 3) . '-a' . substr($hash, 17, 3) . '-' . substr($hash, 20, 12);
+        }
+
+        return wp_generate_uuid4();
+    }
+
+    public static function get_submission_id_by_key($form_id, $submission_key) {
+        global $wpdb;
+
+        if (empty($submission_key)) {
+            return 0;
+        }
+
+        return absint($wpdb->get_var($wpdb->prepare(
+            "SELECT submission_id FROM {$wpdb->prefix}rm_submissions WHERE form_id = %d AND submission_key = %s LIMIT 1",
+            absint($form_id),
+            $submission_key
+        )));
+    }
+
+    public function save_submission($form_id, $data, $email, $modified_by = null, $unique_token = null, $submission_key = null) {
+        if (empty($submission_key)) {
+            $submission_key = self::normalize_submission_key(
+                isset($_POST['rm_submission_key']) ? $_POST['rm_submission_key'] : '',
+                $form_id,
+                isset($_POST['stat_id']) ? $_POST['stat_id'] : null
+            );
+        }
+
         if(defined('REGMAGIC_ADDON'))
-            $submission_row = array('form_id' => $form_id, 'data' => $data, 'user_email' => $email, 'modified_by' => $modified_by);
+            $submission_row = array('form_id' => $form_id, 'data' => $data, 'user_email' => $email, 'modified_by' => $modified_by, 'submission_key' => $submission_key);
         else
-            $submission_row = array('form_id' => $form_id, 'data' => $data, 'user_email' => $email);
+            $submission_row = array('form_id' => $form_id, 'data' => $data, 'user_email' => $email, 'submission_key' => $submission_key);
         
         $submissions = new RM_Submissions;
         $submissions->set($submission_row);
         $submission_id = $submissions->insert_into_db();
+
+        if (!$submission_id) {
+            $existing_submission_id = self::get_submission_id_by_key($form_id, $submission_key);
+            if ($existing_submission_id) {
+                if (defined('REGMAGIC_ADDON')) {
+                    throw new RM_Duplicate_Submission_Exception($existing_submission_id);
+                }
+                return (object) array('submission_id' => $existing_submission_id, 'token' => null, 'duplicate' => true);
+            }
+            return null;
+        }
         
         if(!$unique_token)
             $unique_token = $submissions->get_unique_token();
@@ -436,9 +498,9 @@ class RM_Front_Form_Service extends RM_Services {
         }
 
         if(defined('REGMAGIC_ADDON'))
-            return (object) array('submission_id' => $submission_id, 'token' => $unique_token);
+            return (object) array('submission_id' => $submission_id, 'token' => $unique_token, 'duplicate' => false);
         else
-            return (object) array('submission_id' => $submission_id, 'token' => null);
+            return (object) array('submission_id' => $submission_id, 'token' => null, 'duplicate' => false);
     }
     
     //Save a edited submission

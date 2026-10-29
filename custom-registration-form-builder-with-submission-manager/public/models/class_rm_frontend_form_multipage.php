@@ -119,6 +119,10 @@ class RM_Frontend_Form_Multipage extends RM_Frontend_Form_Base
             if(defined('REGMAGIC_ADDON'))
                 $editing_sub=false;
         }
+
+        if (!$edit_submission) {
+            $form->addElement(new Element_Hidden('rm_submission_key', wp_generate_uuid4()));
+        }
         
         if (isset($data['submission_id']) && $data['submission_id'])
         {

@@ -43,11 +43,17 @@ final class RM_Form_Factory_Revamp {
             }
             echo "<input type='submit' id='rm-form-submit-btn' value='".wp_kses_post((string)$form->form_options->form_submit_btn_label)."'>";
         }
+        echo "<span class='rm-form-processing-status' role='status' aria-live='polite' hidden></span>";
         echo "</div>";
     }
 
     private function is_required_field_empty($value) {
         return $value === '' || (is_array($value) && empty($value));
+    }
+
+    private function render_duplicate_submission_message($form) {
+        $message = esc_html__('This submission has already been received and is being processed.', 'custom-registration-form-builder-with-submission-manager');
+        echo "<div class='rm_form_submit_msg rm-form-submit-wrap'><div class='rm-post-sub-msg'>" . esc_html($message) . "</div></div>";
     }
 
     private function normalize_price_quantity($qty, &$errors, $field_label) {
@@ -66,6 +72,11 @@ final class RM_Form_Factory_Revamp {
     private function save_submission($sub_data = array(), $form = null, $form_no = null, $prefilled = false, $submission_id = null) {
         // Getting form ID
         $form_id = absint($form->form_id);
+        $submission_key = RM_Front_Form_Service::normalize_submission_key(
+            isset($sub_data['rm_submission_key']) ? $sub_data['rm_submission_key'] : '',
+            $form_id,
+            isset($sub_data['stat_id']) ? $sub_data['stat_id'] : null
+        );
         
         // Checking valid submission for this form
         if(!isset($sub_data['form_id']) || !isset($sub_data['form_no']) || absint($sub_data['form_id']) != $form_id || absint($sub_data['form_no']) != $form_no) {
@@ -878,7 +889,8 @@ final class RM_Form_Factory_Revamp {
                     'last_child' => 0,
                     'is_read' => 0,
                     'submitted_on' => gmdate('Y-m-d H:i:s'),
-                    'unique_token'=> $token
+                    'unique_token'=> $token,
+                    'submission_key' => $submission_key
                 );
                 $insert_format = array(
                     '%d',
@@ -887,6 +899,7 @@ final class RM_Form_Factory_Revamp {
                     '%d',
                     '%d',
                     '%d',
+                    '%s',
                     '%s',
                     '%s'
                 );
@@ -901,6 +914,11 @@ final class RM_Form_Factory_Revamp {
                 );
                 
                 if(empty($wpdb->insert_id)) {
+                    $existing_submission_id = RM_Front_Form_Service::get_submission_id_by_key($form_id, $submission_key);
+                    if($existing_submission_id) {
+                        $this->render_duplicate_submission_message($form);
+                        return false;
+                    }
                     if(empty($wpdb->last_error)) {
                         esc_html_e("Could not save submission in database. Please try again.", 'custom-registration-form-builder-with-submission-manager');
                     } else {
@@ -1484,7 +1502,7 @@ final class RM_Form_Factory_Revamp {
             "gmap_api"=>get_option('rm_option_google_map_key', null),
             'no_results'=>esc_html__('No Results Found','custom-registration-form-builder-with-submission-manager'),
             'invalid_zip'=>esc_html__('Invalid Zip Code','custom-registration-form-builder-with-submission-manager'),
-            'request_processing'=>esc_html__('Please wait...','custom-registration-form-builder-with-submission-manager'),
+            'request_processing'=>esc_html__('Your files are being uploaded. Please do not close this page.','custom-registration-form-builder-with-submission-manager'),
             'hours'=>esc_html__('Hours','custom-registration-form-builder-with-submission-manager'),
             'minutes'=>esc_html__('Minutes','custom-registration-form-builder-with-submission-manager'),
             'seconds'=>esc_html__('Seconds','custom-registration-form-builder-with-submission-manager'),
@@ -1990,6 +2008,9 @@ final class RM_Form_Factory_Revamp {
                     echo "<input type='hidden' name='form_id' value='".wp_kses_post((string)$form_id)."'>";
                     echo "<input type='hidden' name='form_no' value='".wp_kses_post((string)$rm_form_diary[$form_id])."'>";
                     echo "<input type='hidden' name='rm_cond_hidden_fields' id='rm_cond_hidden_fields' value=''>";
+                    if(!$prefilled) {
+                        echo "<input type='hidden' name='rm_submission_key' value='".esc_attr(wp_generate_uuid4())."'>";
+                    }
                     if(defined('REGMAGIC_ADDON') && isset($form->form_options->access_control)) {
                         echo "<input type='hidden' name='".esc_attr($this->get_access_control_token_field($form_id))."' value='".esc_attr($this->get_access_control_session_token($form_id, $form->form_options->access_control))."'>";
                     }
@@ -2858,7 +2879,7 @@ final class RM_Form_Factory_Revamp {
     }
 
     private function output_validation_js($form_id = null, $pass_match_err = "") {
-        wp_enqueue_script('revamp-field-validation', RM_BASE_URL . 'public/js/revamp-field-validation.js');
+        wp_enqueue_script('revamp-field-validation', RM_BASE_URL . 'public/js/revamp-field-validation.js', array(), RM_PLUGIN_VERSION);
         wp_localize_script('revamp-field-validation', 'rmValidationJS', array(
             'formID' => $form_id,
             'login' => intval(is_user_logged_in()),
@@ -2886,6 +2907,7 @@ final class RM_Form_Factory_Revamp {
                 'customformat' => esc_html__("Incorrect format", 'custom-registration-form-builder-with-submission-manager'),
                 'mobileformat' => esc_html__("Incorrect mobile number format", 'custom-registration-form-builder-with-submission-manager'),
                 'filetype' => esc_html__("Invalid file type. Allowed types: %s", 'custom-registration-form-builder-with-submission-manager'),
+                'uploading' => esc_html__("Your files are being uploaded. Please do not close this page.", 'custom-registration-form-builder-with-submission-manager'),
                 'minlength' => esc_html__("Value cannot be less than %s characters", 'custom-registration-form-builder-with-submission-manager'),
                 'maxlength' => esc_html__("Value cannot be more than %s characters", 'custom-registration-form-builder-with-submission-manager'),
                 'minnum' => esc_html__("Value cannot be less than %s", 'custom-registration-form-builder-with-submission-manager'),

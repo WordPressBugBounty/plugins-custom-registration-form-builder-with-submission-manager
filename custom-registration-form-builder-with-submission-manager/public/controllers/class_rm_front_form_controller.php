@@ -36,7 +36,11 @@ class RM_Front_Form_Controller
     {
         if(defined('REGMAGIC_ADDON')) {
             $addon_controller = new RM_Front_Form_Controller_Addon();
-            return $addon_controller->process($model, $service, $request, $params, $this);
+            try {
+                return $addon_controller->process($model, $service, $request, $params, $this);
+            } catch (RM_Duplicate_Submission_Exception $exception) {
+                return '<div class="rm_form_submit_msg rm-form-submit-wrap"><div class="rm-post-sub-msg">' . esc_html__('This submission has already been received and is being processed.', 'custom-registration-form-builder-with-submission-manager') . '</div></div>';
+            }
         }
         if($service->is_ip_banned())
         {
@@ -125,7 +129,25 @@ class RM_Front_Form_Controller
 
             $primary_data = $fe_form->get_prepared_data($request->req, 'primary');
             $db_data = $fe_form->get_prepared_data($request->req, 'dbonly');
-            $sub_detail = $service->save_submission($form_id, $db_data, $primary_data['user_email']->value);
+            $submission_key = RM_Front_Form_Service::normalize_submission_key(
+                isset($request->req['rm_submission_key']) ? $request->req['rm_submission_key'] : '',
+                $form_id,
+                $stat_id
+            );
+            $sub_detail = $service->save_submission($form_id, $db_data, $primary_data['user_email']->value, null, null, $submission_key);
+
+            if (!$sub_detail) {
+                return '<div class="rminfotextfront">' . esc_html__('Could not save submission in database. Please try again.', 'custom-registration-form-builder-with-submission-manager') . '</div>';
+            }
+
+            if (!empty($sub_detail->duplicate)) {
+                $duplicate_params = new stdClass;
+                $duplicate_params->form_options = $fe_form->get_form_options();
+                $duplicate_params->form_name = $fe_form->get_form_name();
+                $duplicate_params->form_id = $form_id;
+                $duplicate_params->sub_id = $sub_detail->submission_id;
+                return $service->after_submission_proc($duplicate_params);
+            }
             
             if(isset($sub_detail))
                 $service->update_stat_entry($stat_id,'update',$sub_detail->submission_id);            

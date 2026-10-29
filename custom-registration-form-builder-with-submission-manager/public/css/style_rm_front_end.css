@@ -2903,6 +2903,45 @@ body.is-light-theme .rmagic {
     opacity: 0.5;
     cursor: default;
 }
+
+.rmformui input[type='submit'][disabled],
+.rmformui input[type='button'][disabled] {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.rm-form-processing-status {
+    display: block;
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+.rm-form-processing-status[hidden] {
+    display: none !important;
+}
+
+.rm-form-processing-status:not([hidden])::before {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    vertical-align: -2px;
+    animation: rm-submission-spinner 0.8s linear infinite;
+}
+
+@keyframes rm-submission-spinner {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rm-form-processing-status:not([hidden])::before {
+        animation: none;
+    }
+}
 .rmagic .rm-privacy-row .rm-privacy-icon input.rm_privacy_cb {
     margin-right: 5px;
 }

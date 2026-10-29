@@ -465,10 +465,44 @@ jQuery(document).ready(function(){
     var rm_forms = jQuery('form.rmagic-form');
     if(rm_forms.length !== 0) {
         jQuery.each(rm_forms, function( key, value ) {
-            var pg_custom_tab = jQuery(this).closest('div.pg_custom_tab_content');
+            var rm_form = jQuery(this);
+            var pg_custom_tab = rm_form.closest('div.pg_custom_tab_content');
             if(pg_custom_tab.length !== 0) {
-                jQuery(this).attr('action', '#' + pg_custom_tab.attr('id'));
+                rm_form.attr('action', '#' + pg_custom_tab.attr('id'));
             }
+
+            rm_form.on('submit.rmSubmissionLock', function(event) {
+                if(rm_form.data('rmSubmissionInProgress')) {
+                    event.preventDefault();
+                    return false;
+                }
+
+                if(typeof rm_form.valid === 'function' && rm_form.data('validator') && !rm_form.valid()) {
+                    event.preventDefault();
+                    return false;
+                }
+
+                rm_form.data('rmSubmissionInProgress', true);
+                rm_form.attr('aria-busy', 'true');
+                var submit_buttons = rm_form.find(':submit');
+                var active_button = event.originalEvent && event.originalEvent.submitter ? jQuery(event.originalEvent.submitter) : submit_buttons.filter(':focus').first();
+                if(active_button.length === 0) {
+                    active_button = submit_buttons.filter(':visible').first();
+                }
+                var processing_text = (typeof rm_ajax !== 'undefined' && rm_ajax.request_processing) ? rm_ajax.request_processing : 'Please wait...';
+                if(active_button.length > 0) {
+                    active_button.data('rmOriginalLabel', active_button.val());
+                    active_button.val(processing_text);
+                }
+                submit_buttons.prop('disabled', true);
+
+                var status = rm_form.find('.rm-form-processing-status').first();
+                if(status.length === 0) {
+                    status = jQuery('<span class="rm-form-processing-status" role="status" aria-live="polite"></span>');
+                    rm_form.find('.buttonarea').last().append(status);
+                }
+                status.text(processing_text).prop('hidden', false);
+            });
         });
     }
 });

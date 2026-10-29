@@ -229,7 +229,9 @@ class RM_Table_Tech
                     `last_child` INT(6) NOT NULL DEFAULT 0,
                     `is_read` TINYINT(1) NOT NULL DEFAULT '0',
                     `submitted_on` DATETIME,
-                    `unique_token` VARCHAR(250)
+                    `unique_token` VARCHAR(250),
+                    `submission_key` VARCHAR(36) NULL,
+                    UNIQUE KEY `rm_form_submission_key` (`form_id`, `submission_key`)
                     )$charset_collate;";
 
             dbDelta($sql);

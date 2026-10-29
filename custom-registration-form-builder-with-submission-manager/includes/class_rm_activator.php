@@ -163,7 +163,7 @@ class RM_Activator
         self::migrate_rm_5_6_to_rm_5_7($network_wide, $existing_rm_db_version);
         self::migrate_rm_5_7_to_rm_5_8($network_wide, $existing_rm_db_version);
         self::migrate_rm_5_8_to_rm_5_9($network_wide, $existing_rm_db_version);
-        //self::migrate_rm_5_9_to_rm_6_0($network_wide, $existing_rm_db_version);
+        self::migrate_rm_5_9_to_rm_6_0($network_wide, $existing_rm_db_version);
          // Create primary fields for all the forms (version <= 3.8.2.6)
         //if(!empty($existing_rm_version) && version_compare($existing_rm_version,'3.8.2.7')==-1){
         $rm_service= new RM_Services();
@@ -526,8 +526,6 @@ class RM_Activator
         global $wpdb;
         if (floatval($existing_rm_db_version) < 6.0)
         {
-            $service = new RM_Services;
-            $forms = array(1,2);
             if (is_multisite() && $network_wide)
             {
                 $current_blog = $wpdb->blogid;
@@ -535,22 +533,30 @@ class RM_Activator
                 foreach ($blog_ids as $blog_id)
                 {
                     switch_to_blog($blog_id);
-                    foreach($forms as $form) {
-                        $service->add_default_cstatuses($form);
-                        $service->add_default_crons($form);
-                    }
+                    self::add_submission_key_schema();
                     restore_current_blog();
                 }
             }
             else
             {
-                foreach($forms as $form) {
-                    $service->add_default_cstatuses($form);
-                    $service->add_default_crons($form);
-                }
+                self::add_submission_key_schema();
             }  
             add_option('rm_option_upgraded',1);
         
+        }
+    }
+    private static function add_submission_key_schema() {
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . 'rm_submissions';
+        $column = $wpdb->get_var("SHOW COLUMNS FROM `{$table_name}` LIKE 'submission_key'");
+        if (!$column) {
+            $wpdb->query("ALTER TABLE `{$table_name}` ADD `submission_key` VARCHAR(36) NULL AFTER `unique_token`");
+        }
+
+        $index = $wpdb->get_var("SHOW INDEX FROM `{$table_name}` WHERE Key_name = 'rm_form_submission_key'");
+        if (!$index) {
+            $wpdb->query("ALTER TABLE `{$table_name}` ADD UNIQUE KEY `rm_form_submission_key` (`form_id`, `submission_key`)");
         }
     }
     public static function migrate_crf_to_rm_4_0($network_wide, $existing_rm_db_version, $existing_crf_db_version)

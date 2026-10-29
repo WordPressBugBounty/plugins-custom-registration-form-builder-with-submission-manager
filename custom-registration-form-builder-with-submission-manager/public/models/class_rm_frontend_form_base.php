@@ -535,6 +535,31 @@ abstract class RM_Frontend_Form_Base
 
             $controller = $field_map[$controller_id];
             $field_name = $controller->get_field_name();
+            if (array_key_exists($field_name, $request)) {
+                $controller_value = $request[$field_name];
+                if (is_scalar($controller_value)) {
+                    $controller_value = wp_unslash((string) $controller_value);
+                } elseif (is_array($controller_value)) {
+                    $has_only_scalar_values = true;
+                    foreach ($controller_value as $value) {
+                        if (!is_scalar($value)) {
+                            $has_only_scalar_values = false;
+                            break;
+                        }
+                    }
+
+                    if ($has_only_scalar_values) {
+                        $controller_value = array_map(function ($value) {
+                            return wp_unslash((string) $value);
+                        }, $controller_value);
+                    }
+                }
+
+                $request[$field_name] = $controller_value;
+                if ((isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') || !empty($_POST)) {
+                    $_POST[$field_name] = $controller_value;
+                }
+            }
             $is_required_price_controller = isset($required_price_controller_ids[$controller_id]);
             if ($is_required_price_controller && !$this->has_condition_controller_value($request, $field_name)) {
                 $controllers_valid = false;

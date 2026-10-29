@@ -624,8 +624,8 @@ class RM_Email_Service
         else
             $params->sent_successfully = false;
         
-        if(!$params->do_not_save)
-        self::save_sent_emails($params,$rm_email,$params->type);
+        if(empty($params->do_not_save))
+            self::save_sent_emails($params,$rm_email,$params->type);
     }
         
     public static function save_sent_emails($params,$rm_email,$type)

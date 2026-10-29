@@ -48,7 +48,7 @@ class RM_Frontend_Field_Select extends RM_Frontend_Field_Multivalue
             if(isset($this->field_options['multiple'])) {
                $this->field_options['field_hint'] = RM_UI_Strings::get('HINT_MULTISELECT_FIELD');
             }
-            $enable_search = isset($this->field_model->field_options->field_enable_search) ? (boolean) $this->field_model->field_options->field_enable_search : false;
+            $enable_search = isset($this->field_model->field_options->field_enable_search) ? (bool) $this->field_model->field_options->field_enable_search : false;
             $this->pfbc_field = new $class_name($label, $this->field_name, $this->field_value, $this->field_options, null, $enable_search);
             $this->add_custom_validations();
             return $this->pfbc_field;

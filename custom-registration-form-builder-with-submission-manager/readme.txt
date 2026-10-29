@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 7.1
-Stable tag: 6.1.0.2
+Stable tag: 6.1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -400,9 +400,16 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 
 == Changelog ==
 
+= 6.1.0.3: October 29 2026 =
+* Fixed: Rapid repeat clicks during file uploads could create duplicate form submissions.
+* Fixed: Quoted conditional-controller values could be rejected during submission, causing visible dependent radio fields to be treated as hidden and not saved.
+* Fixed: Multi-Select product checkboxes and labels could be widely separated on the frontend, while product option controls could wrap and become misaligned in the editor. (Premium Only)
+* Improved: Submit controls now display an accessible upload-processing state while files are being sent.
+
 = 6.1.0.2: October 13 2026 =
 * Security: PayPal IPN verification is now strictly bound to the configured live or sandbox environment.
 * Security: PayPal IPN responses now require a successful request and an exact VERIFIED response.
+* Credit: Thanks to Prometeus (independent security researcher) for responsibly reporting the security issue.
 * Fixed: Paragraph and heading display fields could trigger PHP warnings when no custom CSS class was configured.
 * Fixed: PDF generation could emit libpng warnings for PNG images with invalid embedded sRGB color profiles. (Premium Only)
 * Improved: PDF generation now reports a controlled error when a PNG image cannot be decoded. (Premium Only)
@@ -1681,6 +1688,9 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * Fixed: Plugin's WooCommerce My Account page template removed for better translation support. (Premium Only).
 
 == Upgrade Notice ==
+
+= 6.1.0.3: October 29 2026 =
+* Recommended update: Prevents duplicate submissions during slow file uploads and adds visible upload feedback.
 
 = 6.1.0.2: October 13 2026 =
 * Security update: Prevents sandbox PayPal notifications from completing live payment records.

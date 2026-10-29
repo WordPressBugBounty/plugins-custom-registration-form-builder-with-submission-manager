@@ -83,13 +83,13 @@ JS;
 			if($value && in_array($value, $this->_attributes["value"]))
 				echo ' checked="checked"';
 			//echo '/> ', $text, ' </label> ';
-			echo '/><label for="',esc_attr($this->_attributes["id"]), '-', esc_attr($count),'"><span>', wp_kses((string)$text,RM_Utilities::expanded_allowed_tags()), '</span></label>';
+			echo '/><label for="',esc_attr($this->_attributes["id"]), '-', esc_attr($count),'"><span>', wp_kses((string)$text,RM_Utilities::expanded_allowed_tags()), '</span></label></span>';
                         ////Render sub element if specified
                         if($sub_ele && $sub_ele instanceof Element)
                         {
                             if($sub_ele_name)
                                 $sub_ele->setAttribute("name",$sub_ele_name."[$value]");
-                            echo '</span><div class="rmrow">', wp_kses_post((string)$this->renderLabel($sub_ele)), '<div class="rminput">', wp_kses_post((string)$sub_ele->render()), '</div></div>';
+                            echo '<div class="rmrow">', wp_kses_post((string)$this->renderLabel($sub_ele)), '<div class="rminput">', wp_kses_post((string)$sub_ele->render()), '</div></div>';
                             //$sub_ele->render();
                         }
                         //////End sub element render.
