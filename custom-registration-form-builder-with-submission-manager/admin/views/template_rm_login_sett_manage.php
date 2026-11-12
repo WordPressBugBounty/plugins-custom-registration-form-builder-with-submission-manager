@@ -16,7 +16,7 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
     function rm_refresh_stats(){
     var trange = jQuery('#rm_stat_timerange').val();
     if(typeof trange == 'undefined')
-        trange = <?php echo esc_html($data->timerange); ?>;
+        trange = <?php echo wp_json_encode(absint($data->timerange)); ?>;
     window.location = '?page=rm_login_sett_manage&rm_tr='+trange;
 }
 </script></pre>

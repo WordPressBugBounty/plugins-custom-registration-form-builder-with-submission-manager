@@ -214,6 +214,13 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
 
                 <table class="user-content rmagic-table" id="rmsecondtabcontent">
 
+                    <tr><td colspan="5"><strong><?php printf(esc_html__('Total: %d submissions', 'custom-registration-form-builder-with-submission-manager'), absint($data->total_submissions)); ?></strong></td></tr>
+                    <?php if (!empty($data->first_submission)) {
+                        $first_form_name = $data->first_submission->form_name ? $data->first_submission->form_name : __('FORM DELETED', 'custom-registration-form-builder-with-submission-manager');
+                        $first_submission_url = add_query_arg(array('page' => 'rm_submission_view', 'rm_submission_id' => absint($data->first_submission->submission_id), 'rm_form_id' => absint($data->first_submission->form_id)), admin_url('admin.php'));
+                        ?>
+                        <tr><td colspan="5"><strong><?php esc_html_e('First RM submission:', 'custom-registration-form-builder-with-submission-manager'); ?></strong> <a href="<?php echo esc_url($first_submission_url); ?>"><?php echo esc_html($first_form_name); ?> - <?php echo esc_html(RM_Utilities::localize_time($data->first_submission->submitted_on)); ?> (#<?php echo absint($data->first_submission->submission_id); ?>)</a></td></tr>
+                    <?php } ?>
                     <?php
                     if (count($data->submissions) !== 0)
                     {
@@ -222,7 +229,7 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                         <th>#</th> <th><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_FORM')); ?></th> <th><?php echo wp_kses_post((string)RM_UI_Strings::get('LABEL_DATE')); ?></th> <th>&nbsp;</th> <th>&nbsp;</th>
 
                         <?php
-                        $i = 0;
+                        $i = absint($data->submission_offset) + 1;
                         foreach ($data->submissions as $sub)
                         {
                             $form_name = ($sub->form_name) ? : 'FORM DELETED'
@@ -247,6 +254,10 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                     }
                     ?>
 
+                    <?php if ($data->submission_pagination->total_pages > 1) { ?>
+                        <tr><td colspan="5"><?php echo wp_kses_post((string)$data->submission_pagination->render()); ?></td></tr>
+                    <?php } ?>
+
                 </table>
 
                 <table class="user-content rmagic-table" id="rmthirdtabcontent">
@@ -270,6 +281,7 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                 
                 <table class="user-content rmagic-table" id="rmfourthtabcontent">
 
+                    <tr><td colspan="4"><strong><?php printf(esc_html__('Total: %d sent emails', 'custom-registration-form-builder-with-submission-manager'), absint($data->total_sent_emails)); ?></strong></td></tr>
                     <?php
                     if (is_array($data->sent_emails) && count($data->sent_emails) !== 0) {
                         ?>
@@ -289,6 +301,10 @@ wp_enqueue_style( 'rm_material_icons', RM_BASE_URL . 'admin/css/material-icons.c
                         echo "<tr> <td class='rmnotice'>" . wp_kses_post((string)RM_UI_Strings::get('MSG_NO_SENT_EMAIL_USER')) . "</td></tr>";
                     }
                     ?>
+
+                    <?php if ($data->email_pagination->total_pages > 1) { ?>
+                        <tr><td colspan="4"><?php echo wp_kses_post((string)$data->email_pagination->render()); ?></td></tr>
+                    <?php } ?>
 
                 </table>
                 
@@ -463,9 +479,9 @@ jQuery(document).ready(function(){
    
 });
 jQuery(document).ready(function(){
-<?php if(isset($_GET['section_id'])){?>
-        jQuery('#<?php echo esc_html($_GET['section_id']); ?>').click();
-<?php }?>        
+<?php if (!empty($data->section_id)) { ?>
+        jQuery('#' + <?php echo wp_json_encode($data->section_id); ?>).click();
+<?php } ?>
 });
 </script></pre>
 

@@ -34,6 +34,10 @@ class RM_Front_Form_Controller
     //New form handling
     public function process($model, $service, $request, $params)
     {
+        if (isset($request->req['rm_submission_key'])) {
+            RM_Front_Form_Service::begin_submission_attempt($request->req, $_FILES);
+        }
+
         if(defined('REGMAGIC_ADDON')) {
             $addon_controller = new RM_Front_Form_Controller_Addon();
             try {
@@ -209,14 +213,14 @@ class RM_Front_Form_Controller
                     $params['paystate'] = 'post_payment';
                     $params['is_paid'] = false; //Set that so "true" checks for is_paid do not fail because of "do_not_redirect".
                     $user_id= $fe_form->post_sub_proc($request->req, $params, false);
-                    $this->update_user_profile($primary_data['user_email']->value, $db_data, $service);
+                    $this->update_user_profile($primary_data['user_email']->value, $db_data, $service, $this->get_registered_profile_user_id($fe_form));
                     $prevent_redirection = true;
                 }
                 else
                 {
                     $params['paystate'] = 'post_payment';
                     $user_id= $fe_form->post_sub_proc($request->req, $params, $params['is_paid']);
-                    $this->update_user_profile($primary_data['user_email']->value, $db_data, $service);
+                    $this->update_user_profile($primary_data['user_email']->value, $db_data, $service, $this->get_registered_profile_user_id($fe_form));
                 }
                 if($params['is_paid'] && !empty($user_id)) {
                     do_action('rm_payment_completed', $params['user_email'], $fe_form, $parameters->sub_id);
@@ -226,7 +230,7 @@ class RM_Front_Form_Controller
             {
                 $params['paystate'] = 'na';
                 $user_id= $fe_form->post_sub_proc($request->req, $params);
-                $this->update_user_profile($primary_data['user_email']->value, $db_data, $service);
+                $this->update_user_profile($primary_data['user_email']->value, $db_data, $service, $this->get_registered_profile_user_id($fe_form));
             }
             
             if(class_exists( 'WooCommerce' )){
@@ -268,8 +272,32 @@ class RM_Front_Form_Controller
         }
     }
     
-    public function update_user_profile($email, $db_data, $service)
+    public function get_registered_profile_user_id($form)
     {
+        if (!is_object($form) || !method_exists($form, 'get_registered_user_id')) {
+            return 0;
+        }
+
+        $registered_user_id = $form->get_registered_user_id();
+        return is_scalar($registered_user_id) ? absint($registered_user_id) : 0;
+    }
+
+    public function update_user_profile($email, $db_data, $service, $authorized_user_id = 0)
+    {
+        $user = get_user_by('email', $email);
+        if (!$user instanceof WP_User) {
+            return false;
+        }
+
+        $authorized_user_id = is_scalar($authorized_user_id) ? absint($authorized_user_id) : 0;
+        if (!$authorized_user_id) {
+            $authorized_user_id = get_current_user_id();
+        }
+
+        if (!$authorized_user_id || (int) $user->ID !== $authorized_user_id) {
+            return false;
+        }
+
         //Update User profile
         $profile_array = array();
         foreach ($db_data as $field_id => $field)
@@ -304,7 +332,7 @@ class RM_Front_Form_Controller
 
             }
         }
-        $service->update_user_profile($email, $profile_array, true);
+        return $service->update_user_profile($authorized_user_id, $profile_array, false);
     }
 
     public function test_form_access_v2(RM_Frontend_Form_Base $fe_form, $service, $request, $params, $edit= false)
@@ -436,7 +464,9 @@ class RM_Front_Form_Controller
 
             $params['paystate'] = 'na';
             $fe_form->post_sub_proc($request->req, $params);
-            $this->update_user_profile($authorized_email, $db_data, $service);
+            $authorized_user = get_user_by('email', $authorized_email);
+            $authorized_user_id = $authorized_user instanceof WP_User ? (int) $authorized_user->ID : 0;
+            $this->update_user_profile($authorized_email, $db_data, $service, $authorized_user_id);
 
             //redirect user to new submissions page
             $form_options->redirection_type = 'url';

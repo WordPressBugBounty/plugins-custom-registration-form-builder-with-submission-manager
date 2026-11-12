@@ -630,7 +630,8 @@ class RM_Email_Service
         
     public static function save_sent_emails($params,$rm_email,$type)
     {
-            
+        global $wpdb;
+
         $additional_data = array();
         if(isset($params->sub_id))
             $additional_data['exdata'] = $params->sub_id;
@@ -649,7 +650,10 @@ class RM_Email_Service
         $row_data = array('type' => $type, 'to' => $rm_email->get_to(), 'sub' => htmlspecialchars($rm_email->get_subject()), 'body' => htmlspecialchars($rm_email->get_message()), 'sent_on' => $sent_on, 'headers' => $rm_email->get_header(), 'form_id' => $form_id,'exdata' => $exdata,'was_sent_success' => $was_sent_successfully);
         $fmts = array('%d','%s','%s','%s','%s', '%s', '%d', '%s', '%d');
 
-        RM_DBManager::insert_row('SENT_EMAILS', $row_data, $fmts);
+        $insert_id = RM_DBManager::insert_row('SENT_EMAILS', $row_data, $fmts);
+        if ($insert_id === false) {
+            error_log('[RegistrationMagic] Failed to save sent email history: ' . $wpdb->last_error);
+        }
     }
     
     public static function get_notification_message($form_id,$type)
@@ -705,9 +709,9 @@ class RM_Email_Service
         return $email_content;
     }
     
-    public static function send_activation_link($user_id){
+    public static function send_activation_link($user_id, $force_resend = false){
         if(defined('REGMAGIC_ADDON'))
-            return RM_Email_Service_Addon::send_activation_link($user_id);
+            return RM_Email_Service_Addon::send_activation_link($user_id, $force_resend);
     }
     
     public static function send_2fa_otp($options){

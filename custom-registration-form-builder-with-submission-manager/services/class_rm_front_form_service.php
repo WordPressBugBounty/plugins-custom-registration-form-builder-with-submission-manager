@@ -29,6 +29,7 @@ if (!class_exists('RM_Duplicate_Submission_Exception')) {
 class RM_Front_Form_Service extends RM_Services {
 
     public $user_service;
+    private static $current_submission_fingerprint = null;
 
     public function __construct() {
         $this->user_service = new RM_User_Services();
@@ -425,18 +426,129 @@ class RM_Front_Form_Service extends RM_Services {
         }
     }
 
+    public static function begin_submission_attempt($request, $files = null) {
+        self::$current_submission_fingerprint = self::build_submission_fingerprint(
+            is_array($request) ? $request : array(),
+            is_array($files) ? $files : array()
+        );
+        RM_Attachment_Service::begin_submission_capture();
+
+        return self::$current_submission_fingerprint;
+    }
+
+    public static function get_current_submission_fingerprint() {
+        return self::$current_submission_fingerprint;
+    }
+
+    public static function build_submission_fingerprint($request, $files = array()) {
+        $request = self::canonicalize_fingerprint_value(is_array($request) ? $request : array(), true);
+        $files = self::canonicalize_fingerprint_files(is_array($files) ? $files : array());
+        $payload = serialize(array('request' => $request, 'files' => $files));
+
+        return hash_hmac('sha256', (string)$payload, wp_salt('auth'));
+    }
+
+    private static function canonicalize_fingerprint_value($value, $top_level = false) {
+        if (is_array($value)) {
+            $canonical = array();
+            foreach ($value as $key => $item) {
+                $key_string = (string)$key;
+                if ($top_level && self::is_transient_fingerprint_key($key_string)) {
+                    continue;
+                }
+                $canonical[$key_string] = self::canonicalize_fingerprint_value($item, false);
+            }
+            ksort($canonical, SORT_STRING);
+            return $canonical;
+        }
+
+        if (is_object($value)) {
+            return self::canonicalize_fingerprint_value((array)$value, false);
+        }
+
+        if (is_bool($value) || is_int($value) || is_float($value) || $value === null) {
+            return $value;
+        }
+
+        return (string)wp_unslash((string)$value);
+    }
+
+    private static function is_transient_fingerprint_key($key) {
+        $key = strtolower((string)$key);
+        $excluded = array(
+            'rm_submission_key', 'stat_id', 'form_id', 'form_no', 'rm_slug',
+            'rm_cond_hidden_fields', 'rm_sb_btn', 'submit', 'action'
+        );
+
+        return in_array($key, $excluded, true)
+            || strpos($key, 'nonce') !== false
+            || strpos($key, 'security') !== false;
+    }
+
+    private static function canonicalize_fingerprint_files($files) {
+        $canonical = array();
+        foreach ($files as $field_name => $file) {
+            if (!is_array($file) || !array_key_exists('name', $file)) {
+                continue;
+            }
+            $canonical[(string)$field_name] = self::canonicalize_fingerprint_file_node(
+                $file['name'],
+                isset($file['type']) ? $file['type'] : '',
+                isset($file['tmp_name']) ? $file['tmp_name'] : '',
+                isset($file['error']) ? $file['error'] : UPLOAD_ERR_NO_FILE,
+                isset($file['size']) ? $file['size'] : 0
+            );
+        }
+        ksort($canonical, SORT_STRING);
+        return $canonical;
+    }
+
+    private static function canonicalize_fingerprint_file_node($name, $type, $tmp_name, $error, $size) {
+        if (is_array($name)) {
+            $canonical = array();
+            foreach ($name as $key => $child_name) {
+                $canonical[(string)$key] = self::canonicalize_fingerprint_file_node(
+                    $child_name,
+                    is_array($type) && array_key_exists($key, $type) ? $type[$key] : '',
+                    is_array($tmp_name) && array_key_exists($key, $tmp_name) ? $tmp_name[$key] : '',
+                    is_array($error) && array_key_exists($key, $error) ? $error[$key] : UPLOAD_ERR_NO_FILE,
+                    is_array($size) && array_key_exists($key, $size) ? $size[$key] : 0
+                );
+            }
+            ksort($canonical, SORT_STRING);
+            return $canonical;
+        }
+
+        $content_hash = '';
+        if ((int)$error === UPLOAD_ERR_OK && is_string($tmp_name) && is_file($tmp_name) && is_readable($tmp_name)) {
+            $content_hash = (string)hash_file('sha256', $tmp_name);
+        }
+
+        return array(
+            'name' => sanitize_file_name((string)$name),
+            'type' => sanitize_mime_type((string)$type),
+            'error' => (int)$error,
+            'size' => (int)$size,
+            'content_hash' => $content_hash,
+        );
+    }
+
     public static function normalize_submission_key($submission_key, $form_id, $stat_id = null) {
         $submission_key = sanitize_text_field(wp_unslash((string)$submission_key));
         if (preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i', $submission_key)) {
             return strtolower($submission_key);
         }
 
-        if (is_numeric($stat_id) && absint($stat_id) > 0) {
-            $hash = md5('registrationmagic|' . absint($form_id) . '|' . absint($stat_id));
-            return substr($hash, 0, 8) . '-' . substr($hash, 8, 4) . '-4' . substr($hash, 13, 3) . '-a' . substr($hash, 17, 3) . '-' . substr($hash, 20, 12);
+        return wp_generate_uuid4();
+    }
+
+    public static function submission_key_from_stat_id($form_id, $stat_id) {
+        if (!is_numeric($stat_id) || absint($stat_id) < 1) {
+            return wp_generate_uuid4();
         }
 
-        return wp_generate_uuid4();
+        $hash = hash_hmac('sha256', absint($form_id) . '|' . absint($stat_id), wp_salt('auth'));
+        return substr($hash, 0, 8) . '-' . substr($hash, 8, 4) . '-4' . substr($hash, 13, 3) . '-a' . substr($hash, 17, 3) . '-' . substr($hash, 20, 12);
     }
 
     public static function get_submission_id_by_key($form_id, $submission_key) {
@@ -453,7 +565,32 @@ class RM_Front_Form_Service extends RM_Services {
         )));
     }
 
-    public function save_submission($form_id, $data, $email, $modified_by = null, $unique_token = null, $submission_key = null) {
+    public static function submission_matches_request($submission_id, $data, $email, $submission_fingerprint = null) {
+        $submission = new RM_Submissions();
+        if (!$submission->load_from_db(absint($submission_id))) {
+            return false;
+        }
+
+        $existing_fingerprint = $submission->get_submission_fingerprint();
+        if (!empty($existing_fingerprint) && !empty($submission_fingerprint)) {
+            return strcasecmp(trim((string)$submission->get_user_email()), trim((string)$email)) === 0
+                && hash_equals($existing_fingerprint, (string)$submission_fingerprint);
+        }
+
+        $existing_data = RM_Utilities::safe_maybe_unserialize($submission->data);
+        return strcasecmp(trim((string)$submission->get_user_email()), trim((string)$email)) === 0
+            && $existing_data == $data;
+    }
+
+    public function save_submission($form_id, $data, $email, $modified_by = null, $unique_token = null, $submission_key = null, $submission_fingerprint = null) {
+        global $wpdb;
+
+        if (empty($submission_fingerprint)) {
+            $submission_fingerprint = self::$current_submission_fingerprint;
+        }
+        if (empty($submission_fingerprint)) {
+            $submission_fingerprint = self::build_submission_fingerprint($_POST, $_FILES);
+        }
         if (empty($submission_key)) {
             $submission_key = self::normalize_submission_key(
                 isset($_POST['rm_submission_key']) ? $_POST['rm_submission_key'] : '',
@@ -463,24 +600,49 @@ class RM_Front_Form_Service extends RM_Services {
         }
 
         if(defined('REGMAGIC_ADDON'))
-            $submission_row = array('form_id' => $form_id, 'data' => $data, 'user_email' => $email, 'modified_by' => $modified_by, 'submission_key' => $submission_key);
+            $submission_row = array('form_id' => $form_id, 'data' => $data, 'user_email' => $email, 'modified_by' => $modified_by, 'submission_key' => $submission_key, 'submission_fingerprint' => $submission_fingerprint);
         else
-            $submission_row = array('form_id' => $form_id, 'data' => $data, 'user_email' => $email, 'submission_key' => $submission_key);
+            $submission_row = array('form_id' => $form_id, 'data' => $data, 'user_email' => $email, 'submission_key' => $submission_key, 'submission_fingerprint' => $submission_fingerprint);
         
         $submissions = new RM_Submissions;
         $submissions->set($submission_row);
+        $previous_suppress_errors = $wpdb->suppress_errors(true);
         $submission_id = $submissions->insert_into_db();
+        $insert_error = $wpdb->last_error;
+        $wpdb->suppress_errors($previous_suppress_errors);
 
         if (!$submission_id) {
             $existing_submission_id = self::get_submission_id_by_key($form_id, $submission_key);
             if ($existing_submission_id) {
-                if (defined('REGMAGIC_ADDON')) {
-                    throw new RM_Duplicate_Submission_Exception($existing_submission_id);
+                if (self::submission_matches_request($existing_submission_id, $data, $email, $submission_fingerprint)) {
+                    RM_Attachment_Service::cleanup_submission_capture();
+                    if (defined('REGMAGIC_ADDON')) {
+                        throw new RM_Duplicate_Submission_Exception($existing_submission_id);
+                    }
+                    return (object) array('submission_id' => $existing_submission_id, 'token' => null, 'duplicate' => true);
                 }
-                return (object) array('submission_id' => $existing_submission_id, 'token' => null, 'duplicate' => true);
+
+                // A cached form can give different visitors the same rendered
+                // key. Preserve genuine replay protection, but recover from a
+                // key collision when the submitted email or data is different.
+                $submission_key = wp_generate_uuid4();
+                $submissions->set_submission_key($submission_key);
+                $previous_suppress_errors = $wpdb->suppress_errors(true);
+                $submission_id = $submissions->insert_into_db();
+                $insert_error = $wpdb->last_error;
+                $wpdb->suppress_errors($previous_suppress_errors);
             }
-            return null;
+
+            if (!$submission_id) {
+                RM_Attachment_Service::cleanup_submission_capture();
+                if (!empty($insert_error)) {
+                    error_log('[RegistrationMagic] Failed to save form submission: ' . $insert_error);
+                }
+                return null;
+            }
         }
+
+        RM_Attachment_Service::release_submission_capture();
         
         if(!$unique_token)
             $unique_token = $submissions->get_unique_token();
@@ -864,6 +1026,10 @@ class RM_Front_Form_Service extends RM_Services {
                 $user_id = $user->ID;
             else
                 return false;
+
+            if (get_current_user_id() !== (int) $user_id) {
+                return false;
+            }
         }
 
         if(user_can($user_id, 'manage_options') && get_current_user_id() != $user_id) {

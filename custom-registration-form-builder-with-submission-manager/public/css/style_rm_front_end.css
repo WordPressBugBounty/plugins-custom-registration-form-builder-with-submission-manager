@@ -3505,7 +3505,9 @@ div.rm_hide_form_page
 }
 
 .rm-password-toggle-wrap .pass-wrapper,
-.rm-c-password-toggle-wrap .pass-wrapper{
+.rm-c-password-toggle-wrap .pass-wrapper,
+.rmform-password-toggle-wrap .pass-wrapper,
+.rmform-c-password-toggle-wrap .pass-wrapper{
     height: 0 !important;
     margin-bottom: 20px !important;
 }

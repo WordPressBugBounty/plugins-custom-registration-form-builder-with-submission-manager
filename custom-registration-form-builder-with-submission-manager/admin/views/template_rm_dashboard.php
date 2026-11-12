@@ -1019,7 +1019,7 @@ jQuery(window).load(function(e){
 	    var form_id = jQuery('#rm_form_dropdown').val();
 	    var trange = jQuery('#rm_stat_timerange').val();
 	    if(typeof trange == 'undefined')
-	        trange = <?php echo esc_html($data->rm_ur); ?>;
+	        trange = <?php echo wp_json_encode((string) $data->rm_ur); ?>;
             var url = new URL(document.location.href);
             url.searchParams.set('rm_ur', trange);
             window.location = url;

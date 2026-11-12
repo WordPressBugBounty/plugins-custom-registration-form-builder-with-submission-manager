@@ -1,6 +1,27 @@
 <?php
 
 class RM_Attachment_Service extends RM_Services {
+    private static $captured_attachment_ids = array();
+
+    public static function begin_submission_capture() {
+        self::$captured_attachment_ids = array();
+    }
+
+    public static function cleanup_submission_capture() {
+        $attachment_ids = array_values(array_unique(array_map('absint', self::$captured_attachment_ids)));
+        self::$captured_attachment_ids = array();
+
+        foreach ($attachment_ids as $attachment_id) {
+            if ($attachment_id > 0) {
+                wp_delete_attachment($attachment_id, true);
+            }
+        }
+    }
+
+    public static function release_submission_capture() {
+        self::$captured_attachment_ids = array();
+    }
+
     /*
      * Function to upload submission attachments in WordPress media
      */
@@ -19,6 +40,10 @@ class RM_Attachment_Service extends RM_Services {
         $_FILES[$file_handler]['name'] = $prefix . $_FILES[$file_handler]['name'];
 
         $attach_id = media_handle_upload($file_handler, $post_id);
+
+        if (!is_wp_error($attach_id) && absint($attach_id) > 0) {
+            self::$captured_attachment_ids[] = absint($attach_id);
+        }
 
         return $attach_id;
     }

@@ -2728,6 +2728,30 @@ class RM_Utilities {
             return RM_Utilities_Addon::get_acc_verification_link($user_id);
         }
     }
+
+    public static function get_email_exists_error($field_options, $user, $default_message) {
+        $message = !empty($field_options->email_exists_error) ? $field_options->email_exists_error : $default_message;
+
+        if (strpos($message, '{{SEND_VERIFICATION_EMAIL}}') === false && strpos($message, '{{send verification email}}') === false) {
+            return $message;
+        }
+
+        $resend_link = '';
+        if (defined('REGMAGIC_ADDON') && $user instanceof WP_User) {
+            $user_auto_approval = get_option('rm_option_user_auto_approval');
+            $user_status = (int) get_user_meta($user->ID, 'rm_user_status', true);
+            $activation_hash = get_user_meta($user->ID, 'rm_activation_hash', true);
+            if ($user_auto_approval === 'verify' && $user_status === 1 && !empty($activation_hash)) {
+                $resend_link = self::get_acc_verification_link($user->ID);
+            }
+        }
+
+        if (empty($resend_link)) {
+            return $default_message;
+        }
+
+        return str_ireplace('{{SEND_VERIFICATION_EMAIL}}', $resend_link, $message);
+    }
     
     public static function js_error_messages() {
         if(defined('REGMAGIC_ADDON')) {

@@ -51,6 +51,7 @@ class RM_Sanitizer
                                             'rm_submission_id',
                                             'rm_tr','rm_reqpage',
                                             'rm_reqpage_sub',
+                                             'rm_reqpage_email',
                                             'rm_reqpage_pay',
                                             'rm_tab',
                                             'activetab',
@@ -114,6 +115,24 @@ class RM_Sanitizer
         }
 
         return $sanitize_array;
+    }
+
+    public function get_sanitized_rm_user_view_page($key, $value)
+    {
+        if ($key === 'user_id') {
+            return absint($value);
+        }
+
+        if (in_array($key, array('rm_reqpage_sub', 'rm_reqpage_email'), true)) {
+            return max(0, (int) $value);
+        }
+
+        if ($key === 'section_id') {
+            $section_id = sanitize_key($value);
+            return preg_match('/^ui-id-[0-9]+$/', $section_id) ? $section_id : '';
+        }
+
+        return sanitize_text_field($value);
     }
 
     public function sanitized_array($var)

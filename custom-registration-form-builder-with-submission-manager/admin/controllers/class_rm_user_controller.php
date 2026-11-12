@@ -194,11 +194,43 @@ class RM_USER_Controller
                 $view_data->submissions = array();
                 $view_data->payments = array();
                 $view_data->sent_emails = array();
-                
-                $sent_emails = $service->get('SENT_EMAILS',array('to' => $user->user_email), array('%s'), 'results', 0, 10, '*', null, true);
-                $view_data->sent_emails = $sent_emails;
-                
-                $submissions = $service->get_submissions_by_email($user->user_email, 10);
+                $view_data->section_id = isset($request->req['section_id']) ? $request->req['section_id'] : '';
+
+                $entries_per_page = 10;
+                $view_data->total_submissions = $service->get_submissions_count_by_email($user->user_email);
+                $view_data->total_sent_emails = $service->get_sent_emails_count_by_email($user->user_email);
+
+                $submission_total_pages = max(1, (int) ceil($view_data->total_submissions / $entries_per_page));
+                $email_total_pages = max(1, (int) ceil($view_data->total_sent_emails / $entries_per_page));
+                $submission_page = isset($request->req['rm_reqpage_sub']) ? (int) $request->req['rm_reqpage_sub'] : 1;
+                $email_page = isset($request->req['rm_reqpage_email']) ? (int) $request->req['rm_reqpage_email'] : 1;
+                $submission_page = min(max(1, $submission_page), $submission_total_pages);
+                $email_page = min(max(1, $email_page), $email_total_pages);
+                $submission_offset = ($submission_page - 1) * $entries_per_page;
+                $email_offset = ($email_page - 1) * $entries_per_page;
+
+                $view_data->submission_offset = $submission_offset;
+                $view_data->submission_pagination = new RM_Pagination(
+                    array('user_id' => absint($user->ID), 'rm_reqpage_email' => $email_page, 'section_id' => 'ui-id-2'),
+                    'rm_user_view',
+                    $view_data->total_submissions,
+                    $submission_page,
+                    $entries_per_page,
+                    'rm_reqpage_sub'
+                );
+                $view_data->email_pagination = new RM_Pagination(
+                    array('user_id' => absint($user->ID), 'rm_reqpage_sub' => $submission_page, 'section_id' => 'ui-id-4'),
+                    'rm_user_view',
+                    $view_data->total_sent_emails,
+                    $email_page,
+                    $entries_per_page,
+                    'rm_reqpage_email'
+                );
+
+                $sent_emails = $service->get('SENT_EMAILS', array('to' => $user->user_email), array('%s'), 'results', $email_offset, $entries_per_page, '*', null, true);
+                $view_data->sent_emails = is_array($sent_emails) ? $sent_emails : array();
+
+                $submissions = $service->get_submissions_by_email($user->user_email, $entries_per_page, $submission_offset);
                 if ($submissions) {
                     $i = 0;
                     foreach ($submissions as $submission) {
@@ -209,7 +241,24 @@ class RM_USER_Controller
                         $view_data->submissions[$i]->submitted_on = $submission->submitted_on;
                         $view_data->submissions[$i]->form_id = $submission->form_id;
                         $view_data->submissions[$i++]->form_name = $form_name;
+                    }
+                }
 
+                $view_data->first_submission = null;
+                $first_submissions = $service->get_submissions_by_email($user->user_email, 1, 0, 'submission_id', false);
+                if ($first_submissions) {
+                    $first_submission = $first_submissions[0];
+                    $view_data->first_submission = new stdClass();
+                    $view_data->first_submission->submission_id = $first_submission->submission_id;
+                    $view_data->first_submission->submitted_on = $first_submission->submitted_on;
+                    $view_data->first_submission->form_id = $first_submission->form_id;
+                    $view_data->first_submission->form_name = $service->get('FORMS', array('form_id' => $first_submission->form_id), array('%d'), 'var', 0, 1, 'form_name');
+                }
+
+                $payment_submissions = $submission_page === 1 ? $submissions : $service->get_submissions_by_email($user->user_email, 10);
+                if ($payment_submissions) {
+                    foreach ($payment_submissions as $submission) {
+                        $form_name = $service->get('FORMS', array('form_id' => $submission->form_id), array('%d'), 'var', 0, 1, 'form_name');
                         $result = $service->get('PAYPAL_LOGS', array('submission_id' => $service->get_oldest_submission_from_group($submission->submission_id)), array('%d'), 'row', 0, 10, '*', null, true);
                         if ($result)
                             $view_data->payments[] = array('form_name' => $form_name, 'submission_id' => $submission->submission_id, 'form_id' => $submission->form_id, 'payment' => $result);

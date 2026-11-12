@@ -72,6 +72,7 @@ final class RM_Form_Factory_Revamp {
     private function save_submission($sub_data = array(), $form = null, $form_no = null, $prefilled = false, $submission_id = null) {
         // Getting form ID
         $form_id = absint($form->form_id);
+        $submission_fingerprint = RM_Front_Form_Service::begin_submission_attempt($sub_data, $_FILES);
         $submission_key = RM_Front_Form_Service::normalize_submission_key(
             isset($sub_data['rm_submission_key']) ? $sub_data['rm_submission_key'] : '',
             $form_id,
@@ -208,7 +209,9 @@ final class RM_Form_Factory_Revamp {
                             $db_data[$field_id] = $data_block;
                             if(!is_user_logged_in()) {
                                 if(email_exists($user_email) && absint($form->form_type) == RM_REG_FORM) {
-                                    array_push($errors, esc_html__('A user with this email address already exists','custom-registration-form-builder-with-submission-manager'));
+                                    $existing_user = get_user_by('email', $user_email);
+                                    $email_error = RM_Utilities::get_email_exists_error($form->fields[$field_id]->field_options, $existing_user, esc_html__('A user with this email address already exists','custom-registration-form-builder-with-submission-manager'));
+                                    array_push($errors, $email_error);
                                 }
                                 if(isset($form->fields[$field_id]->field_options->en_confirm_email) && $form->fields[$field_id]->field_options->en_confirm_email == 1) {
                                     if(!isset($sub_data['email_confirmation']) || empty($sub_data['email_confirmation'])) {
@@ -890,7 +893,8 @@ final class RM_Form_Factory_Revamp {
                     'is_read' => 0,
                     'submitted_on' => gmdate('Y-m-d H:i:s'),
                     'unique_token'=> $token,
-                    'submission_key' => $submission_key
+                    'submission_key' => $submission_key,
+                    'submission_fingerprint' => $submission_fingerprint
                 );
                 $insert_format = array(
                     '%d',
@@ -901,31 +905,58 @@ final class RM_Form_Factory_Revamp {
                     '%d',
                     '%s',
                     '%s',
+                    '%s',
                     '%s'
                 );
                 if($save_submission) {
                     $insert_data['is_pending'] = 1;
                     $insert_format[] = '%d';
                 }
+                $previous_suppress_errors = $wpdb->suppress_errors(true);
                 $wpdb->insert(
                     "{$wpdb->prefix}rm_submissions",
                     $insert_data,
                     $insert_format
                 );
+                $insert_error = $wpdb->last_error;
+                $wpdb->suppress_errors($previous_suppress_errors);
                 
                 if(empty($wpdb->insert_id)) {
                     $existing_submission_id = RM_Front_Form_Service::get_submission_id_by_key($form_id, $submission_key);
                     if($existing_submission_id) {
-                        $this->render_duplicate_submission_message($form);
+                        if(RM_Front_Form_Service::submission_matches_request($existing_submission_id, $db_data, $user_email, $submission_fingerprint)) {
+                            RM_Attachment_Service::cleanup_submission_capture();
+                            $this->render_duplicate_submission_message($form);
+                            return false;
+                        }
+
+                        // Recover when cached form markup caused a different
+                        // visitor to submit a key that is already in use.
+                        $submission_key = wp_generate_uuid4();
+                        $insert_data['submission_key'] = $submission_key;
+                        $previous_suppress_errors = $wpdb->suppress_errors(true);
+                        $wpdb->insert(
+                            "{$wpdb->prefix}rm_submissions",
+                            $insert_data,
+                            $insert_format
+                        );
+                        $insert_error = $wpdb->last_error;
+                        $wpdb->suppress_errors($previous_suppress_errors);
+                    }
+
+                    if(empty($wpdb->insert_id)) {
+                        RM_Attachment_Service::cleanup_submission_capture();
+                        if(!empty($insert_error)) {
+                            error_log('[RegistrationMagic] Failed to save revamp form submission: ' . $insert_error);
+                        }
+                        esc_html_e("Could not save submission in database. Please try again.", 'custom-registration-form-builder-with-submission-manager');
                         return false;
                     }
-                    if(empty($wpdb->last_error)) {
-                        esc_html_e("Could not save submission in database. Please try again.", 'custom-registration-form-builder-with-submission-manager');
-                    } else {
-                        echo esc_html($wpdb->last_error);
-                    }
-                    return false;
-                } else {
+                }
+
+                RM_Attachment_Service::release_submission_capture();
+
+                if(!empty($wpdb->insert_id)) {
                     $sub_id = $wpdb->insert_id;
                     $submission = new RM_Submissions();
                     $submission->load_from_db($sub_id);

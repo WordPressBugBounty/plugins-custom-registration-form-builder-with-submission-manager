@@ -10,14 +10,16 @@ class RM_Pagination {
     public $filters;
     public $query_string;
     public $page;
+    public $page_query_arg;
 
-    public function __construct($filters,$page,$total_entries = 0, $req_page = 0, $entries_per_page = 10) {
+    public function __construct($filters,$page,$total_entries = 0, $req_page = 0, $entries_per_page = 10, $page_query_arg = 'rm_reqpage') {
         $this->entries_per_page = $entries_per_page;
         $this->offset =  ($req_page - 1) * $this->entries_per_page;
         $this->total_pages = (int) ($total_entries / $this->entries_per_page) + (($total_entries % $this->entries_per_page) == 0 ? 0 : 1);
         $this->curr_page = $req_page;
         $this->filters= $filters;
         $this->page= $page;
+        $this->page_query_arg = is_string($page_query_arg) && preg_match('/^[A-Za-z0-9_]+$/', $page_query_arg) ? $page_query_arg : 'rm_reqpage';
         
         $this->create_query_string();
     }
@@ -29,8 +31,8 @@ class RM_Pagination {
             $this->html .= '<ul class="rmpagination">';
 
             if ($this->curr_page > 1):
-                $this->html .= '<li><a href="'.$this->query_string.'&rm_reqpage=1">' . RM_UI_Strings::get('LABEL_FIRST') . '</a></li>'.
-                               '<li><a href="'.$this->query_string.'&rm_reqpage='.($this->curr_page-1).'">' . RM_UI_Strings::get('LABEL_PREVIOUS') . '</a></li>';
+                $this->html .= '<li><a href="'.$this->query_string.'&'.$this->page_query_arg.'=1">' . RM_UI_Strings::get('LABEL_FIRST') . '</a></li>'.
+                               '<li><a href="'.$this->query_string.'&'.$this->page_query_arg.'='.($this->curr_page-1).'">' . RM_UI_Strings::get('LABEL_PREVIOUS') . '</a></li>';
             endif;
 
             if ($this->total_pages > $max_pages_without_abb):
@@ -53,9 +55,9 @@ class RM_Pagination {
            
             for ($i = $first_visible_page; $i <= $last_visible_page; $i++):
                 if ($i != $this->curr_page):
-                    $this->html .= '<li><a href="'.$this->query_string.'&rm_reqpage='.$i.'">'.$i.'</a></li>';
+                    $this->html .= '<li><a href="'.$this->query_string.'&'.$this->page_query_arg.'='.$i.'">'.$i.'</a></li>';
                 else:
-                    $this->html .= '<li><a class="active" href="'.$this->query_string.'&rm_reqpage=' . $i . '">' . $i . '</a></li>';
+                    $this->html .= '<li><a class="active" href="'.$this->query_string.'&'.$this->page_query_arg.'=' . $i . '">' . $i . '</a></li>';
                 endif;
                 
             endfor;
@@ -67,8 +69,8 @@ class RM_Pagination {
             endif;
 
             if ($this->curr_page < $this->total_pages):
-                $this->html .= '<li><a href="'.$this->query_string.'&rm_reqpage='.$next_page.'">' . RM_UI_Strings::get('LABEL_NEXT') . '</a></li>' .
-                        '<li><a href="'.$this->query_string.'&rm_reqpage='.$last_page.'">' . RM_UI_Strings::get('LABEL_LAST') . '</a></li>';
+                $this->html .= '<li><a href="'.$this->query_string.'&'.$this->page_query_arg.'='.$next_page.'">' . RM_UI_Strings::get('LABEL_NEXT') . '</a></li>' .
+                        '<li><a href="'.$this->query_string.'&'.$this->page_query_arg.'='.$last_page.'">' . RM_UI_Strings::get('LABEL_LAST') . '</a></li>';
             endif;
 
             $this->html .='</ul>';

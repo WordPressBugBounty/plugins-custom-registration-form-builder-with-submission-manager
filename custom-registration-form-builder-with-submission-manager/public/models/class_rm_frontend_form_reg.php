@@ -91,7 +91,10 @@ class RM_Frontend_Form_Reg extends RM_Frontend_Form_Multipage//RM_Frontend_Form_
                 if (!empty($user))
                 {
                     $this->user_exists = true;
-                    RM_PFBC_Form::setError($form_name, RM_UI_Strings::get("USEREMAIL_EXISTS"));
+                    $email_field = RM_DBManager::get_field_by_type($this->form_id, 'Email');
+                    $email_options = !empty($email_field) ? maybe_unserialize($email_field->field_options) : new stdClass();
+                    $email_error = RM_Utilities::get_email_exists_error($email_options, $user, RM_UI_Strings::get("USEREMAIL_EXISTS"));
+                    RM_PFBC_Form::setError($form_name, $email_error);
                     return false;
                 } 
             

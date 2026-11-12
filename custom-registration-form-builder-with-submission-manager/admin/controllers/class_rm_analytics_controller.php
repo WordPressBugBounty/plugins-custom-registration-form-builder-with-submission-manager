@@ -53,7 +53,7 @@ class RM_Analytics_Controller
             
             if(isset($request->req['rm_tr']))
             {
-                $data->timerange = $request->req['rm_tr'];            
+                $data->timerange = absint($request->req['rm_tr']);
             }
             else
             {

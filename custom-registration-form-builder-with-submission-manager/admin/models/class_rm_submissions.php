@@ -19,6 +19,7 @@ class RM_Submissions extends RM_Base_Model
     //public $initialized;
     public $unique_token;
     public $submission_key;
+    public $submission_fingerprint;
     //errors submission validation
     public $errors;
     public $is_read;
@@ -169,6 +170,11 @@ class RM_Submissions extends RM_Base_Model
     {
         return trim((string)$this->submission_key);
     }
+
+    public function get_submission_fingerprint()
+    {
+        return trim((string)$this->submission_fingerprint);
+    }
     
     public function is_blocked()
     {
@@ -279,6 +285,11 @@ class RM_Submissions extends RM_Base_Model
     public function set_submission_key($submission_key)
     {
         $this->submission_key = $submission_key;
+    }
+
+    public function set_submission_fingerprint($submission_fingerprint)
+    {
+        $this->submission_fingerprint = $submission_fingerprint;
     }
     
     public function set_form_id($form_id)
@@ -429,11 +440,13 @@ class RM_Submissions extends RM_Base_Model
                 'submitted_on' => gmdate('Y-m-d H:i:s'),
                 'unique_token'=> $this->unique_token,
                 'submission_key'=> $this->submission_key ?: null,
+                'submission_fingerprint'=> $this->submission_fingerprint ?: null,
                 'is_read'=> $this->is_read
             );
             
             $data_specifiers = array(
                 '%d',
+                '%s',
                 '%s',
                 '%s',
                 '%s',
@@ -459,10 +472,12 @@ class RM_Submissions extends RM_Base_Model
                 'submitted_on' => gmdate('Y-m-d H:i:s'),
                 'unique_token'=> $this->unique_token,
                 'submission_key'=> $this->submission_key ?: null,
+                'submission_fingerprint'=> $this->submission_fingerprint ?: null,
             );
             
             $data_specifiers = array(
                 '%d',
+                '%s',
                 '%s',
                 '%s',
                 '%s',
@@ -549,6 +564,7 @@ class RM_Submissions extends RM_Base_Model
             $this->submitted_on = $result->submitted_on;
             $this->unique_token = $result->unique_token;
             $this->submission_key = isset($result->submission_key) ? $result->submission_key : null;
+            $this->submission_fingerprint = isset($result->submission_fingerprint) ? $result->submission_fingerprint : null;
             $this->is_read= $result->is_read;
             $this->child_id = $result->child_id;
             $this->last_child = $result->last_child ? absint($result->last_child) : absint($result->submission_id);

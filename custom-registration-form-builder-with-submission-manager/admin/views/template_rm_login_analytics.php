@@ -326,7 +326,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
         function rm_refresh_stats_graph(){
         var trange = jQuery('#rm_stat_timerange').val();
         if(typeof trange == 'undefined')
-            trange = <?php echo esc_html($data->timerange); ?>;
+            trange = <?php echo wp_json_encode(absint($data->timerange)); ?>;
         window.location = '?page=rm_login_analytics&rm_tr='+trange;
     }
     </script></pre>
@@ -533,7 +533,7 @@ $data_string = substr($data_string, 2);
         var form_id = jQuery('#rm_form_dropdown').val();
         var trange = jQuery('#rm_stat_timerange').val();
         if(typeof trange == 'undefined')
-            trange = <?php echo wp_kses_post((string)$data->timerange); ?>;
+            trange = <?php echo wp_json_encode(absint($data->timerange)); ?>;
         window.location = '?page=rm_analytics_show_form&rm_form_id=' + form_id + '&rm_tr='+trange;
     }
 </script></pre>

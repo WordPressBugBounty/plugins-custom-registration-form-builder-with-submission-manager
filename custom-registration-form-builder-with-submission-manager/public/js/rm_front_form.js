@@ -321,6 +321,90 @@ function rm_register_stat_ids() {
                 });
 }
 
+function rm_generate_submission_key() {
+    if(window.crypto && typeof window.crypto.randomUUID === 'function') {
+        return window.crypto.randomUUID();
+    }
+
+    if(window.crypto && typeof window.crypto.getRandomValues === 'function') {
+        var random_values = new Uint8Array(16);
+        window.crypto.getRandomValues(random_values);
+        random_values[6] = (random_values[6] & 0x0f) | 0x40;
+        random_values[8] = (random_values[8] & 0x3f) | 0x80;
+        var hex = Array.prototype.map.call(random_values, function(value) {
+            return ('00' + value.toString(16)).slice(-2);
+        }).join('');
+        return hex.slice(0, 8) + '-' + hex.slice(8, 12) + '-' + hex.slice(12, 16) + '-' + hex.slice(16, 20) + '-' + hex.slice(20);
+    }
+
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(character) {
+        var random_value = Math.random() * 16 | 0;
+        var value = character === 'x' ? random_value : (random_value & 0x3 | 0x8);
+        return value.toString(16);
+    });
+}
+
+(function() {
+    var initialized_forms = typeof WeakSet === 'function' ? new WeakSet() : null;
+
+    function is_initialized(form) {
+        return initialized_forms ? initialized_forms.has(form) : form.__rmSubmissionKeyInitialized === true;
+    }
+
+    function mark_initialized(form) {
+        if(initialized_forms) {
+            initialized_forms.add(form);
+        } else {
+            form.__rmSubmissionKeyInitialized = true;
+        }
+    }
+
+    function initialize_form(form) {
+        if(!form || is_initialized(form)) {
+            return;
+        }
+        var key = form.querySelector("input[name='rm_submission_key']");
+        if(key) {
+            key.value = rm_generate_submission_key();
+            mark_initialized(form);
+        }
+    }
+
+    function initialize_tree(root) {
+        if(!root || root.nodeType !== 1 && root.nodeType !== 9) {
+            return;
+        }
+        if(root.matches && root.matches('form.rmagic-form')) {
+            initialize_form(root);
+        }
+        var forms = root.querySelectorAll ? root.querySelectorAll('form.rmagic-form') : [];
+        Array.prototype.forEach.call(forms, initialize_form);
+    }
+
+    function start() {
+        initialize_tree(document);
+        document.addEventListener('submit', function(event) {
+            if(event.target && event.target.matches('form.rmagic-form')) {
+                initialize_form(event.target);
+            }
+        }, true);
+
+        if(typeof MutationObserver === 'function') {
+            new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    Array.prototype.forEach.call(mutation.addedNodes, initialize_tree);
+                });
+            }).observe(document.documentElement, {childList: true, subtree: true});
+        }
+    }
+
+    if(document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', start, {once: true});
+    } else {
+        start();
+    }
+})();
+
 var rmColor;
 jQuery(document).ready(function(){
     jQuery(".rminput").on ({
@@ -472,6 +556,12 @@ jQuery(document).ready(function(){
             }
 
             rm_form.on('submit.rmSubmissionLock', function(event) {
+                // Multi-page forms cancel intermediate submissions while moving
+                // between pages. Only lock the form for an actual submission.
+                if(event.isDefaultPrevented()) {
+                    return;
+                }
+
                 if(rm_form.data('rmSubmissionInProgress')) {
                     event.preventDefault();
                     return false;

@@ -90,11 +90,14 @@ class RM_Dashboard_Widget_Controller
             }
             $interval = 'days';
             if(isset($request->req['rm_ur'])){
-                $interval = $request->req['rm_ur'];
+                $requested_interval = is_scalar($request->req['rm_ur']) ? sanitize_key((string) $request->req['rm_ur']) : '';
+                if (in_array($requested_interval, array('days', 'weeks', 'months', 'years'), true)) {
+                    $interval = $requested_interval;
+                }
             }
             $login_interval = 7;
             if(isset($request->req['rm_tr'])){
-            $login_interval = $request->req['rm_tr']; 
+            $login_interval = absint($request->req['rm_tr']);
             }
             $users = $service->get_user_statics($interval);
             $data->users = $users;

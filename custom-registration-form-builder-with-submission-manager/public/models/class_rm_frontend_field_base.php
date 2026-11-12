@@ -374,7 +374,8 @@ class RM_Frontend_Field_Base
            $form= new RM_Forms();
            $form->load_from_db($form_id);
            if($form->get_form_type()==RM_REG_FORM){
-               $this->pfbc_field->addValidation(new Validation_UserEmail(RM_UI_Strings::get('LABEL_USER_EMAIL_EXISTS'),new RM_User_Email_Validator($this->field_model->field_id,$this->field_model->get_form_id())));
+               $email_exists_error = !empty($this->field_model->field_options->email_exists_error) ? $this->field_model->field_options->email_exists_error : RM_UI_Strings::get('LABEL_USER_EMAIL_EXISTS');
+               $this->pfbc_field->addValidation(new Validation_UserEmail($email_exists_error,new RM_User_Email_Validator($this->field_model->field_id,$this->field_model->get_form_id())));
            }
         }
         

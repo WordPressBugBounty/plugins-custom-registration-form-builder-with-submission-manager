@@ -21,6 +21,12 @@ class Validation_UserEmail extends Validation{
 	{
 		if($this->handler==null)
 			return true;
-		return $this->handler->is_valid($value);
+		$is_valid = $this->handler->is_valid($value);
+		if(!$is_valid) {
+			$field_options = new stdClass();
+			$field_options->email_exists_error = $this->message;
+			$this->message = RM_Utilities::get_email_exists_error($field_options, get_user_by('email', $value), $this->message);
+		}
+		return $is_valid;
 	}
 }

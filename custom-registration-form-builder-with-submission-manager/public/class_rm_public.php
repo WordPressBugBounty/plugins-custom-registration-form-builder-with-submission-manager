@@ -590,8 +590,13 @@ class RM_Public {
                 exit;
             }
             
-            RM_Email_Service::send_activation_link($user_id);
-            $response['msg']= __('Verification link has been sent on your registered email account. Please check.', 'custom-registration-form-builder-with-submission-manager');
+            $sent = RM_Email_Service::send_activation_link($user_id, true);
+            if($sent) {
+                $response['msg']= __('Verification link has been sent on your registered email account. Please check.', 'custom-registration-form-builder-with-submission-manager');
+            } else {
+                $response['success']= false;
+                $response['msg']= __('Unable to send the verification link. Please try again later.', 'custom-registration-form-builder-with-submission-manager');
+            }
             
             echo wp_kses_post((string)json_encode($response));
         } else {

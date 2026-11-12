@@ -4,7 +4,7 @@ Donate link: http://registrationmagic.com/
 Tags: user registration, registration, registration form, payment form, event registration
 Requires at least: 5.2
 Tested up to: 7.1
-Stable tag: 6.1.0.3
+Stable tag: 6.1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -399,6 +399,22 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 14. User Roles Manager: Manage and assign user roles for form submissions, allowing fine-tuned control over user access and permissions within your WordPress site.
 
 == Changelog ==
+
+= 6.1.0.4: November 11 2026 =
+* Security: Prevented SQL injection through custom date-range filters on the Payments and Sent Emails admin screens.
+* Security: Prevented reflected XSS through timerange parameters on Login Settings, Form Analytics, Form Settings, and Overview admin screens.
+* Security: Prevented unauthenticated public form submissions from modifying existing WordPress user profiles without proof of account ownership.
+* Fixed: Multi-page payment forms could become stuck on "Please wait..." after navigating to the final page.
+* New: Added a customizable "Email exists error" setting to the primary Email field, with support for a verification-email resend link for accounts awaiting activation. (Verification resend is Premium Only)
+* Fixed: Inactive-account login now uses the configured Login Error Message and provides a functional verification-email resend link, including accurate delivery status and preservation of the previous activation link if resending fails. (Premium Only)
+* Improved: User Manager now provides independent pagination for submission and sent-email histories while keeping the user's first RM submission available as an audit reference.
+* Fixed: Sent emails with generated headers longer than 255 characters are now retained in User Manager history, with a verified and retryable database migration for existing installations.
+* Fixed: Cached form pages could reuse a submission key across visitors, causing valid submissions to be rejected as duplicates before user registration and confirmation email delivery.
+* Fixed: Hardened submission replay protection for dynamically inserted and cloned forms in both legacy and revamp renderers.
+* Fixed: Exact retries with file uploads no longer create duplicate submissions or leave duplicate Media Library attachments.
+* Fixed: Submission-key schema upgrades are now verified and retried instead of silently advancing after a database failure.
+* Fixed: Installations whose recorded database version was already current now self-repair missing submission-key columns and indexes instead of failing form submissions.
+* Fixed: WooCommerce registration and checkout retries no longer trigger an uncaught duplicate-submission exception. (Premium Only)
 
 = 6.1.0.3: October 29 2026 =
 * Fixed: Rapid repeat clicks during file uploads could create duplicate form submissions.
@@ -1688,6 +1704,10 @@ Note, this functionality is limited to Premium version of RegistrationMagic.
 * Fixed: Plugin's WooCommerce My Account page template removed for better translation support. (Premium Only).
 
 == Upgrade Notice ==
+
+= 6.1.0.4: November 11 2026 =
+* Security update: Prevents SQL injection, reflected XSS, and unauthorized changes to existing WordPress user profiles through public form submissions.
+* Recommended update: Fixes stalled multi-page payment forms, hardens duplicate-submission protection for cached pages, file uploads, dynamic forms, and WooCommerce integrations, and improves account verification, User Manager history, and sent-email retention.
 
 = 6.1.0.3: October 29 2026 =
 * Recommended update: Prevents duplicate submissions during slow file uploads and adds visible upload feedback.

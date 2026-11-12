@@ -1301,7 +1301,8 @@ class RM_Services {
             'field_is_read_only' => 0,
             'is_field_primary' => 1,
             'en_confirm_email'=>0,
-            'email_mismatch_err'=>RM_UI_Strings::get("ERR_EMAIL_MISMATCH")
+            'email_mismatch_err'=>RM_UI_Strings::get("ERR_EMAIL_MISMATCH"),
+            'email_exists_error'=>''
             ));
 
         $field_id = $field->insert_into_db();
@@ -1679,6 +1680,14 @@ class RM_Services {
 
     public function get_submissions_by_email($user_email, $limit = 9999999, $offset = 0, $sort_by = '', $descending = true) {
         return RM_DBManager::get_submissions_for_user($user_email, $limit, $offset, $sort_by, $descending);
+    }
+
+    public function get_submissions_count_by_email($user_email) {
+        return RM_DBManager::count_submissions_for_user($user_email);
+    }
+
+    public function get_sent_emails_count_by_email($user_email) {
+        return (int) RM_DBManager::count('SENT_EMAILS', array('to' => $user_email), array('%s'));
     }
 
     public function get_payments_by_email($user_email, $limit = 9999999, $offset = 0, $sort_by = '', $descending = true) {

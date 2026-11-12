@@ -184,7 +184,7 @@ class RM_Login_Manage_Controller {
             }
             
             if(isset($request->req['rm_tr'])){
-                $data->timerange = $request->req['rm_tr'];            
+                $data->timerange = absint($request->req['rm_tr']);
             } else {
                 $data->timerange = '30';
             }
@@ -488,7 +488,7 @@ class RM_Login_Manage_Controller {
             $data->all_forms=RM_Utilities::get_forms_dropdown(new RM_Services());
             
             if(isset($request->req['rm_tr'])){
-                $data->timerange = $request->req['rm_tr'];            
+                $data->timerange = absint($request->req['rm_tr']);
             } else {
                 $data->timerange = '30';
             }

@@ -1989,7 +1989,8 @@ Phone: 900000000 contact@registrationmagic.com', 'I accept the terms of service.
             'field_is_editable' => 0,
             'is_field_primary' => 1,
             'en_confirm_email'=>0,
-            'email_mismatch_err'=>RM_UI_Strings::get("ERR_EMAIL_MISMATCH")
+            'email_mismatch_err'=>RM_UI_Strings::get("ERR_EMAIL_MISMATCH"),
+            'email_exists_error'=>''
             ));
 
         return $field->insert_into_db();

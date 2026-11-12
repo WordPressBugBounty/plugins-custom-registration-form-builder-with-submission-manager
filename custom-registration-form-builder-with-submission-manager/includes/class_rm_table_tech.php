@@ -231,6 +231,7 @@ class RM_Table_Tech
                     `submitted_on` DATETIME,
                     `unique_token` VARCHAR(250),
                     `submission_key` VARCHAR(36) NULL,
+                    `submission_fingerprint` CHAR(64) NULL,
                     UNIQUE KEY `rm_form_submission_key` (`form_id`, `submission_key`)
                     )$charset_collate;";
 
@@ -415,7 +416,7 @@ class RM_Table_Tech
                       `sub` longtext DEFAULT NULL,
                       `body` longtext DEFAULT NULL,
                       `sent_on` datetime,                      
-                      `headers` varchar(255) DEFAULT NULL,    
+                      `headers` text DEFAULT NULL,
                       `form_id` int(11) DEFAULT NULL,
                       `exdata` varchar(255) DEFAULT NULL,
                       `is_read_by_user` TINYINT(1) NOT NULL DEFAULT 0,

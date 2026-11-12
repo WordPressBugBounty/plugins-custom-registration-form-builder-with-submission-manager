@@ -36,7 +36,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
     var form_id = jQuery('#rm_form_dropdown').val();
     var trange = jQuery('#rm_stat_timerange').val();
     if(typeof trange == 'undefined')
-        trange = <?php echo esc_html($data->timerange); ?>;
+        trange = <?php echo wp_json_encode(absint($data->timerange)); ?>;
     window.location = '?page=rm_form_sett_manage&rm_form_id=' + '<?php echo esc_html($data->form_id); ?>' + '&rm_tr='+trange;
 }
 </script></pre>
@@ -133,7 +133,7 @@ if(defined('REGMAGIC_ADDON')) include_once(RM_ADDON_ADMIN_DIR . 'views/template_
             if (count($data->all_forms) !== 0) {
                 echo wp_kses_post((string)RM_UI_Strings::get('LABEL_TOGGLE_FORM'));
                 ?>            
-                <select id="rm_form_dropdown" name="form_id" onchange = "rm_fd_switch_form(jQuery(this).val(), <?php echo esc_js($data->timerange); ?>)">
+                <select id="rm_form_dropdown" name="form_id" onchange = "rm_fd_switch_form(jQuery(this).val(), <?php echo esc_js(absint($data->timerange)); ?>)">
                 <?php 
                     echo "<option value='rm_login_form'>".__('Login Form','custom-registration-form-builder-with-submission-manager')."</option>";
                     foreach ($data->all_forms as $form_id => $form)

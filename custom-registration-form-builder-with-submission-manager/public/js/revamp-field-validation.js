@@ -1,5 +1,89 @@
-window.addEventListener("load", (event) => {
+(function() {
+    function rmGenerateSubmissionKey() {
+        if(window.crypto && typeof window.crypto.randomUUID === 'function') {
+            return window.crypto.randomUUID();
+        }
+
+        if(window.crypto && typeof window.crypto.getRandomValues === 'function') {
+            let randomValues = new Uint8Array(16);
+            window.crypto.getRandomValues(randomValues);
+            randomValues[6] = (randomValues[6] & 0x0f) | 0x40;
+            randomValues[8] = (randomValues[8] & 0x3f) | 0x80;
+            let hex = Array.from(randomValues, function(value) {
+                return ('00' + value.toString(16)).slice(-2);
+            }).join('');
+            return hex.slice(0, 8) + '-' + hex.slice(8, 12) + '-' + hex.slice(12, 16) + '-' + hex.slice(16, 20) + '-' + hex.slice(20);
+        }
+
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(character) {
+            let randomValue = Math.random() * 16 | 0;
+            let value = character === 'x' ? randomValue : (randomValue & 0x3 | 0x8);
+            return value.toString(16);
+        });
+    }
+
+    const initializedForms = typeof WeakSet === 'function' ? new WeakSet() : null;
+
+    function isInitialized(form) {
+        return initializedForms ? initializedForms.has(form) : form.__rmSubmissionKeyInitialized === true;
+    }
+
+    function markInitialized(form) {
+        if(initializedForms) {
+            initializedForms.add(form);
+        } else {
+            form.__rmSubmissionKeyInitialized = true;
+        }
+    }
+
+    function initializeForm(form) {
+        if(!form || isInitialized(form)) {
+            return;
+        }
+        const key = form.querySelector("input[name='rm_submission_key']");
+        if(key != null) {
+            key.value = rmGenerateSubmissionKey();
+            markInitialized(form);
+        }
+    }
+
+    function initializeTree(root) {
+        if(!root || (root.nodeType !== 1 && root.nodeType !== 9)) {
+            return;
+        }
+        if(root.matches && root.matches('.rmform-custom-form')) {
+            initializeForm(root);
+        }
+        const forms = root.querySelectorAll ? root.querySelectorAll('.rmform-custom-form') : [];
+        Array.prototype.forEach.call(forms, initializeForm);
+    }
+
+    function start() {
+        initializeTree(document);
+        document.addEventListener('submit', function(event) {
+            if(event.target && event.target.matches('.rmform-custom-form')) {
+                initializeForm(event.target);
+            }
+        }, true);
+        if(typeof MutationObserver === 'function') {
+            new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    Array.prototype.forEach.call(mutation.addedNodes, initializeTree);
+                });
+            }).observe(document.documentElement, {childList: true, subtree: true});
+        }
+    }
+
+    if(document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', start, {once: true});
+    } else {
+        start();
+    }
+})();
+
+function rmInitializeRevampValidation() {
     const rmForms = document.getElementsByClassName('rmform-custom-form');
+
     for(let it = 0; it < rmForms.length; it++) {
         let primaryFields = ['pwd','password_confirmation','email_confirmation','username'];
         let rmForm = rmForms[it];
@@ -687,4 +771,10 @@ window.addEventListener("load", (event) => {
             });
         }
     }
-});
+}
+
+if(document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', rmInitializeRevampValidation, {once: true});
+} else {
+    rmInitializeRevampValidation();
+}

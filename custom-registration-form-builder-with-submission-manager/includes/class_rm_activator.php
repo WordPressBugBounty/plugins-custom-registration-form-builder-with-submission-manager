@@ -143,6 +143,14 @@ class RM_Activator
        
         if($existing_rm_db_version && floatval($existing_rm_db_version) >= RM_DB_VERSION)
         {
+            if (!self::is_submission_key_schema_verified($network_wide)) {
+                $schema_verified = self::migrate_rm_6_1_to_rm_6_2($network_wide, $existing_rm_db_version, true);
+                if (!$schema_verified) {
+                    return 'migration_failed';
+                }
+                self::mark_submission_key_schema_verified($network_wide);
+            }
+
             do_action("rm_migration_finished");
             return 'already_on_equal_or_better';
         }
@@ -164,6 +172,15 @@ class RM_Activator
         self::migrate_rm_5_7_to_rm_5_8($network_wide, $existing_rm_db_version);
         self::migrate_rm_5_8_to_rm_5_9($network_wide, $existing_rm_db_version);
         self::migrate_rm_5_9_to_rm_6_0($network_wide, $existing_rm_db_version);
+        $rm_6_1_migration_succeeded = self::migrate_rm_6_0_to_rm_6_1($network_wide, $existing_rm_db_version);
+        if (!$rm_6_1_migration_succeeded) {
+            return 'migration_failed';
+        }
+        $rm_6_2_migration_succeeded = self::migrate_rm_6_1_to_rm_6_2($network_wide, $existing_rm_db_version);
+        if (!$rm_6_2_migration_succeeded) {
+            return 'migration_failed';
+        }
+        self::mark_submission_key_schema_verified($network_wide);
          // Create primary fields for all the forms (version <= 3.8.2.6)
         //if(!empty($existing_rm_version) && version_compare($existing_rm_version,'3.8.2.7')==-1){
         $rm_service= new RM_Services();
@@ -233,7 +250,11 @@ class RM_Activator
     
     //Not actual migration, it fixes broken database.
     public static function migrate_rm_4_2_to_rm_4_4($network_wide, $existing_rm_db_version)
-    {        
+    {
+        if (floatval($existing_rm_db_version) >= 4.4) {
+            return;
+        }
+
         global $wpdb;
         if (is_multisite() && $network_wide)
         {
@@ -254,7 +275,11 @@ class RM_Activator
     
     //Not actual migration, it fixes broken database. Basic edition missed sub_id field in stats table.
     public static function migrate_rm_4_5_to_rm_4_6($network_wide, $existing_rm_db_version)
-    {        
+    {
+        if (floatval($existing_rm_db_version) >= 4.6) {
+            return;
+        }
+
         global $wpdb;
         if (is_multisite() && $network_wide)
         {
@@ -545,19 +570,206 @@ class RM_Activator
         
         }
     }
+    private static function migrate_rm_6_0_to_rm_6_1($network_wide, $existing_rm_db_version){
+        global $wpdb;
+
+        $failure_transient = 'rm_db_migration_6_1_failure';
+        if (floatval($existing_rm_db_version) >= 6.1) {
+            delete_site_transient($failure_transient);
+            return true;
+        }
+
+        if (get_site_transient($failure_transient) !== false) {
+            return false;
+        }
+
+        $migration_succeeded = true;
+        if (is_multisite() && $network_wide)
+        {
+            $blog_ids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
+            if (empty($blog_ids)) {
+                $error = !empty($wpdb->last_error) ? $wpdb->last_error : 'No sites were found for the network migration.';
+                self::log_rm_6_1_migration_failure($wpdb->blogs, $error);
+                $migration_succeeded = false;
+            }
+            foreach ((array) $blog_ids as $blog_id)
+            {
+                switch_to_blog($blog_id);
+                try {
+                    if (!self::migrate_per_site_rm_6_0_to_rm_6_1()) {
+                        $migration_succeeded = false;
+                    }
+                } finally {
+                    restore_current_blog();
+                }
+            }
+        }
+        else
+        {
+            $migration_succeeded = self::migrate_per_site_rm_6_0_to_rm_6_1();
+        }
+
+        if ($migration_succeeded) {
+            delete_site_transient($failure_transient);
+        } else {
+            set_site_transient($failure_transient, time(), HOUR_IN_SECONDS);
+        }
+
+        return $migration_succeeded;
+    }
+    private static function migrate_per_site_rm_6_0_to_rm_6_1() {
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . 'rm_sent_mails';
+        $column = $wpdb->get_row($wpdb->prepare("SHOW COLUMNS FROM `{$table_name}` LIKE %s", 'headers'));
+
+        if (!$column) {
+            $error = !empty($wpdb->last_error) ? $wpdb->last_error : 'The headers column was not found.';
+            self::log_rm_6_1_migration_failure($table_name, $error);
+            return false;
+        }
+
+        $text_types = array('text', 'mediumtext', 'longtext');
+        if (in_array(strtolower($column->Type), $text_types, true)) {
+            return true;
+        }
+
+        $altered = $wpdb->query("ALTER TABLE `{$table_name}` MODIFY COLUMN `headers` TEXT DEFAULT NULL");
+        if ($altered === false) {
+            $error = !empty($wpdb->last_error) ? $wpdb->last_error : 'The ALTER TABLE query failed.';
+            self::log_rm_6_1_migration_failure($table_name, $error);
+            return false;
+        }
+
+        $column = $wpdb->get_row($wpdb->prepare("SHOW COLUMNS FROM `{$table_name}` LIKE %s", 'headers'));
+        if (!$column || !in_array(strtolower($column->Type), $text_types, true)) {
+            if (!empty($wpdb->last_error)) {
+                $error = $wpdb->last_error;
+            } elseif (!$column) {
+                $error = 'The headers column was not found during verification.';
+            } else {
+                $error = 'The headers column type was not updated.';
+            }
+            self::log_rm_6_1_migration_failure($table_name, $error);
+            return false;
+        }
+
+        return true;
+    }
+    private static function log_rm_6_1_migration_failure($table_name, $error) {
+        error_log(sprintf(
+            '[RegistrationMagic] Failed to migrate sent email headers for blog %d (%s): %s',
+            get_current_blog_id(),
+            $table_name,
+            $error
+        ));
+    }
     private static function add_submission_key_schema() {
+        self::migrate_per_site_rm_6_1_to_rm_6_2();
+    }
+    private static function migrate_rm_6_1_to_rm_6_2($network_wide, $existing_rm_db_version, $force_verify = false) {
+        global $wpdb;
+
+        if (!$force_verify && floatval($existing_rm_db_version) >= 6.2) {
+            return true;
+        }
+
+        $migration_succeeded = true;
+        if (is_multisite() && $network_wide) {
+            $blog_ids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
+            if (empty($blog_ids)) {
+                self::log_rm_6_2_migration_failure($wpdb->blogs, !empty($wpdb->last_error) ? $wpdb->last_error : 'No sites were found for the network migration.');
+                return false;
+            }
+
+            foreach ((array)$blog_ids as $blog_id) {
+                switch_to_blog($blog_id);
+                try {
+                    if (!self::migrate_per_site_rm_6_1_to_rm_6_2()) {
+                        $migration_succeeded = false;
+                    }
+                } finally {
+                    restore_current_blog();
+                }
+            }
+        } else {
+            $migration_succeeded = self::migrate_per_site_rm_6_1_to_rm_6_2();
+        }
+
+        return $migration_succeeded;
+    }
+    private static function is_submission_key_schema_verified($network_wide) {
+        $verified_version = is_multisite() && $network_wide
+            ? get_site_option('rm_option_submission_key_schema_version', false)
+            : get_option('rm_option_submission_key_schema_version', false);
+
+        return $verified_version !== false && version_compare((string)$verified_version, '6.2', '>=');
+    }
+    private static function mark_submission_key_schema_verified($network_wide) {
+        if (is_multisite() && $network_wide) {
+            update_site_option('rm_option_submission_key_schema_version', '6.2');
+        } else {
+            update_option('rm_option_submission_key_schema_version', '6.2');
+        }
+    }
+    private static function migrate_per_site_rm_6_1_to_rm_6_2() {
         global $wpdb;
 
         $table_name = $wpdb->prefix . 'rm_submissions';
-        $column = $wpdb->get_var("SHOW COLUMNS FROM `{$table_name}` LIKE 'submission_key'");
-        if (!$column) {
-            $wpdb->query("ALTER TABLE `{$table_name}` ADD `submission_key` VARCHAR(36) NULL AFTER `unique_token`");
+        if ($wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table_name)) !== $table_name) {
+            self::log_rm_6_2_migration_failure($table_name, 'The submissions table was not found.');
+            return false;
         }
 
-        $index = $wpdb->get_var("SHOW INDEX FROM `{$table_name}` WHERE Key_name = 'rm_form_submission_key'");
-        if (!$index) {
-            $wpdb->query("ALTER TABLE `{$table_name}` ADD UNIQUE KEY `rm_form_submission_key` (`form_id`, `submission_key`)");
+        $submission_key = $wpdb->get_row($wpdb->prepare("SHOW COLUMNS FROM `{$table_name}` LIKE %s", 'submission_key'));
+        if (!$submission_key) {
+            if ($wpdb->query("ALTER TABLE `{$table_name}` ADD `submission_key` VARCHAR(36) NULL AFTER `unique_token`") === false) {
+                self::log_rm_6_2_migration_failure($table_name, !empty($wpdb->last_error) ? $wpdb->last_error : 'Could not add the submission_key column.');
+                return false;
+            }
         }
+
+        $fingerprint = $wpdb->get_row($wpdb->prepare("SHOW COLUMNS FROM `{$table_name}` LIKE %s", 'submission_fingerprint'));
+        if (!$fingerprint) {
+            if ($wpdb->query("ALTER TABLE `{$table_name}` ADD `submission_fingerprint` CHAR(64) NULL AFTER `submission_key`") === false) {
+                self::log_rm_6_2_migration_failure($table_name, !empty($wpdb->last_error) ? $wpdb->last_error : 'Could not add the submission_fingerprint column.');
+                return false;
+            }
+        }
+
+        $index_rows = $wpdb->get_results("SHOW INDEX FROM `{$table_name}` WHERE Key_name = 'rm_form_submission_key'");
+        if (empty($index_rows)) {
+            if ($wpdb->query("ALTER TABLE `{$table_name}` ADD UNIQUE KEY `rm_form_submission_key` (`form_id`, `submission_key`)") === false) {
+                self::log_rm_6_2_migration_failure($table_name, !empty($wpdb->last_error) ? $wpdb->last_error : 'Could not add the submission-key unique index.');
+                return false;
+            }
+        }
+
+        $submission_key = $wpdb->get_row($wpdb->prepare("SHOW COLUMNS FROM `{$table_name}` LIKE %s", 'submission_key'));
+        $fingerprint = $wpdb->get_row($wpdb->prepare("SHOW COLUMNS FROM `{$table_name}` LIKE %s", 'submission_fingerprint'));
+        $index_rows = (array)$wpdb->get_results("SHOW INDEX FROM `{$table_name}` WHERE Key_name = 'rm_form_submission_key'");
+        usort($index_rows, function($left, $right) {
+            return (int)$left->Seq_in_index <=> (int)$right->Seq_in_index;
+        });
+        $index_columns = array_map(function($row) { return strtolower((string)$row->Column_name); }, (array)$index_rows);
+        $index_is_unique = !empty($index_rows) && (int)$index_rows[0]->Non_unique === 0;
+
+        if (!$submission_key || stripos((string)$submission_key->Type, 'varchar(36)') !== 0
+            || !$fingerprint || stripos((string)$fingerprint->Type, 'char(64)') !== 0
+            || !$index_is_unique || $index_columns !== array('form_id', 'submission_key')) {
+            self::log_rm_6_2_migration_failure($table_name, !empty($wpdb->last_error) ? $wpdb->last_error : 'Submission-key schema verification failed.');
+            return false;
+        }
+
+        return true;
+    }
+    private static function log_rm_6_2_migration_failure($table_name, $error) {
+        error_log(sprintf(
+            '[RegistrationMagic] Failed to migrate submission-key schema for blog %d (%s): %s',
+            get_current_blog_id(),
+            $table_name,
+            $error
+        ));
     }
     public static function migrate_crf_to_rm_4_0($network_wide, $existing_rm_db_version, $existing_crf_db_version)
     {

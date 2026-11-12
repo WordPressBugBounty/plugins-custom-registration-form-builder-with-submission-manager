@@ -10,6 +10,20 @@
  */
 class RM_DBManager
 {
+    private static function sanitize_date_filter($value) {
+        if (!is_string($value) && !is_numeric($value)) {
+            return '';
+        }
+
+        $value = (string) $value;
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/D', $value)) {
+            return '';
+        }
+
+        list($year, $month, $day) = array_map('intval', explode('-', $value));
+        return checkdate($month, $day, $year) ? $value : '';
+    }
+
 
     public static $instance;
 
@@ -595,6 +609,13 @@ class RM_DBManager
         }
 
         return $results;
+    }
+
+    public static function count_submissions_for_user($user_email) {
+        global $wpdb;
+
+        $table_name = RM_Table_Tech::get_table_name_for('SUBMISSIONS');
+        return (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `$table_name` WHERE `user_email` = %s AND `child_id` = 0", $user_email));
     }
 
     public static function group_by_total($model_identifier, $where, $data_specifiers = '', $group_by = null) {
@@ -2016,14 +2037,8 @@ class RM_DBManager
         $searched = false;
         $filters = $filter->filters;
         
-        //Checking for date pattern
-        $date_pattern = "/^([0-9]{4,4}\-)([0-9]{2,2}\-)([0-9]{2,2})$/";
-        if(isset($filters['rm_fromdate']) && preg_match($date_pattern, $filters['rm_fromdate']) == 0) {
-            $filters['rm_fromdate'] = '';
-        }
-        if(isset($filters['rm_dateupto']) && preg_match($date_pattern, $filters['rm_dateupto']) == 0) {
-            $filters['rm_dateupto'] = '';
-        }
+        $filters['rm_fromdate'] = self::sanitize_date_filter($filters['rm_fromdate'] ?? '');
+        $filters['rm_dateupto'] = self::sanitize_date_filter($filters['rm_dateupto'] ?? '');
         
         if($filters['sort_order'] == 'ASC') {
             $descending = false;
@@ -2077,7 +2092,7 @@ class RM_DBManager
                     if ($filters['rm_fromdate'] == '') {
                         $interval_string = '<= \'' . $filters['rm_dateupto'] . '\'';
                     } elseif ($filters['rm_dateupto'] == '') {
-                        $interval_string = '>= \'' . $filters['rm_dateupto'] . '\'';
+                        $interval_string = '>= \'' . $filters['rm_fromdate'] . '\'';
                     } else
                         $interval_string = 'BETWEEN \'' . $filters['rm_fromdate'] . ' 00:00:00\' AND \'' . $filters['rm_dateupto'] . ' 23:59:59\'';
 
@@ -2458,6 +2473,8 @@ class RM_DBManager
         $field_search_string = null;
         $searched = false;
         $filters = $filter->filters;
+        $filters['rm_fromdate'] = self::sanitize_date_filter($filters['rm_fromdate'] ?? '');
+        $filters['rm_dateupto'] = self::sanitize_date_filter($filters['rm_dateupto'] ?? '');
 
         $where_array = array();
         $format_clause = "";
@@ -2514,7 +2531,7 @@ class RM_DBManager
                     if ($filters['rm_fromdate'] == '') {
                         $interval_string = '<= \'' . $filters['rm_dateupto'] . '\'';
                     } elseif ($filters['rm_dateupto'] == '') {
-                        $interval_string = '>= \'' . $filters['rm_dateupto'] . '\'';
+                        $interval_string = '>= \'' . $filters['rm_fromdate'] . '\'';
                     } else
                         $interval_string = 'BETWEEN \'' . $filters['rm_fromdate'] . ' 00:00:00\' AND \'' . $filters['rm_dateupto'] . ' 23:59:59\'';
 
@@ -3036,6 +3053,8 @@ class RM_DBManager
         $sub_ids = null;
         $searched = false;
         $filters = $filter->filters;
+        $filters['rm_fromdate'] = self::sanitize_date_filter($filters['rm_fromdate'] ?? '');
+        $filters['rm_dateupto'] = self::sanitize_date_filter($filters['rm_dateupto'] ?? '');
         $data = array();
         $data2 = array();
         $sort_by = "$table_name.$sort_by";
